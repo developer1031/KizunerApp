@@ -1,0 +1,89 @@
+{
+  "login": {
+    "login": "Login",
+    "emailLabel": "Email",
+    "emailPlaceholder": "enter your email",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "enter your password",
+    "forgotPassword": "Forgot password?",
+    "or": "OR",
+    "dontHaveAccount": "Don't have account?",
+    "signUp": "Sign up"
+  },
+  "forgotPassword": {
+    "title": "Forgot Password",
+    "emailLabel": "Email",
+    "emailPlaceholder": "enter your email",
+    "send": "Send",
+    "subTitle": "Please enter your email address. We'll send you a password reset code."
+  },
+  "signUp": {
+    "login": "Login",
+    "nameLabel": "Name",
+    "namePlaceholder": "enter your name",
+    "emailLabel": "Email",
+    "emailPlaceholder": "enter your email",
+    "countryLabel": "Country",
+    "phoneLabel": "Phone number",
+    "phonePlaceholder": "enter your phone",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "enter your password",
+    "password2Label": "Confirm password",
+    "password2Placeholder": "re-enter your password",
+    "forgotPassword": "Forgot password?",
+    "or": "OR",
+    "alreadyHaveAccount": "Already have account?",
+    "signUp": "Sign Up"
+  },
+  "explore": {
+    "greeting": "Hello, {{name}}!",
+    "description": "Hangout and help for new experiences with Kizuners all over the world",
+    "searchPlaceholder": "Type name of cast, hangout...",
+    "categories": "Categories",
+    "nearBy": "Nearby",
+    "recommendation": "Recommendation",
+    "seeAll": "See All",
+    "videos": "Videos"
+  },
+  "editSpecialty": {
+    "title": "What are your specialties?",
+    "inputLabel": "Specialties",
+    "addYourSkills": "add your specialties",
+    "submit": "Submit",
+    "subTitle": "For a better experiences, please select your favorite specialties",
+    "skipHint": "Select later?",
+    "skip": "Skip",
+    "suggestedSkills": "Suggested specialties"
+  },
+  "editCategories": {
+    "title": "What are your categories?",
+    "inputLabel": "Categories",
+    "addYourSkills": "add your categories",
+    "submit": "Submit",
+    "subTitle": "For a better experiences, please select your favorite categories",
+    "skipHint": "Select later?",
+    "skip": "Skip",
+    "suggestedSkills": "Suggested categories"
+  },
+  "verifyPhone": {
+    "title": "Verify Phone Number",
+    "validate": "Validate OTP",
+    "subTitle": "Please type the verification code sent to {{phone}}",
+    "expiredIn": "code expires in:",
+    "resendHint": "Didn't get the code?",
+    "resendText": "Resend code",
+    "codeExpired": "code expired, please retry!"
+  },
+  "verifyEmail": {
+    "title": "Verify Email",
+    "validate": "Validate",
+    "subTitle": "Please type the verification code sent to email {{email}}",
+    "expiredIn": "code expires in:",
+    "resendHint": "Didn't get the code?",
+    "resendText": "Resend code",
+    "codeExpired": "code expired, please retry!"
+  },
+  "exploreMap": {
+    "searchPlaceholder": "Type name of cast, hangout..."
+  }
+}

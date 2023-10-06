@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "baseUrl": "./",
+    "allowSyntheticDefaultImports": false,
+    "paths": {
+      "src/*": ["./src/"],
+      "screens/*": ["./src/screens/*"],
+      "navigation": ["./src/navigation"],
+      "navigation/*": ["./src/navigation/*"],
+      "components/*": ["./src/components/*"],
+      "components": ["./src/components"],
+      "actions": ["./src/actions"],
+      "theme": ["./src/theme"],
+      "utils/*": ["./src/utils/*"],
+      "images": ["./src/assets/images/*"],
+      "data": ["./src/assets/data/*"],
+      "i18n": ["./src/i18n"]
+    }
+  },
+  "exclude": ["node_modules", "dist", "docs"]
+}

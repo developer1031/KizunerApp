@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>558493488596-8uu56r37uvpq1bhbslqqn530m43574gp.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.558493488596-8uu56r37uvpq1bhbslqqn530m43574gp</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>558493488596-2mlaeesli3frnvuc1875rm6t19ee64rm.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyC4Hl09gtS7hEG-TCedhqHw7wA3uPPPRFY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>558493488596</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.kizuner</string>
+	<key>PROJECT_ID</key>
+	<string>swift-icon-269203</string>
+	<key>STORAGE_BUCKET</key>
+	<string>swift-icon-269203.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:558493488596:ios:ed6b69c503c4277813b241</string>
+	<key>DATABASE_URL</key>
+	<string>https://swift-icon-269203.firebaseio.com</string>
+</dict>
+</plist>
