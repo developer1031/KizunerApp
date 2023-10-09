@@ -53,7 +53,7 @@ import {hideModalize} from './modalize';
 import appleAuth from '@invertase/react-native-apple-authentication';
 
 export const sendVerifyPhoneCode = (phone, callback) => {
-  return async dispatch => {
+  return async (dispatch) => {
     dispatch({type: SEND_VERIFY_PHONE_CODE.REQUEST});
     try {
       const confirmResult = await auth().signInWithPhoneNumber(phone);
@@ -128,7 +128,7 @@ export const verifyPhone = ({code, confirmResult, token}) => {
   };
 };
 
-export const sendVerifyEmailCode = callback =>
+export const sendVerifyEmailCode = (callback) =>
   generateThunkAction({
     actionType: SEND_VERIFY_EMAIL_CODE,
     apiOptions: {
@@ -146,7 +146,7 @@ export const sendVerifyEmailCode = callback =>
     },
   })();
 
-export const verifyEmail = pin =>
+export const verifyEmail = (pin) =>
   generateThunkAction({
     actionType: VERIFY_EMAIL,
     apiOptions: {
@@ -199,7 +199,7 @@ export const verifyResetPwCode = (email, pin, callback) =>
       data: {email, pin},
     },
     callback: {
-      success: result => {
+      success: (result) => {
         NavigationService.navigate('ResetPassword', {
           email,
           token: result?.data?.token,
@@ -252,7 +252,7 @@ export const clearDetailUser = () => ({
   type: CLEAR_DETAIL_USER,
 });
 
-export const login = data => {
+export const login = (data) => {
   return generateThunkAction({
     actionType: LOGIN,
     apiOptions: {
@@ -260,7 +260,7 @@ export const login = data => {
       endpoint: '/users/sign-in',
       data,
     },
-    preCallback: async result => {
+    preCallback: async (result) => {
       await AsyncStorage.setItem(USER_TOKEN_KEY, result?.data?.access_token);
     },
     callback: {
@@ -295,7 +295,7 @@ export const loginSocial = (provider, token, name) =>
       params: {provider},
       data: {token, name},
     },
-    preCallback: async result => {
+    preCallback: async (result) => {
       await AsyncStorage.setItem(USER_TOKEN_KEY, result?.data?.access_token);
     },
     callback: {
@@ -326,7 +326,7 @@ export const loginSocial = (provider, token, name) =>
     },
   })();
 
-export const signUp = data =>
+export const signUp = (data) =>
   generateThunkAction({
     actionType: SIGNUP,
     apiOptions: {
@@ -334,7 +334,7 @@ export const signUp = data =>
       endpoint: '/users/sign-up',
       data,
     },
-    preCallback: async result => {
+    preCallback: async (result) => {
       await AsyncStorage.setItem(USER_TOKEN_KEY, result?.data?.access_token);
     },
     callback: {
@@ -406,7 +406,7 @@ export const removeCover = () =>
     },
   })();
 
-export const updateUserIdentify = data =>
+export const updateUserIdentify = (data) =>
   generateThunkAction({
     actionType: UPDATE_USER_IDENTIFY,
     apiOptions: {
@@ -505,7 +505,7 @@ export const inviteContactList = (data, callback) =>
     },
   })();
 
-export const updateUserLocation = data =>
+export const updateUserLocation = (data) =>
   generateThunkAction({
     actionType: UPDATE_USER_LOCATION,
     apiOptions: {
@@ -581,7 +581,7 @@ export const updateCategories = (data, callback) =>
     },
   })();
 
-export const updateUserAvatar = data => {
+export const updateUserAvatar = (data) => {
   return generateThunkAction({
     actionType: UPDATE_USER_AVATAR,
     apiOptions: {
@@ -603,7 +603,7 @@ export const updateUserAvatar = data => {
   })();
 };
 
-export const updateUserCover = data => {
+export const updateUserCover = (data) => {
   return generateThunkAction({
     actionType: UPDATE_USER_COVER,
     apiOptions: {
@@ -626,7 +626,7 @@ export const updateUserCover = data => {
 };
 
 export function mockLogin() {
-  return async dispatch => {
+  return async (dispatch) => {
     dispatch({type: LOGIN_SOCIAL.SUCCESS});
   };
 }
@@ -646,7 +646,9 @@ export const logout = (callback, noAlert) =>
     callback: {
       success: async (_, dispatch) => {
         AsyncStorage.removeItem(USER_TOKEN_KEY);
-        AsyncStorage.getAllKeys().then(keys => AsyncStorage.multiRemove(keys));
+        AsyncStorage.getAllKeys().then((keys) =>
+          AsyncStorage.multiRemove(keys),
+        );
 
         // await appleAuth.performRequest({
         //   requestedOperation: appleAuth.Operation.LOGOUT,
@@ -669,39 +671,39 @@ export const logout = (callback, noAlert) =>
     },
   })();
 
-export const toggleIsFirstLaunch = value => {
-  return dispatch => {
+export const toggleIsFirstLaunch = (value) => {
+  return (dispatch) => {
     dispatch({type: TOGGLE_IS_FIRST_LAUNCH, payload: value});
   };
 };
 
-export const toggleIsSkipLauch = isSkip => {
-  return dispatch => {
+export const toggleIsSkipLauch = (isSkip) => {
+  return (dispatch) => {
     dispatch({type: TOGGLE_IS_SKIP_LAUNCH, payload: isSkip});
   };
 };
 
 export const toggleIsFirstPost = () => {
-  return dispatch => {
+  return (dispatch) => {
     dispatch({type: TOGGLE_IS_FIRST_POST, payload: true});
   };
 };
 
-export const setShortLocation = short => {
+export const setShortLocation = (short) => {
   return {type: SET_SHORT_LOCATION, payload: short};
 };
 
 export const setNeedVerifyEmail = (val = true) => {
-  return dispatch => {
+  return (dispatch) => {
     dispatch({type: NEED_VERIFY_EMAIL, payload: val});
   };
 };
 
-const processCoords = async coords => {
+const processCoords = async (coords) => {
   try {
     const result = await fetchAddressForLocation(coords);
     const areaTemp = result?.address_components?.find(
-      item =>
+      (item) =>
         item.types?.includes('administrative_area_level_2') ||
         item.types?.includes('administrative_area_level_1') ||
         item.types?.includes('country'),
@@ -712,7 +714,7 @@ const processCoords = async coords => {
   }
 };
 
-export const supportByEmail = data => {
+export const supportByEmail = (data) => {
   return generateThunkAction({
     actionType: SUPPORT_BY_EMAIL,
     apiOptions: {

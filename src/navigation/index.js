@@ -116,19 +116,19 @@ const configLinking = {
     HangoutDetail: {
       path: '?id=:id',
       parse: {
-        hangoutId: id => `${id}`,
+        hangoutId: (id) => `${id}`,
       },
     },
     StatusDetail: {
       path: '?id=:id',
       parse: {
-        statusId: id => `${id}`,
+        statusId: (id) => `${id}`,
       },
     },
     HelpDetail: {
       path: '?id=:id',
       parse: {
-        helpId: id => `${id}`,
+        helpId: (id) => `${id}`,
       },
     },
   },
@@ -177,8 +177,10 @@ const horizontalAnimation = {
 
 const MainScreen = () => {
   const dispatch = useDispatch();
-  const {isAuth, userInfo, needVerifyEmail} = useSelector(state => state.auth);
-  const {isFirstLaunch} = useSelector(state => state.app);
+  const {isAuth, userInfo, needVerifyEmail} = useSelector(
+    (state) => state.auth,
+  );
+  const {isFirstLaunch} = useSelector((state) => state.app);
 
   if (userInfo?.has_posted == false) {
     if (isFirstLaunch == true) {
@@ -193,10 +195,12 @@ const MainScreen = () => {
 
 export default () => {
   const dispatch = useDispatch();
-  const {isAuth, userInfo, needVerifyEmail} = useSelector(state => state.auth);
-  const {isFirstLaunch} = useSelector(state => state.app);
-  const {count} = useSelector(state => state.notification);
-  const {requestList} = useSelector(state => state.contact);
+  const {isAuth, userInfo, needVerifyEmail} = useSelector(
+    (state) => state.auth,
+  );
+  const {isFirstLaunch} = useSelector((state) => state.app);
+  const {count} = useSelector((state) => state.notification);
+  const {requestList} = useSelector((state) => state.contact);
   //const {has_posted} = userInfo;
   // const [isFirstLaunch, setIsFirstLaunch] = useState(false);
   const routeNameRef = useRef();

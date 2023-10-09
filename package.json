@@ -50,6 +50,7 @@
     "axios": "^0.19.2",
     "card-validator": "^6.2.0",
     "credit-card-type": "^8.3.0",
+    "deprecated-react-native-prop-types": "^4.2.1",
     "emoji-datasource": "^6.0.0",
     "form-data": "^3.0.0",
     "formik": "^2.1.4",
