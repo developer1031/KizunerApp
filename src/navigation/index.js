@@ -270,7 +270,10 @@ export default () => {
       const previousRouteName = routeNameRef.current;
       const currentRouteName = getActiveRouteName(state);
       if (previousRouteName !== currentRouteName) {
-        analytics().setCurrentScreen(currentRouteName);
+        analytics().logScreenView({
+          screen_class: currentRouteName,
+          screen_name: currentRouteName,
+        });
       }
       routeNameRef.current = currentRouteName;
     }

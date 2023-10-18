@@ -4,13 +4,13 @@ import crashlytics from '@react-native-firebase/crashlytics';
 import {useSelector} from 'react-redux';
 
 export function setCrashlyticUser(user) {
-  user?.id && crashlytics().setUserIdentifier(user?.id);
-  user?.email && crashlytics().setUserEmail(user?.email);
-  user?.name && crashlytics().setUserName(user?.name);
+  crashlytics().setUserId(user?.id);
+  // user?.email && crashlytics().setUserEmail(user?.email);
+  // user?.name && crashlytics().setUserName(user?.name);
 }
 
 export default () => {
-  const userInfo = useSelector(state => state.auth.userInfo);
+  const userInfo = useSelector((state) => state.auth.userInfo);
 
   useEffect(() => {
     if (userInfo) {
