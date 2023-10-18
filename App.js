@@ -9,6 +9,7 @@ import RNBootSplash from 'react-native-bootsplash';
 import moment from 'moment';
 import momentDurationFormatSetup from 'moment-duration-format';
 import {StripeProvider} from '@stripe/stripe-react-native';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 import 'react-native-gesture-handler';
 
@@ -35,6 +36,8 @@ if (Platform.OS === 'android') {
 momentDurationFormatSetup(moment);
 
 enableScreens();
+
+GoogleSignin.configure();
 
 console.warn = function () {};
 console.error = function () {};

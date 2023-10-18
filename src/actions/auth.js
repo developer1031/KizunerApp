@@ -307,7 +307,7 @@ export const loginSocial = (provider, token, name) =>
           const fcmToken = await getFcmToken();
           dispatch(updateFcmToken({fcm_token: fcmToken}));
         } catch (error) {
-          console.log(error);
+          console.log('Error Login Social ', provider, error);
         }
         dispatch(
           showAlert({

@@ -46,7 +46,7 @@ const LoginScreen = ({navigation, route}) => {
   const dispatch = useDispatch();
   const theme = useTheme();
   // const loading = useSelector(state => state.auth.beingLogin)
-  const {isAuth, userInfo, loading} = useSelector(state => state.auth);
+  const {isAuth, userInfo, loading} = useSelector((state) => state.auth);
   const [eggCount, setEggCount] = useState(0);
   const [eggDevMode, setEggDevMode] = useState(0);
   const [isLoad, setLoad] = useState(false);
@@ -146,8 +146,7 @@ const LoginScreen = ({navigation, route}) => {
           showAlert({
             title: 'Warning',
             type: 'warning',
-            body:
-              "Your device don't have google service, we can not login by google.",
+            body: "Your device don't have google service, we can not login by google.",
           }),
         );
 
@@ -292,21 +291,14 @@ const LoginScreen = ({navigation, route}) => {
         password: '',
       }}
       validationSchema={yup.object().shape({
-        email: yup
-          .string()
-          .email()
-          .required(),
-        password: yup
-          .string()
-          .min(6)
-          .max(255)
-          .required(),
+        email: yup.string().email().required(),
+        password: yup.string().min(6).max(255).required(),
       })}
-      onSubmit={values => {
+      onSubmit={(values) => {
         Keyboard.dismiss();
         dispatch(login(values));
       }}>
-      {formikProps => (
+      {(formikProps) => (
         <Wrapper dismissKeyboard>
           <StatusBar
             translucent
@@ -360,7 +352,7 @@ const LoginScreen = ({navigation, route}) => {
                     style={styles.forgotPasswordBtn}
                     onPress={() =>
                       navigation.navigate('ForgotPassword', {
-                        callback: email =>
+                        callback: (email) =>
                           formikProps.setFieldValue('email', email),
                       })
                     }>
@@ -409,7 +401,7 @@ const LoginScreen = ({navigation, route}) => {
   );
 };
 
-const LoginSocial = memo(props => {
+const LoginSocial = memo((props) => {
   return (
     <View style={props.styles.socialWrapper}>
       {props.isApple && (
@@ -463,7 +455,7 @@ const LoginSocial = memo(props => {
   );
 });
 
-const Footer = memo(props => {
+const Footer = memo((props) => {
   return (
     <View style={props.styles.bottomWrapper}>
       <Text variant="text1" style={props.styles.bottomText}>

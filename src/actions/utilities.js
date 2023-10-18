@@ -30,9 +30,9 @@ export function generateThunkAction({
       });
       try {
         const result = await fetchApi(apiOptions);
-        // console.log('🚀 ~ file: utilities.js:33 ~ return ~ result:', result);
+        console.log('🚀 ~ file: utilities.js:33 ~ return ~ result:', result);
         const {status, data, message} = result;
-        console.log('🚀 ~ file: utilities.js:35 ~ return ~ data:', data);
+        // console.log('🚀 ~ file: utilities.js:35 ~ return ~ data:', data);
 
         const {url, headers, method, params, data: body} = result.config;
         console.log('================== curl ==================');

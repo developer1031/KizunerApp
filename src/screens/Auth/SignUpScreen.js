@@ -34,7 +34,7 @@ import CountryPicker from 'components/CountryPicker';
 import {getSize} from 'utils/responsive';
 import useTheme from 'theme';
 import {useNavigation} from '@react-navigation/native';
-import { Icons } from 'utils/icon';
+import {Icons} from 'utils/icon';
 
 const {width, height} = Dimensions.get('window');
 
