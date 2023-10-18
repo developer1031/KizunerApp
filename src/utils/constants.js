@@ -8,7 +8,7 @@ export const USER_TOKEN_KEY = '@kizuner/user-token-key';
 // export const SHARE_URL = 'https://kizuner-share.inapps.technology';
 
 // develop mode 2
-export const API_URL = 'https://kizuner-dev.fabaserver.xyz/api';
+// export const API_URL = 'https://kizuner-dev.fabaserver.xyz/api';
 // export const API_URL = 'https://kizuner-staging.fabaserver.xyz/api'
 
 // export const API_URL = 'http://112.197.38.147:8000/api'
@@ -17,11 +17,11 @@ export const API_URL = 'https://kizuner-dev.fabaserver.xyz/api';
 export const SHARE_URL = 'https://share.kizuner.com';
 
 // develop mode 3
-// export const API_URL = 'http://192.168.1.33/api'
+// export const API_URL = 'http://192.168.1.33/api';
 // export const SHARE_URL = 'https://share.kizuner.com'
 
 // production mode
-// export const API_URL = 'https://source.kizuner.com/api'
+export const API_URL = 'https://source.kizuner.com/api';
 // export const SHARE_URL = 'https://share.kizuner.com'
 
 export const STRIPE_KEY = 'pk_test_b9I41rv7fJZDnHyRxMILK5En00uDwq7mBN'; // production
