@@ -109,13 +109,13 @@ export default class VideoRecorder extends Component {
       const shouldStartCapture = () => {
         this.camera
           .recordAsync(this.props.recordOptions)
-          .then(data => {
+          .then((data) => {
             this.setState({
               recorded: true,
               recordedData: data,
             });
           })
-          .catch(err => console.error(err));
+          .catch((err) => console.error(err));
         setTimeout(() => {
           this.startTimer();
           this.setState({
@@ -167,11 +167,8 @@ export default class VideoRecorder extends Component {
     if (this.timer) clearInterval(this.timer);
   };
 
-  convertTimeString = time => {
-    return moment()
-      .startOf('day')
-      .seconds(time)
-      .format('mm:ss');
+  convertTimeString = (time) => {
+    return moment().startOf('day').seconds(time).format('mm:ss');
   };
 
   renderTimer() {

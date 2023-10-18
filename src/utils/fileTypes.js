@@ -36,12 +36,12 @@ export const FILE_TYPES = {
   },
 };
 
-export const getFileTypeWithString = value => {
+export const getFileTypeWithString = (value) => {
   if (!value) return '';
   return value.substr(value.lastIndexOf('.') + 1);
 };
 
-export const isVideoType = value => {
+export const isVideoType = (value) => {
   if (!value) return false;
   const type = getFileTypeWithString(value);
   return Object.values(FILE_TYPES.VIDEO_TYPE).includes(type);

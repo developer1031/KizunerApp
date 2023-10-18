@@ -24,7 +24,7 @@ import {
   AppVersion,
 } from 'components';
 import {getConfigs} from 'actions';
-import { Icons } from 'utils/icon';
+import {Icons} from 'utils/icon';
 
 const FAQScreen = ({navigation}) => {
   const theme = useTheme();
@@ -92,10 +92,7 @@ const FAQScreen = ({navigation}) => {
         FAQ & Helps
       </Text>
       <Paper style={styles.headerInfo}>
-        <Image
-          source={ Icons.Logo_color}
-          style={styles.headerLogo}
-        />
+        <Image source={Icons.Logo_color} style={styles.headerLogo} />
         <View style={styles.headerRight}>
           <Text style={styles.headerAppName}>Kizuner App</Text>
           <AppVersion />

@@ -394,12 +394,13 @@ const SearchFilter = ({navigation}) => {
               refModalPrice.current?.close();
             }}>
             {(formikProps) => {
-              useEffect(() => {
-                setPriceType(refCurrPriceType.current);
-                formikProps.setFieldValue('amount', priceValue.amount);
-                formikProps.setFieldValue('min_amount', priceValue.min_amount);
-                formikProps.setFieldValue('max_amount', priceValue.max_amount);
-              }, []);
+              // useEffect(() => {
+              //   setPriceType(refCurrPriceType.current);
+              //   formikProps.setFieldValue('amount', priceValue.amount);
+              //   formikProps.setFieldValue('min_amount', priceValue.min_amount);
+              //   formikProps.setFieldValue('max_amount', priceValue.max_amount);
+              // }, []);
+
               return (
                 <>
                   <View

@@ -63,12 +63,9 @@ const MessageScreen = ({navigation, route}) => {
   }, [reset]);
   useScrollToTop(listRef);
 
-  const searchDebounce = () =>
-    useDebouncedSearch((value) => {
-      handleLoadListChat(1, value, activeChat);
-    }, 300);
-
-  const {setInputText} = searchDebounce();
+  const {setInputText} = useDebouncedSearch((value) => {
+    handleLoadListChat(1, value, activeChat);
+  }, 300);
 
   const handleLoadListChat = (p = page, q = query, t = activeChat, callback) =>
     dispatch(listChatRoom({page: p, query: q, type: t}, callback));

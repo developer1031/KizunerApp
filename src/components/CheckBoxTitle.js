@@ -55,7 +55,7 @@ export const CheckBoxTitle = ({
         // disabled={isDisable}
         disabled={isDisable || choose === status}
         value={choose === status}
-        onValueChange={event => {
+        onValueChange={(event) => {
           if (event) {
             callback && callback(status);
           } else {

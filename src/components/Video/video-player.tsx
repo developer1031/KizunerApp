@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import * as React from 'react';
 import {Animated, StyleSheet, AppState} from 'react-native';
 
@@ -8,6 +7,8 @@ import Player from './player';
 import ImageButton from './image-button';
 import {images} from './images';
 import {getSize} from 'utils/responsive';
+
+const _ = require('lodash');
 
 const VideoPlayerMode = {
   Portrait: {

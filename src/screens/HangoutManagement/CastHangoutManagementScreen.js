@@ -10,6 +10,7 @@ import uuid from 'uuid/v4';
 import {style} from './styleCastHangout';
 import useTheme from 'theme';
 import {getSize} from 'utils/responsive';
+import Clipboard from '@react-native-clipboard/clipboard';
 import {
   Wrapper,
   Paper,

@@ -147,11 +147,13 @@ const ChatRoomExplore = ({data, selected, wrapperStyle, onPress}) => {
         style: styles.borderGradient,
       };
 
-  if (data.schedule) {
-    timeString = data.schedule;
-  } else if (moment.utc(data.start).isValid()) {
-    timeString = moment.utc(data.start).fromNow();
-  }
+  // let timeString = '';
+  // if (data.schedule) {
+  //   timeString = data.schedule;
+  // } else if (moment.utc(data.start).isValid()) {
+  //   timeString = moment.utc(data.start).fromNow();
+  // }
+
   return (
     <Touchable
       scalable

@@ -51,13 +51,8 @@ export default class ActionButtonItem extends Component {
   }
 
   render() {
-    const {
-      size,
-      position,
-      verticalOrientation,
-      hideShadow,
-      spacing,
-    } = this.props;
+    const {size, position, verticalOrientation, hideShadow, spacing} =
+      this.props;
 
     if (!this.props.active) return null;
 

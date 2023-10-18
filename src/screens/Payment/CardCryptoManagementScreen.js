@@ -27,7 +27,7 @@ const CardCryptoManagementScreen = ({navigation, route}) => {
   const dispatch = useDispatch();
   const [scrollAnim] = useState(new Animated.Value(0));
   const {cryptoCards, beingLoadCards, beingLoadPaymentSecret} = useSelector(
-    state => state.wallet,
+    (state) => state.wallet,
   );
 
   const styles = StyleSheet.create({
@@ -201,7 +201,7 @@ const CardCryptoManagementScreen = ({navigation, route}) => {
         }
         contentContainerStyle={styles.scrollCon}
         showsVerticalScrollIndicator={false}
-        keyExtractor={i => i.id}
+        keyExtractor={(i) => i.id}
         renderItem={renderCardItem}
         refreshControl={
           <RefreshControl

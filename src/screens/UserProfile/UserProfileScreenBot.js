@@ -294,63 +294,63 @@ const UserProfileScreenBot = ({navigation, route}) => {
     );
     return;
 
-    dispatch(
-      showModalize([
-        renderFriendOption(),
-        {
-          label: data?.follow ? 'Unfollow' : 'Follow',
-          disabled: beingFollow.includes(userId),
-          onPress: () => {
-            dispatch(hideModalize());
-            if (data?.follow) {
-              dispatch(unfollow(data?.follow, userId, data?.name));
-            } else {
-              dispatch(follow(userId, data?.name));
-            }
-          },
-          icon: beingFollow.includes(userId) ? (
-            <Loading dark />
-          ) : (
-            <MaterialCommunityIcons
-              size={getSize.f(20)}
-              color={theme.colors.primary}
-              name={data?.follow ? 'bell-off' : 'bell-ring'}
-            />
-          ),
-        },
-        {
-          label: 'Block',
-          onPress: () => {
-            dispatch(hideModalize());
-            setTimeout(() => showBlockOptions(), 500);
-          },
-          icon: (
-            <MaterialCommunityIcons
-              size={getSize.f(20)}
-              color={theme.colors.primary}
-              name="block-helper"
-            />
-          ),
-        },
-        {
-          label: 'Report This User',
-          icon: (
-            <MaterialIcons
-              size={getSize.f(20)}
-              color={theme.colors.primary}
-              name="report-problem"
-            />
-          ),
-          onPress: () => {
-            dispatch(hideModalize());
-            navigation.push('ReportContent', {
-              id: data?.id,
-              type: 'user',
-            });
-          },
-        },
-      ]),
-    );
+    // dispatch(
+    //   showModalize([
+    //     renderFriendOption(),
+    //     {
+    //       label: data?.follow ? 'Unfollow' : 'Follow',
+    //       disabled: beingFollow.includes(userId),
+    //       onPress: () => {
+    //         dispatch(hideModalize());
+    //         if (data?.follow) {
+    //           dispatch(unfollow(data?.follow, userId, data?.name));
+    //         } else {
+    //           dispatch(follow(userId, data?.name));
+    //         }
+    //       },
+    //       icon: beingFollow.includes(userId) ? (
+    //         <Loading dark />
+    //       ) : (
+    //         <MaterialCommunityIcons
+    //           size={getSize.f(20)}
+    //           color={theme.colors.primary}
+    //           name={data?.follow ? 'bell-off' : 'bell-ring'}
+    //         />
+    //       ),
+    //     },
+    //     {
+    //       label: 'Block',
+    //       onPress: () => {
+    //         dispatch(hideModalize());
+    //         setTimeout(() => showBlockOptions(), 500);
+    //       },
+    //       icon: (
+    //         <MaterialCommunityIcons
+    //           size={getSize.f(20)}
+    //           color={theme.colors.primary}
+    //           name="block-helper"
+    //         />
+    //       ),
+    //     },
+    //     {
+    //       label: 'Report This User',
+    //       icon: (
+    //         <MaterialIcons
+    //           size={getSize.f(20)}
+    //           color={theme.colors.primary}
+    //           name="report-problem"
+    //         />
+    //       ),
+    //       onPress: () => {
+    //         dispatch(hideModalize());
+    //         navigation.push('ReportContent', {
+    //           id: data?.id,
+    //           type: 'user',
+    //         });
+    //       },
+    //     },
+    //   ]),
+    // );
   };
 
   const showUnfriendOptions = () => {

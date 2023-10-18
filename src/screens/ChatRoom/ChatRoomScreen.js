@@ -1,5 +1,12 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {StyleSheet, View, StatusBar, Dimensions, Keyboard} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  StatusBar,
+  Dimensions,
+  Keyboard,
+  Platform,
+} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import {getStatusBarHeight} from 'react-native-status-bar-height';

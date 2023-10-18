@@ -286,65 +286,65 @@ const FormMultiTimesHangout = ({navigation, route}) => {
       address: !isOnline && yup.string().required(),
       short_address: !isOnline && yup.string().required(),
     });
-    if (availableStatus === null) {
-      return yup.object().shape({
-        type: yup.number().required(),
-        title: yup.string().max(125).required(),
-        description: yup.string().max(1000).required(),
-        schedule: yup.string().max(125).required(),
-        cover: yup.string().nullable(),
-        amount: yup.number().min(10).max(10000).nullable().integer().required(),
-        address: yup.string().required(),
-        short_address: yup.string().required(),
-        lat: yup.string(),
-        lng: yup.string(),
-        skills: yup.array(yup.object()).min(0),
-        categories: yup.array(yup.object()).min(1),
-        friends: yup.array(yup.object()).min(0),
-        end: yup.string().nullable().required(),
-      });
-    } else if (availableStatus === EnumHangoutStatus.NO_TIME) {
-      return yup.object().shape({
-        type: yup.number().required(),
-        title: yup.string().max(125).required(),
-        description: yup.string().max(1000).required(),
-        schedule: yup.string().max(125).required(),
-        cover: yup.string().nullable(),
-        amount: yup.number().min(10).max(10000).nullable().integer().required(),
-        skills: yup.array(yup.object()).min(0),
-        categories: yup.array(yup.object()).min(1),
-        friends: yup.array(yup.object()).min(0),
-        address: yup.string().required(),
-        short_address: yup.string().required(),
-      });
-    } else if (availableStatus === EnumHangoutStatus.COMBINE) {
-      return yup.object().shape({
-        type: yup.number().required(),
-        title: yup.string().max(125).required(),
-        description: yup.string().max(1000).required(),
-        cover: yup.string().nullable(),
-        amount: yup.number().min(10).max(10000).nullable().integer().required(),
-        skills: yup.array(yup.object()).min(0),
-        categories: yup.array(yup.object()).min(1),
-        friends: yup.array(yup.object()).min(0),
-        schedule: yup.string().max(125).required(),
-      });
-    } else if (availableStatus === EnumHangoutStatus.ONLINE) {
-      return yup.object().shape({
-        type: yup.number().required(),
-        title: yup.string().max(125).required(),
-        description: yup.string().max(1000).required(),
-        schedule: yup.string().max(125).required(),
-        cover: yup.string().nullable(),
-        amount: yup.number().min(10).max(10000).nullable().integer().required(),
-        lat: yup.string(),
-        lng: yup.string(),
-        skills: yup.array(yup.object()).min(0),
-        categories: yup.array(yup.object()).min(1),
-        friends: yup.array(yup.object()).min(0),
-        end: yup.string().nullable().required(),
-      });
-    }
+    // if (availableStatus === null) {
+    //   return yup.object().shape({
+    //     type: yup.number().required(),
+    //     title: yup.string().max(125).required(),
+    //     description: yup.string().max(1000).required(),
+    //     schedule: yup.string().max(125).required(),
+    //     cover: yup.string().nullable(),
+    //     amount: yup.number().min(10).max(10000).nullable().integer().required(),
+    //     address: yup.string().required(),
+    //     short_address: yup.string().required(),
+    //     lat: yup.string(),
+    //     lng: yup.string(),
+    //     skills: yup.array(yup.object()).min(0),
+    //     categories: yup.array(yup.object()).min(1),
+    //     friends: yup.array(yup.object()).min(0),
+    //     end: yup.string().nullable().required(),
+    //   });
+    // } else if (availableStatus === EnumHangoutStatus.NO_TIME) {
+    //   return yup.object().shape({
+    //     type: yup.number().required(),
+    //     title: yup.string().max(125).required(),
+    //     description: yup.string().max(1000).required(),
+    //     schedule: yup.string().max(125).required(),
+    //     cover: yup.string().nullable(),
+    //     amount: yup.number().min(10).max(10000).nullable().integer().required(),
+    //     skills: yup.array(yup.object()).min(0),
+    //     categories: yup.array(yup.object()).min(1),
+    //     friends: yup.array(yup.object()).min(0),
+    //     address: yup.string().required(),
+    //     short_address: yup.string().required(),
+    //   });
+    // } else if (availableStatus === EnumHangoutStatus.COMBINE) {
+    //   return yup.object().shape({
+    //     type: yup.number().required(),
+    //     title: yup.string().max(125).required(),
+    //     description: yup.string().max(1000).required(),
+    //     cover: yup.string().nullable(),
+    //     amount: yup.number().min(10).max(10000).nullable().integer().required(),
+    //     skills: yup.array(yup.object()).min(0),
+    //     categories: yup.array(yup.object()).min(1),
+    //     friends: yup.array(yup.object()).min(0),
+    //     schedule: yup.string().max(125).required(),
+    //   });
+    // } else if (availableStatus === EnumHangoutStatus.ONLINE) {
+    //   return yup.object().shape({
+    //     type: yup.number().required(),
+    //     title: yup.string().max(125).required(),
+    //     description: yup.string().max(1000).required(),
+    //     schedule: yup.string().max(125).required(),
+    //     cover: yup.string().nullable(),
+    //     amount: yup.number().min(10).max(10000).nullable().integer().required(),
+    //     lat: yup.string(),
+    //     lng: yup.string(),
+    //     skills: yup.array(yup.object()).min(0),
+    //     categories: yup.array(yup.object()).min(1),
+    //     friends: yup.array(yup.object()).min(0),
+    //     end: yup.string().nullable().required(),
+    //   });
+    // }
   }
 
   useEffect(() => {

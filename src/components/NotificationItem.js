@@ -109,17 +109,17 @@ const NotificationItem = ({data}) => {
       data?.payload?.type === 'friend-request' ||
       data?.payload?.type === 'friend-accepted'
     ) {
-      iconSrc =  Icons.ic_relationIc;
+      iconSrc = Icons.ic_relationIc;
     } else if (
       data?.payload?.type === 'new-review' ||
       data?.payload?.type === 'review-reminder'
     ) {
-      iconSrc =  Icons.ic_rateIc;
+      iconSrc = Icons.ic_rateIc;
     } else if (
       data?.payload?.type === 'status-liked' ||
       data?.payload?.type === 'hangout-liked'
     ) {
-      iconSrc =  Icons.ic_reactIc;
+      iconSrc = Icons.ic_reactIc;
     } else if (data?.payload?.type === 'new-offer') {
       iconSrc = Icons.ic_hangoutIc;
     }

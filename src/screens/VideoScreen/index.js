@@ -1,5 +1,3 @@
 import VideoScreen from './VideoScreen';
 
-export {
-  VideoScreen
-}
+export {VideoScreen};

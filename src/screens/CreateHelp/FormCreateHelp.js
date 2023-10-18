@@ -370,12 +370,12 @@ const FormCreateHelp = ({navigation, route}) => {
 
                     Alert.alert(
                       'Warning',
-                      `We can not open link automatically, please pay manually by: ${invoiceUrl}`,
+                      `We can not open link automatically, please pay manually by: ${paymentUrl}`,
                       [
                         {
                           text: 'Copy link',
                           onPress: () => {
-                            Clipboard.setString(invoiceUrl);
+                            Clipboard.setString(paymentUrl);
                           },
                         },
                         {

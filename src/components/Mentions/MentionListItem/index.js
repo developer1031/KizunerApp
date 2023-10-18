@@ -1,15 +1,14 @@
-import React from "react";
-import { Text, View, TouchableOpacity } from "react-native";
+import React from 'react';
+import {Text, View, TouchableOpacity} from 'react-native';
 
 // Styles
-import styles from "./MentionListItemStyles";
+import styles from './MentionListItemStyles';
 
-import Avatar from "../Avatar";
+import Avatar from '../Avatar';
 
 const MentionListItem = (props) => {
-
-  const { onSuggestionTap } = props;
-  const { item: user, index, editorStyles } = props;
+  // const {onSuggestionTap} = props;
+  const {item: user, index, editorStyles} = props;
 
   const onSuggestionTap = (user, hidePanel) => {
     onSuggestionTap(user);
@@ -20,8 +19,7 @@ const MentionListItem = (props) => {
       <TouchableOpacity
         activeOpacity={0.8}
         style={[styles.suggestionItem, editorStyles.mentionListItemWrapper]}
-        onPress={() => this.onSuggestionTap(user)}
-      >
+        onPress={() => onSuggestionTap(user)}>
         <Avatar
           user={user}
           wrapperStyles={styles.thumbnailWrapper}
@@ -32,18 +30,13 @@ const MentionListItem = (props) => {
           <Text style={[styles.title, editorStyles.mentionListItemTitle]}>
             {user.name}
           </Text>
-          <Text
-            style={[styles.username, editorStyles.mentionListItemUsername]}
-          >
+          <Text style={[styles.username, editorStyles.mentionListItemUsername]}>
             @{user.username}
           </Text>
         </View>
       </TouchableOpacity>
     </View>
   );
-
 };
-
-
 
 export default MentionListItem;

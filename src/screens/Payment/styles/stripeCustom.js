@@ -1,4 +1,4 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import {StyleSheet, Dimensions, Platform} from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {getSize} from 'utils/responsive';
 

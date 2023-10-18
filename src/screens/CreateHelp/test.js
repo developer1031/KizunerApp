@@ -224,177 +224,177 @@ const FormCreateHelp = ({navigation, route}) => {
   const handleSubmit = (values, {setFieldError, resetForm}) => {
     console.log('=======');
     return;
-    let friendsTmp = [];
-    if (formType === 'edit') {
-      values.friends.map((item, i) => {
-        friendsTmp.push(item.id);
-      });
-    } else {
-      values.friends.map((item, i) => {
-        friendsTmp.push(item.user.id);
-      });
-    }
+    // let friendsTmp = [];
+    // if (formType === 'edit') {
+    //   values.friends.map((item, i) => {
+    //     friendsTmp.push(item.id);
+    //   });
+    // } else {
+    //   values.friends.map((item, i) => {
+    //     friendsTmp.push(item.user.id);
+    //   });
+    // }
 
-    if (moment(values.start).isAfter(moment(values.end))) {
-      setFieldError('start', 'start time should before end time');
-    } else {
-      Keyboard.dismiss();
-      let formData = {};
-      if (availableStatus === null) {
-        formData = {
-          ...values,
-          capacity: parseInt(values.capacity, 10),
-          isMinCapacity: parseInt(values.isMinCapacity, 10),
-          //kizuna: parseInt(values.kizuna, 10),
-          lat: values.lat.toString(),
-          lng: values.lng.toString(),
-          start: values.start,
-          end: values.end,
-          categories: values.categories.map((i) => i.id),
-          skills: values.skills.map((i) => i.id),
-          room_id,
-          available_status: availableStatus,
-        };
-      } else if (availableStatus === EnumHangoutStatus.ONLINE) {
-        formData = {
-          ...values,
-          capacity: parseInt(values.capacity, 10),
-          isMinCapacity: parseInt(values.isMinCapacity, 10),
-          //kizuna: parseInt(values.kizuna, 10),
-          start: values.start,
-          end: values.end,
-          categories: values.categories.map((i) => i.id),
-          skills: values.skills.map((i) => i.id),
-          room_id,
-          available_status: availableStatus,
-          lat: null,
-          lng: null,
-          address: null,
-          short_address: null,
-        };
-      } else if (availableStatus === EnumHangoutStatus.NO_TIME) {
-        formData = {
-          ...values,
-          capacity: parseInt(values.capacity, 10),
-          isMinCapacity: parseInt(values.isMinCapacity, 10),
-          //kizuna: parseInt(values.kizuna, 10),
-          lat: values.lat.toString(),
-          lng: values.lng.toString(),
-          start: null,
-          end: null,
-          categories: values.categories.map((i) => i.id),
-          skills: values.skills.map((i) => i.id),
-          room_id,
-          available_status: availableStatus,
-        };
-      } else if (availableStatus === EnumHangoutStatus.COMBINE) {
-        formData = {
-          ...values,
-          address: null,
-          short_address: null,
-          capacity: parseInt(values.capacity, 10),
-          isMinCapacity: parseInt(values.isMinCapacity, 10),
-          lat: null,
-          lng: null,
-          start: null,
-          end: null,
-          categories: values.categories.map((i) => i.id),
-          skills: values.skills.map((i) => i.id),
-          room_id,
-          available_status: availableStatus,
-        };
-      }
-      if (formType === 'edit') {
-        dispatch(
-          updateHelp(
-            initialValues.id,
-            Object.assign(formData, {
-              friends: friendsTmp,
-            }),
-            () => {
-              resetForm(INITIAL_VALUES);
-              navigation.navigate('AppTab', {
-                screen: 'MyPage',
-              });
-            },
-          ),
-        );
-      } else {
-        dispatch(
-          createHelp(
-            Object.assign(formData, {
-              friends: friendsTmp,
-              current_location_lat: coords?.latitude,
-              current_location_long: coords?.longitude,
-            }),
-            {
-              success: (result) => {
-                resetForm(INITIAL_VALUES);
-                dispatch(
-                  showAlert({
-                    title: 'Success',
-                    body: 'New help added!',
-                    type: 'success',
-                  }),
-                );
-                callback
-                  ? callback(result)
-                  : navigation.navigate('AppTab', {
-                      screen: 'MyPage',
-                    });
-              },
-              failure: (result) => {
-                dispatch(
-                  showAlert({
-                    title: 'Error',
-                    body: result,
-                    type: 'error',
-                  }),
-                );
-                if (
-                  result &&
-                  result === "You don't have enough Kizuna to create this Help"
-                ) {
-                  setTimeout(() => {
-                    dispatch(showModalize(addKizuna));
-                  }, 1000);
-                }
-              },
-            },
-          ),
-        );
-      }
-    }
+    // if (moment(values.start).isAfter(moment(values.end))) {
+    //   setFieldError('start', 'start time should before end time');
+    // } else {
+    //   Keyboard.dismiss();
+    //   let formData = {};
+    //   if (availableStatus === null) {
+    //     formData = {
+    //       ...values,
+    //       capacity: parseInt(values.capacity, 10),
+    //       isMinCapacity: parseInt(values.isMinCapacity, 10),
+    //       //kizuna: parseInt(values.kizuna, 10),
+    //       lat: values.lat.toString(),
+    //       lng: values.lng.toString(),
+    //       start: values.start,
+    //       end: values.end,
+    //       categories: values.categories.map((i) => i.id),
+    //       skills: values.skills.map((i) => i.id),
+    //       room_id,
+    //       available_status: availableStatus,
+    //     };
+    //   } else if (availableStatus === EnumHangoutStatus.ONLINE) {
+    //     formData = {
+    //       ...values,
+    //       capacity: parseInt(values.capacity, 10),
+    //       isMinCapacity: parseInt(values.isMinCapacity, 10),
+    //       //kizuna: parseInt(values.kizuna, 10),
+    //       start: values.start,
+    //       end: values.end,
+    //       categories: values.categories.map((i) => i.id),
+    //       skills: values.skills.map((i) => i.id),
+    //       room_id,
+    //       available_status: availableStatus,
+    //       lat: null,
+    //       lng: null,
+    //       address: null,
+    //       short_address: null,
+    //     };
+    //   } else if (availableStatus === EnumHangoutStatus.NO_TIME) {
+    //     formData = {
+    //       ...values,
+    //       capacity: parseInt(values.capacity, 10),
+    //       isMinCapacity: parseInt(values.isMinCapacity, 10),
+    //       //kizuna: parseInt(values.kizuna, 10),
+    //       lat: values.lat.toString(),
+    //       lng: values.lng.toString(),
+    //       start: null,
+    //       end: null,
+    //       categories: values.categories.map((i) => i.id),
+    //       skills: values.skills.map((i) => i.id),
+    //       room_id,
+    //       available_status: availableStatus,
+    //     };
+    //   } else if (availableStatus === EnumHangoutStatus.COMBINE) {
+    //     formData = {
+    //       ...values,
+    //       address: null,
+    //       short_address: null,
+    //       capacity: parseInt(values.capacity, 10),
+    //       isMinCapacity: parseInt(values.isMinCapacity, 10),
+    //       lat: null,
+    //       lng: null,
+    //       start: null,
+    //       end: null,
+    //       categories: values.categories.map((i) => i.id),
+    //       skills: values.skills.map((i) => i.id),
+    //       room_id,
+    //       available_status: availableStatus,
+    //     };
+    //   }
+    //   if (formType === 'edit') {
+    //     dispatch(
+    //       updateHelp(
+    //         initialValues.id,
+    //         Object.assign(formData, {
+    //           friends: friendsTmp,
+    //         }),
+    //         () => {
+    //           resetForm(INITIAL_VALUES);
+    //           navigation.navigate('AppTab', {
+    //             screen: 'MyPage',
+    //           });
+    //         },
+    //       ),
+    //     );
+    //   } else {
+    //     dispatch(
+    //       createHelp(
+    //         Object.assign(formData, {
+    //           friends: friendsTmp,
+    //           current_location_lat: coords?.latitude,
+    //           current_location_long: coords?.longitude,
+    //         }),
+    //         {
+    //           success: (result) => {
+    //             resetForm(INITIAL_VALUES);
+    //             dispatch(
+    //               showAlert({
+    //                 title: 'Success',
+    //                 body: 'New help added!',
+    //                 type: 'success',
+    //               }),
+    //             );
+    //             callback
+    //               ? callback(result)
+    //               : navigation.navigate('AppTab', {
+    //                   screen: 'MyPage',
+    //                 });
+    //           },
+    //           failure: (result) => {
+    //             dispatch(
+    //               showAlert({
+    //                 title: 'Error',
+    //                 body: result,
+    //                 type: 'error',
+    //               }),
+    //             );
+    //             if (
+    //               result &&
+    //               result === "You don't have enough Kizuna to create this Help"
+    //             ) {
+    //               setTimeout(() => {
+    //                 dispatch(showModalize(addKizuna));
+    //               }, 1000);
+    //             }
+    //           },
+    //         },
+    //       ),
+    //     );
+    //   }
+    // }
   };
 
   function onRenderCondition() {
     return;
-    return yup.object().shape({
-      type: yup.number().required(),
-      title: yup.string().max(125).required(),
-      description: yup.string().max(1000).required(),
-      cover: yup.string().nullable(),
-      budget: yup.number().min(0).max(10000).nullable().integer().required(),
-      capacity:
-        helpType === 'oneTime' &&
-        yup.number().max(10000).min(10).nullable().integer().required(),
-      isMinCapacity: yup
-        .number()
-        // //.max(yup.ref('capacity'), 'min capacity should lower capacity')
-        .nullable()
-        .default(null)
-        .integer(),
+    // return yup.object().shape({
+    //   type: yup.number().required(),
+    //   title: yup.string().max(125).required(),
+    //   description: yup.string().max(1000).required(),
+    //   cover: yup.string().nullable(),
+    //   budget: yup.number().min(0).max(10000).nullable().integer().required(),
+    //   capacity:
+    //     helpType === 'oneTime' &&
+    //     yup.number().max(10000).min(10).nullable().integer().required(),
+    //   isMinCapacity: yup
+    //     .number()
+    //     // //.max(yup.ref('capacity'), 'min capacity should lower capacity')
+    //     .nullable()
+    //     .default(null)
+    //     .integer(),
 
-      start: helpType === 'oneTime' && yup.string().nullable().required(),
-      end: helpType === 'oneTime' && yup.string().nullable().required(),
-      address: isOnline && yup.string().nullable().required(),
-      short_address: isOnline && yup.string().nullable().required(),
-      lat: isOnline && yup.string(),
-      lng: isOnline && yup.string(),
-      skills: yup.array(yup.object()).min(0),
-      categories: yup.array(yup.object()).min(1).required(),
-      friends: yup.array(yup.object()).min(0),
-    });
+    //   start: helpType === 'oneTime' && yup.string().nullable().required(),
+    //   end: helpType === 'oneTime' && yup.string().nullable().required(),
+    //   address: isOnline && yup.string().nullable().required(),
+    //   short_address: isOnline && yup.string().nullable().required(),
+    //   lat: isOnline && yup.string(),
+    //   lng: isOnline && yup.string(),
+    //   skills: yup.array(yup.object()).min(0),
+    //   categories: yup.array(yup.object()).min(1).required(),
+    //   friends: yup.array(yup.object()).min(0),
+    // });
     // if (availableStatus === null) {
     //   return yup.object().shape({
     //     type: yup.number().required(),

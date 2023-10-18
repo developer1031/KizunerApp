@@ -5,7 +5,7 @@ import FastImage from 'react-native-fast-image';
 import {getSize} from 'utils/responsive';
 import {Text} from 'components';
 import useTheme from 'theme';
-import { Icons } from 'utils/icon';
+import {Icons} from 'utils/icon';
 
 const EmptyState = ({wrapperStyle, label, imageSource, imageStyle}) => {
   const theme = useTheme();

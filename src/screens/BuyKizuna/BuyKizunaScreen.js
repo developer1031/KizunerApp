@@ -17,7 +17,7 @@ import {
 } from 'components';
 import {getKizunaPackages} from 'actions';
 import orangeLight from '../../theme/orangeLight';
-import { Icons } from 'utils/icon';
+import {Icons} from 'utils/icon';
 const HEADER_HEIGHT = 120;
 const BuyKizunaScreen = ({navigation}) => {
   const theme = useTheme();

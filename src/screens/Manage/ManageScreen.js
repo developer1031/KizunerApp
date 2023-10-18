@@ -488,19 +488,14 @@ const ManageScreen = ({navigation}) => {
     switch (userInfo?.badge) {
       case 1:
         return rewardList[0]?.badge_01?.icon;
-        break;
       case 2:
         return rewardList[1]?.badge_02?.icon;
-        break;
       case 3:
         return rewardList[2]?.badge_03?.icon;
-        break;
       case 4:
         return rewardList[3]?.badge_04?.icon;
-        break;
       case 5:
         return rewardList[4]?.badge_05?.icon;
-        break;
     }
   };
 
@@ -508,19 +503,14 @@ const ManageScreen = ({navigation}) => {
     switch (rank) {
       case 1:
         return {uri: rewardList[0]?.badge_01?.inactive_icon};
-        break;
       case 2:
         return {uri: rewardList[1]?.badge_02?.inactive_icon};
-        break;
       case 3:
         return {uri: rewardList[2]?.badge_03?.inactive_icon};
-        break;
       case 4:
         return {uri: rewardList[3]?.badge_04?.inactive_icon};
-        break;
       case 5:
         return {uri: rewardList[4]?.badge_05?.inactive_icon};
-        break;
     }
   };
 

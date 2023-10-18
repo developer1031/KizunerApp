@@ -32,7 +32,7 @@ import NavigationService from 'navigation/service';
 import orangeLight from '../theme/orangeLight';
 import {images} from './Video/images';
 import {Dimensions} from 'react-native';
-import { Icons } from 'utils/icon';
+import {Icons} from 'utils/icon';
 
 const textStyle = {
   fontSize: 16,

@@ -94,12 +94,12 @@ const CreateHangoutScreen = ({navigation, route}) => {
       textTransform: 'uppercase',
     },
 
-    form2: {
-      paddingTop: getSize.h(20),
-      paddingBottom: getSize.h(30),
-      marginHorizontal: getSize.w(24),
-      marginBottom: getSize.h(24),
-    },
+    // form2: {
+    //   paddingTop: getSize.h(20),
+    //   paddingBottom: getSize.h(30),
+    //   marginHorizontal: getSize.w(24),
+    //   marginBottom: getSize.h(24),
+    // },
     helper: {
       marginHorizontal: getSize.w(24),
     },

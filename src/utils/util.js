@@ -1,8 +1,8 @@
-function formatBytesToMB (bytes, decimals = 2) {
-  return (bytes / (1024 * 1024)).toFixed(2)
+function formatBytesToMB(bytes, decimals = 2) {
+  return (bytes / (1024 * 1024)).toFixed(2);
 }
 
-function createUUID (a) {
+function createUUID(a) {
   return a // if the placeholder was passed, return
     ? // a random number from 0 to 15
       (
@@ -24,19 +24,19 @@ function createUUID (a) {
           // replacing
           /[018]/g, // zeroes, ones, and eights with
           createUUID, // random hex digits
-        )
+        );
 }
 const getUniqueId = () => {
-  const date = new Date()
-  const dd = date.getDate()
-  const mm = date.getMonth()
-  const yyyy = date.getFullYear()
-  const hh = date.getHours()
-  const mi = date.getMinutes()
-  const ss = date.getSeconds()
-  const ms = date.getMilliseconds()
+  const date = new Date();
+  const dd = date.getDate();
+  const mm = date.getMonth();
+  const yyyy = date.getFullYear();
+  const hh = date.getHours();
+  const mi = date.getMinutes();
+  const ss = date.getSeconds();
+  const ms = date.getMilliseconds();
 
-  return `id-${dd}${mm}${yyyy}${hh}${mi}${ss}${ms}`
-}
+  return `id-${dd}${mm}${yyyy}${hh}${mi}${ss}${ms}`;
+};
 
-export {formatBytesToMB, createUUID, getUniqueId}
+export {formatBytesToMB, createUUID, getUniqueId};

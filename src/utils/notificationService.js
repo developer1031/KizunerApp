@@ -70,7 +70,7 @@ export const checkIsAnyUnreadNotification = (dispatch, userId) => {
           id: userId,
         },
         {
-          success: dataUnreadNotification => {
+          success: (dataUnreadNotification) => {
             dispatch(getNotiCount());
             if (dataUnreadNotification && !dataUnreadNotification?.status) {
               // firebase.notifications().setBadge(0);
@@ -171,11 +171,11 @@ export async function handlePressNoti(
 
 export default function useNotification() {
   const dispatch = useDispatch();
-  const navState = useNavigationState(state => state);
-  const currentChatRoom = useSelector(state => state.chat.roomDetail);
-  const userInfo = useSelector(state => state.auth.userInfo);
-  const {isAuth} = useSelector(state => state.auth);
-  const {typeChat} = useSelector(state => state.chat);
+  const navState = useNavigationState((state) => state);
+  const currentChatRoom = useSelector((state) => state.chat.roomDetail);
+  const userInfo = useSelector((state) => state.auth.userInfo);
+  const {isAuth} = useSelector((state) => state.auth);
+  const {typeChat} = useSelector((state) => state.chat);
 
   let notificationListener;
   let notificationOpenedListener;
@@ -381,14 +381,14 @@ export default function useNotification() {
     // ).setDescription('Kizuner App');
     // firebase.notifications().android.createChannel(channel);
 
-    messaging().onMessage(message => {
+    messaging().onMessage((message) => {
       /**
        * Background message received
        */
       console.log('backgroundMessage', message);
     });
 
-    messaging().onTokenRefresh(async newFcmToken => {
+    messaging().onTokenRefresh(async (newFcmToken) => {
       /**
        * Need update token
        */

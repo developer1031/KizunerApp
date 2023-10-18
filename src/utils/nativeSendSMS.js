@@ -22,7 +22,7 @@ function isAuthorizedForCallback(androidCanReadSms) {
   return Platform.OS !== 'android' || androidCanReadSms;
 }
 
-async function send(options, callback: () => void) {
+async function send(options, callback = () => {}) {
   // const androidCanReadSms = await checkAndroidReadSmsAuthorized();
 
   // options.isAuthorizedForCallback = isAuthorizedForCallback(androidCanReadSms);

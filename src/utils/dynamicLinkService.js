@@ -7,16 +7,16 @@ import {Linking, Platform} from 'react-native';
 import NavigationService from 'navigation/service';
 
 export default function useDynamicLinkService() {
-  const {isAuth} = useSelector(state => state.auth);
+  const {isAuth} = useSelector((state) => state.auth);
   useEffect(() => {
     dynamicLinks()
       .getInitialLink()
-      .then(link => {
+      .then((link) => {
         console.log('firebase', link);
         handleDynamicLink(link);
       });
 
-    const linkingListener = dynamicLinks().onLink(url => {
+    const linkingListener = dynamicLinks().onLink((url) => {
       console.log('open', url);
       handleDynamicLink(url);
     });

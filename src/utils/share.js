@@ -9,7 +9,7 @@ var fs = require('react-native-fs');
 import fetchApi from 'utils/fetchApi';
 import {SHARE_URL, API_URL} from 'utils/constants';
 
-const generateShortLink = async link => {
+const generateShortLink = async (link) => {
   try {
     const result = await fetchApi({
       endpoint: '/shortlink',
@@ -57,7 +57,7 @@ export const shareMultipleMediaFile = async (
   firebase
     .links()
     .createShortDynamicLink(link, 'SHORT')
-    .then(async url => {
+    .then(async (url) => {
       // ...
 
       const dl = url.replace('https://kizuner.page.link/', '');
@@ -144,7 +144,7 @@ export const shareMultipleMediaFile = async (
       }
       return;
     })
-    .catch(e => {
+    .catch((e) => {
       console.log(e);
     });
 };
@@ -165,20 +165,20 @@ export const shareDownloadImage = async (title, message, data, urlImage) => {
       return;
     }
 
-    let Pictures = [urlImage].map(item =>
+    let Pictures = [urlImage].map((item) =>
       RNFetchBlob.config({
         fileCache: true,
       })
         .fetch('GET', item)
-        .then(resp => {
+        .then((resp) => {
           let base64s = RNFetchBlob.fs
             .readFile(resp.data, 'base64')
-            .then(dataImage => 'data:image/png;base64,' + dataImage);
+            .then((dataImage) => 'data:image/png;base64,' + dataImage);
           return base64s;
         }),
     );
 
-    Promise.all(Pictures).then(completed => {
+    Promise.all(Pictures).then((completed) => {
       const shareOptions = {
         // title: title || 'Kizuner',
         // message: message || '',
@@ -188,19 +188,19 @@ export const shareDownloadImage = async (title, message, data, urlImage) => {
       Share.open(shareOptions);
     });
   } else {
-    let Pictures = [urlImage].map(item =>
+    let Pictures = [urlImage].map((item) =>
       RNFetchBlob.config({
         fileCache: true,
       })
         .fetch('GET', item)
-        .then(resp => {
+        .then((resp) => {
           let base64s = RNFetchBlob.fs
             .readFile(resp.data, 'base64')
-            .then(dataImage => 'data:image/png;base64,' + dataImage);
+            .then((dataImage) => 'data:image/png;base64,' + dataImage);
           return base64s;
         }),
     );
-    Promise.all(Pictures).then(completed => {
+    Promise.all(Pictures).then((completed) => {
       const shareOptions = {
         // title: title || 'Kizuner',
         // message: message || '',
@@ -271,17 +271,17 @@ export const shareFacebook = async (url, description) => {
   }
 };
 
-export const downloadFileWithURL = file_url => {
+export const downloadFileWithURL = (file_url) => {
   let imagePath = null;
   RNFetchBlob.config({
     fileCache: true,
   })
     .fetch('GET', file_url)
-    .then(resp => {
+    .then((resp) => {
       imagePath = resp.path();
       return resp.readFile('base64');
     })
-    .then(async base64 => {
+    .then(async (base64) => {
       let base64Data = 'data:image/png;base64,' + base64;
       fs.unlink(imagePath);
       return base64Data;

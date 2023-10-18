@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 import FastImage from 'react-native-fast-image';
 
 import {getSize} from 'utils/responsive';
-import { Icons } from 'utils/icon';
+import {Icons} from 'utils/icon';
 
 export const CREDIT_CARDS = {
   alipay: Icons.ic_alipaySrc,

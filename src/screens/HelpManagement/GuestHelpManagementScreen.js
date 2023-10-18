@@ -5,6 +5,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {useSafeArea} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from 'react-redux';
 import uuid from 'uuid/v4';
+import Clipboard from '@react-native-clipboard/clipboard';
 
 import useTheme from 'theme';
 import {getSize} from 'utils/responsive';

@@ -639,7 +639,6 @@ const FeedItem = ({type, data, isChangeStatus}) => {
         return;
       default:
         return;
-        break;
     }
   }
 

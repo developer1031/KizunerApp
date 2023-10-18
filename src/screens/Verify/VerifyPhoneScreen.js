@@ -27,7 +27,7 @@ const VerifyPhoneScreen = ({navigation, route}) => {
   const theme = useTheme();
   const insets = useSafeArea();
   const {userInfo, beingVerifyPhone, beingSendVerifyPhoneCode} = useSelector(
-    state => state.auth,
+    (state) => state.auth,
   );
   const {confirmResult} = route.params;
   const [code, setCode] = useState('');
@@ -38,7 +38,7 @@ const VerifyPhoneScreen = ({navigation, route}) => {
     dispatch(verifyPhone({code, confirmResult}));
   };
 
-  const displayTimeLeft = seconds => {
+  const displayTimeLeft = (seconds) => {
     let minutesLeft = Math.floor(seconds / 60);
     let secondsLeft = seconds % 60;
     minutesLeft =
@@ -54,7 +54,7 @@ const VerifyPhoneScreen = ({navigation, route}) => {
      * which verify authentication in the background
      */
     if (Platform.OS === 'android') {
-      auth().onAuthStateChanged(async user => {
+      auth().onAuthStateChanged(async (user) => {
         if (user) {
           if (!userInfo.phone_verified_at && !beingVerifyPhone) {
             const token = await auth().currentUser.getIdToken();
@@ -188,7 +188,7 @@ const VerifyPhoneScreen = ({navigation, route}) => {
               style={styles.codeInput}
               pinCount={6}
               code={code}
-              onCodeChanged={value => setCode(value)}
+              onCodeChanged={(value) => setCode(value)}
               autoFocusOnLoad
               codeInputFieldStyle={styles.codeInputField}
               codeInputHighlightStyle={styles.codeInputHighlight}

@@ -19,7 +19,7 @@ import FormikInput from 'components/FormikInput';
 import HeaderBg from 'components/HeaderBg';
 import {getSize} from 'utils/responsive';
 import useTheme from 'theme';
-import { Icons } from 'utils/icon';
+import {Icons} from 'utils/icon';
 
 const {width} = Dimensions.get('window');
 

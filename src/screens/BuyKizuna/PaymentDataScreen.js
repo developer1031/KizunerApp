@@ -153,7 +153,6 @@ const PaymentDataScreen = ({navigation, route}) => {
       // })
       // console.warn('paymentIntent ============')
       // console.log(paymentIntent)
-      r;
       // confirmSetupIntent(client_secret, {
       // },{paymentMethod: paymentMethod.paymentMethod.id})
 

@@ -58,9 +58,7 @@ export const DUMB_RECOMMENDATION = [
       'Hi Kizuner Friend! I am available for Guitar performance this Friday night!!',
     pt: 12,
     startDate: moment().add(8, 'days'),
-    endDate: moment()
-      .add(8, 'days')
-      .add(3, 'hours'),
+    endDate: moment().add(8, 'days').add(3, 'hours'),
   },
   {
     id: '5',
@@ -88,8 +86,6 @@ export const DUMB_RECOMMENDATION = [
       'Hi Kizuner Friend! I am available for Guitar performance this Friday night!!',
     pt: 30,
     startDate: moment().add(3, 'days'),
-    endDate: moment()
-      .add(3, 'days')
-      .add(30, 'minutes'),
+    endDate: moment().add(3, 'days').add(30, 'minutes'),
   },
 ];

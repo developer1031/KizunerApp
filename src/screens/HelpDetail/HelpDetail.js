@@ -10,6 +10,7 @@ import {
   Platform,
   RefreshControl,
   FlatList,
+  Alert,
 } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -56,13 +57,14 @@ const width = Dimensions.get('window').width;
 import orangeLight from '../../theme/orangeLight';
 import ModalChooseCryptoPayment from 'components/ModalChooseCryptoPayment';
 import {getPaymentString} from 'utils/mixed';
-import { Icons } from 'utils/icon';
+import {Icons} from 'utils/icon';
 
 const HelpDetail = ({navigation, route}) => {
   const {commentFocused, helpId, initialValue} = route.params;
 
   const commentRef = useRef(null);
   const scrollView = useRef(null);
+  const refModalChooseCrypto = useRef(null);
 
   const dispatch = useDispatch();
 
@@ -394,7 +396,6 @@ const HelpDetail = ({navigation, route}) => {
       <CommentItem data={item} onEdit={handleEditComment} hangoutId={helpId} />
     );
   }
-  const refModalChooseCrypto = useRef(null);
 
   return (
     <>

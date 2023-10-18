@@ -93,12 +93,14 @@ const CapacityList = ({route, navigation}) => {
     getCapacityList();
   }, []);
 
-  const _pushProfile = () =>
+  const _pushProfile = (item) => {
     navigation.push('UserProfile', {userId: item?.user?.data?.id});
-  const _pushRating = () =>
+  };
+  const _pushRating = (item) => {
     navigation.push('ReviewList', {user: item?.user?.data});
+  };
 
-  const creChatRoom = () => {
+  const creChatRoom = (item) => {
     dispatch(
       createChatRoom({members: [item.user.data.id]}, (result) => {
         if (result?.data) {
@@ -120,8 +122,8 @@ const CapacityList = ({route, navigation}) => {
     return (
       <ItemHelp
         key={`${index}-${item.id}`}
-        onPressProfile={_pushProfile}
-        onPressRating={_pushRating}
+        onPressProfile={() => _pushProfile(item)}
+        onPressRating={() => _pushRating(item)}
         isPending={canHangout && item?.status === 'pending'}
         isAccept={item?.status === 'accept'}
         rating={item?.user?.data?.rating?.rating || 0}
@@ -133,7 +135,7 @@ const CapacityList = ({route, navigation}) => {
           !isLoadId &&
           handleUpdateStatus(item.id, 'accept', item?.user?.data?.id)
         }
-        setChat={creChatRoom}
+        setChat={() => creChatRoom(item)}
         setClose={() =>
           !isLoadId &&
           handleUpdateStatus(item.id, 'reject', item?.user?.data?.id)

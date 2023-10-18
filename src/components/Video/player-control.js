@@ -34,7 +34,7 @@ const VideoPlayerMode = {
   },
 };
 
-const ControlButton = (props: any) => {
+const ControlButton = (props) => {
   const {tintColor, image, style, ...otherProps} = props;
 
   return (
@@ -57,7 +57,7 @@ const ControlButton = (props: any) => {
 };
 
 class PlayerControl extends React.Component {
-  constructor(props: any) {
+  constructor(props) {
     super(props);
     const opacityAnimation = new Animated.Value(0);
     this.state = {
@@ -127,7 +127,7 @@ class PlayerControl extends React.Component {
     });
   }
 
-  animationHideControl(finished?: () => void) {
+  animationHideControl(finished = () => {}) {
     const {opacityAnimation} = this.state;
     Animated.timing(opacityAnimation, {toValue: 0, duration: 300}).start(
       finished,

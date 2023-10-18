@@ -34,7 +34,7 @@ import {CARD_WIDTH, CARD_HEIGHT} from 'components/HangoutExploreItem';
 import {getSize} from 'utils/responsive';
 import i18n from 'i18n';
 import {getMapHangouts} from 'actions';
-import { Icons } from 'utils/icon';
+import {Icons} from 'utils/icon';
 
 const width = Dimensions.get('window').width;
 
@@ -400,10 +400,7 @@ const ExploreMapScreen = ({navigation}) => {
               />
             ) : mapList.length > 0 ? (
               <View style={styles.listFooterWrapper}>
-                <Image
-                  style={styles.listFooterImage}
-                  source={Icons.Logo}
-                />
+                <Image style={styles.listFooterImage} source={Icons.Logo} />
               </View>
             ) : null
           }

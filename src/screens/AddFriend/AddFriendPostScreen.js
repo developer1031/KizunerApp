@@ -376,7 +376,8 @@ const AddFriendPostScreen = ({navigation, route}) => {
         ListEmptyComponent={() => <EmptyState />}
         refreshControl={
           <RefreshControl
-            refreshing={friend?.loading}
+            // refreshing={friend.loading}
+            refreshing={false}
             colors={theme.colors.gradient}
             tintColor={theme.colors.primary}
             onRefresh={handleRefresh}

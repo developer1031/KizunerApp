@@ -7,7 +7,7 @@ export default function debounce(callback, wait, context = this) {
     timeout = null;
   };
 
-  return function() {
+  return function () {
     if (timeout) {
       clearTimeout(timeout);
     }

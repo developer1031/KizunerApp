@@ -18,7 +18,7 @@ import Loading from 'components/Loading';
 import {getSize} from 'utils/responsive';
 import useTheme from 'theme';
 import i18n from 'i18n';
-import { Icons } from 'utils/icon';
+import {Icons} from 'utils/icon';
 
 const {width} = Dimensions.get('window');
 

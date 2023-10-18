@@ -117,14 +117,14 @@ const FeedItemStatus = ({type, data, enableShare = true}) => {
     dispatch(showModalize(selectedShareOption));
     return;
 
-    async function shareImage() {
-      await shareDownloadImage(
-        'Kizuner',
-        title + address + ' ' + urlFile,
-        Object.assign(data, {type: type}),
-        urlImage,
-      );
-    }
+    // async function shareImage() {
+    //   await shareDownloadImage(
+    //     'Kizuner',
+    //     title + address + ' ' + urlFile,
+    //     Object.assign(data, {type: type}),
+    //     urlImage,
+    //   );
+    // }
 
     async function sharePost() {
       await shareMultipleMediaFile(

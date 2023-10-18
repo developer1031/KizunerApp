@@ -275,7 +275,6 @@ const HangoutExploreItem = ({data, selected, wrapperStyle, onPress}) => {
       default:
         return '';
     }
-    return '';
   }
 
   return (

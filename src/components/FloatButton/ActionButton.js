@@ -11,7 +11,7 @@ import {
   DEFAULT_ACTIVE_OPACITY,
 } from './shared';
 
-const ActionButton = props => {
+const ActionButton = (props) => {
   const [, setResetToken] = useState(props.resetToken);
   const [active, setActive] = useState(props.active);
   const anim = useRef(new Animated.Value(props.active ? 1 : 0));
@@ -160,16 +160,10 @@ const ActionButton = props => {
   };
 
   const _renderButtonIcon = () => {
-    const {
-      icon,
-      renderIcon,
-      btnOutRangeTxt,
-      buttonTextStyle,
-      buttonText,
-    } = props;
+    const {icon, renderIcon, btnOutRangeTxt, buttonTextStyle, buttonText} =
+      props;
     if (renderIcon) return renderIcon(active);
     if (icon) {
-     
       return icon;
     }
 
@@ -200,7 +194,7 @@ const ActionButton = props => {
     let actionButtons = !Array.isArray(children) ? [children] : children;
 
     actionButtons = actionButtons.filter(
-      actionButton => typeof actionButton == 'object',
+      (actionButton) => typeof actionButton == 'object',
     );
 
     const actionStyle = {

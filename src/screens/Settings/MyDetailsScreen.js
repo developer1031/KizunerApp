@@ -14,10 +14,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {Formik} from 'formik';
 import FastImage from 'react-native-fast-image';
 
-import {
-  updateUserIdentify,
-  sendVerifyEmailCode,
-} from 'actions';
+import {updateUserIdentify, sendVerifyEmailCode} from 'actions';
 import i18n from 'i18n';
 
 import Wrapper from 'components/Wrapper';

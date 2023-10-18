@@ -15,7 +15,7 @@ function goBack() {
   navigationRef.current?.goBack();
 }
 
-export const getActiveRouteName = state => {
+export const getActiveRouteName = (state) => {
   if (state) {
     const route = state.routes[state.index];
     if (route.state) {

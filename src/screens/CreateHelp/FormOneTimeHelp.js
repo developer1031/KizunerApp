@@ -442,150 +442,150 @@ const FormOneTimeHelp = ({navigation, route}) => {
       categories: yup.array(yup.object()).min(1).required(),
       friends: yup.array(yup.object()).min(0),
     });
-    if (availableStatus === null) {
-      return yup.object().shape({
-        type: yup.number().required(),
-        title: yup.string().max(125).required(),
-        description: yup.string().max(1000).required(),
-        cover: yup.string().nullable(),
-        amount: yup
-          .number()
-          .min(minimumFixedPrice, `Minimum price is ${minimumFixedPrice}$`)
-          .max(10000)
-          .nullable()
-          .integer()
-          .required(),
-        capacity: yup
-          .number()
-          .max(10000)
-          .min(
-            yup.ref('isMinCapacity'),
-            'capacity should more than min capacity',
-          )
-          .nullable()
-          .integer()
-          .required(),
-        isMinCapacity: yup
-          .number()
-          // //.max(yup.ref('capacity'), 'min capacity should lower capacity')
-          .nullable()
-          .default(null)
-          .integer(),
+    // if (availableStatus === null) {
+    //   return yup.object().shape({
+    //     type: yup.number().required(),
+    //     title: yup.string().max(125).required(),
+    //     description: yup.string().max(1000).required(),
+    //     cover: yup.string().nullable(),
+    //     amount: yup
+    //       .number()
+    //       .min(minimumFixedPrice, `Minimum price is ${minimumFixedPrice}$`)
+    //       .max(10000)
+    //       .nullable()
+    //       .integer()
+    //       .required(),
+    //     capacity: yup
+    //       .number()
+    //       .max(10000)
+    //       .min(
+    //         yup.ref('isMinCapacity'),
+    //         'capacity should more than min capacity',
+    //       )
+    //       .nullable()
+    //       .integer()
+    //       .required(),
+    //     isMinCapacity: yup
+    //       .number()
+    //       // //.max(yup.ref('capacity'), 'min capacity should lower capacity')
+    //       .nullable()
+    //       .default(null)
+    //       .integer(),
 
-        start: yup.string().nullable().required(),
-        end: yup.string().nullable().required(),
-        address: yup.string().nullable().required(),
-        short_address: yup.string().nullable().required(),
-        lat: yup.string(),
-        lng: yup.string(),
-        skills: yup.array(yup.object()).min(0),
-        categories: yup.array(yup.object()).min(1).required(),
-        friends: yup.array(yup.object()).min(0),
-      });
-    } else if (availableStatus === EnumHangoutStatus.ONLINE) {
-      return yup.object().shape({
-        type: yup.number().required(),
-        title: yup.string().max(125).required(),
-        description: yup.string().max(1000).required(),
-        cover: yup.string().nullable(),
-        amount: yup.number().min(0).max(10000).nullable().integer().required(),
-        isMinCapacity: yup
-          .number()
-          //.max(yup.ref('capacity'), 'min capacity should lower capacity')
-          .nullable()
-          .default(null)
-          .integer(),
-        capacity: yup
-          .number()
-          .max(10000)
-          .min(
-            yup.ref('isMinCapacity'),
-            'capacity should more than min capacity',
-          )
-          .min(1)
-          .nullable()
-          .integer()
-          .required(),
-        start: yup.string().nullable().required(),
-        end: yup.string().nullable().required(),
-        // address: yup
-        //   .string()
-        //   .nullable()
-        //   .required(),
-        // lat: yup.string(),
-        // lng: yup.string(),
-        categories: yup.array(yup.object()).min(1).required(),
-        skills: yup.array(yup.object()).min(0),
-        friends: yup.array(yup.object()).min(0),
-      });
-    } else if (availableStatus === EnumHangoutStatus.NO_TIME) {
-      return yup.object().shape({
-        type: yup.number().required(),
-        title: yup.string().max(125).required(),
-        description: yup.string().max(1000).required(),
-        cover: yup.string().nullable(),
-        amount: yup.number().min(0).max(10000).nullable().integer().required(),
-        capacity: yup
-          .number()
-          .max(10000)
-          .min(
-            yup.ref('isMinCapacity'),
-            'capacity should more than min capacity',
-          )
-          .nullable()
-          .integer()
-          .required(),
-        isMinCapacity: yup
-          .number()
-          // //.max(yup.ref('capacity'), 'min capacity should lower capacity')
-          .nullable()
-          .default(null)
-          .integer(),
+    //     start: yup.string().nullable().required(),
+    //     end: yup.string().nullable().required(),
+    //     address: yup.string().nullable().required(),
+    //     short_address: yup.string().nullable().required(),
+    //     lat: yup.string(),
+    //     lng: yup.string(),
+    //     skills: yup.array(yup.object()).min(0),
+    //     categories: yup.array(yup.object()).min(1).required(),
+    //     friends: yup.array(yup.object()).min(0),
+    //   });
+    // } else if (availableStatus === EnumHangoutStatus.ONLINE) {
+    //   return yup.object().shape({
+    //     type: yup.number().required(),
+    //     title: yup.string().max(125).required(),
+    //     description: yup.string().max(1000).required(),
+    //     cover: yup.string().nullable(),
+    //     amount: yup.number().min(0).max(10000).nullable().integer().required(),
+    //     isMinCapacity: yup
+    //       .number()
+    //       //.max(yup.ref('capacity'), 'min capacity should lower capacity')
+    //       .nullable()
+    //       .default(null)
+    //       .integer(),
+    //     capacity: yup
+    //       .number()
+    //       .max(10000)
+    //       .min(
+    //         yup.ref('isMinCapacity'),
+    //         'capacity should more than min capacity',
+    //       )
+    //       .min(1)
+    //       .nullable()
+    //       .integer()
+    //       .required(),
+    //     start: yup.string().nullable().required(),
+    //     end: yup.string().nullable().required(),
+    //     // address: yup
+    //     //   .string()
+    //     //   .nullable()
+    //     //   .required(),
+    //     // lat: yup.string(),
+    //     // lng: yup.string(),
+    //     categories: yup.array(yup.object()).min(1).required(),
+    //     skills: yup.array(yup.object()).min(0),
+    //     friends: yup.array(yup.object()).min(0),
+    //   });
+    // } else if (availableStatus === EnumHangoutStatus.NO_TIME) {
+    //   return yup.object().shape({
+    //     type: yup.number().required(),
+    //     title: yup.string().max(125).required(),
+    //     description: yup.string().max(1000).required(),
+    //     cover: yup.string().nullable(),
+    //     amount: yup.number().min(0).max(10000).nullable().integer().required(),
+    //     capacity: yup
+    //       .number()
+    //       .max(10000)
+    //       .min(
+    //         yup.ref('isMinCapacity'),
+    //         'capacity should more than min capacity',
+    //       )
+    //       .nullable()
+    //       .integer()
+    //       .required(),
+    //     isMinCapacity: yup
+    //       .number()
+    //       // //.max(yup.ref('capacity'), 'min capacity should lower capacity')
+    //       .nullable()
+    //       .default(null)
+    //       .integer(),
 
-        // start: yup
-        //   .string()
-        //   .nullable()
-        //   .required(),
-        // end: yup
-        //   .string()
-        //   .nullable()
-        //   .required(),
-        address: yup.string().nullable().required(),
-        short_address: yup.string().nullable().required(),
-        lat: yup.string(),
-        lng: yup.string(),
-        categories: yup.array(yup.object()).min(1).required(),
-        skills: yup.array(yup.object()).min(0),
-        friends: yup.array(yup.object()).min(0),
-      });
-    } else if (availableStatus === EnumHangoutStatus.COMBINE) {
-      return yup.object().shape({
-        type: yup.number().required(),
-        title: yup.string().max(125).required(),
-        description: yup.string().max(1000).required(),
-        cover: yup.string().nullable(),
-        amount: yup.number().min(0).max(10000).nullable().integer().required(),
-        capacity: yup
-          .number()
-          .max(10000)
-          .min(
-            yup.ref('isMinCapacity'),
-            'capacity should more than min capacity',
-          )
-          .nullable()
-          .integer()
-          .required(),
-        isMinCapacity: yup
-          .number()
-          // //.max(yup.ref('capacity'), 'min capacity should lower capacity')
-          .nullable()
-          .default(null)
-          .integer(),
-        categories: yup.array(yup.object()).min(1).required(),
-        skills: yup.array(yup.object()).min(0),
-        friends: yup.array(yup.object()).min(0),
-      });
-    }
+    //     // start: yup
+    //     //   .string()
+    //     //   .nullable()
+    //     //   .required(),
+    //     // end: yup
+    //     //   .string()
+    //     //   .nullable()
+    //     //   .required(),
+    //     address: yup.string().nullable().required(),
+    //     short_address: yup.string().nullable().required(),
+    //     lat: yup.string(),
+    //     lng: yup.string(),
+    //     categories: yup.array(yup.object()).min(1).required(),
+    //     skills: yup.array(yup.object()).min(0),
+    //     friends: yup.array(yup.object()).min(0),
+    //   });
+    // } else if (availableStatus === EnumHangoutStatus.COMBINE) {
+    //   return yup.object().shape({
+    //     type: yup.number().required(),
+    //     title: yup.string().max(125).required(),
+    //     description: yup.string().max(1000).required(),
+    //     cover: yup.string().nullable(),
+    //     amount: yup.number().min(0).max(10000).nullable().integer().required(),
+    //     capacity: yup
+    //       .number()
+    //       .max(10000)
+    //       .min(
+    //         yup.ref('isMinCapacity'),
+    //         'capacity should more than min capacity',
+    //       )
+    //       .nullable()
+    //       .integer()
+    //       .required(),
+    //     isMinCapacity: yup
+    //       .number()
+    //       // //.max(yup.ref('capacity'), 'min capacity should lower capacity')
+    //       .nullable()
+    //       .default(null)
+    //       .integer(),
+    //     categories: yup.array(yup.object()).min(1).required(),
+    //     skills: yup.array(yup.object()).min(0),
+    //     friends: yup.array(yup.object()).min(0),
+    //   });
+    // }
   }
 
   // const defaultTimezone = moment.tz(timezone).format('Z');

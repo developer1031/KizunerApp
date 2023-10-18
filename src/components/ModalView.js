@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {TouchableOpacity, Animated, Easing, Dimensions} from 'react-native';
 import PropTypes from 'prop-types';
+import Modal from 'react-native-modal';
 
-const ModalView = props => {
+const ModalView = (props) => {
   const {
     isOpen,
     toggleFunc,

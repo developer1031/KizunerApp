@@ -76,20 +76,20 @@ const PickSpecialtyScreen = ({navigation, route}) => {
               navigation.goBack();
               return;
 
-              const skillsToUpdate = [
-                ...new Set([...selected, ...userSpes].map((i) => i.id)),
-              ];
-              dispatch(
-                updateSkills(
-                  {specialities: skillsToUpdate},
-                  {
-                    success: () => {
-                      onSelect(specs);
-                      navigation.goBack();
-                    },
-                  },
-                ),
-              );
+              // const skillsToUpdate = [
+              //   ...new Set([...selected, ...userSpes].map((i) => i.id)),
+              // ];
+              // dispatch(
+              //   updateSkills(
+              //     {specialities: skillsToUpdate},
+              //     {
+              //       success: () => {
+              //         onSelect(specs);
+              //         navigation.goBack();
+              //       },
+              //     },
+              //   ),
+              // );
             },
           },
         ),
@@ -105,17 +105,17 @@ const PickSpecialtyScreen = ({navigation, route}) => {
       navigation.goBack();
       return;
 
-      dispatch(
-        updateSkills(
-          {specialities: skillsToUpdate},
-          {
-            success: () => {
-              onSelect(selected);
-              navigation.goBack();
-            },
-          },
-        ),
-      );
+      // dispatch(
+      //   updateSkills(
+      //     {specialities: skillsToUpdate},
+      //     {
+      //       success: () => {
+      //         onSelect(selected);
+      //         navigation.goBack();
+      //       },
+      //     },
+      //   ),
+      // );
     }
   };
 

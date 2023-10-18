@@ -6,6 +6,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {Touchable, Text, Loading} from 'components';
 import useTheme from 'theme';
 import {getSize} from 'utils/responsive';
+import {Icons} from 'utils/icon';
 
 const width = Dimensions.get('window').width;
 import orangeLight from '../../theme/orangeLight';

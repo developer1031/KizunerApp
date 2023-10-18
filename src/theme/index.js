@@ -7,7 +7,7 @@ import blackLivesMatter from './blackLivesMatter';
 export const themes = {pinkLight, orangeLight, blackLivesMatter};
 
 const useTheme = (themeName = 'orangeLight') => {
-  const theme = useSelector(state => state.app.theme);
+  const theme = useSelector((state) => state.app.theme);
   return {
     name: theme || themeName,
     ...themes[theme || themeName],

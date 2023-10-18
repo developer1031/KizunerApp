@@ -1,21 +1,21 @@
-import {StyleSheet, TextInput, View} from 'react-native'
-import React, {memo, useEffect, useRef, useState} from 'react'
+import {StyleSheet, TextInput, View} from 'react-native';
+import React, {memo, useEffect, useRef, useState} from 'react';
 
 const InputOTPCustom = memo(({style, onChange = () => {}, length = 6}) => {
-  const [otpArr, setOtpArr] = useState(Array(length).fill(''))
-  const [indexFocused, setIndexFocused] = useState(0)
+  const [otpArr, setOtpArr] = useState(Array(length).fill(''));
+  const [indexFocused, setIndexFocused] = useState(0);
 
-  const otp = otpArr.reduce((prev, curr) => prev + curr, '')
+  const otp = otpArr.reduce((prev, curr) => prev + curr, '');
 
-  const onFocus = index => () => setIndexFocused(prev => (prev = index))
+  const onFocus = (index) => () => setIndexFocused((prev) => (prev = index));
 
   useEffect(() => {
     if (otp.length < otpArr.length) {
-      return
+      return;
     }
 
-    onChange(otp)
-  }, [otp])
+    onChange(otp);
+  }, [otp]);
 
   return (
     <View style={[styles.container, style]}>
@@ -27,24 +27,24 @@ const InputOTPCustom = memo(({style, onChange = () => {}, length = 6}) => {
             isFocused={indexFocused === index}
             value={otpArr[index]}
             onFocus={onFocus(index)}
-            onChange={char => {
-              let tmpOTP = [...otpArr]
-              tmpOTP[index] = char
-              setOtpArr(prev => (prev = tmpOTP))
-              setIndexFocused(prev => (prev = (index + 1) % length))
+            onChange={(char) => {
+              let tmpOTP = [...otpArr];
+              tmpOTP[index] = char;
+              setOtpArr((prev) => (prev = tmpOTP));
+              setIndexFocused((prev) => (prev = (index + 1) % length));
             }}
           />
         ))}
     </View>
-  )
-})
+  );
+});
 
 const BoxCustom = memo(({isFocused, value, onFocus, onChange}) => {
-  const ref = useRef(null)
+  const ref = useRef(null);
 
   useEffect(() => {
-    isFocused && ref.current?.focus()
-  }, [isFocused])
+    isFocused && ref.current?.focus();
+  }, [isFocused]);
 
   return (
     <TextInput
@@ -52,13 +52,13 @@ const BoxCustom = memo(({isFocused, value, onFocus, onChange}) => {
       ref={ref}
       onFocus={onFocus}
       value={value}
-      onChangeText={val => {
-        const text = val.replace(value, '').slice(-1)
-        onChange(text)
+      onChangeText={(val) => {
+        const text = val.replace(value, '').slice(-1);
+        onChange(text);
       }}
     />
-  )
-})
+  );
+});
 
 const styles = StyleSheet.create({
   container: {
@@ -75,6 +75,6 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     marginVertical: 16,
   },
-})
+});
 
-export default InputOTPCustom
+export default InputOTPCustom;
