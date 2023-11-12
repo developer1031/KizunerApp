@@ -10,9 +10,18 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		546EEA302AFF56DB00FC9D5C /* RNDefaultPreference.m in Sources */ = {isa = PBXBuildFile; fileRef = 546EEA2A2AFF56DB00FC9D5C /* RNDefaultPreference.m */; };
+		546EEA312AFF56DB00FC9D5C /* SendSMS.m in Sources */ = {isa = PBXBuildFile; fileRef = 546EEA2C2AFF56DB00FC9D5C /* SendSMS.m */; };
+		546EEA322AFF56DB00FC9D5C /* Devices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546EEA2E2AFF56DB00FC9D5C /* Devices.swift */; };
+		546EEA332AFF56DB00FC9D5C /* Dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546EEA2F2AFF56DB00FC9D5C /* Dummy.swift */; };
+		546EEA362AFF576900FC9D5C /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 546EEA352AFF576900FC9D5C /* Config.xcconfig */; };
+		546EEA382AFF578B00FC9D5C /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 546EEA372AFF578A00FC9D5C /* AppCenter-Config.plist */; };
+		546EEA3C2AFF8D2300FC9D5C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 546EEA3B2AFF8D2300FC9D5C /* AVFoundation.framework */; };
+		546EEA3E2AFF8D2D00FC9D5C /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 546EEA3D2AFF8D2D00FC9D5C /* CloudKit.framework */; };
+		546EEA402AFF8D3600FC9D5C /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 546EEA3F2AFF8D3600FC9D5C /* MessageUI.framework */; };
+		546EEA422AFF8D3E00FC9D5C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 546EEA412AFF8D3E00FC9D5C /* Social.framework */; };
 		54AAE2442ACC06780081C2F2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 54AAE2432ACC06780081C2F2 /* GoogleService-Info.plist */; };
 		54F3DCF12AD3F9B100E9CF85 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54F3DCF02AD3F9B100E9CF85 /* LaunchScreen.xib */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		A7B3394A7ED2AFEE7366B1B9 /* Pods_kizuner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5112B4D6D7AF3C985EEC6A1 /* Pods_kizuner.framework */; };
 /* End PBXBuildFile section */
 
@@ -24,10 +33,23 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = kizuner/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = kizuner/main.m; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-kizuner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kizuner.debug.xcconfig"; path = "Target Support Files/Pods-kizuner/Pods-kizuner.debug.xcconfig"; sourceTree = "<group>"; };
+		546EEA2A2AFF56DB00FC9D5C /* RNDefaultPreference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNDefaultPreference.m; sourceTree = "<group>"; };
+		546EEA2B2AFF56DB00FC9D5C /* RNDefaultPreference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNDefaultPreference.h; sourceTree = "<group>"; };
+		546EEA2C2AFF56DB00FC9D5C /* SendSMS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendSMS.m; sourceTree = "<group>"; };
+		546EEA2D2AFF56DB00FC9D5C /* SendSMS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendSMS.h; sourceTree = "<group>"; };
+		546EEA2E2AFF56DB00FC9D5C /* Devices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Devices.swift; sourceTree = "<group>"; };
+		546EEA2F2AFF56DB00FC9D5C /* Dummy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dummy.swift; sourceTree = "<group>"; };
+		546EEA342AFF573500FC9D5C /* Kizuner-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Kizuner-Bridging-Header.h"; sourceTree = "<group>"; };
+		546EEA352AFF576900FC9D5C /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		546EEA372AFF578A00FC9D5C /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "AppCenter-Config.plist"; sourceTree = "<group>"; };
+		546EEA392AFF876600FC9D5C /* react_native_maps.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = react_native_maps.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		546EEA3B2AFF8D2300FC9D5C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		546EEA3D2AFF8D2D00FC9D5C /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		546EEA3F2AFF8D3600FC9D5C /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		546EEA412AFF8D3E00FC9D5C /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		54AAE2432ACC06780081C2F2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		54F3DCF02AD3F9B100E9CF85 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LaunchScreen.xib; path = kizuner/LaunchScreen.xib; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-kizuner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kizuner.release.xcconfig"; path = "Target Support Files/Pods-kizuner/Pods-kizuner.release.xcconfig"; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = kizuner/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A5112B4D6D7AF3C985EEC6A1 /* Pods_kizuner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_kizuner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -37,6 +59,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				546EEA3E2AFF8D2D00FC9D5C /* CloudKit.framework in Frameworks */,
+				546EEA422AFF8D3E00FC9D5C /* Social.framework in Frameworks */,
+				546EEA3C2AFF8D2300FC9D5C /* AVFoundation.framework in Frameworks */,
+				546EEA402AFF8D3600FC9D5C /* MessageUI.framework in Frameworks */,
 				A7B3394A7ED2AFEE7366B1B9 /* Pods_kizuner.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -47,13 +73,19 @@
 		13B07FAE1A68108700A75B9A /* kizuner */ = {
 			isa = PBXGroup;
 			children = (
+				546EEA342AFF573500FC9D5C /* Kizuner-Bridging-Header.h */,
+				546EEA2E2AFF56DB00FC9D5C /* Devices.swift */,
+				546EEA2F2AFF56DB00FC9D5C /* Dummy.swift */,
+				546EEA2B2AFF56DB00FC9D5C /* RNDefaultPreference.h */,
+				546EEA2A2AFF56DB00FC9D5C /* RNDefaultPreference.m */,
+				546EEA2D2AFF56DB00FC9D5C /* SendSMS.h */,
+				546EEA2C2AFF56DB00FC9D5C /* SendSMS.m */,
 				54F3DCF02AD3F9B100E9CF85 /* LaunchScreen.xib */,
 				54AAE2432ACC06780081C2F2 /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
 			name = kizuner;
@@ -62,6 +94,11 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				546EEA412AFF8D3E00FC9D5C /* Social.framework */,
+				546EEA3F2AFF8D3600FC9D5C /* MessageUI.framework */,
+				546EEA3D2AFF8D2D00FC9D5C /* CloudKit.framework */,
+				546EEA3B2AFF8D2300FC9D5C /* AVFoundation.framework */,
+				546EEA392AFF876600FC9D5C /* react_native_maps.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				A5112B4D6D7AF3C985EEC6A1 /* Pods_kizuner.framework */,
 			);
@@ -78,6 +115,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				546EEA372AFF578A00FC9D5C /* AppCenter-Config.plist */,
+				546EEA352AFF576900FC9D5C /* Config.xcconfig */,
 				13B07FAE1A68108700A75B9A /* kizuner */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
@@ -142,7 +181,7 @@
 				LastUpgradeCheck = 1210;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1500;
 					};
 				};
 			};
@@ -169,8 +208,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				546EEA362AFF576900FC9D5C /* Config.xcconfig in Resources */,
+				546EEA382AFF578B00FC9D5C /* AppCenter-Config.plist in Resources */,
 				54F3DCF12AD3F9B100E9CF85 /* LaunchScreen.xib in Resources */,
-				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				54AAE2442ACC06780081C2F2 /* GoogleService-Info.plist in Resources */,
 			);
@@ -304,7 +344,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				546EEA302AFF56DB00FC9D5C /* RNDefaultPreference.m in Sources */,
+				546EEA312AFF56DB00FC9D5C /* SendSMS.m in Sources */,
+				546EEA322AFF56DB00FC9D5C /* Devices.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
+				546EEA332AFF56DB00FC9D5C /* Dummy.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -334,6 +378,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.kizuner;
 				PRODUCT_NAME = kizuner;
+				SWIFT_OBJC_BRIDGING_HEADER = "kizuner-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -361,6 +406,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.kizuner;
 				PRODUCT_NAME = kizuner;
+				SWIFT_OBJC_BRIDGING_HEADER = "kizuner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -447,7 +493,10 @@
 					"$(inherited)",
 					"-Wl",
 					"-ld_classic",
-					"-Wl -ld_classic ",
+					"-Wl",
+					"-ld_classic",
+					"-Wl",
+					"-ld_classic",
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
@@ -530,7 +579,10 @@
 					"$(inherited)",
 					"-Wl",
 					"-ld_classic",
-					"-Wl -ld_classic ",
+					"-Wl",
+					"-ld_classic",
+					"-Wl",
+					"-ld_classic",
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
