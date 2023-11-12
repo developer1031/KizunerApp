@@ -70,7 +70,7 @@ import BadgeRewardItem from './BadgeRewardItem';
 import UserInfoBadge from './UserInfoBadge';
 import PointList from './PointList';
 import TopUpLeaderBoard from './TopUpLeaderBoard';
-import ModalViewAnimated from './ModalViewAnimated';
+// import ModalViewAnimated from './ModalViewAnimated';
 import ModalViewWithRange from './ModalViewWithRange';
 import BottomModal from './BottomModal';
 import {CheckBoxTitle} from './CheckBoxTitle';
@@ -155,7 +155,7 @@ export {
   UserInfoBadge,
   PointList,
   TopUpLeaderBoard,
-  ModalViewAnimated,
+  // ModalViewAnimated,
   ModalViewWithRange,
   BottomModal,
   CheckBoxTitle,
