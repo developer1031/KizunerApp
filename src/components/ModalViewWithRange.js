@@ -5,7 +5,7 @@ import {useSafeArea} from 'react-native-safe-area-context';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 
 import useTheme from 'theme';
-import {Text, Touchable, Button, ModalViewAnimated} from 'components';
+import {Text, Touchable, Button} from 'components';
 import {getSize} from 'utils/responsive';
 import SelectRangeLabel from './SelectRangeLabel';
 
@@ -73,79 +73,72 @@ const ModalViewWithRange = ({
     }
   }, [open]);
 
-  const renderContent = () => {
-    return (
-      <View style={styles.wrapper}>
-        {options
-          .filter((i) => !i.hide)
-          .map((item) => (
-            <Touchable
-              key={item.label}
-              disabled={item.disabled}
-              onPress={() => {
-                if (item.onPress) {
-                  item.onPress(item.value);
-                } else {
-                  onClose();
-                }
-              }}
-              style={styles.itemWrap}>
-              {item.icon && <View style={styles.iconWrap}>{item.icon}</View>}
-              <Text
-                style={[
-                  styles.label,
-                  selected === item.value && styles.labelSelected,
-                ]}>
-                {item.label}
-              </Text>
-            </Touchable>
-          ))}
-        <View style={styles.sliderWrap}>
-          {showRange && (
-            <>
-              <MultiSlider
-                min={limit.min}
-                max={limit.max}
-                values={[value.min, value.max]}
-                onValuesChange={(values) =>
-                  setValue({min: values[0], max: values[1]})
-                }
-                markerStyle={{
-                  backgroundColor: theme.colors.primary,
-                }}
-                trackStyle={{
-                  backgroundColor: theme.colors.grayLight,
-                }}
-                selectedStyle={{
-                  backgroundColor: theme.colors.primary,
-                }}
-                enableLabel
-                customLabel={(labelProps) => (
-                  <SelectRangeLabel {...labelProps} />
-                )}
-              />
-              <Button
-                title="Apply"
-                onPress={() => {
-                  showRange && onSelectRange && onSelectRange(value);
-                  onClose();
-                }}
-              />
-            </>
-          )}
-        </View>
-      </View>
-    );
-  };
-
   return (
-    <ModalViewAnimated
-      ref={rnModalize}
-      onClose={onClose}
-      snapPoints={[getSize.h(400), getSize.h(300), 0]}
-      renderContent={renderContent}
-      {...props}
-    />
+    // <ModalViewAnimated
+    //   ref={rnModalize}
+    //   onClose={onClose}
+    //   snapPoints={[getSize.h(400), getSize.h(300), 0]}
+    //   renderContent={renderContent}
+    //   {...props}
+    // />
+    <View style={styles.wrapper}>
+      {options
+        .filter((i) => !i.hide)
+        .map((item) => (
+          <Touchable
+            key={item.label}
+            disabled={item.disabled}
+            onPress={() => {
+              if (item.onPress) {
+                item.onPress(item.value);
+              } else {
+                onClose();
+              }
+            }}
+            style={styles.itemWrap}>
+            {item.icon && <View style={styles.iconWrap}>{item.icon}</View>}
+            <Text
+              style={[
+                styles.label,
+                selected === item.value && styles.labelSelected,
+              ]}>
+              {item.label}
+            </Text>
+          </Touchable>
+        ))}
+      <View style={styles.sliderWrap}>
+        {showRange && (
+          <>
+            <MultiSlider
+              min={limit.min}
+              max={limit.max}
+              values={[value.min, value.max]}
+              onValuesChange={(values) =>
+                setValue({min: values[0], max: values[1]})
+              }
+              markerStyle={{
+                backgroundColor: theme.colors.primary,
+              }}
+              trackStyle={{
+                backgroundColor: theme.colors.grayLight,
+              }}
+              selectedStyle={{
+                backgroundColor: theme.colors.primary,
+              }}
+              enableLabel
+              customLabel={(labelProps) => <SelectRangeLabel {...labelProps} />}
+            />
+            <Button
+              title="Apply"
+              onPress={() => {
+                showRange && onSelectRange && onSelectRange(value);
+                onClose();
+              }}
+            />
+          </>
+        )}
+      </View>
+    </View>
   );
 };
 

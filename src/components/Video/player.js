@@ -2,38 +2,43 @@ import * as React from 'react';
 import {StyleSheet, Platform} from 'react-native';
 import Video from 'react-native-video';
 
-export interface IPlayerProps {
-  uri: string;
-  resizeMode?: string;
-  paused?: boolean;
-  urlAds?: string;
-  style?: any;
-  timeOut?: number;
-  videoRef?: any;
-  akamaiConfig?: any;
-  onLoadStartPlayer?: () => void;
-  onLoadPlayer: (data: any) => void;
+// export interface IPlayerProps {
+//   uri: string;
+//   resizeMode?: string;
+//   paused?: boolean;
+//   urlAds?: string;
+//   style?: any;
+//   timeOut?: number;
+//   videoRef?: any;
+//   akamaiConfig?: any;
+//   onLoadStartPlayer?: () => void;
+//   onLoadPlayer: (data: any) => void;
 
-  onEndPlayer: () => void;
-  onErrorPlayer?: (error?: any) => void;
+//   onEndPlayer: () => void;
+//   onErrorPlayer?: (error?: any) => void;
 
-  onAudioFocusChanged?: () => void;
-  onSeek?: (data: any) => void;
-  onProgress?: (data: any) => void;
-  onBuffer?: (data: any) => void;
-  onSeeked?: (data: any) => void;
-}
+//   onAudioFocusChanged?: () => void;
+//   onSeek?: (data: any) => void;
+//   onProgress?: (data: any) => void;
+//   onBuffer?: (data: any) => void;
+//   onSeeked?: (data: any) => void;
+// }
 
-interface IPlayerState {
-  isTimeOut: boolean;
-}
+// interface IPlayerState {
+//   isTimeOut: boolean;
+// }
 
-class Player extends React.PureComponent<IPlayerProps, IPlayerState> {
-  private video: any;
-  private onLoadStartTime: any;
-  private timeOutTimer: any;
+class Player extends React.PureComponent {
+  // class Player extends React.PureComponent<IPlayerProps, IPlayerState> {
+  video;
+  onLoadStartTime;
+  timeOutTimer;
+  // private video: any;
+  // private onLoadStartTime: any;
+  // private timeOutTimer: any;
 
-  constructor(props: IPlayerProps) {
+  constructor(props) {
+    // constructor(props: IPlayerProps) {
     super(props);
     this.state = {
       isTimeOut: false,
@@ -55,7 +60,8 @@ class Player extends React.PureComponent<IPlayerProps, IPlayerState> {
     // }
   }
 
-  UNSAFE_componentWillReceiveProps = (newProps: IPlayerProps) => {
+  UNSAFE_componentWillReceiveProps = (newProps) => {
+    // UNSAFE_componentWillReceiveProps = (newProps: IPlayerProps) => {
     // if (newProps.urlAds && this.props.urlAds != newProps.urlAds) {
     //   this.video.requestAds(newProps.urlAds);
     // }
@@ -65,7 +71,7 @@ class Player extends React.PureComponent<IPlayerProps, IPlayerState> {
     this._clearnTimeOutTimer();
   }
 
-  _onLoad(data: any) {
+  _onLoad(data) {
     const {onLoadPlayer} = this.props;
     // this._clearnTimeOutTimer();
     onLoadPlayer && onLoadPlayer(data);
@@ -107,45 +113,39 @@ class Player extends React.PureComponent<IPlayerProps, IPlayerState> {
     onLoadStartPlayer && onLoadStartPlayer();
   }
 
-  _onErrorPlayer(error: any) {
+  _onErrorPlayer(error) {
     return;
-    const {onErrorPlayer} = this.props;
-    this._clearnTimeOutTimer();
-    onErrorPlayer && onErrorPlayer(error);
+    // const {onErrorPlayer} = this.props;
+    // this._clearnTimeOutTimer();
+    // onErrorPlayer && onErrorPlayer(error);
   }
 
-  _onBuffer(data: any) {
+  _onBuffer(data) {
     const {onBuffer} = this.props;
     onBuffer && onBuffer(data);
   }
 
-  _onProgress(data: any) {
+  _onProgress(data) {
     const {onProgress} = this.props;
     if (onProgress) {
       onProgress(data);
     }
   }
 
-  _onSeek(data: any) {
+  _onSeek(data) {
     const {onSeeked} = this.props;
     onSeeked && onSeeked(data);
   }
 
-  videoRef = (ref: any) => {
+  videoRef = (ref) => {
     const {videoRef} = this.props;
     this.video = ref;
     videoRef && videoRef(ref);
   };
 
   render() {
-    const {
-      uri,
-      resizeMode,
-      paused,
-      onAudioFocusChanged,
-      onEndPlayer,
-      style,
-    } = this.props;
+    const {uri, resizeMode, paused, onAudioFocusChanged, onEndPlayer, style} =
+      this.props;
     return (
       <React.Fragment>
         <Video

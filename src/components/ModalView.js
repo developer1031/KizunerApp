@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {TouchableOpacity, Animated, Easing, Dimensions} from 'react-native';
-import PropTypes from 'prop-types';
 import Modal from 'react-native-modal';
 
 const ModalView = (props) => {
@@ -119,20 +118,20 @@ Modal.defaultProps = {
   onClose: () => {},
 };
 
-Modal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  toggleFunc: PropTypes.func.isRequired,
-  easing: PropTypes.string,
-  animationTime: PropTypes.number,
-  width: PropTypes.number,
-  height: PropTypes.number,
-  modalColor: PropTypes.string,
-  backdropColor: PropTypes.string,
-  modalRadius: PropTypes.number,
-  modalStyle: PropTypes.string,
-  isFullScreen: PropTypes.bool,
-  onShow: PropTypes.func,
-  onClose: PropTypes.func,
-};
+// Modal.propTypes = {
+//   isOpen: PropTypes.bool.isRequired,
+//   toggleFunc: PropTypes.func.isRequired,
+//   easing: PropTypes.string,
+//   animationTime: PropTypes.number,
+//   width: PropTypes.number,
+//   height: PropTypes.number,
+//   modalColor: PropTypes.string,
+//   backdropColor: PropTypes.string,
+//   modalRadius: PropTypes.number,
+//   modalStyle: PropTypes.string,
+//   isFullScreen: PropTypes.bool,
+//   onShow: PropTypes.func,
+//   onClose: PropTypes.func,
+// };
 
 export default ModalView;

@@ -1,5 +1,4 @@
 import React, {Component, useState, useRef, useEffect} from 'react';
-import PropTypes from 'prop-types';
 import {StyleSheet, Text, View, Animated, TouchableOpacity} from 'react-native';
 import ActionButtonItem from './ActionButtonItem';
 import {
@@ -311,51 +310,51 @@ const ActionButton = (props) => {
 
 ActionButton.Item = ActionButtonItem;
 
-ActionButton.propTypes = {
-  resetToken: PropTypes.any,
-  active: PropTypes.bool,
+// ActionButton.propTypes = {
+//   resetToken: PropTypes.any,
+//   active: PropTypes.bool,
 
-  position: PropTypes.string,
-  elevation: PropTypes.number,
-  zIndex: PropTypes.number,
+//   position: PropTypes.string,
+//   elevation: PropTypes.number,
+//   zIndex: PropTypes.number,
 
-  hideShadow: PropTypes.bool,
-  shadowStyle: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.array,
-    PropTypes.number,
-  ]),
+//   hideShadow: PropTypes.bool,
+//   shadowStyle: PropTypes.oneOfType([
+//     PropTypes.object,
+//     PropTypes.array,
+//     PropTypes.number,
+//   ]),
 
-  renderIcon: PropTypes.func,
+//   renderIcon: PropTypes.func,
 
-  bgColor: PropTypes.string,
-  bgOpacity: PropTypes.number,
-  buttonColor: PropTypes.string,
-  buttonTextStyle: Text.propTypes.style,
-  buttonText: PropTypes.string,
+//   bgColor: PropTypes.string,
+//   bgOpacity: PropTypes.number,
+//   buttonColor: PropTypes.string,
+//   buttonTextStyle: Text.propTypes.style,
+//   buttonText: PropTypes.string,
 
-  offsetX: PropTypes.number,
-  offsetY: PropTypes.number,
-  spacing: PropTypes.number,
-  size: PropTypes.number,
-  autoInactive: PropTypes.bool,
-  onPress: PropTypes.func,
-  onPressIn: PropTypes.func,
-  onPressOut: PropTypes.func,
-  backdrop: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
-  degrees: PropTypes.number,
-  verticalOrientation: PropTypes.oneOf(['up', 'down']),
-  backgroundTappable: PropTypes.bool,
-  activeOpacity: PropTypes.number,
+//   offsetX: PropTypes.number,
+//   offsetY: PropTypes.number,
+//   spacing: PropTypes.number,
+//   size: PropTypes.number,
+//   autoInactive: PropTypes.bool,
+//   onPress: PropTypes.func,
+//   onPressIn: PropTypes.func,
+//   onPressOut: PropTypes.func,
+//   backdrop: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+//   degrees: PropTypes.number,
+//   verticalOrientation: PropTypes.oneOf(['up', 'down']),
+//   backgroundTappable: PropTypes.bool,
+//   activeOpacity: PropTypes.number,
 
-  useNativeFeedback: PropTypes.bool,
-  fixNativeFeedbackRadius: PropTypes.bool,
-  nativeFeedbackRippleColor: PropTypes.string,
+//   useNativeFeedback: PropTypes.bool,
+//   fixNativeFeedbackRadius: PropTypes.bool,
+//   nativeFeedbackRippleColor: PropTypes.string,
 
-  testID: PropTypes.string,
-  accessibilityLabel: PropTypes.string,
-  accessible: PropTypes.bool,
-};
+//   testID: PropTypes.string,
+//   accessibilityLabel: PropTypes.string,
+//   accessible: PropTypes.bool,
+// };
 
 ActionButton.defaultProps = {
   resetToken: null,

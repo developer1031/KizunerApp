@@ -22,45 +22,46 @@ import {getSize} from 'utils/responsive';
 
 const isAndroidRTL = I18nManager.isRTL && Platform.OS === 'android';
 
-type Props<ItemT> = {
-  data: ItemT[];
-  renderItem: (
-    info: ListRenderItemInfo<ItemT> & {
-      dimensions: {width: number; height: number};
-    },
-  ) => React.ReactNode;
-  renderSkipButton?: () => React.ReactNode;
-  renderNextButton?: () => React.ReactNode;
-  renderDoneButton?: () => React.ReactNode;
-  renderPrevButton?: () => React.ReactNode;
-  onSlideChange?: (a: number, b: number) => void;
-  onSkip?: () => void;
-  onDone?: () => void;
-  renderPagination?: (activeIndex: number) => React.ReactNode;
-  activeDotStyle: ViewStyle;
-  dotStyle: ViewStyle;
-  dotClickEnabled: boolean;
-  skipLabel: string;
-  doneLabel: string;
-  nextLabel: string;
-  prevLabel: string;
-  showDoneButton: boolean;
-  showNextButton: boolean;
-  showPrevButton: boolean;
-  showSkipButton: boolean;
-  bottomButton: boolean;
-} & FlatListProps<ItemT>;
+// type Props<ItemT> = {
+//   data: ItemT[],
+//   renderItem: (
+//     info: ListRenderItemInfo<ItemT> & {
+//       dimensions: {width: number, height: number},
+//     },
+//   ) => React.ReactNode,
+//   renderSkipButton?: () => React.ReactNode,
+//   renderNextButton?: () => React.ReactNode,
+//   renderDoneButton?: () => React.ReactNode,
+//   renderPrevButton?: () => React.ReactNode,
+//   onSlideChange?: (a: number, b: number) => void,
+//   onSkip?: () => void,
+//   onDone?: () => void,
+//   renderPagination?: (activeIndex: number) => React.ReactNode,
+//   activeDotStyle: ViewStyle,
+//   dotStyle: ViewStyle,
+//   dotClickEnabled: boolean,
+//   skipLabel: string,
+//   doneLabel: string,
+//   nextLabel: string,
+//   prevLabel: string,
+//   showDoneButton: boolean,
+//   showNextButton: boolean,
+//   showPrevButton: boolean,
+//   showSkipButton: boolean,
+//   bottomButton: boolean,
+// } & FlatListProps<ItemT>;
 
-type State = {
-  width: number;
-  height: number;
-  activeIndex: number;
-};
+// type State = {
+//   width: number,
+//   height: number,
+//   activeIndex: number,
+// };
 
-export default class AppIntroSlider<ItemT = any> extends React.Component<
-  Props<ItemT>,
-  State
-> {
+export default class AppIntroSlider extends React.Component {
+  // export default class AppIntroSlider<ItemT = any> extends React.Component<
+  //   Props<ItemT>,
+  //   State,
+  // > {
   static defaultProps = {
     activeDotStyle: {
       backgroundColor: 'rgba(255, 255, 255, .9)',
@@ -84,9 +85,10 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
     height: 0,
     activeIndex: 0,
   };
-  flatList: FlatList<ItemT> | undefined;
+  flatList;
 
-  goToSlide = (pageNum: number, triggerOnSlideChange?: boolean) => {
+  goToSlide = (pageNum, triggerOnSlideChange) => {
+    // goToSlide = (pageNum: number, triggerOnSlideChange?: boolean) => {
     const prevNum = this.state.activeIndex;
     this.setState({activeIndex: pageNum});
     this.flatList?.scrollToOffset({
@@ -101,28 +103,29 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
   getListRef = () => this.flatList;
 
   // Index that works across Android's weird rtl bugs
-  _rtlSafeIndex = (i: number) =>
-    isAndroidRTL ? this.props.data.length - 1 - i : i;
+  _rtlSafeIndex = (i) => (isAndroidRTL ? this.props.data.length - 1 - i : i);
 
   // Render a slide
-  _renderItem = (flatListArgs: any) => {
+  _renderItem = (flatListArgs) => {
     const {width, height} = this.state;
     const props = {...flatListArgs, dimensions: {width, height}};
     // eslint-disable-next-line react-native/no-inline-styles
     return <View style={{width, flex: 1}}>{this.props.renderItem(props)}</View>;
   };
 
-  _renderButton = (
-    name: string,
-    label: string,
-    onPress?: () => void,
-    render?: () => React.ReactNode,
-  ) => {
+  _renderButton = (name, label, onPress, render) => {
+    // _renderButton = (
+    //   name: string,
+    //   label: string,
+    //   onPress?: () => void,
+    //   render?: () => React.ReactNode,
+    // ) => {
     const content = render ? render() : this._renderDefaultButton(name, label);
     return this._renderOuterButton(content, name, onPress);
   };
 
-  _renderDefaultButton = (name: string, label: string) => {
+  _renderDefaultButton = (name, label) => {
+    // _renderDefaultButton = (name: string, label: string) => {
     let content = <Text style={styles.buttonText}>{label}</Text>;
     if (this.props.bottomButton) {
       content = (
@@ -139,11 +142,12 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
     return content;
   };
 
-  _renderOuterButton = (
-    content: React.ReactNode,
-    name: string,
-    onPress?: (e: GestureResponderEvent) => void,
-  ) => {
+  _renderOuterButton = (content, name, onPress) => {
+    // _renderOuterButton = (
+    //   content: React.ReactNode,
+    //   name: string,
+    //   onPress?: (e: GestureResponderEvent) => void,
+    // ) => {
     const style =
       name === 'Skip' || name === 'Prev'
         ? styles.leftButtonContainer
@@ -247,7 +251,8 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
     );
   };
 
-  _onMomentumScrollEnd = (e: {nativeEvent: NativeScrollEvent}) => {
+  _onMomentumScrollEnd = (e) => {
+    // _onMomentumScrollEnd = (e: {nativeEvent: NativeScrollEvent}) => {
     const offset = e.nativeEvent.contentOffset.x;
     // Touching very very quickly and continuous brings about
     // a variation close to - but not quite - the width.
@@ -263,7 +268,8 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
     this.props.onSlideChange && this.props.onSlideChange(newIndex, lastIndex);
   };
 
-  _onLayout = ({nativeEvent}: LayoutChangeEvent) => {
+  _onLayout = ({nativeEvent}) => {
+    // _onLayout = ({nativeEvent}: LayoutChangeEvent) => {
     const {width, height} = nativeEvent.layout;
     if (width !== this.state.width || height !== this.state.height) {
       // Set new width to update rendering of pages
@@ -281,7 +287,6 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
 
   render() {
     // Separate props used by the component to props passed to FlatList
-    /* eslint-disable @typescript-eslint/no-unused-vars */
     const {
       renderPagination,
       activeDotStyle,
@@ -295,7 +300,6 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
       extraData,
       ...otherProps
     } = this.props;
-    /* eslint-enable @typescript-eslint/no-unused-vars */
 
     // Merge component width and user-defined extraData
     const extra = mergeExtraData(extraData, this.state.width);
@@ -303,7 +307,8 @@ export default class AppIntroSlider<ItemT = any> extends React.Component<
     return (
       <View style={styles.flexOne}>
         <FlatList
-          ref={(ref) => (this.flatList = ref as FlatList<ItemT>)}
+          // ref={(ref) => (this.flatList = ref as FlatList<ItemT>)}
+          ref={(ref) => (this.flatList = ref)}
           data={this.props.data}
           horizontal
           pagingEnabled

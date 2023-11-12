@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import {
   StyleSheet,
   Text,
@@ -39,16 +38,16 @@ export default class ActionButtonItem extends Component {
     };
   }
 
-  static get propTypes() {
-    return {
-      active: PropTypes.bool,
-      useNativeFeedback: PropTypes.bool,
-      fixNativeFeedbackRadius: PropTypes.bool,
-      nativeFeedbackRippleColor: PropTypes.string,
-      activeOpacity: PropTypes.number,
-      numberOfLines: PropTypes.number,
-    };
-  }
+  // static get propTypes() {
+  //   return {
+  //     active: PropTypes.bool,
+  //     useNativeFeedback: PropTypes.bool,
+  //     fixNativeFeedbackRadius: PropTypes.bool,
+  //     nativeFeedbackRippleColor: PropTypes.string,
+  //     activeOpacity: PropTypes.number,
+  //     numberOfLines: PropTypes.number,
+  //   };
+  // }
 
   render() {
     const {size, position, verticalOrientation, hideShadow, spacing} =

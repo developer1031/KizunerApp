@@ -9,7 +9,6 @@ import {
   StatusBar,
   SafeAreaView,
 } from 'react-native';
-import PropTypes from 'prop-types';
 import moment from 'moment';
 import RecordingButton from './RecordingButton';
 import styles, {
@@ -22,18 +21,18 @@ import styles, {
 } from './style';
 
 export default class VideoRecorder extends Component {
-  static propTypes = {
-    isOpen: PropTypes.bool,
-    runAfterInteractions: PropTypes.bool,
-    cameraOptions: PropTypes.shape({}),
-    recordOptions: PropTypes.shape({}),
-    buttonCloseStyle: PropTypes.shape({}),
-    buttonSwitchCameraStyle: PropTypes.shape({}),
-    durationTextStyle: PropTypes.shape({}),
-    renderClose: PropTypes.func,
-    renderSwitchCamera: PropTypes.func,
-    renderDone: PropTypes.func,
-  };
+  // static propTypes = {
+  //   isOpen: PropTypes.bool,
+  //   runAfterInteractions: PropTypes.bool,
+  //   cameraOptions: PropTypes.shape({}),
+  //   recordOptions: PropTypes.shape({}),
+  //   buttonCloseStyle: PropTypes.shape({}),
+  //   buttonSwitchCameraStyle: PropTypes.shape({}),
+  //   durationTextStyle: PropTypes.shape({}),
+  //   renderClose: PropTypes.func,
+  //   renderSwitchCamera: PropTypes.func,
+  //   renderDone: PropTypes.func,
+  // };
 
   static defaultProps = {
     isOpen: false,

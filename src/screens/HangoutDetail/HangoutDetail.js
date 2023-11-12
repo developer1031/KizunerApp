@@ -61,7 +61,6 @@ import {getPaymentString} from 'utils/mixed';
 import ModalChooseCryptoPayment from 'components/ModalChooseCryptoPayment';
 import {Linking} from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
-import {Icon} from 'react-native-paper/lib/typescript/src/components/Avatar/Avatar';
 import {Icons} from 'utils/icon';
 
 const width = Dimensions.get('window').width;

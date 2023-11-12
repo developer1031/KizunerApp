@@ -21,108 +21,111 @@ const VideoPlayerMode = {
   },
 };
 
-export interface IVideoPlayerStates {
-  videoPlayerLoading: boolean;
-}
+// export interface IVideoPlayerStates {
+//   videoPlayerLoading: boolean;
+// }
 
-export interface IVideoPlayerProps {
-  recommendationId?: string;
-  fromStartSource: string;
-  subRefVideo: string;
-  akamaiConfigPath: string;
-  currentUserId: string;
-  currentProfileId: string;
-  paused: boolean;
-  playerData: any;
-  playerError: any;
-  videoAdsPositions: any;
-  currentTimeClock: number;
-  isSliding: boolean;
-  transactionId: string;
-  duration: number;
-  videoAdsCurrentPosition: string;
-  style: any;
-  title: string;
-  isFavorite: boolean;
-  playerHeightAnimation: any;
-  videoPlayerMode: any;
-  nextVideoList: any;
-  hidePreviousButton: boolean;
-  hideNextButton: boolean;
-  resizeMode: any;
-  requestingVideo: boolean;
-  currentTime: number;
-  playableDuration: number;
-  videoAdsUrl: string;
-  videoAdsPlaying: boolean;
-  videoAdsLoading: boolean;
+// export interface IVideoPlayerProps {
+//   recommendationId?: string;
+//   fromStartSource: string;
+//   subRefVideo: string;
+//   akamaiConfigPath: string;
+//   currentUserId: string;
+//   currentProfileId: string;
+//   paused: boolean;
+//   playerData: any;
+//   playerError: any;
+//   videoAdsPositions: any;
+//   currentTimeClock: number;
+//   isSliding: boolean;
+//   transactionId: string;
+//   duration: number;
+//   videoAdsCurrentPosition: string;
+//   style: any;
+//   title: string;
+//   isFavorite: boolean;
+//   playerHeightAnimation: any;
+//   videoPlayerMode: any;
+//   nextVideoList: any;
+//   hidePreviousButton: boolean;
+//   hideNextButton: boolean;
+//   resizeMode: any;
+//   requestingVideo: boolean;
+//   currentTime: number;
+//   playableDuration: number;
+//   videoAdsUrl: string;
+//   videoAdsPlaying: boolean;
+//   videoAdsLoading: boolean;
 
-  getAppInfoResult?: any;
+//   getAppInfoResult?: any;
 
-  liveStreamEventLoading?: any;
-  liveStreamEventData?: any;
-  liveStreamEventError?: any;
-  isLiveStream?: boolean;
+//   liveStreamEventLoading?: any;
+//   liveStreamEventData?: any;
+//   liveStreamEventError?: any;
+//   isLiveStream?: boolean;
 
-  onPressAddFavorite: () => void;
-  onPressRemoveFavorite: () => void;
+//   onPressAddFavorite: () => void;
+//   onPressRemoveFavorite: () => void;
 
-  onFullScreenButtonPress: () => void;
-  onBackButtonPress: () => void;
+//   onFullScreenButtonPress: () => void;
+//   onBackButtonPress: () => void;
 
-  onNextButtonPress: () => void;
-  onPreviousButtonPress: () => void;
-  onItemPress: () => void;
+//   onNextButtonPress: () => void;
+//   onPreviousButtonPress: () => void;
+//   onItemPress: () => void;
 
-  setVideoAdsUrl: (url: string, videoAds: any) => void;
-  removeVideoAds: (data: any) => void;
-  updateCurrentTimeClock: (time: number) => void;
-  seekToTime: (currentTime: number, playableDuration: number) => void;
-  slidingVideo: (isSliding: boolean, time?: number) => void;
-  changePausedStatus: (paused: boolean) => void;
+//   setVideoAdsUrl: (url: string, videoAds: any) => void;
+//   removeVideoAds: (data: any) => void;
+//   updateCurrentTimeClock: (time: number) => void;
+//   seekToTime: (currentTime: number, playableDuration: number) => void;
+//   slidingVideo: (isSliding: boolean, time?: number) => void;
+//   changePausedStatus: (paused: boolean) => void;
 
-  onVideoPlayerEnded: () => void;
-  onVideoPlayerLoaded: (event: any) => void;
-  onVideoPlayerError: (event: any) => void;
+//   onVideoPlayerEnded: () => void;
+//   onVideoPlayerLoaded: (event: any) => void;
+//   onVideoPlayerError: (event: any) => void;
 
-  videoPlayerAdsStart: () => void;
-  videoPlayerAdsEnd: () => void;
-  videoPlayerError: (error: any, videoUri: any, shouldRetry: boolean) => void;
-  videoPlayerLoaded: (event: any) => void;
-  videoPlayerStartLoad: () => void;
-  videoPlayerChangeLoadingStatus: (loading: boolean) => void;
-  videoPlayerEnded: () => void;
-  resetDataVideoPlayer: () => void;
+//   videoPlayerAdsStart: () => void;
+//   videoPlayerAdsEnd: () => void;
+//   videoPlayerError: (error: any, videoUri: any, shouldRetry: boolean) => void;
+//   videoPlayerLoaded: (event: any) => void;
+//   videoPlayerStartLoad: () => void;
+//   videoPlayerChangeLoadingStatus: (loading: boolean) => void;
+//   videoPlayerEnded: () => void;
+//   resetDataVideoPlayer: () => void;
 
-  onAdsComplete: (event: any) => void;
-  onAdsLoaded: (event: any) => void;
-  updateVideoAdsTimeoutStatus: (status: boolean) => void;
+//   onAdsComplete: (event: any) => void;
+//   onAdsLoaded: (event: any) => void;
+//   updateVideoAdsTimeoutStatus: (status: boolean) => void;
 
-  logVideoStart: (
-    videoID: string,
-    fromStartSource: string,
-    source: string,
-    supplier: string,
-    profileID: string,
-  ) => void;
-  logUpdateViewVideo: (
-    transactionID: string,
-    nSec: number,
-    percent: number,
-    profileID: string,
-    videoID: string,
-  ) => void;
-  onLiveStreamToolBarPress?: (item: any) => void;
+//   logVideoStart: (
+//     videoID: string,
+//     fromStartSource: string,
+//     source: string,
+//     supplier: string,
+//     profileID: string,
+//   ) => void;
+//   logUpdateViewVideo: (
+//     transactionID: string,
+//     nSec: number,
+//     percent: number,
+//     profileID: string,
+//     videoID: string,
+//   ) => void;
+//   onLiveStreamToolBarPress?: (item: any) => void;
 
-  isHideControlBottom: boolean;
-}
+//   isHideControlBottom: boolean;
+// }
 
-class VideoPlayer extends React.Component<
-  IVideoPlayerProps,
-  IVideoPlayerStates
-> {
-  private video: any;
-  constructor(props: IVideoPlayerProps) {
+// class VideoPlayer extends React.Component<
+//   IVideoPlayerProps,
+//   IVideoPlayerStates
+// > {
+class VideoPlayer extends React.Component {
+  // private video: any;
+  video;
+  // constructor(props: IVideoPlayerProps) {
+  constructor(props) {
     super(props);
     this.videoRef = this.videoRef.bind(this);
     this.handlePlayButtonPress = this.handlePlayButtonPress.bind(this);
@@ -141,7 +144,7 @@ class VideoPlayer extends React.Component<
     };
   }
 
-  videoRef(ref: any) {
+  videoRef(ref) {
     this.video = ref;
   }
 
@@ -166,19 +169,20 @@ class VideoPlayer extends React.Component<
     return playerData.sourceLink || '';
   }
 
-  getLastPlayedTime(videoData: any) {
+  getLastPlayedTime(videoData) {
     const {videoInfo = {}} = videoData;
     const {lastPlayedTime} = videoInfo;
     return lastPlayedTime > 0 ? lastPlayedTime : 0;
   }
 
-  playerSeekToTime(time: number) {
+  playerSeekToTime(time) {
+    // playerSeekToTime(time: number) {
     if (this.video) {
       this.video.seek(time);
     }
   }
 
-  handleAppStateChange(nextAppState: any) {
+  handleAppStateChange(nextAppState) {
     const {changePausedStatus} = this.props;
     if (nextAppState.match(/inactive|background/)) {
       changePausedStatus(true);
@@ -206,20 +210,20 @@ class VideoPlayer extends React.Component<
     // videoPlayerStartLoad && videoPlayerStartLoad();
   }
 
-  handleVideoLoaded(event: any) {
+  handleVideoLoaded(event) {
     const {duration} = event;
     this.setState({
       videoPlayerLoading: false,
     });
   }
 
-  handleVideoPlayerError(error: any) {
+  handleVideoPlayerError(error) {
     return;
   }
 
-  handleVideoProgress(progress: any) {}
+  handleVideoProgress(progress) {}
 
-  handleVideoSeeked(data: any) {
+  handleVideoSeeked(data) {
     const {seekTime} = data;
     const {slidingVideo} = this.props;
     slidingVideo(false, seekTime);
@@ -248,7 +252,7 @@ class VideoPlayer extends React.Component<
   }
 
   // Handle video ads event
-  handleSetVideoAds = async (videoAds: any) => {};
+  handleSetVideoAds = async (videoAds) => {};
 
   componentDidMount() {
     AppState.addEventListener('change', this.handleAppStateChange);

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import {View, Text} from 'react-native';
 
@@ -59,11 +58,11 @@ const UserThumbnail = (props) => {
   return thumbnail;
 };
 
-UserThumbnail.propTypes = {
-  user: PropTypes.object,
-  wrapperStyles: PropTypes.object,
-  charStyles: PropTypes.object,
-  to: PropTypes.string,
-};
+// UserThumbnail.propTypes = {
+//   user: PropTypes.object,
+//   wrapperStyles: PropTypes.object,
+//   charStyles: PropTypes.object,
+//   to: PropTypes.string,
+// };
 
 export default UserThumbnail;

@@ -1,19 +1,18 @@
 import React, {Component} from 'react';
 import {TouchableOpacity, View, LayoutAnimation} from 'react-native';
-import PropTypes from 'prop-types';
 import styles from './style';
 
 export default class RecordingButton extends Component {
-  static propTypes = {
-    isRecording: PropTypes.bool,
-    onStartPress: PropTypes.func,
-    onStopPress: PropTypes.func,
-    style: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.object,
-      PropTypes.array,
-    ]),
-  };
+  // static propTypes = {
+  //   isRecording: PropTypes.bool,
+  //   onStartPress: PropTypes.func,
+  //   onStopPress: PropTypes.func,
+  //   style: PropTypes.oneOfType([
+  //     PropTypes.number,
+  //     PropTypes.object,
+  //     PropTypes.array,
+  //   ]),
+  // };
 
   renderRecording() {
     return (
