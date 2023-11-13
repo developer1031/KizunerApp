@@ -11,15 +11,13 @@ import {
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import * as yup from 'yup';
-import {useSafeArea} from 'react-native-safe-area-context';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Formik} from 'formik';
-import FastImage from 'react-native-fast-image';
 import CheckBox from '@react-native-community/checkbox';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import LinearGradient from 'react-native-linear-gradient';
 
-import {signUp, showAlert, setNeedVerifyEmail} from 'actions';
+import {signUp, showAlert} from 'actions';
 import i18n from 'i18n';
 import {countries as countriesData} from 'assets/data';
 
@@ -33,7 +31,6 @@ import FormikInput from 'components/FormikInput';
 import CountryPicker from 'components/CountryPicker';
 import {getSize} from 'utils/responsive';
 import useTheme from 'theme';
-import {useNavigation} from '@react-navigation/native';
 import {Icons} from 'utils/icon';
 
 const {width, height} = Dimensions.get('window');
@@ -46,7 +43,7 @@ const SignUpScreen = ({navigation}) => {
   const [country, setCountry] = useState('VN');
   const [agree, setAgree] = useState(false);
 
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
 
   const lang = {
     login: i18n.t('signUp.login'),
@@ -186,8 +183,6 @@ const SignUpScreen = ({navigation}) => {
       paddingTop: getSize.h(40),
     },
   });
-
-  const countryData = countriesData[country];
 
   return (
     <Formik
