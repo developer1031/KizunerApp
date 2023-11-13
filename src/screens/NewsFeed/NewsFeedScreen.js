@@ -234,7 +234,7 @@ const NewsFeedScreen = ({navigation}) => {
         onScroll={Animated.event(
           [{nativeEvent: {contentOffset: {y: scrollAnim}}}],
           {
-            useNativeDriver: true,
+            useNativeDriver: false,
           },
         )}
         refreshControl={

@@ -42,13 +42,13 @@ const ModalView = (props) => {
         toValue: toValues(),
         duration: animationTime,
         easing: Easing[easing],
-        useNativeDriver: true,
+        useNativeDriver: false,
       }),
       Animated.timing(outerAnimatedValue, {
         toValue: toValues(),
         duration: 0,
         easing: Easing[easing],
-        useNativeDriver: true,
+        useNativeDriver: false,
       }),
     ]).start();
   };

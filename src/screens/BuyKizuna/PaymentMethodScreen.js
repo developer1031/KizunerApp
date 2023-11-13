@@ -184,7 +184,7 @@ const PaymentMethodScreen = ({navigation, route}) => {
         style={styles.scrollWrap}
         onScroll={Animated.event(
           [{nativeEvent: {contentOffset: {y: scrollAnim}}}],
-          {useNativeDriver: true},
+          {useNativeDriver: false},
         )}
         ListHeaderComponent={
           <Touchable

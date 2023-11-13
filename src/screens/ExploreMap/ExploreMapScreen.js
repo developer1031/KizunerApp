@@ -416,7 +416,7 @@ const ExploreMapScreen = ({navigation}) => {
             ],
             {
               listener: handleListScroll,
-              useNativeDriver: true,
+              useNativeDriver: false,
             },
           )}
           initialNumToRender={6}

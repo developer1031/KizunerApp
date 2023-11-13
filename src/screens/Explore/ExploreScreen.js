@@ -543,7 +543,7 @@ const ExploreScreen = ({navigation}) => {
         }
         onScroll={Animated.event(
           [{nativeEvent: {contentOffset: {y: scrollAnim}}}],
-          {useNativeDriver: true},
+          {useNativeDriver: false},
         )}>
         {/* <View style={styles.sectionHeader}>
           <Text style={styles.sectionHeaderText}>{lang.online}</Text>
