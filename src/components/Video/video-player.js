@@ -9,6 +9,7 @@ import {images} from './images';
 import {getSize} from 'utils/responsive';
 
 const _ = require('lodash');
+let appStateChangeListener;
 
 const VideoPlayerMode = {
   Portrait: {
@@ -255,10 +256,15 @@ class VideoPlayer extends React.Component {
   handleSetVideoAds = async (videoAds) => {};
 
   componentDidMount() {
-    AppState.addEventListener('change', this.handleAppStateChange);
+    appStateChangeListener = AppState.addEventListener(
+      'change',
+      this.handleAppStateChange,
+    );
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    appStateChangeListener.remove();
+  }
 
   render() {
     const {
