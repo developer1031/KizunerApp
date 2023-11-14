@@ -11,11 +11,11 @@ import {
   Share,
   TouchableOpacity,
 } from 'react-native';
-import 'react-native-gesture-handler';
+// import 'react-native-gesture-handler';
 
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {useSelector, useDispatch} from 'react-redux';
-import {useSafeArea} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Contacts from 'react-native-contacts';
 import Clipboard from '@react-native-clipboard/clipboard';
@@ -50,7 +50,7 @@ const ShareAppWithFriendScreen = ({navigation, route}) => {
   const STATUS_BAR = getStatusBarHeight();
   const HEADER_HEIGHT = 68;
   const theme = useTheme();
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
 
   const [showSearch, setShowSearch] = useState(false);

@@ -6,13 +6,13 @@ import {
   FlatList,
   Dimensions,
   Keyboard,
+  TouchableOpacity,
 } from 'react-native';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import {useSelector} from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useSafeArea} from 'react-native-safe-area-context';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {
   Wrapper,
@@ -37,7 +37,7 @@ const PickLocationScreen = ({navigation, route}) => {
   const mapView = useRef(null);
   const searchBar = useRef(null);
   const theme = useTheme();
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
   const userCoords = useSelector((state) => state.location.coords);
   const {onSelect, location} = route.params;
   const [search, setSearch] = useState('');

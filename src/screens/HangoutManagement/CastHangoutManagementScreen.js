@@ -4,13 +4,14 @@ import React, {useState, useEffect, Fragment, useCallback, useRef} from 'react';
 import {FlatList, View, RefreshControl, Alert} from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useSafeArea} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from 'react-redux';
 import uuid from 'uuid/v4';
 import {style} from './styleCastHangout';
 import useTheme from 'theme';
 import {getSize} from 'utils/responsive';
 import Clipboard from '@react-native-clipboard/clipboard';
+import {useNavigation} from '@react-navigation/native';
 import {
   Wrapper,
   Paper,
@@ -46,9 +47,10 @@ const areEqualOfferItem = (prevProps, nextProps) => {
 };
 const HEADER_HEIGHT = getStatusBarHeight() + 97;
 
-const CastHangoutManagementScreen = ({navigation}) => {
+const CastHangoutManagementScreen = () => {
+  const navigation = useNavigation();
   const theme = useTheme();
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
 
   const dispatch = useDispatch();
   const [filter, setFilter] = useState(null);
