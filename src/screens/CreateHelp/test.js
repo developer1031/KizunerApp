@@ -12,7 +12,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import moment from 'moment-timezone';
 import {Formik} from 'formik';
-import {useSafeArea} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import * as yup from 'yup';
 import {useSelector, useDispatch} from 'react-redux';
 
@@ -46,7 +46,7 @@ import {EnumHangoutStatus} from 'utils/constants';
 
 const FormCreateHelp = ({navigation, route}) => {
   const theme = useTheme();
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.auth.userInfo);
   const {formRef, initialValues, formType, callback, room_id} = route.params;

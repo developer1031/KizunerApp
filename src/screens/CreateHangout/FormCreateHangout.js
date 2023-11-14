@@ -11,7 +11,7 @@ import {
 import {IconButton as PaperIconButton} from 'react-native-paper';
 import moment, {min} from 'moment-timezone';
 import {Formik} from 'formik';
-import {useSafeArea} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import * as yup from 'yup';
 import {useSelector, useDispatch} from 'react-redux';
 import CheckBox from '@react-native-community/checkbox';
@@ -55,7 +55,7 @@ const constants = {
 };
 const FormCreateHangout = ({navigation, route}) => {
   const theme = useTheme();
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.auth.userInfo);
   const {stripeStatusResponse} = useSelector((state) => state.wallet);

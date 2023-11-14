@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {useSelector, useDispatch} from 'react-redux';
-import {useSafeArea} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -42,7 +42,7 @@ const AddChatMemberScreen = ({navigation}) => {
   const STATUS_BAR = getStatusBarHeight();
   const HEADER_HEIGHT = 68;
   const theme = useTheme();
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
   const following = useSelector((state) => state.contact.following?.me);
   const follower = useSelector((state) => state.contact.follower?.me);

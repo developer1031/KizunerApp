@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {useSelector, useDispatch} from 'react-redux';
-import {useSafeArea} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {
@@ -33,7 +33,7 @@ const SelectFriendScreen = ({navigation, route}) => {
   const STATUS_BAR = getStatusBarHeight();
   const HEADER_HEIGHT = 89;
   const theme = useTheme();
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
   const {beingCreateRoom, beingSendMessage} = useSelector(
     (state) => state.chat,

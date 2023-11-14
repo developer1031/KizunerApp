@@ -11,7 +11,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import {useSelector, useDispatch} from 'react-redux';
-import {useSafeArea} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useScrollToTop} from '@react-navigation/native';
 import useTheme from 'theme';
 import {
@@ -41,7 +41,7 @@ const NewsFeedScreen = ({navigation}) => {
   const [filter, setFilter] = useState('All');
   const [scrollAnim] = useState(new Animated.Value(0));
   const dispatch = useDispatch();
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
   const {
     newsFeed,
     newsFeedLoading,

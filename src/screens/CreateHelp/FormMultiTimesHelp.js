@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {IconButton as PaperIconButton} from 'react-native-paper';
 import {Formik} from 'formik';
-import {useSafeArea} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import * as yup from 'yup';
 import {useSelector, useDispatch} from 'react-redux';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -38,7 +38,7 @@ import ImageMultiple from 'components/ImageMultiple/ImageMultiple';
 
 const FormMultiTimesHelp = ({navigation, route}) => {
   const theme = useTheme();
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.auth.userInfo);
   const {formRef, initialValues, formType, callback} = route.params;

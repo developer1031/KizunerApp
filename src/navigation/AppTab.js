@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {Image, StyleSheet} from 'react-native';
-import {useSafeArea} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from 'react-redux';
 
 import useTheme from 'theme';
@@ -76,7 +76,7 @@ const TABS = [
 
 const AppTab = ({navigation}) => {
   const theme = useTheme();
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
   const {userInfo} = useSelector((state) => state.auth);
 

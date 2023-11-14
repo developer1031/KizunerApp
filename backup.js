@@ -4,7 +4,7 @@ import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {useSelector, useDispatch} from 'react-redux';
 import {Formik} from 'formik';
 import * as yup from 'yup';
-import {useSafeArea} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import cardValid from 'card-validator';
@@ -39,11 +39,11 @@ import {
 const PaymentDataScreen = ({navigation, route}) => {
   const STATUS_BAR = getStatusBarHeight();
   const {beingAddCard, beingPurchase, beingRemoveCard} = useSelector(
-    state => state.wallet,
+    (state) => state.wallet,
   );
   const HEADER_HEIGHT = 120;
   const theme = useTheme();
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
   const {client_secret, data, package_id} = route.params;
   const [loading, setLoading] = useState(false);
@@ -322,7 +322,7 @@ const PaymentDataScreen = ({navigation, route}) => {
                 .test(
                   'test-cvc',
                   'invalid cvc',
-                  value => value && value.length === getCardCode(value).size,
+                  (value) => value && value.length === getCardCode(value).size,
                 )
                 .required(),
               number: yup
@@ -330,13 +330,13 @@ const PaymentDataScreen = ({navigation, route}) => {
                 .test(
                   'test-number',
                   'credit card number is invalid',
-                  value =>
+                  (value) =>
                     value && cardValid.number(value.replace(' ', '')).isValid,
                 )
                 .required(),
               validUntil: yup
                 .string()
-                .test('test-month', 'invalid date', value => {
+                .test('test-month', 'invalid date', (value) => {
                   if (!value) {
                     return false;
                   }
@@ -347,7 +347,7 @@ const PaymentDataScreen = ({navigation, route}) => {
             },
       )}
       onSubmit={handleSubmit}>
-      {formikProps => (
+      {(formikProps) => (
         <Wrapper dismissKeyboard style={styles.wrapper}>
           <HeaderBg
             height={HEADER_HEIGHT}

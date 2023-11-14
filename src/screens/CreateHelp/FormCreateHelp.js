@@ -13,7 +13,7 @@ import {IconButton as PaperIconButton} from 'react-native-paper';
 import {getSize} from 'utils/responsive';
 import moment from 'moment-timezone';
 import {Formik} from 'formik';
-import {SafeAreaView, useSafeArea} from 'react-native-safe-area-context';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import * as yup from 'yup';
 import {useSelector, useDispatch} from 'react-redux';
 import ImageMultiple from 'components/ImageMultiple/ImageMultiple';
@@ -51,7 +51,7 @@ const constants = {
 };
 const FormCreateHelp = ({navigation, route}) => {
   const theme = useTheme();
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.auth.userInfo);
   const {cards} = useSelector((state) => state.wallet);

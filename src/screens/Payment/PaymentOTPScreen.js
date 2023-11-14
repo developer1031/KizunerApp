@@ -7,7 +7,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {getSize} from 'utils/responsive';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import useTheme from 'theme';
-import {useSafeArea} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import InputOTPCustom from 'components/InputOTPCustom';
 import Wrapper from 'components/Wrapper';
 import Paper from 'components/Paper';
@@ -17,7 +17,7 @@ import {TouchableOpacity} from 'react-native';
 
 const PaymentOTPScreen = ({navigation}) => {
   const theme = useTheme();
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
   const HEADER_HEIGHT = 68 + insets.top;
 
   const onPressResend = () => {};

@@ -1,7 +1,7 @@
 import React, {useRef, useEffect} from 'react';
 import {View, StyleSheet, Dimensions} from 'react-native';
 import {Modalize as RNModalize} from 'react-native-modalize';
-import {useSafeArea} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from 'react-redux';
 
 import useTheme from 'theme';
@@ -15,7 +15,7 @@ import orangeLight from '../theme/orangeLight';
 const Modalize = ({...props}) => {
   const theme = useTheme();
   const rnModalize = useRef(null);
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
   const {open, options} = useSelector((state) => state.modalize);
 

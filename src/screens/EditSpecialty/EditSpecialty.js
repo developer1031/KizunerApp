@@ -7,7 +7,7 @@ import {
   ScrollView,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {useSafeArea} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 
 import {
@@ -48,7 +48,7 @@ const EditSpecialtyScreen = ({navigation, route}) => {
   const [newSkills, setNewSkills] = useState([]);
   const [skillValue, setSkillValue] = useState('');
   const [skillError, setSkillError] = useState(null);
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
   const {isEdit} = route.params;
 
   useEffect(() => {

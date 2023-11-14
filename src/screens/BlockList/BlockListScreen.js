@@ -9,7 +9,7 @@ import {
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {useSelector, useDispatch} from 'react-redux';
-import {useSafeArea} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import useTheme from 'theme';
 import {getSize} from 'utils/responsive';
@@ -31,7 +31,7 @@ const BlockListScreen = ({navigation}) => {
   const [page, setPage] = useState(1);
   const {blockList, blockListLoading, blockListLastPage, blockListError} =
     useSelector((state) => state.contact);
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
 
   const styles = StyleSheet.create({
     wrapper: {flex: 1},

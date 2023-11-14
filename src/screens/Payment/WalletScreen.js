@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {StyleSheet} from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useSafeArea} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {CONTACT_US} from 'utils/constants';
 import useTheme from 'theme';
 import {getSize} from 'utils/responsive';
@@ -30,7 +30,7 @@ const WalletScreen = ({navigation}) => {
       : '';
   const isStripeConnected = status === 'CONNECTED';
   const theme = useTheme();
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
   const HEADER_HEIGHT = 68 + insets.top;
 
   useEffect(() => {

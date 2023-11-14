@@ -2,7 +2,7 @@ import React, {useState, useEffect, Fragment, memo} from 'react';
 import {StyleSheet, FlatList, View, RefreshControl, Alert} from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useSafeArea} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from 'react-redux';
 import uuid from 'uuid/v4';
 
@@ -40,7 +40,7 @@ const MemoOfferItem = memo(OfferItem, areEqualOfferItem);
 
 const CastHelpManagementScreen = ({navigation}) => {
   const theme = useTheme();
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
   const HEADER_HEIGHT = getStatusBarHeight() + 97;
   const dispatch = useDispatch();
   const [filter, setFilter] = useState(null);

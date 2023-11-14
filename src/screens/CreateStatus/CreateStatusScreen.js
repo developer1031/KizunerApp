@@ -4,7 +4,7 @@ import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {useSelector, useDispatch} from 'react-redux';
 import {Formik} from 'formik';
 import * as yup from 'yup';
-import {useSafeArea} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {IconButton as PaperIconButton} from 'react-native-paper';
 import ImageMultiple from 'components/ImageMultiple/ImageMultiple';
 
@@ -28,7 +28,7 @@ const CreateHangoutScreen = ({navigation}) => {
   const creating = useSelector((state) => state.feed.beingCreateStatus);
   const HEADER_HEIGHT = 120;
   const theme = useTheme();
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
 
   const styles = StyleSheet.create({

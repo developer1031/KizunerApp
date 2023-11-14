@@ -6,7 +6,7 @@ import {
   Keyboard,
   RefreshControl,
 } from 'react-native';
-import {useSafeArea} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useSelector, useDispatch} from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
 import {defaultFormatDate} from 'utils/datetime';
@@ -34,7 +34,7 @@ const AnimatedLG = Animated.createAnimatedComponent(LinearGradient);
 
 const LeaderBoardCast = ({navigation}) => {
   const theme = useTheme();
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
 
   const {top_10, top_3} = useSelector(

@@ -1,7 +1,7 @@
 import React, {useRef, useEffect, useState} from 'react';
 import {View, StyleSheet, Dimensions} from 'react-native';
 import {Modalize as RNModalize} from 'react-native-modalize';
-import {useSafeArea} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 
 import useTheme from 'theme';
@@ -27,7 +27,7 @@ const ModalizeWithRange = ({
 }) => {
   const theme = useTheme();
   const rnModalize = useRef(null);
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
   const [value, setValue] = useState({min: limit.min, max: limit.max});
 
   const styles = StyleSheet.create({

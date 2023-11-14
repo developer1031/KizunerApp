@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, Animated} from 'react-native';
-import {useSafeArea} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import FastImage from 'react-native-fast-image';
 
 import HeaderBg from './HeaderBg';
@@ -16,7 +16,7 @@ const Header = ({
   bgAnimatedStyle,
   ...props
 }) => {
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
 
   const styles = StyleSheet.create({
     container: {

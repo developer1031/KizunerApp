@@ -10,7 +10,7 @@ import {
 import {IconButton as PaperIconButton} from 'react-native-paper';
 import moment, {min} from 'moment-timezone';
 import {Formik} from 'formik';
-import {useSafeArea} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import * as yup from 'yup';
 import {useSelector, useDispatch} from 'react-redux';
 import {useTourGuideController} from 'rn-tourguide';
@@ -47,7 +47,7 @@ import ImageMultiple from 'components/ImageMultiple/ImageMultiple';
 
 const FormOneTimeHangout = ({navigation, route}, ...props) => {
   const theme = useTheme();
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.auth.userInfo);
   const coords = useSelector((state) => state.location.coords);

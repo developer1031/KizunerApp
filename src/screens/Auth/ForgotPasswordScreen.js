@@ -3,7 +3,7 @@ import {View, StyleSheet, Dimensions, StatusBar} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import * as yup from 'yup';
 import {Formik} from 'formik';
-import {useSafeArea} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 
@@ -27,7 +27,7 @@ const ForgotPasswordScreen = ({navigation, route}) => {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.auth.beingSendResetPwCode);
   const theme = useTheme();
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
   const {callback} = route.params;
 
   const lang = {

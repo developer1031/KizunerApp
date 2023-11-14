@@ -8,7 +8,7 @@ import {
   Platform,
 } from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
-import {useSafeArea} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {IconButton as PaperIconButton} from 'react-native-paper';
 import * as yup from 'yup';
 import {useSelector, useDispatch} from 'react-redux';
@@ -41,7 +41,7 @@ import {getCountryList, updateUserGeneral} from 'actions';
 
 const EditProfileScreen = ({navigation}) => {
   const theme = useTheme();
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.auth.beingUpdateGeneral);
   const userInfo = useSelector((state) => state.auth.userInfo);

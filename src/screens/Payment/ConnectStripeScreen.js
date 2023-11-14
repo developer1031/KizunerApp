@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useSafeArea} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import useTheme from 'theme';
 import {getSize} from 'utils/responsive';
 import {Wrapper, Text, Touchable, Button} from 'components';
@@ -74,7 +74,7 @@ const ConnectStripeScreen = ({navigation}) => {
   const dispatch = useDispatch();
 
   const theme = useTheme();
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
   const HEADER_HEIGHT = 68 + insets.top;
 
   const refWithdraw = useRef(null);

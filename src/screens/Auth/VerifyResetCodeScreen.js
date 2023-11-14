@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View, StyleSheet, Dimensions, StatusBar} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {useSafeArea} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
@@ -25,7 +25,7 @@ const {width} = Dimensions.get('window');
 const VerifyPhoneScreen = ({navigation, route}) => {
   const dispatch = useDispatch();
   const theme = useTheme();
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
   const [code, setCode] = useState('');
   const [isResent, setIsResent] = useState(false);
   const loading = useSelector((state) => state.auth.beingVerifyResetPwCode);

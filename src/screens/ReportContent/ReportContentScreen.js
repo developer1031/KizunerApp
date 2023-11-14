@@ -4,7 +4,7 @@ import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {useSelector, useDispatch} from 'react-redux';
 import {Formik} from 'formik';
 import * as yup from 'yup';
-import {useSafeArea} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {
   Wrapper,
@@ -24,7 +24,7 @@ const ReportContentScreen = ({navigation, route}) => {
   const {type, id} = route.params;
   const HEADER_HEIGHT = 120;
   const theme = useTheme();
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
   const reporting = useSelector((state) => state.app.reporting);
 

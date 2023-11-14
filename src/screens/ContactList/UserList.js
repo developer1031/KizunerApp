@@ -7,7 +7,7 @@ import {
   Dimensions,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import {useSafeArea} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {
   Placeholder,
   PlaceholderLine,
@@ -27,7 +27,7 @@ const UserList = ({route, navigation}) => {
   const dispatch = useDispatch();
   const theme = useTheme();
   const {userId, tab} = route.params;
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
   const [page, setPage] = useState(1);
   const userInfo = useSelector((state) => state.auth.userInfo);
   const search = useSelector((state) => state.contact.search[userId]);

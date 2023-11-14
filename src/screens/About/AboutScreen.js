@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useSafeArea} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from 'react-redux';
 import {getConfigs} from 'actions';
 import useTheme from 'theme';
@@ -27,7 +27,7 @@ import {Icons} from 'utils/icon';
 
 const AboutScreen = ({navigation}) => {
   const theme = useTheme();
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
   const HEADER_HEIGHT = 120;
   const loading = useSelector((state) => state.app.configLoading);
   const data = useSelector((state) => state.app.aboutData);

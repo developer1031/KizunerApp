@@ -1,7 +1,7 @@
 import React, {memo, useRef} from 'react';
 import {StyleSheet} from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
-import {useSafeArea} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import useTheme from 'theme';
 import {getSize} from 'utils/responsive';
 import {Wrapper, Text, Touchable, Paper, FormikInput} from 'components';
@@ -20,7 +20,7 @@ const STATUS_BAR = getStatusBarHeight();
 
 const SupportRejectHangoutScreen = ({navigation, route}) => {
   const theme = useTheme();
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
   const {id, status, helpId, userId, callback} = route.params;
 

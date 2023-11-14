@@ -2,7 +2,7 @@ import React, {useState, useEffect, Fragment} from 'react';
 import {StyleSheet, FlatList, View, RefreshControl, Alert} from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useSafeArea} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useSelector, useDispatch} from 'react-redux';
 
 import useTheme from 'theme';
@@ -26,7 +26,7 @@ const GUEST_STATUSES = ['accept', 'completed'];
 
 const GuestHangoutManagementScreen = ({navigation}) => {
   const theme = useTheme();
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
   const {guestList, guestListLoading, guestListLastPage} = useSelector(
     (state) => state.offer,

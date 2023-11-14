@@ -11,7 +11,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Formik} from 'formik';
 import * as yup from 'yup';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useSafeArea} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {LoginManager, AccessToken} from 'react-native-fbsdk';
 import {
   GoogleSignin,
@@ -50,7 +50,7 @@ const LoginScreen = ({navigation, route}) => {
   const [eggCount, setEggCount] = useState(0);
   const [eggDevMode, setEggDevMode] = useState(0);
   const [isLoad, setLoad] = useState(false);
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
 
   useEffect(() => {
     GoogleSignin.configure({

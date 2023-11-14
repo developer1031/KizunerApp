@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useSafeArea} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from 'react-redux';
 import HTML from 'react-native-render-html';
 import {Placeholder, PlaceholderLine, Fade} from 'rn-placeholder';
@@ -28,7 +28,7 @@ import {Icons} from 'utils/icon';
 
 const FAQScreen = ({navigation}) => {
   const theme = useTheme();
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
   const data = useSelector((state) => state.app.faqData);
   const loading = useSelector((state) => state.app.configLoading);
