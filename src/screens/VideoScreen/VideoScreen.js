@@ -8,11 +8,11 @@ import {View} from 'react-native';
 const VideoScreen = ({navigation, route}) => {
   const {selected} = route.params;
 
-  useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', () => true);
-    return () =>
-      BackHandler.removeEventListener('hardwareBackPress', () => true);
-  }, []);
+  // useEffect(() => {
+  //   BackHandler.addEventListener('hardwareBackPress', () => true);
+  //   return () =>
+  //     BackHandler.removeEventListener('hardwareBackPress', () => true);
+  // }, []);
 
   useEffect(() => {
     Orientation.lockToPortrait();

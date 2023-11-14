@@ -128,11 +128,11 @@ const MainTourScreen = ({navigation, route}, props) => {
     };
   }, []);
 
-  useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', () => true);
-    return () =>
-      BackHandler.removeEventListener('hardwareBackPress', () => true);
-  }, []);
+  // useEffect(() => {
+  //   BackHandler.addEventListener('hardwareBackPress', () => true);
+  //   return () =>
+  //     BackHandler.removeEventListener('hardwareBackPress', () => true);
+  // }, []);
 
   function onPressPost() {
     if (onlyOneTime || !route?.state?.index || route.state.index === 0) {
