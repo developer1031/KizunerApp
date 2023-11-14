@@ -30,7 +30,6 @@ target 'kizuner' do
   
   use_frameworks! :linkage => :static
   
-#  rn_maps_path = '../node_modules/react-native-maps'
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'GoogleIDFASupport', '~> 3.14.0'
   pod 'RNInputMask', :path => '../node_modules/react-native-text-input-mask/ios/InputMask'
@@ -72,11 +71,11 @@ target 'kizuner' do
         config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
     end
 
-    installer.pods_project.targets.each do |target|
-      target.build_configurations.each do |config|
-        config.build_settings['SWIFT_VERSION'] = '5.0'
-        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.4'
-      end
-    end
+#    installer.pods_project.targets.each do |target|
+#      target.build_configurations.each do |config|
+#        config.build_settings['SWIFT_VERSION'] = '5.0'
+#        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.4'
+#      end
+#    end
   end
 end
