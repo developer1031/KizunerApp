@@ -9,11 +9,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import cardValid from 'card-validator';
 import creditCardType from 'credit-card-type';
-import {
-  createPaymentMethod,
-  confirmSetupIntent,
-  CardForm,
-} from '@stripe/stripe-react-native';
+import {useStripe, CardForm} from '@stripe/stripe-react-native';
 import {
   Wrapper,
   HeaderBg,
@@ -37,6 +33,8 @@ import {
 } from 'actions';
 
 const PaymentDataScreen = ({navigation, route}) => {
+  const {createPaymentMethod, confirmPaymentMethod} = useStripe();
+
   const STATUS_BAR = getStatusBarHeight();
   const {beingAddCard, beingPurchase, beingRemoveCard} = useSelector(
     (state) => state.wallet,
@@ -48,6 +46,9 @@ const PaymentDataScreen = ({navigation, route}) => {
   const {client_secret, data, package_id} = route.params;
   const [loading, setLoading] = useState(false);
   const [keyboardShown, setKeyboardShown] = useState(false);
+  const [cardDetailInfo, setCardDetailInfo] = useState(null);
+
+  console.log(client_secret);
 
   useEffect(() => {
     const keyboardShowListener = Keyboard.addListener('keyboardDidShow', () =>
@@ -61,10 +62,6 @@ const PaymentDataScreen = ({navigation, route}) => {
       keyboardHideListener.remove();
     };
   }, []);
-
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
 
   const styles = StyleSheet.create({
     wrapper: {flex: 1},
@@ -131,16 +128,25 @@ const PaymentDataScreen = ({navigation, route}) => {
   });
 
   const onPressCreate = async () => {
+    if (!cardDetailInfo) return;
+
     setLoading(true);
     try {
-      const {paymentMethod, error} = await createPaymentMethod({type: 'Card'});
+      const {paymentMethod, error} = await createPaymentMethod({
+        paymentMethodType: 'Card',
+        card: {token: client_secret},
+      });
+
+      console.log('ERROR: ', error);
+      console.log('PaymentMethods: ', paymentMethod);
 
       if (error) {
         dispatch(
           showAlert({
             type: 'error',
             title: 'Error',
-            body: error?.message,
+            body: 'Something went wrong!',
+            // body: error?.message,
           }),
         );
 
@@ -179,7 +185,7 @@ const PaymentDataScreen = ({navigation, route}) => {
         showAlert({
           type: 'error',
           title: 'Error',
-          body: error?.message || error,
+          body: 'Something went wrong!',
         }),
       );
     } finally {
@@ -235,10 +241,13 @@ const PaymentDataScreen = ({navigation, route}) => {
           behavior="position"
           keyboardVerticalOffset={-90}>
           <CardForm
-            style={{width: '100%', height: '100%'}}
+            style={{width: '100%', height: '100%', color: theme.colors.text}}
             placeholders={{
               number: '4242424242424242',
               cvc: '456',
+            }}
+            onFormComplete={(cardDetails) => {
+              setCardDetailInfo(cardDetails);
             }}
           />
         </KeyboardAvoidingView>

@@ -48,6 +48,7 @@
 		546EEA3F2AFF8D3600FC9D5C /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		546EEA412AFF8D3E00FC9D5C /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		54AAE2432ACC06780081C2F2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		54E9AB772B2FF70100A655CE /* kizuner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = kizuner.entitlements; path = kizuner/kizuner.entitlements; sourceTree = "<group>"; };
 		54F3DCF02AD3F9B100E9CF85 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LaunchScreen.xib; path = kizuner/LaunchScreen.xib; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-kizuner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kizuner.release.xcconfig"; path = "Target Support Files/Pods-kizuner/Pods-kizuner.release.xcconfig"; sourceTree = "<group>"; };
 		A5112B4D6D7AF3C985EEC6A1 /* Pods_kizuner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_kizuner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -73,6 +74,7 @@
 		13B07FAE1A68108700A75B9A /* kizuner */ = {
 			isa = PBXGroup;
 			children = (
+				54E9AB772B2FF70100A655CE /* kizuner.entitlements */,
 				546EEA342AFF573500FC9D5C /* Kizuner-Bridging-Header.h */,
 				546EEA2E2AFF56DB00FC9D5C /* Devices.swift */,
 				546EEA2F2AFF56DB00FC9D5C /* Dummy.swift */,
@@ -362,7 +364,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CODE_SIGN_ENTITLEMENTS = kizuner/kizuner.entitlements;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = DH59R2ABR9;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = kizuner/Info.plist;
@@ -371,7 +374,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -392,7 +395,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CODE_SIGN_ENTITLEMENTS = kizuner/kizuner.entitlements;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = DH59R2ABR9;
 				INFOPLIST_FILE = kizuner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -400,7 +404,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -501,7 +505,10 @@
 					"-ld_classic",
 					"-Wl",
 					"-ld_classic",
-					"-Wl -ld_classic ",
+					"-Wl",
+					"-ld_classic",
+					"-Wl",
+					"-ld_classic",
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
@@ -590,7 +597,10 @@
 					"-ld_classic",
 					"-Wl",
 					"-ld_classic",
-					"-Wl -ld_classic ",
+					"-Wl",
+					"-ld_classic",
+					"-Wl",
+					"-ld_classic",
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;

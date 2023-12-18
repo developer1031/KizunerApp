@@ -30,25 +30,17 @@ export function generateThunkAction({
       });
       try {
         const result = await fetchApi(apiOptions);
-        console.log('🚀 ~ file: utilities.js:33 ~ return ~ result:', result);
         const {status, data, message} = result;
-        // console.log('🚀 ~ file: utilities.js:35 ~ return ~ data:', data);
-
-        const {url, headers, method, params, data: body} = result.config;
-        console.log('================== curl ==================');
-        console.log(method + ' - ' + url);
-        console.log(headers);
-        console.log(params);
-        console.log(body);
-        console.log('================== response');
-        console.log(data);
 
         if (acceptStatus.includes(status)) {
           if (data?.data?.errors?.message) {
+            console.log(data?.data?.errors?.message);
             dispatch(
               showAlert({
                 title: 'Error',
-                body: data?.data?.errors?.message,
+                body: __DEV__
+                  ? data?.data?.errors?.message
+                  : 'Something went wrong',
                 type: 'error',
               }),
             );
@@ -114,7 +106,7 @@ export function generateThunkAction({
             dispatch(
               showAlert({
                 title: 'Error',
-                body: '__DEV__' ? error.message : 'Something went wrong!',
+                body: __DEV__ ? error.message : 'Something went wrong!',
                 // body: error.message,
                 type: 'error',
               }),

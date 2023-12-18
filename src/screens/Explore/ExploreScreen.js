@@ -13,7 +13,7 @@ import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {useSelector, useDispatch} from 'react-redux';
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
-import {useScrollToTop} from '@react-navigation/native';
+import {useNavigation, useScrollToTop} from '@react-navigation/native';
 
 import theme from '../../theme/orangeLight';
 
@@ -50,7 +50,8 @@ import {Icons} from 'utils/icon';
 
 const width = Dimensions.get('window').width;
 
-const ExploreScreen = ({navigation}) => {
+const ExploreScreen = () => {
+  const navigation = useNavigation();
   const userInfo = useSelector((state) => state.auth.userInfo);
   const {guideVideos, guideVideosLoading, guideVideoLastPage} = useSelector(
     (state) => state.app,

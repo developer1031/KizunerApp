@@ -9,6 +9,7 @@ import {
   TRANSFER_KIZUNA,
   REMOVE_PAYMENT_CARD,
   CONNECT_STRIPE,
+  GET_STRIPE_CUSTOM_ACCOUNT,
   GET_NOW_PAYMENTS_CURRENCIES,
   GET_NOW_PAYMENTS_MIN_AMOUNT,
   GET_NOW_PAYMENTS_ESTIMATE,
@@ -17,6 +18,7 @@ import {
   DELETE_PAYMENT_CRYPTO_CARD,
   UPLOAD_STRIPE_IDENTITY,
   GET_WALLET_STRIPE_STATUS,
+  PAYOUT_STRIPE,
 } from './types';
 import {generateThunkAction} from './utilities';
 import NavigationService from 'navigation/service';
@@ -126,6 +128,16 @@ export const connectStripe = (data, callback) =>
     callback,
   })();
 
+export const getStripeCustomAccount = (data, callback) =>
+  generateThunkAction({
+    actionType: GET_STRIPE_CUSTOM_ACCOUNT,
+    apiOptions: {
+      method: 'GET',
+      endpoint: '/wallets/stripe/account',
+    },
+    callback,
+  })();
+
 export const getNowPaymentsCurrencies = (callback) =>
   generateThunkAction({
     actionType: GET_NOW_PAYMENTS_CURRENCIES,
@@ -221,5 +233,16 @@ export const getWalletStripeStatus = () => {
       method: 'GET',
       endpoint: '/wallets/stripe/status',
     },
+  })();
+};
+export const payoutStripe = (data, callback) => {
+  return generateThunkAction({
+    actionType: PAYOUT_STRIPE,
+    apiOptions: {
+      method: 'POST',
+      endpoint: '/wallets/stripe/withdraw',
+      // data,
+    },
+    callback,
   })();
 };

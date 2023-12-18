@@ -39,6 +39,7 @@ const INITIAL_STATE = {
   beingLoadStripeStatus: false,
   stripeStatusResponse: {
     amount: 0,
+    currency: 'usd',
     status: 'NOT_CONNECTED', // CONNECTED | NOT_CONNECTED | PENDING
   },
 };

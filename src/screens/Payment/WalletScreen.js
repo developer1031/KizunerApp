@@ -15,13 +15,14 @@ import {ScrollView} from 'react-native';
 import {View} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {getWalletStripeStatus} from 'actions';
+import {num_delimiter} from 'utils/util';
 
 const WalletScreen = ({navigation}) => {
   const dispatch = useDispatch();
-  const {stripeStatusResponse, beingLoadStripeStatus} = useSelector(
-    (state) => state.wallet,
-  );
-  const {amount, status} = stripeStatusResponse;
+  const walletState = useSelector((state) => state.wallet);
+  const {stripeStatusResponse} = walletState;
+  const {amount, status, currency} = stripeStatusResponse;
+
   const statusLabel =
     status === 'CONNECTED'
       ? 'Connected'
@@ -161,7 +162,10 @@ const WalletScreen = ({navigation}) => {
 
                     {item.label === labelConnection && isStripeConnected && (
                       <>
-                        <Text variant="headerBlack">${amount}</Text>
+                        <Text variant="headerBlack">
+                          {currency == 'jpy' ? '￥' : '$'}
+                          {num_delimiter(amount)}
+                        </Text>
                         <Text
                           variant="caption"
                           style={{fontSize: getSize.w(11)}}>

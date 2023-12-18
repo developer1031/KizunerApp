@@ -38,6 +38,9 @@ const TopAlert = () => {
   return (
     <DropdownAlert
       ref={alertRef}
+      errorColor={'rgb(255,95,109)'}
+      // errorColor={'#198754'}
+      successColor={'#198754'}
       zIndex={999999}
       elevation={10}
       translucent

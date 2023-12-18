@@ -143,6 +143,7 @@ const Input = ({
           allowFontScaling={false}
           {...inputProps}
           {...props}
+          keyboardType={type}
         />
         {showEye && (
           <IconButton

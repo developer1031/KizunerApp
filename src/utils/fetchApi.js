@@ -27,9 +27,9 @@ export default async ({
 }) => {
   const token = await AsyncStorage.getItem(USER_TOKEN_KEY);
   const axiost = useOnce ? once : axios;
-  console.log(API_URL + endpoint);
-  console.log(token);
-  //console.log(API_URL + endpoint, data || params);
+  console.log('GET API: ', API_URL + endpoint);
+  if (!token) console.log('NO TOKEN');
+
   try {
     return await axiost({
       method,

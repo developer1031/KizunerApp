@@ -253,6 +253,9 @@ export const NOTIFICATION_SHARE_POST = generateThunkType(
 );
 export const NEED_VERIFY_EMAIL = generateThunkType('NEED_VERIFY_EMAIL');
 export const CONNECT_STRIPE = generateThunkType('CONNECT_STRIPE');
+export const GET_STRIPE_CUSTOM_ACCOUNT = generateThunkType(
+  'GET_STRIPE_CUSTOM_ACCOUNT',
+);
 export const GET_NOW_PAYMENTS_CURRENCIES = generateThunkType(
   'GET_NOW_PAYMENTS_CURRENCIES',
 );
@@ -283,3 +286,4 @@ export const UPLOAD_STRIPE_IDENTITY = generateThunkType(
 export const GET_WALLET_STRIPE_STATUS = generateThunkType(
   'GET_WALLET_STRIPE_STATUS',
 );
+export const PAYOUT_STRIPE = generateThunkType('PAYOUT_STRIPE');

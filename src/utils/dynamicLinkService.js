@@ -12,7 +12,7 @@ export default function useDynamicLinkService() {
     dynamicLinks()
       .getInitialLink()
       .then((link) => {
-        console.log('firebase', link);
+        console.log('DynamicLink: ', link);
         handleDynamicLink(link);
       });
 

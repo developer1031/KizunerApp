@@ -10,8 +10,8 @@ import moment from 'moment';
 import momentDurationFormatSetup from 'moment-duration-format';
 import {StripeProvider} from '@stripe/stripe-react-native';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-
-import 'react-native-gesture-handler';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import Config from 'react-native-config';
 
 import {
   TopAlert,
@@ -43,6 +43,8 @@ console.warn = function () {};
 console.error = function () {};
 
 const App = () => {
+  console.log('Config.API_URL', Config.API_URL);
+
   useEffect(() => {
     Orientation.lockToPortrait();
     RNBootSplash.hide({duration: 250});
@@ -59,9 +61,17 @@ const App = () => {
                   <TopUpLeaderBoard />
                   <StatusBar barStyle="light-content" />
                   <TopAlert />
+
                   <Navigation />
-                  <Modalize />
-                  <ModalizeWithAll />
+
+                  <GestureHandlerRootView>
+                    <Modalize />
+                  </GestureHandlerRootView>
+
+                  <GestureHandlerRootView>
+                    <ModalizeWithAll />
+                  </GestureHandlerRootView>
+
                   <Crashlytic />
                 </>
               </SafeAreaProvider>

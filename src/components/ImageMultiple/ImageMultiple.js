@@ -1,4 +1,4 @@
-import {StyleSheet, View} from 'react-native';
+import {Pressable, StyleSheet, View} from 'react-native';
 import React, {
   forwardRef,
   memo,
@@ -7,7 +7,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import {TouchableOpacity} from 'react-native';
+import {TouchableOpacity, TouchableWithoutFeedback} from 'react-native';
 import ImageViewer from './ImageViewer';
 import ImagePath from './ImagePath';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -267,7 +267,10 @@ const ImageMultiple = memo(
             <ViewImage
               data={mediaData}
               disabled={mediaData.length || uploading || !editable}
-              onPress={() => dispatch(showModalize(selectMediaType))}
+              onPress={(e) => {
+                e.stopPropagation();
+                dispatch(showModalize(selectMediaType));
+              }}
               setImage={(e) => onPressImage(e)}
               isViewer={!enableViewer}
               editable={editable}
@@ -288,7 +291,7 @@ const ImageMultiple = memo(
 
 const ViewImage = memo((props) => {
   return (
-    <TouchableOpacity onPress={props.onPress} disabled={props.disabled}>
+    <Pressable onPress={props.onPress} disabled={props.disabled}>
       <View
         style={[
           styles.container,
@@ -300,23 +303,25 @@ const ViewImage = memo((props) => {
         ]}>
         {props.data.length ? (
           <>
-            <TouchableOpacity
-              style={[
-                styles.fullHeight,
-                {
-                  marginRight: props.data.length > 1 ? constants.gap : 0,
-                },
-              ]}
-              onPress={props.setImage(0)}
-              activeOpacity={0.8}
-              disabled={props.isViewer}>
-              <ImagePath
-                source={props.data[0].thumb}
-                isVideo={props.isVideo}
-                resizeMode={props.resizeMode}
-                style={styles.fullParent}
-              />
-            </TouchableOpacity>
+            <TouchableWithoutFeedback>
+              <TouchableOpacity
+                style={[
+                  styles.fullHeight,
+                  {
+                    marginRight: props.data.length > 1 ? constants.gap : 0,
+                  },
+                ]}
+                onPress={props.setImage(0)}
+                activeOpacity={0.8}
+                disabled={props.isViewer}>
+                <ImagePath
+                  source={props.data[0].thumb}
+                  isVideo={props.isVideo}
+                  resizeMode={props.resizeMode}
+                  style={styles.fullParent}
+                />
+              </TouchableOpacity>
+            </TouchableWithoutFeedback>
 
             {props.data.length > 1 && (
               <View style={styles.fullHeight}>
@@ -366,7 +371,7 @@ const ViewImage = memo((props) => {
         )}
       </View>
       {props.children}
-    </TouchableOpacity>
+    </Pressable>
   );
 });
 
@@ -375,43 +380,49 @@ const ImageComponent = memo((props) => {
 });
 const MediaData = memo((props) => {
   return (
-    <TouchableOpacity
-      style={[
-        styles.fullWidth,
-        {
-          marginBottom: props.data.length > 2 ? constants.gap : 0,
-        },
-      ]}
-      activeOpacity={0.8}
-      onPress={props.onPress}
-      disabled={props.disabled}>
-      {props.children}
-    </TouchableOpacity>
-  );
-});
-const MediaData2 = memo((props) => {
-  return (
-    props.data.length > 2 && (
+    <TouchableWithoutFeedback>
       <TouchableOpacity
-        style={styles.fullWidth}
+        style={[
+          styles.fullWidth,
+          {
+            marginBottom: props.data.length > 2 ? constants.gap : 0,
+          },
+        ]}
         activeOpacity={0.8}
         onPress={props.onPress}
         disabled={props.disabled}>
         {props.children}
       </TouchableOpacity>
+    </TouchableWithoutFeedback>
+  );
+});
+const MediaData2 = memo((props) => {
+  return (
+    props.data.length > 2 && (
+      <TouchableWithoutFeedback>
+        <TouchableOpacity
+          style={styles.fullWidth}
+          activeOpacity={0.8}
+          onPress={props.onPress}
+          disabled={props.disabled}>
+          {props.children}
+        </TouchableOpacity>
+      </TouchableWithoutFeedback>
     )
   );
 });
 const MediaData3 = memo((props) => {
   if (props.data.length > 3) {
     return (
-      <TouchableOpacity
-        style={styles.moreContainer}
-        activeOpacity={0.8}
-        onPress={props.onPress}
-        disabled={props.disabled}>
-        <Text style={{color: '#fff'}}>{props.title}</Text>
-      </TouchableOpacity>
+      <TouchableWithoutFeedback>
+        <TouchableOpacity
+          style={styles.moreContainer}
+          activeOpacity={0.8}
+          onPress={props.onPress}
+          disabled={props.disabled}>
+          <Text style={{color: '#fff'}}>{props.title}</Text>
+        </TouchableOpacity>
+      </TouchableWithoutFeedback>
     );
   }
   return null;
@@ -443,14 +454,16 @@ const HeaderTitle = memo((props) => {
         }}>
         <Text variant="inputLabel">{props.label}</Text>
         {props.isEditable && (
-          <TouchableOpacity onPress={props.onPress} style={styles.deleteBtn}>
-            <Text style={styles.deleteTxt}>Delete</Text>
-            <MaterialCommunityIcons
-              name="delete"
-              size={getSize.f(20)}
-              color={props.color}
-            />
-          </TouchableOpacity>
+          <TouchableWithoutFeedback>
+            <TouchableOpacity onPress={props.onPress} style={styles.deleteBtn}>
+              <Text style={styles.deleteTxt}>Delete</Text>
+              <MaterialCommunityIcons
+                name="delete"
+                size={getSize.f(20)}
+                color={props.color}
+              />
+            </TouchableOpacity>
+          </TouchableWithoutFeedback>
         )}
       </View>
     )

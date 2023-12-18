@@ -1,35 +1,20 @@
-import Config from 'react-native-config';
-
 export const PERSIST_KEY = '@kizuner/persist-key';
 export const USER_TOKEN_KEY = '@kizuner/user-token-key';
 
-// develop mode 1
-// export const API_URL = 'https://kizuner-st.inapps.technology/api';
-// export const SHARE_URL = 'https://kizuner-share.inapps.technology';
-
-// develop mode 2
-// export const API_URL = 'https://kizuner-dev.fabaserver.xyz/api';
-// export const API_URL = 'https://kizuner-staging.fabaserver.xyz/api'
-
-// export const API_URL = 'http://112.197.38.147:8000/api'
-// export const API_URL = 'http://192.168.1.46:8000/api'
-// export const API_URL = 'http://112.197.38.147:8000/api'
 export const SHARE_URL = 'https://share.kizuner.com';
 
-// develop mode 3
-// export const API_URL = 'http://192.168.1.33/api';
-// export const SHARE_URL = 'https://share.kizuner.com'
+export const SOCKET_HOST = 'https://kizuner-st.inapps.technology/'; // staging
+// export const SOCKET_HOST = 'https://source.kizuner.com/'; // prod
 
-// production mode
-export const API_URL = 'https://source.kizuner.com/api';
-// export const SHARE_URL = 'https://share.kizuner.com'
+export const CONTACT_US = 'https://kizuner.com/contact-us/';
 
-export const STRIPE_KEY = 'pk_test_b9I41rv7fJZDnHyRxMILK5En00uDwq7mBN'; // production
-// export const STRIPE_KEY =
-//   'pk_test_51MxpAIDPc9eYj4xLMl8jkYcrXMVaQz93y0klFSUFMtNmDmsgJiyl8TkmPuZMqmIOnookkcuJOel3Vs5mwIQBML9000wffTBPFW' // dev
+export const API_URL = __DEV__
+  ? 'https://kizuner-st.inapps.technology/api'
+  : 'https://source.kizuner.com/api';
+// ? 'http://192.168.110.58:8000/api'
 
-// export const STRIPE_KEY = 'pk_test_ASmUDHC4Cj6DJyA5edHny7VJ'
-//export const STRIPE_KEY = 'pk_live_G7vpDABPNy85jL0JspOMOzg400mI6nFSan';
+export const STRIPE_KEY = 'pk_test_b9I41rv7fJZDnHyRxMILK5En00uDwq7mBN'; // staging
+// export const STRIPE_KEY = 'pk_live_G7vpDABPNy85jL0JspOMOzg400mI6nFSan'; // prod
 
 export const AUTOCOMPLETE_URL =
   'https://maps.googleapis.com/maps/api/place/autocomplete/json';
@@ -40,11 +25,6 @@ export const PLACE_DETAIL_URL =
   'https://maps.googleapis.com/maps/api/place/details/json';
 export const TIMEZONE_API_URL =
   'https://maps.googleapis.com/maps/api/timezone/json';
-
-export const SOCKET_HOST = 'https://kizuner-st.inapps.technology/';
-//export const SOCKET_HOST = 'https://source.kizuner.com/';
-
-export const CONTACT_US = 'https://kizuner.com/contact-us/';
 
 export const GENDERS = [
   {

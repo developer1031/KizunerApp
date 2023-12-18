@@ -99,6 +99,7 @@ const CastHangoutManagementScreen = () => {
     );
   }
   const _getList = (func) => {
+    if (!castList) return func;
     if (castList.length === 0) {
       return func;
     }

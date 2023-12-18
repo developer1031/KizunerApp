@@ -18,12 +18,10 @@ export default function useAppState() {
   }
 
   useEffect(() => {
-    let listener = AppState.addEventListener('change', handleAppStateChange);
+    const listener = AppState.addEventListener('change', handleAppStateChange);
 
     return () => {
-      if (listener) {
-        listener.remove();
-      }
+      listener.remove();
     };
   }, []);
 

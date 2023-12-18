@@ -95,7 +95,7 @@ import {Platform} from 'react-native';
 import ConnectStripeScreen from '../screens/Payment/ConnectStripeScreen';
 import CardCreditManagementScreen from '../screens/Payment/CardCreditManagementScreen';
 import CardCryptoManagementScreen from 'screens/Payment/CardCryptoManagementScreen';
-// import CryptoPanelScreen from 'screens/Payment/\u001DCryptoPanelScreen';
+import CryptoPanelScreen from 'screens/Payment/CryptoPanelScreen';
 import {
   CastHangoutManagementScreen,
   GuestHangoutManagementScreen,
@@ -184,9 +184,9 @@ const MainScreen = () => {
 
   if (userInfo?.has_posted == false) {
     if (isFirstLaunch == true) {
-      return <AppTab />;
-    } else if (isFirstLaunch == false) {
       return <OnboardingScreen />;
+    } else if (isFirstLaunch == false) {
+      return <AppTab />;
     }
     return <OnboardingScreen />;
   }
@@ -628,7 +628,7 @@ export default () => {
           name="PaymentCryptoCardManagement"
           component={CardCryptoManagementScreen}
         />
-        {/* <Stack.Screen name="PaymentCryptoPanel" component={CryptoPanelScreen} /> */}
+        <Stack.Screen name="PaymentCryptoPanel" component={CryptoPanelScreen} />
         <Stack.Screen name="PaymentOTP" component={PaymentOTPScreen} />
       </Stack.Navigator>
     </NavigationContainer>

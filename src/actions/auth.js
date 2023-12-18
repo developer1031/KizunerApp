@@ -1,6 +1,6 @@
 import NavigationService from 'navigation/service';
 import AsyncStorage from '@react-native-community/async-storage';
-import {LoginManager} from 'react-native-fbsdk';
+import {LoginManager} from 'react-native-fbsdk-next';
 import auth from '@react-native-firebase/auth';
 
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
@@ -64,11 +64,13 @@ export const sendVerifyPhoneCode = (phone, callback) => {
         NavigationService.navigate('VerifyPhone', {confirmResult});
       }
     } catch (error) {
+      console.log(error);
       dispatch({type: SEND_VERIFY_PHONE_CODE.FAILURE, payload: error});
       dispatch(
         showAlert({
           title: 'Error',
           body: error.message,
+          // body: error.message,
           type: 'error',
         }),
       );
@@ -116,11 +118,12 @@ export const verifyPhone = ({code, confirmResult, token}) => {
         );
       }
     } catch (error) {
+      console.log(error);
       dispatch({type: VERIFY_PHONE.FAILURE, payload: error});
       dispatch(
         showAlert({
           title: 'Error',
-          body: error.message,
+          body: __DEV__ ? error.message : 'Something went wrong!',
           type: 'error',
         }),
       );

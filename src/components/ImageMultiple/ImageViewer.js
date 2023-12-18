@@ -126,8 +126,7 @@ const VideoCustom = memo(({source, thumb}) => {
         ]}
       />
 
-      <TouchableWithoutFeedback
-        onPress={() => setPaused((prev) => (prev = !prev))}>
+      <TouchableOpacity onPress={() => setPaused((prev) => (prev = !prev))}>
         <View style={{justifyContent: 'center', alignItems: 'center'}}>
           <Video
             source={{uri: source}}
@@ -157,7 +156,7 @@ const VideoCustom = memo(({source, thumb}) => {
             />
           )}
         </View>
-      </TouchableWithoutFeedback>
+      </TouchableOpacity>
     </>
   );
 });

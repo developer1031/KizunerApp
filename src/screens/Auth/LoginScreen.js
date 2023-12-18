@@ -5,6 +5,7 @@ import {
   Dimensions,
   StatusBar,
   Keyboard,
+  Platform,
   KeyboardAvoidingView,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
@@ -12,11 +13,16 @@ import {Formik} from 'formik';
 import * as yup from 'yup';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {LoginManager, AccessToken} from 'react-native-fbsdk';
 import {
   GoogleSignin,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
+import {
+  Settings,
+  AccessToken,
+  AuthenticationToken,
+  LoginManager,
+} from 'react-native-fbsdk-next';
 
 import FastImage from 'react-native-fast-image';
 import appleAuth from '@invertase/react-native-apple-authentication';
@@ -58,6 +64,8 @@ const LoginScreen = ({navigation, route}) => {
       webClientId:
         '558493488596-4boer0m5rut9e5e6mq6gc8qo5ino47qj.apps.googleusercontent.com',
     });
+
+    Settings.setAppID('764564298842192');
   }, []);
 
   const activeEasterEgg = () => {
@@ -122,13 +130,22 @@ const LoginScreen = ({navigation, route}) => {
     try {
       const result = await LoginManager.logInWithPermissions([
         'public_profile',
+        'email',
       ]);
       if (result.isCancelled) {
         console.log('Login cancelled');
       } else {
         await setLoad(true);
-        const {accessToken} = await AccessToken.getCurrentAccessToken();
-        await handleLoginSocial('facebook', accessToken);
+
+        let token;
+        if (Platform.OS === 'ios') {
+          const result = await AuthenticationToken.getAuthenticationTokenIOS();
+          token = result?.authenticationToken;
+        } else {
+          const result = await AccessToken.getCurrentAccessToken();
+          token = result?.accessToken;
+        }
+        await handleLoginSocial('facebook', token);
         await setLoad(false);
       }
     } catch (error) {

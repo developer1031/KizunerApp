@@ -47,6 +47,7 @@ import {getUniqueId} from 'utils/util';
 import InputChooseCryptoAddressPayment from 'components/InputChooseCryptoAddressPayment';
 import SelectDropdown from 'react-native-select-dropdown';
 import {getWalletStripeStatus} from 'actions';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const constants = {
   fee: 10,
@@ -651,6 +652,7 @@ const FormCreateHangout = ({navigation, route}) => {
                   ref={refScroll}
                   style={styles.scrollWrap}
                   contentContainerStyle={styles.scrollCon}
+                  keyboardShouldPersistTaps={'handled'}
                   showsVerticalScrollIndicator={false}>
                   <Paper style={styles.form}>
                     <FormikInput
@@ -1004,7 +1006,7 @@ const FormCreateHangout = ({navigation, route}) => {
                         inputProps={{
                           placeholder: 'enter price',
                           label: `Price (USD)`,
-                          keyboardType: 'numeric',
+                          type: 'number-pad',
                         }}
                       />
                     ) : (
@@ -1016,7 +1018,7 @@ const FormCreateHangout = ({navigation, route}) => {
                             inputProps={{
                               placeholder: 'enter price',
                               label: 'Min price',
-                              keyboardType: 'number-pad',
+                              type: 'number-pad',
                             }}
                           />
                         </View>
@@ -1028,7 +1030,7 @@ const FormCreateHangout = ({navigation, route}) => {
                             inputProps={{
                               placeholder: 'enter price',
                               label: 'Max price',
-                              keyboardType: 'number-pad',
+                              type: 'number-pad',
                             }}
                           />
                         </View>
@@ -1112,7 +1114,7 @@ const FormCreateHangout = ({navigation, route}) => {
                         inputProps={{
                           placeholder: lang.capacityPlace,
                           label: lang.capacityLabel,
-                          keyboardType: 'number-pad',
+                          type: 'number-pad',
                           disabled: formType === 'edit',
                         }}
                       />

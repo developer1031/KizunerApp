@@ -1,4 +1,4 @@
-import {generateThunkAction} from './utilities'
+import {generateThunkAction} from './utilities';
 
 import {
   GET_GUEST_OFFER_LIST,
@@ -10,8 +10,8 @@ import {
   GET_CAST_OFFER_LIST_HELP,
   GET_GUEST_OFFER_LIST_HELP,
   GET_CURRENT_TIME,
-} from './types'
-import {showAlert} from './alert'
+} from './types';
+import {showAlert} from './alert';
 
 export const getGuestOfferList = ({status, page = 1}, callback) =>
   generateThunkAction({
@@ -24,7 +24,7 @@ export const getGuestOfferList = ({status, page = 1}, callback) =>
       },
     },
     callback,
-  })()
+  })();
 
 export const getCastOfferList = ({status, page = 1}, callback) =>
   generateThunkAction({
@@ -37,7 +37,7 @@ export const getCastOfferList = ({status, page = 1}, callback) =>
       },
     },
     callback,
-  })()
+  })();
 
 export const getCastOfferListHelp = ({status, page = 1}, callback) =>
   generateThunkAction({
@@ -50,7 +50,7 @@ export const getCastOfferListHelp = ({status, page = 1}, callback) =>
       },
     },
     callback,
-  })()
+  })();
 
 export const getGuestOfferListHelp = ({status, page = 1}, callback) =>
   generateThunkAction({
@@ -63,7 +63,7 @@ export const getGuestOfferListHelp = ({status, page = 1}, callback) =>
       },
     },
     callback,
-  })()
+  })();
 
 export const updateOfferStatus = (
   {
@@ -107,7 +107,7 @@ export const updateOfferStatus = (
     },
     inputPayload: {id, status, hangoutId, userId},
     callback,
-  })()
+  })();
 
 export const createOffer = (
   {hangoutId, userId, payment_method, card_id, currency, cryptoId},
@@ -135,11 +135,11 @@ export const createOffer = (
             type: 'success',
             body: 'Please waiting for cast to review.',
           }),
-        )
-        callback && callback(result)
+        );
+        callback && callback(result);
       },
     },
-  })()
+  })();
 
 export const updateOfferStatusHelp = (
   {
@@ -163,7 +163,7 @@ export const updateOfferStatusHelp = (
     },
     inputPayload: {id, status, helpId, userId},
     callback,
-  })()
+  })();
 
 export const createOfferHelp = ({helpId, userId, cryptoId}, callback) =>
   generateThunkAction({
@@ -182,12 +182,12 @@ export const createOfferHelp = ({helpId, userId, cryptoId}, callback) =>
             type: 'success',
             body: 'Please waiting for requester to review.',
           }),
-        )
-        callback && callback()
+        );
+        callback && callback();
       },
     },
-  })()
-export const getCurrentTime = callback => {
+  })();
+export const getCurrentTime = (callback) => {
   return generateThunkAction({
     actionType: GET_CURRENT_TIME,
     apiOptions: {
@@ -195,5 +195,5 @@ export const getCurrentTime = callback => {
       endpoint: '/helps/getCurrentTime',
     },
     callback,
-  })()
-}
+  })();
+};

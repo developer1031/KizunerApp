@@ -39,4 +39,8 @@ const getUniqueId = () => {
   return `id-${dd}${mm}${yyyy}${hh}${mi}${ss}${ms}`;
 };
 
-export {formatBytesToMB, createUUID, getUniqueId};
+function num_delimiter(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+export {formatBytesToMB, createUUID, getUniqueId, num_delimiter};

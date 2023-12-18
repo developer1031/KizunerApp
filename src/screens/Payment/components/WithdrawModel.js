@@ -2,12 +2,46 @@ import {Dimensions, Modal, StyleSheet, View} from 'react-native';
 import React, {forwardRef, useImperativeHandle, useState} from 'react';
 import {getSize} from 'utils/responsive';
 import {Text, Touchable, Button} from 'components';
+import {useSelector, useDispatch} from 'react-redux';
+import {payoutStripe} from 'actions';
+import {num_delimiter} from 'utils/util';
 
-const WithdrawModel = forwardRef(({}, ref) => {
+const WithdrawModel = forwardRef(({externalAccountId, countryCode}, ref) => {
+  const dispatch = useDispatch();
+
   const [visible, setVisible] = useState(false);
+  const walletState = useSelector((state) => state.wallet);
+  const {stripeStatusResponse} = walletState;
+  const {amount, currency} = stripeStatusResponse;
+
+  const unit = currency == 'jpy' ? '￥' : '$';
+  const unitFee = currency === 'jpy' ? 3 * 100 : 3;
 
   const show = () => setVisible(true);
   const close = () => setVisible(false);
+  const onPayout = () => {
+    if (externalAccountId) {
+      dispatch(
+        payoutStripe(
+          {
+            amount: amount - 3,
+            externalAccountId,
+            currency: countryCode === 'JP' ? 'jpy' : 'usd',
+          },
+          {
+            success: (result) => {
+              console.log(result);
+              setVisible(false);
+            },
+            failure: (err) => {
+              console.log(err);
+              setVisible(false);
+            },
+          },
+        ),
+      );
+    }
+  };
 
   useImperativeHandle(
     ref,
@@ -28,11 +62,16 @@ const WithdrawModel = forwardRef(({}, ref) => {
           </Text>
 
           <Text variant="bold" style={{alignSelf: 'flex-end'}}>
-            Total funds: ${500}
+            Total funds: {unit}
+            {num_delimiter(amount)}
           </Text>
-          <Text style={{alignSelf: 'flex-end'}}>Kizuner fee: ${3}</Text>
+          <Text style={{alignSelf: 'flex-end'}}>
+            Kizuner fee: {unit}
+            {unitFee}
+          </Text>
           <Text variant="bold" style={{alignSelf: 'flex-end', color: 'green'}}>
-            Your actual funds: ${497}
+            Your actual funds: {unit}
+            {num_delimiter(amount - unitFee)}
           </Text>
 
           <View style={styles.btnContainer}>
@@ -46,7 +85,7 @@ const WithdrawModel = forwardRef(({}, ref) => {
             </View>
 
             <View style={{flex: 1}}>
-              <Button title="Confirm" onPress={close} />
+              <Button title="Confirm" onPress={onPayout} />
             </View>
           </View>
         </View>

@@ -379,10 +379,11 @@ const FormOneTimeHelp = ({navigation, route}) => {
                     });
               },
               failure: (result) => {
+                console.log(result);
                 dispatch(
                   showAlert({
                     title: 'Error',
-                    body: result,
+                    body: 'Something went wrong',
                     type: 'error',
                   }),
                 );

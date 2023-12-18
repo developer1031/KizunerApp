@@ -39,18 +39,21 @@ const areEqualOfferItem = (prevProps, nextProps) => {
 const MemoOfferItem = memo(OfferItem, areEqualOfferItem);
 
 const CastHelpManagementScreen = ({navigation}) => {
-  const theme = useTheme();
-  const insets = useSafeAreaInsets();
-  const HEADER_HEIGHT = getStatusBarHeight() + 97;
   const dispatch = useDispatch();
-  const [filter, setFilter] = useState(null);
-  const [showFilter, setShowFilter] = useState(false);
+
   const {castHelpList, castHelpListLoading, castHelpListLastPage} = useSelector(
     (state) => state.offer,
   );
   const beingUpdateOfferStatus = useSelector(
     (state) => state.offer.beingUpdateOfferStatus,
   );
+  const {stripeStatusResponse} = useSelector((state) => state.wallet);
+
+  const theme = useTheme();
+  const insets = useSafeAreaInsets();
+  const HEADER_HEIGHT = getStatusBarHeight() + 97;
+  const [filter, setFilter] = useState(null);
+  const [showFilter, setShowFilter] = useState(false);
   const [isLoad, setLoad] = useState(false);
   const [page, setPage] = useState(1);
   const appState = useAppState();
@@ -110,6 +113,21 @@ const CastHelpManagementScreen = ({navigation}) => {
   }
 
   const onCompleteHelp = (item) => {
+    const {status} = stripeStatusResponse;
+
+    if (item.payment_method != 'crypto') {
+      if (status !== 'CONNECTED') {
+        dispatch(
+          showAlert({
+            title: 'Error',
+            body: 'Please connect your account to Stripe to receive payment',
+            type: 'error',
+          }),
+        );
+        return;
+      }
+    }
+
     setLoad(true);
 
     Alert.alert('Information', 'Do you want to complete help?', [

@@ -17,7 +17,12 @@ import {
   EmptyState,
   Loading,
 } from 'components';
-import {getGuestOfferList, updateOfferStatus, getCurrentTime} from 'actions';
+import {
+  getGuestOfferList,
+  updateOfferStatus,
+  getCurrentTime,
+  showAlert,
+} from 'actions';
 import moment from 'moment';
 import useAppState from 'utils/appState';
 import _ from 'lodash';
@@ -25,15 +30,18 @@ import _ from 'lodash';
 const GUEST_STATUSES = ['accept', 'completed'];
 
 const GuestHangoutManagementScreen = ({navigation}) => {
-  const theme = useTheme();
-  const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
+
   const {guestList, guestListLoading, guestListLastPage} = useSelector(
     (state) => state.offer,
   );
   const beingUpdateOfferStatus = useSelector(
     (state) => state.offer.beingUpdateOfferStatus,
   );
+  const {stripeStatusResponse} = useSelector((state) => state.wallet);
+
+  const theme = useTheme();
+  const insets = useSafeAreaInsets();
   const [isLoad, setLoad] = useState(false);
   const HEADER_HEIGHT = getStatusBarHeight() + 97;
   const [filter, setFilter] = useState(null);
@@ -217,6 +225,20 @@ const GuestHangoutManagementScreen = ({navigation}) => {
     ]);
   };
   const onCompleteHangout = (item) => {
+    const {status} = stripeStatusResponse;
+    if (item.payment_method != 'crypto') {
+      if (status !== 'CONNECTED') {
+        dispatch(
+          showAlert({
+            title: 'Error',
+            body: 'Please connect your account to Stripe to receive payment',
+            type: 'error',
+          }),
+        );
+        return;
+      }
+    }
+
     setLoad(true);
     Alert.alert('Information', 'Do you want to complete hangout for cast?', [
       {

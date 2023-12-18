@@ -8,8 +8,10 @@
 #import <Firebase.h>
 //#import <RNFBDynamicLinks/RNFBDynamicLinksModule.h>
 #import <RNGoogleSignin/RNGoogleSignin.h>
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <GoogleMaps/GoogleMaps.h>
+#import <AuthenticationServices/AuthenticationServices.h>
+#import <SafariServices/SafariServices.h>
+#import <FBSDKCoreKit/FBSDKCoreKit-Swift.h>
 
 #import <AppCenterReactNative.h>
 #import <AppCenterReactNativeAnalytics.h>
@@ -36,6 +38,8 @@
   
   [FIRApp configure];
   
+  [FBSDKApplicationDelegate.sharedInstance initializeSDK];
+  
   self.moduleName = @"kizuner";
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.
@@ -44,10 +48,18 @@
   [GMSServices provideAPIKey:@"AIzaSyBRQTWz3Vtr8P0Qx5O49sUecTr0WZHZflg"];
   [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error: nil];
   
+//  [RNFirebaseNotifications configure];
+  [application registerForRemoteNotifications];
+  [FIROptions defaultOptions].deepLinkURLScheme = @"";
+  
   if (@available(iOS 14, *)) {
     UIDatePicker *picker = [UIDatePicker appearance];
     picker.preferredDatePickerStyle = UIDatePickerStyleWheels;
   }
+  
+  
+  [[FBSDKApplicationDelegate sharedInstance] application:application
+                         didFinishLaunchingWithOptions:launchOptions];
   
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }

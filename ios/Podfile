@@ -71,6 +71,12 @@ target 'kizuner' do
         config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
     end
 
+    installer.aggregate_targets.first.user_project.native_targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings['LIBRARY_SEARCH_PATHS'] = ['$(inherited)', '$(SDKROOT)/usr/lib/swift']
+      end
+    end
+
 #    installer.pods_project.targets.each do |target|
 #      target.build_configurations.each do |config|
 #        config.build_settings['SWIFT_VERSION'] = '5.0'

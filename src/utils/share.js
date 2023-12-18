@@ -1,5 +1,5 @@
 import Share from 'react-native-share';
-import {ShareDialog} from 'react-native-fbsdk';
+import {ShareDialog} from 'react-native-fbsdk-next';
 import RNFetchBlob from 'rn-fetch-blob';
 import {PermissionsAndroid, ToastAndroid, Alert, Platform} from 'react-native';
 import {firebase} from '@react-native-firebase/dynamic-links';

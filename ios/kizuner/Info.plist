@@ -25,7 +25,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb1239520603104986</string>
+				<string>fb764564298842192</string>
 			</array>
 		</dict>
 		<dict>
@@ -52,9 +52,11 @@
 	<key>CodePushDeploymentKey</key>
 	<string>QQbTrPRTEgEu4kAFeGuh_yGO0f-1ZxvF1ZSoZ</string>
 	<key>FacebookAppID</key>
-	<string>1239520603104986</string>
+	<string>764564298842192</string>
 	<key>FacebookDisplayName</key>
-	<string>Kizuner App</string>
+	<string>Kizuner</string>
+  <key>FacebookClientToken</key>
+  <string>1d4d818cb0b7ff16aebca4d1bfcec276</string>
 	<key>FirebaseDynamicLinksCustomDomains</key>
 	<array>
 		<string>https://kizuner-app.inapps.technology/help</string>
@@ -152,5 +154,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+  <key>UIUserInterfaceStyle</key>
+  <string>Light</string>
 </dict>
 </plist>

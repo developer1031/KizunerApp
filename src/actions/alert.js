@@ -18,8 +18,8 @@ export function hideAllAlert() {
   return {type: HIDE_ALL_ALERT};
 }
 
-export const toggleIsShowTrophyModal = isShow => {
-  return dispatch => {
+export const toggleIsShowTrophyModal = (isShow) => {
+  return (dispatch) => {
     dispatch({type: TOGGLE_SHOW_TROPHY_MODAL, payload: isShow});
   };
 };

@@ -1,13 +1,13 @@
-import {generateThunkAction} from './utilities'
+import {generateThunkAction} from './utilities';
 
 import {
   POST_RATING,
   UPDATE_RATING,
   DELETE_RATING,
   GET_USER_RATINGS,
-} from './types'
+} from './types';
 
-import {showAlert} from './alert'
+import {showAlert} from './alert';
 
 export const getUserRating = ({id, page = 1}) =>
   generateThunkAction({
@@ -20,7 +20,7 @@ export const getUserRating = ({id, page = 1}) =>
         page,
       },
     },
-  })()
+  })();
 
 export const postRating = ({offer_id, rate, comment, user_id}, callback) =>
   generateThunkAction({
@@ -38,10 +38,10 @@ export const postRating = ({offer_id, rate, comment, user_id}, callback) =>
     },
     callback: {
       success: (_, dispatch) => {
-        callback && callback()
+        callback && callback();
       },
     },
-  })()
+  })();
 
 export const updateRating = ({id, rate, comment}, callback) =>
   generateThunkAction({
@@ -63,11 +63,11 @@ export const updateRating = ({id, rate, comment}, callback) =>
             title: 'Success',
             body: 'Rating updated!',
           }),
-        )
-        callback && callback()
+        );
+        callback && callback();
       },
     },
-  })()
+  })();
 
 export const deleteRating = ({id}, callback) =>
   generateThunkAction({
@@ -85,8 +85,8 @@ export const deleteRating = ({id}, callback) =>
             title: 'Success',
             body: 'Rating deleted!',
           }),
-        )
-        callback && callback()
+        );
+        callback && callback();
       },
     },
-  })()
+  })();
