@@ -1,5 +1,5 @@
 import Share from 'react-native-share';
-import {ShareDialog} from 'react-native-fbsdk-next';
+// import {ShareDialog} from 'react-native-fbsdk-next';
 import RNFetchBlob from 'rn-fetch-blob';
 import {PermissionsAndroid, ToastAndroid, Alert, Platform} from 'react-native';
 import {firebase} from '@react-native-firebase/dynamic-links';
@@ -260,12 +260,12 @@ export const shareFacebook = async (url, description) => {
       `${`Do what you like, where you want, with the people you like. There are many people around the world waiting for you and you'll find the people you need. (Website: https://kizuner.com and Mobile: ${SHARE_URL})`}`,
   };
   try {
-    const shareResponse = await ShareDialog.canShow(shareLinkContent).then(
-      () => {
-        ShareDialog.show(shareLinkContent);
-      },
-    );
-    return shareResponse;
+    // const shareResponse = await ShareDialog.canShow(shareLinkContent).then(
+    //   () => {
+    //     ShareDialog.show(shareLinkContent);
+    //   },
+    // );
+    // return shareResponse;
   } catch (error) {
     return;
   }

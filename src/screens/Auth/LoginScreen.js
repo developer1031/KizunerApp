@@ -7,6 +7,7 @@ import {
   Keyboard,
   Platform,
   KeyboardAvoidingView,
+  Linking,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {Formik} from 'formik';
@@ -17,19 +18,23 @@ import {
   GoogleSignin,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
-import {
-  Settings,
-  AccessToken,
-  AuthenticationToken,
-  LoginManager,
-} from 'react-native-fbsdk-next';
+// import {
+//   Settings,
+//   AccessToken,
+//   AuthenticationToken,
+//   LoginManager,
+// } from 'react-native-fbsdk-next';
+// import {NativeModules} from 'react-native';
 
 import FastImage from 'react-native-fast-image';
-import appleAuth from '@invertase/react-native-apple-authentication';
+import {
+  appleAuth,
+  appleAuthAndroid,
+} from '@invertase/react-native-apple-authentication';
 import analytics from '@react-native-firebase/analytics';
-
 import AsyncStorage from '@react-native-community/async-storage';
 
+import {twitterAuth} from 'utils/fetchApi';
 import {toggleTheme, login, showAlert, loginSocial} from 'actions';
 import i18n from 'i18n';
 
@@ -59,13 +64,30 @@ const LoginScreen = ({navigation, route}) => {
   const insets = useSafeAreaInsets();
 
   useEffect(() => {
+    const handleDeepLink = async ({url}) => {
+      // const route = url.replace(/.*?:\/\//g, '');
+      // const routeName = route.split('/')[0];
+      const token = url.split('token=')[1];
+      console.log(token);
+      await handleLoginSocial('twitter', token, null);
+    };
+
+    const listener = Linking.addEventListener('url', handleDeepLink);
+
+    return () => {
+      if (listener) {
+        listener();
+      }
+    };
+  }, []);
+
+  useEffect(() => {
     GoogleSignin.configure({
       offlineAccess: true,
       webClientId:
         '558493488596-4boer0m5rut9e5e6mq6gc8qo5ino47qj.apps.googleusercontent.com',
     });
-
-    Settings.setAppID('764564298842192');
+    // Settings.setAppID('764564298842192');
   }, []);
 
   const activeEasterEgg = () => {
@@ -98,8 +120,8 @@ const LoginScreen = ({navigation, route}) => {
     }
   };
 
-  const handleLoginSocial = async (provider, token, name) => {
-    await dispatch(loginSocial(provider, token, name));
+  const handleLoginSocial = async (provider, token, name, secret = null) => {
+    await dispatch(loginSocial(provider, token, name, secret));
   };
 
   const handleAppleSignIn = async () => {
@@ -126,34 +148,42 @@ const LoginScreen = ({navigation, route}) => {
     }
   };
 
-  const handleFacebookSignIn = async () => {
+  const handleTwitterSignIn = async () => {
     try {
-      const result = await LoginManager.logInWithPermissions([
-        'public_profile',
-        'email',
-      ]);
-      if (result.isCancelled) {
-        console.log('Login cancelled');
-      } else {
-        await setLoad(true);
-
-        let token;
-        if (Platform.OS === 'ios') {
-          const result = await AuthenticationToken.getAuthenticationTokenIOS();
-          token = result?.authenticationToken;
-        } else {
-          const result = await AccessToken.getCurrentAccessToken();
-          token = result?.accessToken;
-        }
-        await handleLoginSocial('facebook', token);
-        await setLoad(false);
-      }
+      await twitterAuth();
     } catch (error) {
-      console.log(error.message);
-      dispatch(showAlert({title: 'Error', type: 'error', body: error.message}));
-      await setLoad(false);
+      console.log(error);
     }
   };
+
+  // const handleFacebookSignIn = async () => {
+  //   try {
+  //     const result = await LoginManager.logInWithPermissions([
+  //       'public_profile',
+  //       'email',
+  //     ]);
+  //     if (result.isCancelled) {
+  //       console.log('Login cancelled');
+  //     } else {
+  //       await setLoad(true);
+
+  //       let token;
+  //       if (Platform.OS === 'ios') {
+  //         const result = await AuthenticationToken.getAuthenticationTokenIOS();
+  //         token = result?.authenticationToken;
+  //       } else {
+  //         const result = await AccessToken.getCurrentAccessToken();
+  //         token = result?.accessToken;
+  //       }
+  //       await handleLoginSocial('facebook', token);
+  //       await setLoad(false);
+  //     }
+  //   } catch (error) {
+  //     console.log(error.message);
+  //     dispatch(showAlert({title: 'Error', type: 'error', body: error.message}));
+  //     await setLoad(false);
+  //   }
+  // };
 
   const handleGoogleSignIn = async () => {
     try {
@@ -171,8 +201,8 @@ const LoginScreen = ({navigation, route}) => {
       }
       await setLoad(true);
       await GoogleSignin.signIn();
-      const {accessToken} = await GoogleSignin.getTokens();
-      await handleLoginSocial('google', accessToken);
+      const googleTokens = await GoogleSignin.getTokens();
+      await handleLoginSocial('google', googleTokens.accessToken);
       await setLoad(false);
     } catch (error) {
       let message = '';
@@ -388,9 +418,13 @@ const LoginScreen = ({navigation, route}) => {
                     }
                     styles={styles}
                     color={theme.colors.textContrast}
+                    appleSupported={
+                      Platform.OS == 'ios' ? true : appleAuthAndroid.isSupported
+                    }
                     setApple={handleAppleSignIn}
-                    setFacebook={handleFacebookSignIn}
+                    // setFacebook={handleFacebookSignIn}
                     setGoogle={handleGoogleSignIn}
+                    setTwitter={handleTwitterSignIn}
                     isLoading={loading}
                   />
                   <Touchable
@@ -419,9 +453,10 @@ const LoginScreen = ({navigation, route}) => {
 };
 
 const LoginSocial = memo((props) => {
+  const appleSupported = props.appleSupported && props.isApple;
   return (
     <View style={props.styles.socialWrapper}>
-      {props.isApple && (
+      {appleSupported && (
         <Touchable scalable disabled={props.isLoading} onPress={props.setApple}>
           <View
             style={[
@@ -437,7 +472,7 @@ const LoginSocial = memo((props) => {
           </View>
         </Touchable>
       )}
-      <Touchable
+      {/* <Touchable
         scalable
         disabled={props.isLoading}
         onPress={props.setFacebook}>
@@ -449,6 +484,20 @@ const LoginSocial = memo((props) => {
           ]}>
           <MaterialCommunityIcons
             name="facebook"
+            color={props.color}
+            size={getSize.f(25)}
+          />
+        </View>
+      </Touchable> */}
+      <Touchable scalable disabled={props.isLoading} onPress={props.setTwitter}>
+        <View
+          style={[
+            props.styles.socialBtn,
+            props.styles.facebookBtn,
+            props.isLoading && props.styles.btnLoading,
+          ]}>
+          <MaterialCommunityIcons
+            name="twitter"
             color={props.color}
             size={getSize.f(25)}
           />

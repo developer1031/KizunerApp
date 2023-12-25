@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">kizuner</string>
+  <string name="app_name">Kizuner</string>
+  <string name="facebook_app_id">1239520603104986</string>
+  <string name="fb_login_protocol_scheme">fb1239520603104986</string>
+  <string moduleConfig="true" name="CodePushDeploymentKey">3kPhRSCbOGwZlDjmDBA4f_iGJ6TdKTNEgPe8TQ</string>
+
+  <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">DO_NOT_ASK_JAVASCRIPT</string>
+  <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
 </resources>

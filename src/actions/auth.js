@@ -1,6 +1,6 @@
 import NavigationService from 'navigation/service';
 import AsyncStorage from '@react-native-community/async-storage';
-import {LoginManager} from 'react-native-fbsdk-next';
+// import {LoginManager} from 'react-native-fbsdk-next';
 import auth from '@react-native-firebase/auth';
 
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
@@ -50,7 +50,6 @@ import {getFcmToken} from 'utils/notificationService';
 import {getRewardSetting} from './app';
 import {fetchAddressForLocation} from 'utils/geolocationService';
 import {hideModalize} from './modalize';
-import appleAuth from '@invertase/react-native-apple-authentication';
 
 export const sendVerifyPhoneCode = (phone, callback) => {
   return async (dispatch) => {
@@ -289,14 +288,14 @@ export const login = (data) => {
   })();
 };
 
-export const loginSocial = (provider, token, name) =>
+export const loginSocial = (provider, token, name, secret = null) =>
   generateThunkAction({
     actionType: LOGIN_SOCIAL,
     apiOptions: {
       method: 'POST',
       endpoint: '/users/social-sign-in',
       params: {provider},
-      data: {token, name},
+      data: {token, name, secret},
     },
     preCallback: async (result) => {
       await AsyncStorage.setItem(USER_TOKEN_KEY, result?.data?.access_token);
@@ -320,7 +319,7 @@ export const loginSocial = (provider, token, name) =>
           }),
         );
         if (provider === 'facebook') {
-          LoginManager.logOut();
+          // LoginManager.logOut();
         } else if (provider === 'google') {
           await GoogleSignin.revokeAccess();
           await GoogleSignin.signOut();

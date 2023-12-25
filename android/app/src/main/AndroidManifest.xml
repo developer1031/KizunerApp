@@ -1,6 +1,17 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.kizuner">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-feature android:name="android.hardware.camera.front" android:required="false" />
 
     <application
       android:name=".MainApplication"
@@ -16,10 +27,47 @@
         android:launchMode="singleTask"
         android:windowSoftInputMode="adjustResize"
         android:exported="true">
-        <intent-filter>
+
+        <intent-filter android:autoVerify="true">
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
+
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="com.kizuner.auth" />
+        </intent-filter>
+
+        <intent-filter >
+            <action android:name="android.intent.action.VIEW"/>
+            <category android:name="android.intent.category.DEFAULT"/>
+            <category android:name="android.intent.category.BROWSABLE"/>
+
+            <data android:host="kizuner-app.inapps.technology"   android:scheme="http"/>
+            <data android:host="kizuner-app.inapps.technology"  android:scheme="https"/>
+
+            <data android:host="kizuner-app.inapps.technology/hangout" android:scheme="https"/>
+            <data android:host="kizuner-app.inapps.technology/hangout" android:scheme="http"/>
+
+            <data android:host="kizuner-app.inapps.technology/help" android:scheme="https"/>
+            <data android:host="kizuner-app.inapps.technology/help" android:scheme="http"/>
+
+            <data android:host="kizuner-app.inapps.technology/status" android:scheme="https"/>
+            <data android:host="kizuner-app.inapps.technology/status" android:scheme="http"/>
+
+            <data android:host="kizuner.page.link"   android:scheme="http"/>
+            <data android:host="kizuner.page.link"  android:scheme="https"/>
+        </intent-filter>
       </activity>
+
+      <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyBRQTWz3Vtr8P0Qx5O49sUecTr0WZHZflg"/>
+
+      <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="1239520603104986"/>
+
+      <uses-library android:name="org.apache.http.legacy" android:required="false"/>
     </application>
 </manifest>

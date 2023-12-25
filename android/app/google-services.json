@@ -1,0 +1,115 @@
+{
+  "project_info": {
+    "project_number": "558493488596",
+    "firebase_url": "https://swift-icon-269203.firebaseio.com",
+    "project_id": "swift-icon-269203",
+    "storage_bucket": "swift-icon-269203.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:558493488596:android:b791e9889492e5a913b241",
+        "android_client_info": {
+          "package_name": "com.kizuner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "558493488596-mtil55u62rt187bsrua4pq980ri56q4s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGuire5usoNOPhcmx4oHKxwrAOiMk4bFc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "558493488596-mtil55u62rt187bsrua4pq980ri56q4s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "558493488596-grr4kmqfekjh1f7g91q9t1b9d1ofo7es.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "net.inapps.kizuner"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:558493488596:android:bbe0d7cab9bf08f813b241",
+        "android_client_info": {
+          "package_name": "net.inapps.kizuner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "558493488596-2mlaeesli3frnvuc1875rm6t19ee64rm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.inapps.kizuner",
+            "certificate_hash": "94f57e4baeb5d75902f79c6d786797b1140c5317"
+          }
+        },
+        {
+          "client_id": "558493488596-snjv1cd1voc51qmqpm2u5oln4nhkg0t7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.inapps.kizuner",
+            "certificate_hash": "27b5c67f2628a7d68d1bbe431fce37e789546067"
+          }
+        },
+        {
+          "client_id": "558493488596-pq55pnvfs73jfqe971n2gfj58t1ennh1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.inapps.kizuner",
+            "certificate_hash": "ae82c08388ad0555a92bd71b5c90a98f18bbb856"
+          }
+        },
+        {
+          "client_id": "558493488596-9lv774ke6ldvr58it5m3m2fdgjng08b0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.inapps.kizuner",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "558493488596-mtil55u62rt187bsrua4pq980ri56q4s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGuire5usoNOPhcmx4oHKxwrAOiMk4bFc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "558493488596-mtil55u62rt187bsrua4pq980ri56q4s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "558493488596-grr4kmqfekjh1f7g91q9t1b9d1ofo7es.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "net.inapps.kizuner"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -32,7 +32,7 @@ async function getFcmToken() {
     await messaging().requestPermission();
     // await firebase.messaging().ios.registerForRemoteNotifications();
   }
-
+  await messaging().registerDeviceForRemoteMessages();
   const token = await messaging().getToken();
   return token || '';
 }

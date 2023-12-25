@@ -11,7 +11,7 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import <AuthenticationServices/AuthenticationServices.h>
 #import <SafariServices/SafariServices.h>
-#import <FBSDKCoreKit/FBSDKCoreKit-Swift.h>
+//#import <FBSDKCoreKit/FBSDKCoreKit-Swift.h>
 
 #import <AppCenterReactNative.h>
 #import <AppCenterReactNativeAnalytics.h>
@@ -20,14 +20,19 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-  BOOL handled = [RCTLinkingManager application:application openURL:url options:options];
-  
 //  if (!handled) {
 //    handled = [[FIRDynamicLink instance] application:application openURL:url options:options];
 //    return handled;
 //  }
+//  [[FBSDKApplicationDelegate sharedInstance] application:application openURL:url options:options]
+
+  if ([RNGoogleSignin application:application openURL:url options:options]) {
+    return YES;
+  }
   
-  return handled = [[FBSDKApplicationDelegate sharedInstance] application:application openURL:url options:options] || [RNGoogleSignin application:application openURL:url options:options];
+  BOOL handled = [RCTLinkingManager application:application openURL:url options:options];
+
+  return handled;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -37,8 +42,8 @@
   [AppCenterReactNativeCrashes registerWithAutomaticProcessing];
   
   [FIRApp configure];
-  
-  [FBSDKApplicationDelegate.sharedInstance initializeSDK];
+
+//  [FBSDKApplicationDelegate.sharedInstance initializeSDK];
   
   self.moduleName = @"kizuner";
   // You can add your custom initial props in the dictionary below.
@@ -58,8 +63,8 @@
   }
   
   
-  [[FBSDKApplicationDelegate sharedInstance] application:application
-                         didFinishLaunchingWithOptions:launchOptions];
+//  [[FBSDKApplicationDelegate sharedInstance] application:application
+//                         didFinishLaunchingWithOptions:launchOptions];
   
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }

@@ -1,7 +1,14 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
+import uuid from 'uuid/v4';
+import {Linking} from 'react-native';
 
-import {API_URL, USER_TOKEN_KEY} from '../utils/constants';
+import {
+  API_URL,
+  USER_TOKEN_KEY,
+  TWITTER_AUTH_URL,
+  TWITTER_CONSUMER_KEY,
+} from '../utils/constants';
 
 let call;
 const once = (config = {}) => {
@@ -27,8 +34,6 @@ export default async ({
 }) => {
   const token = await AsyncStorage.getItem(USER_TOKEN_KEY);
   const axiost = useOnce ? once : axios;
-  console.log('GET API: ', API_URL + endpoint);
-  if (!token) console.log('NO TOKEN');
 
   try {
     return await axiost({
@@ -53,4 +58,23 @@ export default async ({
       message: error.message || 'Something went wrong',
     };
   }
+};
+
+export const twitterAuth = async () => {
+  const state = uuid();
+
+  const params = {
+    client_id: TWITTER_CONSUMER_KEY,
+    scope: 'users.read tweet.read',
+    code_challenge_method: 'plain',
+    code_challenge: state,
+    state: state,
+    response_type: 'code',
+    redirect_uri: `${API_URL}/redirect_code`,
+  };
+  const paramString = new URLSearchParams(params).toString();
+
+  const apiWithParams = `${TWITTER_AUTH_URL}?${paramString}`;
+
+  Linking.openURL(apiWithParams);
 };
