@@ -1,7 +1,6 @@
 import {useEffect} from 'react';
 import {useSelector} from 'react-redux';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
-
 import {Linking, Platform} from 'react-native';
 
 import NavigationService from 'navigation/service';
@@ -20,16 +19,6 @@ export default function useDynamicLinkService() {
       console.log('open', url);
       handleDynamicLink(url);
     });
-
-    //   Linking.getInitialURL()
-    //     .then(event => {
-    //       if (event) {
-    //         console.log(123, event);
-    //       }
-    //     })
-    //     .catch(error => {
-    //       console.warn(error);
-    //     });
 
     return () => {
       linkingListener();

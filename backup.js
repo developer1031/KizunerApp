@@ -230,7 +230,8 @@ const PaymentDataScreen = ({navigation, route}) => {
           showAlert({
             type: 'error',
             title: 'Error',
-            body: __DEV__ ? error?.message || error : 'Something went wrong!',
+            body: error?.message || error,
+            // body: __DEV__ ? error?.message || error : 'Something went wrong!',
           }),
         );
       } finally {

@@ -122,8 +122,9 @@ export const verifyPhone = ({code, confirmResult, token}) => {
       dispatch(
         showAlert({
           title: 'Error',
-          body: __DEV__ ? error.message : 'Something went wrong!',
           type: 'error',
+          body: error.message,
+          // body: __DEV__ ? error.message : 'Something went wrong!',
         }),
       );
     }

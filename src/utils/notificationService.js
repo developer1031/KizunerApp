@@ -181,11 +181,6 @@ export default function useNotification() {
   let notificationOpenedListener;
 
   function handleNotification(notification) {
-    if (__DEV__) {
-      // console.log(notification);
-      // console.log(Platform.OS, '🐶 🐶 🐶');
-    }
-
     if (!notification) {
       return;
     }

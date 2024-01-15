@@ -34,14 +34,11 @@ export function generateThunkAction({
 
         if (acceptStatus.includes(status)) {
           if (data?.data?.errors?.message) {
-            console.log(data?.data?.errors?.message);
             dispatch(
               showAlert({
                 title: 'Error',
-                body: __DEV__
-                  ? data?.data?.errors?.message
-                  : 'Something went wrong',
                 type: 'error',
+                body: data?.data?.errors?.message,
               }),
             );
             return;
