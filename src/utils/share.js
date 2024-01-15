@@ -2,12 +2,15 @@ import Share from 'react-native-share';
 // import {ShareDialog} from 'react-native-fbsdk-next';
 import RNFetchBlob from 'rn-fetch-blob';
 import {PermissionsAndroid, ToastAndroid, Alert, Platform} from 'react-native';
-import {firebase} from '@react-native-firebase/dynamic-links';
+// import {firebase} from '@react-native-firebase/dynamic-links';
+import dynamicLinks from '@react-native-firebase/dynamic-links';
 
 var fs = require('react-native-fs');
 
 import fetchApi from 'utils/fetchApi';
 import {SHARE_URL, API_URL} from 'utils/constants';
+import {l} from 'i18n-js';
+import {err} from 'react-native-svg/lib/typescript/xml';
 
 const generateShortLink = async (link) => {
   try {
@@ -38,115 +41,109 @@ export const shareMultipleMediaFile = async (
   const shareLinks =
     'https://kizuner.com/?type=' + data?.type + '&id=' + data?.id;
 
-  const link = new firebase.links.DynamicLink(
-    shareLinks,
-    'https://kizuner.page.link',
-  ).android
-    .setPackageName('com.kizuner')
-    .android.setFallbackUrl(
-      'https://play.google.com/store/apps/details?id=com.kizuner',
-    )
-    .ios.setBundleId('com.kizuner')
-    .ios.setAppStoreId('1524617131')
-    .ios.setFallbackUrl('https://apps.apple.com/us/app/id1524617131')
-    .social.setImageUrl(urlImage)
-    .social.setTitle(data?.title)
-    .social.setDescriptionText(data?.description);
-  //.navigation.setForcedRedirectEnabled(true);
+  const dynamicLinkParameters = {
+    link: shareLinks,
+    domainUriPrefix: 'https://kizuner.page.link',
+    android: {
+      packageName: 'com.kizuner',
+      fallbackUrl: 'https://play.google.com/store/apps/details?id=com.kizuner',
+    },
+    ios: {
+      bundleId: 'com.kizuner',
+      appStoreId: '1524617131',
+      fallbackUrl: 'https://apps.apple.com/us/app/id1524617131',
+    },
+    social: {
+      imageUrl: urlImage,
+      title: data?.title,
+      descriptionText: data?.description,
+    },
+  };
+  // const longDynamicLink = await dynamicLinks().buildLink(dynamicLinkParameters);
+  const url = await dynamicLinks().buildShortLink(dynamicLinkParameters);
 
-  firebase
-    .links()
-    .createShortDynamicLink(link, 'SHORT')
-    .then(async (url) => {
-      // ...
+  const dl = url.replace('https://kizuner.page.link/', '');
 
-      const dl = url.replace('https://kizuner.page.link/', '');
-      // const handleLinking = url + '?type=' + data?.type + '&id=' + data?.id;
-      // console.log(handleLinking);
+  // eslint-disable-next-line prettier/prettier
+  const hackyLinking = `${SHARE_URL}/k?dl=${dl}&t=${encodeURIComponent(
+    data?.title,
+  )}&d=${encodeURIComponent(data?.description)}&i=${encodeURIComponent(
+    urlImage?.replace(
+      'https://storage.googleapis.com/kizuner-storage-live/',
+      '',
+    ),
+  )}&k=${encodeURIComponent(data.type)}&id=${encodeURIComponent(data?.id)}`;
 
-      // eslint-disable-next-line prettier/prettier
-      const hackyLinking = `${SHARE_URL}/k?dl=${dl}&t=${encodeURIComponent(
-        data?.title,
-      )}&d=${encodeURIComponent(data?.description)}&i=${encodeURIComponent(
-        urlImage?.replace(
-          'https://storage.googleapis.com/kizuner-storage-live/',
-          '',
-        ),
-      )}&k=${encodeURIComponent(data.type)}&id=${encodeURIComponent(data?.id)}`;
-      const shortLink = await generateShortLink(hackyLinking);
-      try {
-        const result = await Share.open(
-          Platform.select({
-            android: {
-              title: title || 'Kizuner',
-              message: message || '',
-              failOnCancel: false,
-              url: shortLink || urls[0] || 'https://kizuner.com',
-            },
-            ios: {
-              activityItemSources: [
-                {
-                  placeholderItem: {
-                    type: 'text',
-                    content: `${message} ${shortLink}`,
-                  },
-                  item: {
-                    copyToPasteBoard: {
-                      type: 'text',
-                      content: `${message} ${shortLink}`,
-                    },
-                    default: {
-                      type: 'text',
-                      content: `${message} ${shortLink}`,
-                    },
-                  },
-                  subject: {
-                    copyToPasteBoard: `${message} ${shortLink}`,
-                    default: title,
-                  },
-                  linkMetadata: {originalUrl: shortLink, shortLink, title},
+  console.log(hackyLinking);
+  const shortLink = await generateShortLink(hackyLinking);
+  console.log(shortLink);
+  try {
+    console.log(shortLink);
+    const result = await Share.open(
+      Platform.select({
+        android: {
+          title: title || 'Kizuner',
+          message: message || '',
+          failOnCancel: false,
+          url: shortLink || urls[0] || 'https://kizuner.com',
+        },
+        ios: {
+          activityItemSources: [
+            {
+              placeholderItem: {
+                type: 'text',
+                content: `${message} ${shortLink}`,
+              },
+              item: {
+                copyToPasteBoard: {
+                  type: 'text',
+                  content: `${message} ${shortLink}`,
                 },
-              ],
+                default: {
+                  type: 'text',
+                  content: `${message} ${shortLink}`,
+                },
+              },
+              subject: {
+                copyToPasteBoard: `${message} ${shortLink}`,
+                default: title,
+              },
+              linkMetadata: {originalUrl: shortLink, shortLink, title},
             },
-          }),
-        );
+          ],
+        },
+      }),
+    );
 
-        callback();
-      } catch (e) {
-        // console.log(e)
-      }
-      try {
-        if (data?.type === 'status') {
-          fetchApi({
-            method: 'POST',
-            endpoint: '/statuses/react',
-            data: {status_id: data?.id, react_type: 'share'},
-          });
-        }
-        if (data?.type === 'hangout') {
-          fetchApi({
-            method: 'POST',
-            endpoint: '/hangouts/react',
-            data: {hangout_id: data?.id, react_type: 'share'},
-          });
-        }
-        if (data?.type === 'help') {
-          fetchApi({
-            method: 'POST',
-            endpoint: '/helps/react',
-            data: {help_id: data?.id, react_type: 'share'},
-          });
-        }
+    callback();
+  } catch (e) {
+    console.log(e);
+  }
+  try {
+    if (data?.type === 'status') {
+      fetchApi({
+        method: 'POST',
+        endpoint: '/statuses/react',
+        data: {status_id: data?.id, react_type: 'share'},
+      });
+    }
+    if (data?.type === 'hangout') {
+      fetchApi({
+        method: 'POST',
+        endpoint: '/hangouts/react',
+        data: {hangout_id: data?.id, react_type: 'share'},
+      });
+    }
+    if (data?.type === 'help') {
+      fetchApi({
+        method: 'POST',
+        endpoint: '/helps/react',
+        data: {help_id: data?.id, react_type: 'share'},
+      });
+    }
 
-        // return shareResponse;
-      } catch (error) {
-        return;
-      }
-      return;
-    })
-    .catch((e) => {
-      console.log(e);
-    });
+    // return shareResponse;
+  } catch (error) {}
 };
 
 export const shareDownloadImage = async (title, message, data, urlImage) => {

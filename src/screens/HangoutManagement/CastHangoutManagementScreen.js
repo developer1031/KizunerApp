@@ -66,6 +66,7 @@ const CastHangoutManagementScreen = () => {
   const [selectedItem, setSelectedItem] = useState({});
   const refModalChooseCardPayment = useRef(null);
   const refModalChooseCyptoAddressPayment = useRef(null);
+  const [itemCurrency, setItemCurrency] = useState(null);
 
   const appState = useAppState();
   useEffect(() => {
@@ -224,6 +225,7 @@ const CastHangoutManagementScreen = () => {
       return;
     }
 
+    setItemCurrency(item.crypto_currency);
     item.available_payment_method === 'credit' &&
       refModalChooseCardPayment.current.open();
     item.available_payment_method === 'crypto' &&
@@ -535,6 +537,7 @@ const CastHangoutManagementScreen = () => {
         ref={refModalChooseCyptoAddressPayment}
         onConfirm={confirmCrypto}
         onCancel={cancelCrypto}
+        currencyLabel={itemCurrency}
       />
     );
   };

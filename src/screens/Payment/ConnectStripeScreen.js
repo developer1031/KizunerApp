@@ -27,6 +27,7 @@ import {showAlert} from 'actions';
 import {getWalletStripeStatus} from 'actions';
 import {styles as style} from './styles/stripeCustom';
 import {HeaderLinear} from 'components/HeaderLinear';
+const {phone} = require('phone');
 
 const initialValues = {
   first_name: '',
@@ -42,13 +43,13 @@ const initialValues = {
   address_line2_kana: '',
   dob: '',
   phone: '',
-  id_number: '',
+  // id_number: '',
   // ssn_last_4: '',
-  routing_number: '',
-  account_number: '',
-  aconfirm_account_number: '',
-  identity_document: '',
-  identity_document_back: '',
+  // routing_number: '',
+  // account_number: '',
+  // aconfirm_account_number: '',
+  // identity_document: '',
+  // identity_document_back: '',
 };
 const ConnectStripeScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -64,13 +65,15 @@ const ConnectStripeScreen = ({navigation}) => {
   const refWithdraw = useRef(null);
 
   const [showCountryPicker, setShowCountryPicker] = useState(false);
-  const [country, setCountry] = useState('JP');
-  const countryData = countriesData[country];
 
   const [showCountryCodePicker, setShowCountryCodePicker] = useState(false);
   const [countryCode, setCountryCode] = useState('JP');
+  const countryData = countriesData[countryCode];
 
+  const [initialized, setInitialized] = useState(false);
   const [externalAccountId, setExternalAccountId] = useState('');
+  const [defaultFormValues, setDefaultFormValues] = useState(initialValues);
+  const [isEditing, setIsEditing] = useState(false);
 
   //init datepicker
   const refDatePicker = useRef(null);
@@ -84,16 +87,41 @@ const ConnectStripeScreen = ({navigation}) => {
         {},
         {
           success: (result) => {
-            if (result.external_accounts) {
-              if (result.external_accounts.data.length > 0) {
-                const {id, country} = result.external_accounts.data[0];
+            const {account, backUrl, frontUrl} = result;
+            const {individual} = account;
+            const {countryCode, phoneNumber, countryIso2} = phone(
+              individual.phone,
+            );
+
+            setDefaultFormValues({
+              first_name: individual.first_name,
+              last_name: individual.last_name,
+              first_name_kana: individual.first_name_kana,
+              last_name_kana: individual.last_name_kana,
+              postal_code: individual.address_kana.postal_code,
+              address_state: individual.address_kanji.state,
+              address_city: individual.address_kanji.city,
+              address_line1: individual.address_kanji.line1,
+              address_line1_kana: individual.address_kana.line1,
+              address_line2: individual.address_kanji.line2,
+              address_line2_kana: individual.address_kana.line2,
+              dob: `${individual.dob.day}/${individual.dob.month}/${individual.dob.year}`,
+              phone: phoneNumber.substring(countryCode.length),
+            });
+
+            if (account.external_accounts) {
+              if (account.external_accounts.data.length > 0) {
+                const {id} = account.external_accounts.data[0];
                 setExternalAccountId(id);
-                setCountryCode(country);
               }
             }
-            console.log(result.external_accounts);
+
+            setCountryCode(countryIso2);
+            setIsEditing(true);
+            setInitialized(true);
           },
           failure: (err) => {
+            setInitialized(true);
             console.log(err);
           },
         },
@@ -106,6 +134,8 @@ const ConnectStripeScreen = ({navigation}) => {
   }, [refDatePicker]);
 
   const onSubmit = (data) => {
+    console.log('SUBMIT: ', data);
+
     const [day, month, year] = data.dob.split('/');
     const formattedDate = `${year}-${month.padStart(2, '0')}-${day.padStart(
       2,
@@ -170,10 +200,10 @@ const ConnectStripeScreen = ({navigation}) => {
       <CountryPicker
         open={showCountryPicker}
         onClose={() => setShowCountryPicker(false)}
-        value={country}
+        value={countryCode}
         showCode={false}
         onSelect={(value) => {
-          setCountry(value);
+          setCountryCode(countryCode);
           setShowCountryPicker(false);
         }}
       />
@@ -205,25 +235,36 @@ const ConnectStripeScreen = ({navigation}) => {
           textStyles={styles.headerTitle}
           title={'Payment connect'}
         />
-        <FormikComponent
-          onSubmit={onSubmit}
-          setShowCountryPicker={setShowCountryPicker}
-          countryData={countryData}
-          refDatePicker={refDatePicker}
-          setShowCountryCodePicker={setShowCountryCodePicker}
-          countryCodeData={countryCodeData}
-          theme={theme}
-          insets={insets}
-          isEdit={isEdit}
-          countryCode={countryCode}
-          onPressWithdraw={onPressWithdraw}
-        />
+
+        {initialized && (
+          <FormikComponent
+            onSubmit={onSubmit}
+            setShowCountryPicker={setShowCountryPicker}
+            countryData={countryData}
+            refDatePicker={refDatePicker}
+            setShowCountryCodePicker={setShowCountryCodePicker}
+            countryCodeData={countryCodeData}
+            theme={theme}
+            insets={insets}
+            isEdit={isEdit}
+            isEditing={isEditing}
+            countryCode={countryCode}
+            onPressWithdraw={onPressWithdraw}
+            defaultFormValues={defaultFormValues}
+          />
+        )}
       </View>
     </>
   );
 };
 
 const FormikComponent = (props) => {
+  const {isEditing, defaultFormValues} = props;
+
+  const [editBank, setEditBank] = useState(false);
+  const [editVerification, setEditVerification] = useState(false);
+  const [refresh, setRefresh] = useState(false);
+
   const styles = {
     ...style,
     countryInput: {
@@ -239,7 +280,62 @@ const FormikComponent = (props) => {
       flexDirection: 'row',
       gap: getSize.w(10),
     },
+    btnEditText: {
+      marginBottom: 16,
+      // underline
+      textDecorationLine: 'underline',
+    },
   };
+
+  useEffect(() => {
+    if (isEditing) {
+      if (editBank) {
+        validateOptions.account_name = yup.string().required('required');
+        validateOptions.account_number = yup
+          .number()
+          .integer()
+          .typeError('please enter number value only')
+          .required('required');
+        validateOptions.aconfirm_account_number = yup
+          .number()
+          .integer()
+          .typeError('please enter number value only')
+          .required('required');
+        validateOptions.routing_number = yup
+          .number()
+          .integer()
+          .typeError('please enter number value only')
+          .required('required');
+      } else {
+        delete validateOptions.account_name;
+        delete validateOptions.routing_number;
+        delete validateOptions.account_number;
+        delete validateOptions.aconfirm_account_number;
+      }
+      setRefresh(!refresh);
+    }
+  }, [editBank]);
+
+  useEffect(() => {
+    if (isEditing) {
+      if (editVerification) {
+        validateOptions.identity_document = yup.string().required('required');
+        validateOptions.identity_document_back = yup
+          .string()
+          .required('required');
+        validateOptions.id_number = yup
+          .number()
+          .integer()
+          .typeError('please enter number value only')
+          .required('required');
+      } else {
+        delete validateOptions.identity_document;
+        delete validateOptions.identity_document_back;
+        delete validateOptions.id_number;
+      }
+      setRefresh(!refresh);
+    }
+  }, [editVerification]);
 
   const validateOptions = {
     dob: yup.string().required('required'),
@@ -248,34 +344,9 @@ const FormikComponent = (props) => {
       .integer()
       .typeError('please enter number value only')
       .required('required'),
-    id_number: yup
-      .number()
-      .integer()
-      .typeError('please enter number value only')
-      .required('required'),
-    routing_number: yup
-      .number()
-      .integer()
-      .typeError('please enter number value only')
-      .required('required'),
-    account_number: yup
-      .number()
-      .integer()
-      .typeError('please enter number value only')
-      .required('required'),
-    aconfirm_account_number: yup
-      .number()
-      .integer()
-      .typeError('please enter number value only')
-      .required('required'),
-    identity_document: yup.string().required('required'),
-    identity_document_back: yup.string().required('required'),
-    account_name: yup.string().required('required'),
     first_name: yup.string().required('required'),
     last_name: yup.string().required('required'),
     postal_code: yup.string().required('required'),
-    // address_state: yup.string().required('required'),
-    // address_city: yup.string().required('required'),
     address_line1: yup.string().required('required'),
   };
   if (props.countryCode == 'JP') {
@@ -286,12 +357,15 @@ const FormikComponent = (props) => {
 
   const yupValidation = () => yup.object().shape(validateOptions);
 
+  const showVerificationEdit = !isEditing || editVerification;
+  const showBankEdit = !isEditing || editBank;
+
   return (
     <Formik
       validateOnChange={false}
       validationSchema={yupValidation}
       onSubmit={props.onSubmit}
-      initialValues={initialValues}>
+      initialValues={defaultFormValues}>
       {(formikProps) => (
         <>
           <ScrollView
@@ -362,22 +436,6 @@ const FormikComponent = (props) => {
                   placeholder: '〒000-0000',
                 }}
               />
-              {/* <FormikInput
-                name="address_state"
-                {...formikProps}
-                inputProps={{
-                  returnKeyType: 'next',
-                  placeholder: 'State / Province / Region',
-                }}
-              />
-              <FormikInput
-                name="address_city"
-                {...formikProps}
-                inputProps={{
-                  returnKeyType: 'next',
-                  placeholder: 'City',
-                }}
-              /> */}
               <FormikInput
                 name="address_line1"
                 {...formikProps}
@@ -436,23 +494,46 @@ const FormikComponent = (props) => {
                 styles={styles}
                 {...props}
               />
-
-              <IdentityFont
-                onChange={(id) => {
-                  formikProps.setFieldValue('identity_document', id);
-                }}
-                formikProps={formikProps}
-              />
-              <IdentityBack
-                onChange={(id) => {
-                  formikProps.setFieldValue('identity_document_back', id);
-                }}
-                formikProps={formikProps}
-              />
-
-              <LastNumberComponent formikProps={formikProps} />
             </InfoComponent>
-            <ReceivePayout styles={styles} formikProps={formikProps} />
+
+            {isEditing && !editVerification && (
+              <Text
+                onPress={() => setEditVerification(true)}
+                style={styles.btnEditText}>
+                Edit Verification Info
+              </Text>
+            )}
+
+            {showVerificationEdit && (
+              <VerificationComponent styles={styles}>
+                <IdentityFont
+                  onChange={(id) => {
+                    formikProps.setFieldValue('identity_document', id);
+                  }}
+                  formikProps={formikProps}
+                />
+                <IdentityBack
+                  onChange={(id) => {
+                    formikProps.setFieldValue('identity_document_back', id);
+                  }}
+                  formikProps={formikProps}
+                />
+
+                <LastNumberComponent formikProps={formikProps} />
+              </VerificationComponent>
+            )}
+
+            {isEditing && !editBank && (
+              <Text
+                onPress={() => setEditBank(true)}
+                style={styles.btnEditText}>
+                Edit Bank Account
+              </Text>
+            )}
+
+            {showBankEdit && (
+              <ReceivePayout styles={styles} formikProps={formikProps} />
+            )}
           </ScrollView>
 
           <FooterFormik
@@ -473,6 +554,18 @@ const InfoComponent = (props) => {
       <Wrapper dismissKeyboard style={{backgroundColor: 'transparent'}}>
         <Text variant="bold" style={{marginBottom: getSize.w(24)}}>
           Verify your personal details
+        </Text>
+        {props.children}
+      </Wrapper>
+    </Paper>
+  );
+};
+const VerificationComponent = (props) => {
+  return (
+    <Paper style={[props.styles.formWrapper, {marginBottom: getSize.w(24)}]}>
+      <Wrapper dismissKeyboard style={{backgroundColor: 'transparent'}}>
+        <Text variant="bold" style={{marginBottom: getSize.w(24)}}>
+          Verification process
         </Text>
         {props.children}
       </Wrapper>
@@ -704,13 +797,8 @@ const FooterFormik = (props) => {
           containerStyle={{flex: 1 / 2}}
         />
 
-        {/* <Button
-  onPress={props.formikProps.handleSubmit}
-  title='Update'
-  fullWidth
-  loading={false}
-/> */}
         <SpaceView />
+
         <Button
           onPress={props.onPressWithdraw}
           title="Withdraw"

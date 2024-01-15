@@ -14,13 +14,13 @@ const ModalChooseCryptoPayment = forwardRef(
       onCancel = () => {},
       chooseCurrency = true,
       chooseAddress = true,
-      currencyLabel = '',
+      currencyLabel = null,
       addressLabel = '',
     },
     ref,
   ) => {
     const [visible, setVisible] = useState(false);
-    const [currency, setCurrency] = useState('');
+    const [currency, setCurrency] = useState(currencyLabel ?? '');
     const [crypto, setCrypto] = useState(null);
     const [errorCurrencyString, setErrorCurrencyString] = useState('');
     const [errorAddressString, setErrorAddressString] = useState('');
@@ -39,11 +39,11 @@ const ModalChooseCryptoPayment = forwardRef(
     };
     const onPressConfirm = () => {
       if (chooseCurrency) {
-        setErrorCurrencyString(
-          (prev) => (prev = !currency.length ? 'please choose currency' : ''),
-        );
-        if (!currency.length) {
+        if (!currency.length && !currencyLabel) {
+          setErrorCurrencyString('please choose currency');
           return;
+        } else {
+          setErrorCurrencyString('');
         }
       }
 
@@ -57,7 +57,7 @@ const ModalChooseCryptoPayment = forwardRef(
       }
 
       setVisible((prev) => (prev = false));
-      onConfirm({currency, crypto});
+      onConfirm({currency: currencyLabel ?? currency, crypto});
     };
 
     useImperativeHandle(
@@ -91,6 +91,8 @@ const ModalChooseCryptoPayment = forwardRef(
                   onChange={(currency) => {
                     setCurrency((prev) => (prev = currency));
                   }}
+                  defaultCurrency={currencyLabel}
+                  disabled={currencyLabel ? true : false}
                 />
                 <Text variant="inputLabel">
                   {'   '}• Choose coin for payment
