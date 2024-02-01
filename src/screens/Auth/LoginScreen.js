@@ -8,6 +8,7 @@ import {
   Platform,
   KeyboardAvoidingView,
   Linking,
+  Image,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {Formik} from 'formik';
@@ -300,8 +301,12 @@ const LoginScreen = ({navigation, route}) => {
       justifyContent: 'center',
       alignItems: 'center',
     },
-    facebookBtn: {
-      backgroundColor: theme.colors.facebookBtn,
+    twitterBtn: {
+      backgroundColor: theme.colors.twitterBtn,
+    },
+    twitterIcon: {
+      width: getSize.f(25),
+      height: getSize.f(25),
     },
     appleBtn: {
       backgroundColor: theme.colors.appleBtn,
@@ -472,35 +477,14 @@ const LoginSocial = memo((props) => {
           </View>
         </Touchable>
       )}
-      {/* <Touchable
-        scalable
-        disabled={props.isLoading}
-        onPress={props.setFacebook}>
-        <View
-          style={[
-            props.styles.socialBtn,
-            props.styles.facebookBtn,
-            props.isLoading && props.styles.btnLoading,
-          ]}>
-          <MaterialCommunityIcons
-            name="facebook"
-            color={props.color}
-            size={getSize.f(25)}
-          />
-        </View>
-      </Touchable> */}
       <Touchable scalable disabled={props.isLoading} onPress={props.setTwitter}>
         <View
           style={[
             props.styles.socialBtn,
-            props.styles.facebookBtn,
+            props.styles.twitterBtn,
             props.isLoading && props.styles.btnLoading,
           ]}>
-          <MaterialCommunityIcons
-            name="twitter"
-            color={props.color}
-            size={getSize.f(25)}
-          />
+          <Image source={Icons.ic_twitter} style={[props.styles.twitterIcon]} />
         </View>
       </Touchable>
       <Touchable scalable disabled={props.isLoading} onPress={props.setGoogle}>

@@ -48,7 +48,7 @@ export default async ({
               ...headers,
             }
           : headers,
-      validateStatus(status) {
+      validateStatus: (status) => {
         return true;
       },
     });

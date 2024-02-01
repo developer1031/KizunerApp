@@ -134,8 +134,6 @@ const ConnectStripeScreen = ({navigation}) => {
   }, [refDatePicker]);
 
   const onSubmit = (data) => {
-    console.log('SUBMIT: ', data);
-
     const [day, month, year] = data.dob.split('/');
     const formattedDate = `${year}-${month.padStart(2, '0')}-${day.padStart(
       2,
@@ -290,23 +288,25 @@ const FormikComponent = (props) => {
   useEffect(() => {
     if (isEditing) {
       if (editBank) {
-        validateOptions.account_name = yup.string().required('required');
-        validateOptions.account_number = yup
-          .number()
-          .integer()
-          .typeError('please enter number value only')
-          .required('required');
-        validateOptions.aconfirm_account_number = yup
-          .number()
-          .integer()
-          .typeError('please enter number value only')
-          .required('required');
-        validateOptions.routing_number = yup
-          .number()
-          .integer()
-          .typeError('please enter number value only')
-          .required('required');
+        // validateOptions.bank_name = yup.string().required('required');
+        // validateOptions.account_name = yup.string().required('required');
+        // validateOptions.account_number = yup
+        //   .number()
+        //   .integer()
+        //   .typeError('please enter number value only')
+        //   .required('required');
+        // validateOptions.aconfirm_account_number = yup
+        //   .number()
+        //   .integer()
+        //   .typeError('please enter number value only')
+        //   .required('required');
+        // validateOptions.routing_number = yup
+        //   .number()
+        //   .integer()
+        //   .typeError('please enter number value only')
+        //   .required('required');
       } else {
+        delete validateOptions.bank_name;
         delete validateOptions.account_name;
         delete validateOptions.routing_number;
         delete validateOptions.account_number;
@@ -319,21 +319,22 @@ const FormikComponent = (props) => {
   useEffect(() => {
     if (isEditing) {
       if (editVerification) {
-        validateOptions.identity_document = yup.string().required('required');
-        validateOptions.identity_document_back = yup
-          .string()
-          .required('required');
-        validateOptions.id_number = yup
-          .number()
-          .integer()
-          .typeError('please enter number value only')
-          .required('required');
+        // validateOptions.identity_document = yup.string().required('required');
+        // validateOptions.identity_document_back = yup
+        //   .string()
+        //   .required('required');
+        // validateOptions.id_number = yup
+        //   .number()
+        //   .integer()
+        //   .typeError('please enter number value only')
+        //   .required('required');
       } else {
         delete validateOptions.identity_document;
         delete validateOptions.identity_document_back;
         delete validateOptions.id_number;
       }
       setRefresh(!refresh);
+    } else {
     }
   }, [editVerification]);
 
@@ -348,6 +349,27 @@ const FormikComponent = (props) => {
     last_name: yup.string().required('required'),
     postal_code: yup.string().required('required'),
     address_line1: yup.string().required('required'),
+    // verification process
+    identity_document: yup.string().required('required'),
+    identity_document_back: yup.string().required('required'),
+    id_number: yup
+      .number()
+      .integer()
+      .typeError('please enter number value only')
+      .required('required'),
+    // bank account
+    bank_name: yup.string().required('required'),
+    account_name: yup.string().required('required'),
+    account_number: yup
+      .number()
+      .integer()
+      .typeError('please enter number value only')
+      .required('required'),
+    aconfirm_account_number: yup
+      .number()
+      .integer()
+      .typeError('please enter number value only')
+      .required('required'),
   };
   if (props.countryCode == 'JP') {
     validateOptions.first_name_kana = yup.string().required('required');
@@ -736,14 +758,35 @@ const ReceivePayout = (props) => {
         </Text>
 
         <FormikInput
-          name="account_name"
+          name="bank_name"
           {...props.formikProps}
           inputProps={{
-            label: 'Account Holder Name',
+            label: 'Bank Name',
             returnKeyType: 'next',
-            placeholder: 'Kizuner',
+            placeholder: '',
           }}
         />
+
+        {/* <FormikInput
+          name="bank_code"
+          {...props.formikProps}
+          inputProps={{
+            label: 'Bank Code',
+            returnKeyType: 'next',
+            placeholder: '',
+          }}
+        />
+
+        <FormikInput
+          name="branch_code"
+          {...props.formikProps}
+          inputProps={{
+            label: 'Branch Code',
+            type: 'number-pad',
+            returnKeyType: 'next',
+            placeholder: '',
+          }}
+        /> */}
 
         <FormikInput
           name="routing_number"
@@ -753,6 +796,15 @@ const ReceivePayout = (props) => {
             type: 'number-pad',
             returnKeyType: 'next',
             placeholder: '1100000',
+          }}
+        />
+        <FormikInput
+          name="account_name"
+          {...props.formikProps}
+          inputProps={{
+            label: 'Account Holder Name',
+            returnKeyType: 'next',
+            placeholder: 'Kizuner',
           }}
         />
         <FormikInput

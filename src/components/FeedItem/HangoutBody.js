@@ -88,6 +88,7 @@ const HangoutBody = ({
       borderBottomRightRadius: getSize.h(32 / 2),
       ...theme.shadow.small.android,
       ...theme.shadow.small.ios,
+      backgroundColor: theme.colors.paper,
     },
     ptWrapper: {
       position: 'absolute',
@@ -98,6 +99,7 @@ const HangoutBody = ({
       borderBottomRightRadius: getSize.h(32 / 2),
       ...theme.shadow.small.android,
       ...theme.shadow.small.ios,
+      backgroundColor: theme.colors.paper,
     },
     typeWrapper: {
       position: 'absolute',
@@ -108,6 +110,7 @@ const HangoutBody = ({
       borderBottomLeftRadius: getSize.h(32 / 2),
       ...theme.shadow.small.android,
       ...theme.shadow.small.ios,
+      backgroundColor: theme.colors.paper,
     },
   });
 
@@ -267,6 +270,7 @@ const stylesMain = StyleSheet.create({
     borderBottomRightRadius: getSize.h(32 / 2),
     ...orangeLight.shadow.small.android,
     ...orangeLight.shadow.small.ios,
+    backgroundColor: 'white',
   },
   ptContainer: {
     height: getSize.h(32),

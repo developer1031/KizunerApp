@@ -1037,75 +1037,24 @@ const FormCreateHangout = ({navigation, route}) => {
                       </View>
                     )}
 
-                    <Text variant="inputLabel">
-                      {'   '}• Min price:{' '}
-                      <Text>
-                        {minimumPrice} USD
-                        {paymentType !== 'credit' &&
-                          ` ~ ${minimumPriceCryptoCoin.toFixed(5)} ${currency}`}
-                      </Text>
-                    </Text>
-                    <Text variant="inputLabel">
-                      {'   '}• Fee: <Text>{fee}% + transaction fee</Text>
-                    </Text>
-                    <Text variant="inputLabel" style={{marginBottom: 15}}>
-                      {'   '}• Actual amount received:{' '}
-                      {priceType === 'fixed' ? (
-                        <>
-                          {(() => {
-                            const amount =
-                              (parseFloat(
-                                formikProps.getFieldProps('amount').value || 0,
-                              ) *
-                                (100 - fee)) /
-                              100;
-                            return (
-                              <Text>
-                                {amount.toFixed(2)} USD
-                                {paymentType === 'crypto' &&
-                                  ` ~ ${parseFloat(
-                                    (amount * minimumPriceCryptoCoin) /
-                                      minimumPrice || 0,
-                                  ).toFixed(5)} ${currency}`}
-                              </Text>
-                            );
-                          })()}
-                        </>
-                      ) : (
-                        <>
-                          {(() => {
-                            const minAmount =
-                              (parseFloat(
-                                formikProps.getFieldProps('min_amount').value ||
-                                  0,
-                              ) *
-                                (100 - fee)) /
-                              100;
-                            const maxAmount =
-                              (parseFloat(
-                                formikProps.getFieldProps('max_amount').value ||
-                                  0,
-                              ) *
-                                (100 - fee)) /
-                              100;
-                            return (
-                              <Text>
-                                {minAmount.toFixed(2)} - {maxAmount.toFixed(2)}{' '}
-                                USD
-                                {paymentType === 'crypto' &&
-                                  ` ~ ${parseFloat(
-                                    (minAmount * minimumPriceCryptoCoin) /
-                                      minimumPrice || 0,
-                                  ).toFixed(5)} - ${parseFloat(
-                                    (maxAmount * minimumPriceCryptoCoin) /
-                                      minimumPrice || 0,
-                                  ).toFixed(5)} ${currency}`}
-                              </Text>
-                            );
-                          })()}
-                        </>
+                    <PriceInfo
+                      paymentType={paymentType}
+                      priceType={priceType}
+                      currency={currency}
+                      fee={fee}
+                      minimumCreditPrice={minimumCreditPrice}
+                      minimumCryptoUsdPrice={minimumCryptoUsdPrice}
+                      minimumPriceCryptoCoin={minimumPriceCryptoCoin}
+                      amountValue={parseFloat(
+                        formikProps.getFieldProps('amount').value || 0,
                       )}
-                    </Text>
+                      minAmountValue={parseFloat(
+                        formikProps.getFieldProps('min_amount').value || 0,
+                      )}
+                      maxAmountValue={parseFloat(
+                        formikProps.getFieldProps('max_amount').value || 0,
+                      )}
+                    />
 
                     {hangoutType === 'oneTime' && (
                       <FormikInput
@@ -1247,6 +1196,78 @@ const FormCreateHangout = ({navigation, route}) => {
           );
         }}
       </Formik>
+    </>
+  );
+};
+
+const PriceInfo = ({
+  paymentType,
+  priceType,
+  currency,
+  minimumCreditPrice = 10,
+  minimumCryptoUsdPrice,
+  minimumPriceCryptoCoin,
+  amountValue,
+  minAmountValue,
+  maxAmountValue,
+}) => {
+  const price_info = (kind = 'credit') => {
+    const fee = kind == 'credit' ? constants.feeCredit : constants.feeCrypto;
+
+    const minimumPrice =
+      kind === 'credit'
+        ? minimumCreditPrice
+        : (minimumCryptoUsdPrice / 100) * fee + minimumCryptoUsdPrice;
+
+    const amount = (amountValue * (100 - fee)) / 100;
+    const minAmount = (minAmountValue * (100 - fee)) / 100;
+    const maxAmount = (maxAmountValue * (100 - fee)) / 100;
+
+    return (
+      <>
+        <Text variant="inputLabel">
+          {'   '}• Min price:{' '}
+          <Text>
+            {minimumPrice} USD
+            {kind == 'crypto' &&
+              ` ~ ${minimumPriceCryptoCoin.toFixed(5)} ${currency}`}
+          </Text>
+        </Text>
+        <Text variant="inputLabel">
+          {'   '}• Fee: <Text>{fee}% + transaction fee</Text>
+        </Text>
+        <Text variant="inputLabel" style={{marginBottom: 15}}>
+          {'   '}• Actual amount received:{' '}
+          {priceType === 'fixed' ? (
+            <Text>
+              {amount.toFixed(2)} USD
+              {kind === 'crypto' &&
+                ` ~ ${parseFloat(
+                  (amount * minimumPriceCryptoCoin) / minimumPrice || 0,
+                ).toFixed(5)} ${currency}`}
+            </Text>
+          ) : (
+            <Text>
+              {minAmount.toFixed(2)} - {maxAmount.toFixed(2)} USD
+              {kind === 'crypto' &&
+                ` ~ ${parseFloat(
+                  (minAmount * minimumPriceCryptoCoin) / minimumPrice || 0,
+                ).toFixed(5)} - ${parseFloat(
+                  (maxAmount * minimumPriceCryptoCoin) / minimumPrice || 0,
+                ).toFixed(5)} ${currency}`}
+            </Text>
+          )}
+        </Text>
+      </>
+    );
+  };
+
+  if (paymentType != 'both') return price_info(paymentType);
+
+  return (
+    <>
+      {price_info('credit')}
+      {price_info('crypto')}
     </>
   );
 };

@@ -22,6 +22,7 @@ const HangoutMessage = ({data}) => {
 
   const styles = StyleSheet.create({
     wrapper: {
+      width: getSize.w(320),
       backgroundColor: theme.colors.paper,
       borderRadius: getSize.h(14),
       marginVertical: getSize.h(5),
@@ -107,6 +108,9 @@ const HangoutMessage = ({data}) => {
     moment.utc(data.start).isAfter(moment()) &&
     data.user.id !== userInfo?.id;
 
+  const shouldShowTime = data.type == 1 && data.start != data.end;
+  const isPrivate = data.room_id != null;
+
   return (
     <View style={styles.wrapper}>
       <View style={styles.headerWrapper}>
@@ -123,11 +127,14 @@ const HangoutMessage = ({data}) => {
           <Text numberOfLines={1} style={[styles.userName, {flex: 1}]}>
             {data.user.name}
           </Text>
-          {/* <MaterialCommunityIcons
-            name='lock'
-            color={theme.colors.text1}
-            size={getSize.f(16)}
-          /> */}
+
+          {isPrivate && (
+            <MaterialCommunityIcons
+              name="lock"
+              color={theme.colors.text1}
+              size={getSize.f(16)}
+            />
+          )}
         </Touchable>
       </View>
       <Touchable
@@ -147,11 +154,15 @@ const HangoutMessage = ({data}) => {
             : data.amount}{' '}
           USD
         </Text>
-        <Text style={styles.date}>
-          {data.schedule
-            ? data.schedule + onShowDateEnd(data.end || '')
-            : hangoutRangeFormat(data.start, data.end)}
-        </Text>
+
+        {shouldShowTime && (
+          <Text style={styles.date}>
+            {data.schedule
+              ? data.schedule + onShowDateEnd(data.end || '')
+              : hangoutRangeFormat(data.start, data.end)}
+          </Text>
+        )}
+
         <Text numberOfLines={2} style={styles.address}>
           {data.address}
         </Text>

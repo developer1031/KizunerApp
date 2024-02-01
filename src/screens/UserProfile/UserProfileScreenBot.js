@@ -826,6 +826,7 @@ const stylesMain = StyleSheet.create({
     ...orangeLight.shadow.small.ios,
     ...orangeLight.shadow.small.android,
     overflow: 'visible',
+    backgroundColor: 'white',
   },
   placeLargeBtn: {
     height: getSize.h(48),

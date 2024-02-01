@@ -21,7 +21,7 @@ const colors = {
   bgOverlay: 'rgba(0,0,0,0)',
   grayDark: 'rgba(0,0,0,0.6)',
   googleBtn: '#F0F0F0',
-  facebookBtn: '#9B9B9B',
+  twitterBtn: '#000000',
   appleBtn: '#000000',
   error: '#FF6667',
   userMarkerOverlay1: 'rgba(255,100,100,0.2)',

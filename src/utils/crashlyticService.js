@@ -4,9 +4,8 @@ import crashlytics from '@react-native-firebase/crashlytics';
 import {useSelector} from 'react-redux';
 
 export function setCrashlyticUser(user) {
-  crashlytics().setUserId(user?.id);
-  // user?.email && crashlytics().setUserEmail(user?.email);
-  // user?.name && crashlytics().setUserName(user?.name);
+  user?.email && crashlytics().setAttribute('email', user?.email);
+  user?.name && crashlytics().setAttribute('name', user?.name);
 }
 
 export default () => {

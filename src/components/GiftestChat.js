@@ -4,6 +4,7 @@ import {
   StyleSheet,
   LayoutAnimation,
   Image,
+  Dimensions,
   TouchableOpacity,
 } from 'react-native';
 import {
@@ -31,7 +32,6 @@ import {getSize} from 'utils/responsive';
 import NavigationService from 'navigation/service';
 import orangeLight from '../theme/orangeLight';
 import {images} from './Video/images';
-import {Dimensions} from 'react-native';
 import {Icons} from 'utils/icon';
 
 const textStyle = {
@@ -246,7 +246,10 @@ const GiftestChat = ({
     <View style={stylesMain.wrapper}>
       <GiftedChat
         text={message}
-        onInputTextChanged={(value) => setMessage(value)}
+        onInputTextChanged={(value) => {
+          console.log(value);
+          setMessage(value);
+        }}
         locale="vi"
         dateFormat="LL"
         keyboardShouldPersistTaps="handled"
@@ -425,7 +428,7 @@ const stylesMain = StyleSheet.create({
       width: 0,
       height: -5,
     },
-    shadowColor: orangeLight.colors.shadow,
+    // shadowColor: orangeLight.colors.shadow,
     shadowOpacity: 0.3,
     elevation: 20,
     backgroundColor: orangeLight.colors.paper,

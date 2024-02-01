@@ -110,7 +110,7 @@ const ExploreMapScreen = ({navigation}) => {
       page === 1
     ) {
       setCurrentIndex(-1);
-      listView?.current?.getNode()?.scrollToOffset({offset: 0, animated: true});
+      listView?.current?.scrollToOffset({offset: 0, animated: true});
     }
   }, [mapList]);
 
@@ -137,7 +137,7 @@ const ExploreMapScreen = ({navigation}) => {
   };
 
   const handleMarkerPress = (index) => {
-    listView?.current?.getNode()?.scrollToIndex({
+    listView?.current?.scrollToIndex({
       index,
       animated: false,
       viewPosition: 0,

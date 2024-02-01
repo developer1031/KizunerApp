@@ -47,4 +47,6 @@ export const Icons = {
   ic_reactIc: require('../assets/images/noti-icons/react.png'),
   ic_relationIc: require('../assets/images/noti-icons/relation.png'),
   ic_hangout: require('../assets/images/ic-hangout.png'),
+
+  ic_twitter: require('../assets/images/twitter.png'),
 };

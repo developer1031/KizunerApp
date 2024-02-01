@@ -32,14 +32,14 @@ import {Icons} from 'utils/icon';
 const Tab = createMaterialTopTabNavigator();
 
 const TABS = [
-  {
-    name: 'ExploreStack',
-    label: 'Explore',
-    screen: ExploreStack,
-    icon: Icons.ic_explore,
-    iconActive: Icons.ic_explore_active,
-    size: 22,
-  },
+  // {
+  //   name: 'ExploreStack',
+  //   label: 'Explore',
+  //   screen: ExploreStack,
+  //   icon: Icons.ic_explore,
+  //   iconActive: Icons.ic_explore_active,
+  //   size: 22,
+  // },
   {
     name: 'NewsFeedStack',
     label: 'News Feed',
@@ -48,30 +48,30 @@ const TABS = [
     iconActive: Icons.ic_newfeed_active,
     size: 22,
   },
-  {
-    name: 'Message',
-    label: 'Message',
-    screen: MessageScreen,
-    icon: Icons.ic_message,
-    iconActive: Icons.ic_message_active,
-    size: 24,
-  },
-  {
-    name: 'MyPageStack',
-    label: 'My Page',
-    screen: MyPageStack,
-    icon: Icons.ic_mypage,
-    iconActive: Icons.ic_mypage_active,
-    size: 22,
-  },
-  {
-    name: 'Manage',
-    label: 'Manage',
-    screen: ManageScreen,
-    icon: Icons.ic_manage,
-    iconActive: Icons.ic_manage_active,
-    size: 17,
-  },
+  // {
+  //   name: 'Message',
+  //   label: 'Message',
+  //   screen: MessageScreen,
+  //   icon: Icons.ic_message,
+  //   iconActive: Icons.ic_message_active,
+  //   size: 24,
+  // },
+  // {
+  //   name: 'MyPageStack',
+  //   label: 'My Page',
+  //   screen: MyPageStack,
+  //   icon: Icons.ic_mypage,
+  //   iconActive: Icons.ic_mypage_active,
+  //   size: 22,
+  // },
+  // {
+  //   name: 'Manage',
+  //   label: 'Manage',
+  //   screen: ManageScreen,
+  //   icon: Icons.ic_manage,
+  //   iconActive: Icons.ic_manage_active,
+  //   size: 17,
+  // },
 ];
 
 const AppTab = ({navigation}) => {
@@ -136,6 +136,7 @@ const AppTab = ({navigation}) => {
       paddingBottom: insets.bottom,
       ...theme.shadow.bottomTab.ios,
       ...theme.shadow.bottomTab.android,
+      backgroundColor: theme.colors.paper,
     },
     tabStyle: {
       paddingHorizontal: 0,

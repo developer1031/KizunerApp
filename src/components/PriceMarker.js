@@ -16,6 +16,7 @@ const PriceMarker = ({value, selected}) => {
       ...theme.shadow.small.android,
       justifyContent: 'center',
       alignItems: 'center',
+      backgroundColor: theme.colors.paper,
     },
     maskView: {
       justifyContent: 'center',

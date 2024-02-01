@@ -178,6 +178,7 @@ const styles = StyleSheet.create({
     marginBottom: getSize.h(20),
     ...orangeLight.shadow.small.ios,
     ...orangeLight.shadow.small.android,
+    backgroundColor: 'white',
   },
   priceItemKizuna: {
     fontSize: getSize.f(18),

@@ -170,6 +170,7 @@ const HangoutExploreItem = ({data, selected, wrapperStyle, onPress}) => {
       borderBottomRightRadius: getSize.h(20 / 2),
       ...theme.shadow.small.android,
       ...theme.shadow.small.ios,
+      backgroundColor: theme.colors.paper,
     },
     ptWrapperType: {
       position: 'absolute',
@@ -180,6 +181,7 @@ const HangoutExploreItem = ({data, selected, wrapperStyle, onPress}) => {
       borderBottomLeftRadius: getSize.h(20 / 2),
       ...theme.shadow.small.android,
       ...theme.shadow.small.ios,
+      backgroundColor: theme.colors.paper,
     },
     ptContainer: {
       height: getSize.h(20),
@@ -239,6 +241,7 @@ const HangoutExploreItem = ({data, selected, wrapperStyle, onPress}) => {
       alignItems: 'center',
       ...theme.shadow.small.android,
       ...theme.shadow.small.ios,
+      backgroundColor: theme.colors.paper,
     },
   });
 

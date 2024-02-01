@@ -84,15 +84,17 @@ const NewsFeedScreen = ({navigation}) => {
   const handleRefresh = () => {
     setPage(1);
     handleGetFeed(1, filter === 'All' ? null : filter && filter.toLowerCase(), {
-      success: () =>
-        listRef?.current?.getNode().scrollToOffset({offset: -TOP_INSET}),
+      success: () => {
+        listRef?.current?.scrollToOffset({offset: -TOP_INSET});
+      },
     });
   };
 
   useEffect(() => {
     handleGetFeed(1, null, {
-      success: () =>
-        listRef?.current?.getNode().scrollToOffset({offset: -TOP_INSET}),
+      success: () => {
+        listRef?.current?.scrollToOffset({offset: -TOP_INSET});
+      },
     });
   }, []);
 
@@ -191,6 +193,7 @@ const NewsFeedScreen = ({navigation}) => {
           </Touchable>
         }
       />
+
       <HeaderFunction
         onPresStatus={() => navigation.navigate('CreateStatus')}
         onPresHangout={() => navigation.navigate('CreateHangout')}
@@ -201,6 +204,7 @@ const NewsFeedScreen = ({navigation}) => {
         ]}
         theme={theme}
       />
+
       <FilterFunction
         style={[
           styles.statusFilter,
@@ -217,6 +221,7 @@ const NewsFeedScreen = ({navigation}) => {
           />
         ))}
       </FilterFunction>
+
       <Animated.FlatList
         data={newsFeed}
         keyExtractor={(item) => item?.id?.toString() + createUUID()}
@@ -249,6 +254,7 @@ const NewsFeedScreen = ({navigation}) => {
           />
         }
       />
+
       {hasNewFeed && (
         <Touchable
           onPress={() => handleGetFeed(1)}

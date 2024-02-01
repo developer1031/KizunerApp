@@ -72,6 +72,7 @@ const ContactListScreen = ({navigation, route}) => {
       zIndex: 1,
       ...theme.shadow.small.ios,
       ...theme.shadow.small.android,
+      backgroundColor: 'white',
     },
     tabContainer: {
       marginHorizontal: getSize.w(24 - 5),

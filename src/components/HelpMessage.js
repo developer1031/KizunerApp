@@ -109,6 +109,9 @@ const HelpMessage = ({data}) => {
     moment.utc(data.start).isAfter(moment()) &&
     data.user.id !== userInfo?.id;
 
+  const shouldShowTime = data.type == 1 && data.start != data.end;
+  const isPrivate = data.room_id != null;
+
   return (
     <View style={styles.wrapper}>
       <View style={styles.headerWrapper}>
@@ -125,11 +128,14 @@ const HelpMessage = ({data}) => {
           <Text numberOfLines={1} style={[styles.userName, {flex: 1}]}>
             {data.user.name}
           </Text>
-          {/* <MaterialCommunityIcons
-            name='lock'
-            color={theme.colors.text1}
-            size={getSize.f(16)}
-          /> */}
+
+          {isPrivate && (
+            <MaterialCommunityIcons
+              name="lock"
+              color={theme.colors.text1}
+              size={getSize.f(16)}
+            />
+          )}
         </Touchable>
       </View>
       <Touchable
@@ -149,11 +155,15 @@ const HelpMessage = ({data}) => {
             : data.amount}{' '}
           USD
         </Text>
-        <Text style={styles.date}>
-          {data.schedule
-            ? data.schedule + onShowDateEnd(data.end || '')
-            : hangoutRangeFormat(data.start, data.end)}
-        </Text>
+
+        {shouldShowTime && (
+          <Text style={styles.date}>
+            {data.schedule
+              ? data.schedule + onShowDateEnd(data.end || '')
+              : hangoutRangeFormat(data.start, data.end)}
+          </Text>
+        )}
+
         <Text numberOfLines={2} style={styles.address}>
           {data.address}
         </Text>

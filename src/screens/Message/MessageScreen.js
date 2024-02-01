@@ -96,8 +96,7 @@ const MessageScreen = ({navigation, route}) => {
   const handleRefresh = () => {
     setPage(1);
     handleLoadListChat(1, query, activeChat, {
-      success: () =>
-        listRef?.current?.getNode().scrollToOffset({offset: -TOP_INSET}),
+      success: () => listRef?.current?.scrollToOffset({offset: -TOP_INSET}),
     });
   };
 
@@ -150,8 +149,7 @@ const MessageScreen = ({navigation, route}) => {
     //layoutAnimated();
     setPage(1);
     handleLoadListChat(1, query, index, {
-      success: () =>
-        listRef?.current?.getNode().scrollToOffset({offset: -TOP_INSET}),
+      success: () => listRef?.current?.scrollToOffset({offset: -TOP_INSET}),
     });
   }
 

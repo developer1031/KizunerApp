@@ -213,10 +213,12 @@ export default () => {
   useEffect(() => {
     dispatch(getConfigs());
     Orientation.lockToPortrait();
-    dispatch(getNotiCount());
   }, []);
 
   useEffect(() => {
+    if (isAuth) {
+      dispatch(getNotiCount());
+    }
     // if (isAuth) {
     //   if (Platform.OS === 'ios') {
     //     firebase.notifications().setBadge(count + requestList.length);
@@ -321,7 +323,7 @@ export default () => {
           <Stack.Screen name="AppTab" component={MainScreen} />
         )}
 
-        <Stack.Screen
+        {/* <Stack.Screen
           name="VerifyPhone"
           component={VerifyPhoneScreen}
           initialParams={{confirmResult: null}}
@@ -334,11 +336,13 @@ export default () => {
           component={EditSpecialtyScreen}
           initialParams={{isEdit: false}}
         />
+
         <Stack.Screen
           name="EditCategories"
           component={EditCategoriesScreen}
           initialParams={{isEdit: false}}
         />
+
         <Stack.Screen
           name="HangoutDetail"
           component={HangoutDetailScreen}
@@ -372,6 +376,7 @@ export default () => {
         <Stack.Screen name="Settings" component={SettingsScreen} />
         <Stack.Screen name="MyDetails" component={MyDetailsScreen} />
         <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} />
+
         <Stack.Screen
           name="CreateHangout"
           component={CreateHangoutScreen}
@@ -380,6 +385,7 @@ export default () => {
           //   ...TransitionPresets.ModalTransition,
           // }}
         />
+
         <Stack.Screen
           name="CreateHelp"
           component={CreateHelpScreen}
@@ -434,7 +440,9 @@ export default () => {
           initialParams={{start: null, helpId: null, capacity: null, end: null}}
         />
         <Stack.Screen name="PickSpecialty" component={PickSpecialtyScreen} />
+
         <Stack.Screen name="PickCategory" component={PickCategoryScreen} />
+
         <Stack.Screen
           name="UserProfile"
           component={UserProfileScreen}
@@ -468,6 +476,7 @@ export default () => {
           initialParams={{label: null, videoId: null}}
         />
         <Stack.Screen name="BlockList" component={BlockListScreen} />
+
         <Stack.Screen
           name="ChatRoom"
           component={ChatRoomScreen}
@@ -629,7 +638,7 @@ export default () => {
           component={CardCryptoManagementScreen}
         />
         <Stack.Screen name="PaymentCryptoPanel" component={CryptoPanelScreen} />
-        <Stack.Screen name="PaymentOTP" component={PaymentOTPScreen} />
+        <Stack.Screen name="PaymentOTP" component={PaymentOTPScreen} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

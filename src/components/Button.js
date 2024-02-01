@@ -30,6 +30,7 @@ const Button = ({
     },
     containerStyle: {
       overflow: 'visible',
+      backgroundColor: theme.colors.paper,
     },
     buttonViewStyle: {
       height: getSize.h(48),

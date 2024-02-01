@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import moment from 'moment';
 import FormData from 'form-data';
@@ -551,7 +552,7 @@ const MyPageScreen = ({navigation}) => {
                 <Touchable
                   onPress={() => navigation.navigate('EditProfile')}
                   style={styles.editWrap}>
-                  <MaterialCommunityIcons
+                  <MaterialIcons
                     name="settings"
                     color={theme.colors.primary}
                     size={getSize.f(22)}

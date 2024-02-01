@@ -8,10 +8,12 @@ export const SOCKET_HOST = 'https://kizuner-st.inapps.technology/'; // staging
 
 export const CONTACT_US = 'https://kizuner.com/contact-us/';
 
-export const API_URL = __DEV__
-  ? 'http://192.168.110.58:8000/api'
-  : 'https://kizuner-st.inapps.technology/api';
-// 'https://source.kizuner.com/api';
+export const API_URL = 'http://192.168.110.58:8000/api';
+// export const API_URL = __DEV__
+//   ? 'http://192.168.110.58:8000/api'
+//   : 'https://kizuner-st.inapps.technology/api';
+// export const API_URL = 'https://source.kizuner.com/api';
+// export const API_URL = 'https://kizuner-st.inapps.technology/api';
 
 export const STRIPE_KEY = 'pk_test_b9I41rv7fJZDnHyRxMILK5En00uDwq7mBN'; // staging
 // export const STRIPE_KEY = 'pk_live_G7vpDABPNy85jL0JspOMOzg400mI6nFSan'; // prod

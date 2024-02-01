@@ -350,6 +350,7 @@ const ExploreScreen = () => {
       borderRadius: getSize.h(48 / 2),
       ...theme.shadow.small.ios,
       ...theme.shadow.small.android,
+      backgroundColor: 'white',
     },
     mapBtn: {
       position: 'absolute',

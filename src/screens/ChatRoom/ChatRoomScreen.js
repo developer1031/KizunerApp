@@ -850,6 +850,7 @@ const ChatRoomScreen = ({navigation, route}) => {
   }
 
   const onSelectCamera = () => dispatch(showModalize(selectListCamera));
+
   return (
     <Wrapper style={styles.wrapper}>
       <StatusBar barStyle="dark-content" />

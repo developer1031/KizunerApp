@@ -77,6 +77,7 @@ const PaymentMethodScreen = ({navigation, route}) => {
       marginBottom: getSize.h(20),
       ...theme.shadow.small.ios,
       ...theme.shadow.small.android,
+      backgroundColor: 'white',
     },
     cardItemKizuna: {
       fontSize: getSize.f(18),

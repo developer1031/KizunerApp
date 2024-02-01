@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
     width,
     zIndex: 2,
     ...orangeLight.shadow.large.ios,
+    backgroundColor: 'white',
   },
   container: {
     height: HEADER_HEIGHT,
