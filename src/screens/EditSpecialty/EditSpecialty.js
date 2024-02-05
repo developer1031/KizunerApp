@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
 
 import {
   updateSkills,
@@ -150,14 +149,14 @@ const EditSpecialtyScreen = ({navigation, route}) => {
     innerContainer: {
       position: 'absolute',
       alignItems: 'center',
-      top: getStatusBarHeight() + getSize.h(isEdit ? 20 : 35),
+      top: insets.top + getSize.h(isEdit ? 20 : 35),
       left: 0,
       right: 0,
       width,
     },
     backBtn: {
       position: 'absolute',
-      top: getStatusBarHeight() + getSize.h(20),
+      top: insets.top + getSize.h(20),
       left: getSize.w(24),
       zIndex: 10,
     },
@@ -239,7 +238,7 @@ const EditSpecialtyScreen = ({navigation, route}) => {
         barStyle="light-content"
       />
       <View style={styles.container}>
-        <HeaderBg height={isEdit ? getStatusBarHeight() + 120 : 327} />
+        <HeaderBg height={isEdit ? insets.top + 120 : 327} />
         {isEdit && (
           <Touchable onPress={navigation.goBack} style={styles.backBtn}>
             <Text style={styles.headerBtn}>Cancel</Text>

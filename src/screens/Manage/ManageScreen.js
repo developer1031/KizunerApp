@@ -8,9 +8,9 @@ import {
   Dimensions,
   Linking,
 } from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useScrollToTop} from '@react-navigation/native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {
   Wrapper,
@@ -52,12 +52,13 @@ const ManageScreen = ({navigation}) => {
   const [nameBadge, setNameBadge] = useState('');
   const [percentMax, setPercentMax] = useState(1);
   const [currentPercent, setCurrentPercent] = useState(0);
+  const insets = useSafeAreaInsets();
 
   useScrollToTop(listRef);
 
   const userInfo = auth.userInfo;
 
-  const HEADER_HEIGHT = getSize.h(120) + getStatusBarHeight();
+  const HEADER_HEIGHT = getSize.h(120) + insets.top;
 
   const handleLogout = () => {
     dispatch(toggleIsFirstLaunch(false));

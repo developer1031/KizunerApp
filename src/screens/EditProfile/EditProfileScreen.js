@@ -7,7 +7,6 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {IconButton as PaperIconButton} from 'react-native-paper';
 import * as yup from 'yup';
@@ -46,7 +45,7 @@ const EditProfileScreen = ({navigation}) => {
   const loading = useSelector((state) => state.auth.beingUpdateGeneral);
   const userInfo = useSelector((state) => state.auth.userInfo);
   const countryList = useSelector((state) => state.app.countryList);
-  const HEADER_HEIGHT = getStatusBarHeight() + 120;
+  const HEADER_HEIGHT = insets.top + 120;
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   let dateMax = new Date();
@@ -78,12 +77,12 @@ const EditProfileScreen = ({navigation}) => {
       marginBottom: getSize.h(24),
     },
     headerTitle: {
-      top: getStatusBarHeight() + getSize.h(26),
+      top: insets.top + getSize.h(26),
       textAlign: 'center',
     },
     headerActions: {
       position: 'absolute',
-      top: getStatusBarHeight() + getSize.h(25),
+      top: insets.top + getSize.h(25),
       left: getSize.w(24),
       right: getSize.w(24),
       flexDirection: 'row',

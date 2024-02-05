@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
 import {StyleSheet, View, FlatList, Dimensions} from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
-import {useSelector, useDispatch} from 'react-redux';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useSelector, useDispatch} from 'react-redux';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {
@@ -26,7 +25,7 @@ import {
 const width = Dimensions.get('window').width;
 
 const RoomMemberScreen = ({navigation, route}) => {
-  const STATUS_BAR = getStatusBarHeight();
+  const STATUS_BAR = insets.top;
   const HEADER_HEIGHT = 89;
   const theme = useTheme();
   const insets = useSafeAreaInsets();
@@ -235,7 +234,7 @@ const RoomMemberScreen = ({navigation, route}) => {
       position: 'absolute',
       left: getSize.w(24),
       right: getSize.w(24),
-      top: getStatusBarHeight() + getSize.h(HEADER_HEIGHT - 48 / 2),
+      top: insets.top + getSize.h(HEADER_HEIGHT - 48 / 2),
       zIndex: 3,
       elevation: 4,
       flexDirection: 'row',

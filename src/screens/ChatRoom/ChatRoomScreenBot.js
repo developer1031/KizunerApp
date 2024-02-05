@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, StatusBar, Dimensions, Keyboard} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useSelector, useDispatch} from 'react-redux';
 import uuid from 'uuid/v4';
 import useTheme from 'theme';
@@ -49,6 +49,7 @@ const ChatRoomScreenBot = ({navigation, route}) => {
       avatar: item.user.avatar || '',
     },
   }));
+  const insets = useSafeAreaInsets();
 
   useEffect(() => {
     if (keyboardHeight > 0) {
@@ -105,7 +106,6 @@ const ChatRoomScreenBot = ({navigation, route}) => {
   }
 
   const partners = roomDetail?.users?.filter((i) => i.id !== userInfo?.id);
-  console.log('partners', roomDetail);
   const styles = StyleSheet.create({
     wrapper: {
       flex: 1,
@@ -116,10 +116,10 @@ const ChatRoomScreenBot = ({navigation, route}) => {
       alignItems: 'center',
       paddingLeft: getSize.w(14),
       paddingRight: getSize.w(24),
-      paddingTop: getStatusBarHeight() + getSize.h(20),
+      paddingTop: insets.top + getSize.h(20),
       paddingBottom: getSize.h(20),
       backgroundColor: theme.colors.paper,
-      height: getStatusBarHeight() + getSize.h(70),
+      height: insets.top + getSize.h(70),
       zIndex: 1,
       ...theme.shadow.large.ios,
       ...theme.shadow.large.android,

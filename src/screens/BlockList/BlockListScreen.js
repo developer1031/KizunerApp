@@ -7,9 +7,8 @@ import {
   Dimensions,
 } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
-import {useSelector, useDispatch} from 'react-redux';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useSelector, useDispatch} from 'react-redux';
 
 import useTheme from 'theme';
 import {getSize} from 'utils/responsive';
@@ -37,12 +36,12 @@ const BlockListScreen = ({navigation}) => {
     wrapper: {flex: 1},
     backBtn: {
       position: 'absolute',
-      top: getStatusBarHeight() + getSize.h(20),
+      top: insets.top + getSize.h(20),
       left: getSize.w(24),
       zIndex: 1,
     },
     headerTitle: {
-      top: getStatusBarHeight() + getSize.h(26),
+      top: insets.top + getSize.h(26),
       textAlign: 'center',
     },
     scrollWrap: {

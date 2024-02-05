@@ -6,7 +6,7 @@ import {
   Keyboard,
   BackHandler,
 } from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {useSelector} from 'react-redux';
 
@@ -21,8 +21,6 @@ import NavigationService from 'navigation/service';
 
 const Tab = createMaterialTopTabNavigator();
 const width = Dimensions.get('window').width;
-const STATUS_BAR = getStatusBarHeight();
-const HEADER_HEIGHT = STATUS_BAR + 68;
 
 const MainTourScreen = ({navigation, route}, props) => {
   const formOneRef = useRef();
@@ -34,6 +32,11 @@ const MainTourScreen = ({navigation, route}, props) => {
   const theme = useTheme();
   const {canStart, start, stop, eventEmitter} = useTourGuideController();
   const [isWorking, setIsWorking] = useState(false);
+  const insets = useSafeAreaInsets();
+
+  const STATUS_BAR = insets.top;
+  const HEADER_HEIGHT = STATUS_BAR + 68;
+
   const styles = StyleSheet.create({
     wrapper: {flex: 1},
     headerBg: {zIndex: 1},

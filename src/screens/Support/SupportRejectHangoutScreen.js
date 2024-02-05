@@ -1,8 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {StyleSheet} from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {CONTACT_US} from 'utils/constants';
 import useTheme from 'theme';
 import {getSize} from 'utils/responsive';
@@ -21,8 +20,6 @@ import {updateOfferStatus, postRating} from 'actions';
 import * as yup from 'yup';
 import CheckBox from '@react-native-community/checkbox';
 
-const STATUS_BAR = getStatusBarHeight();
-
 const SupportRejectHangoutScreen = ({navigation, route}) => {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
@@ -31,6 +28,7 @@ const SupportRejectHangoutScreen = ({navigation, route}) => {
   const {id, status, hangoutId, userId, callback} = route.params;
 
   const refForm = useRef(null);
+  const STATUS_BAR = insets.top;
 
   const HEADER_HEIGHT = 68 + insets.top;
 
@@ -39,7 +37,7 @@ const SupportRejectHangoutScreen = ({navigation, route}) => {
     wrapper: {flex: 1},
     backBtn: {
       position: 'absolute',
-      top: getStatusBarHeight() + getSize.h(20),
+      top: insets.top + getSize.h(20),
       left: getSize.w(24),
       zIndex: 10,
     },

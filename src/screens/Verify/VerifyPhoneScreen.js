@@ -4,7 +4,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
 import auth from '@react-native-firebase/auth';
 
 import {verifyPhone, sendVerifyPhoneCode} from 'actions';
@@ -107,7 +106,7 @@ const VerifyPhoneScreen = ({navigation, route}) => {
     },
     backBtn: {
       position: 'absolute',
-      top: getStatusBarHeight() + getSize.h(28),
+      top: insets.top + getSize.h(28),
       left: getSize.w(24),
       zIndex: 10,
     },

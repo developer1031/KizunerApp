@@ -7,7 +7,7 @@ import {
   RefreshControl,
 } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import moment from 'moment';
 import {useSelector, useDispatch} from 'react-redux';
 
@@ -31,6 +31,8 @@ const HEADER_HEIGHT = 68;
 const TransactionHistoryScreen = ({navigation}) => {
   const theme = useTheme();
   const dispatch = useDispatch();
+  const insets = useSafeAreaInsets();
+
   const {transactionsLoading, transactions, transactionsLastPage} = useSelector(
     (state) => state.wallet,
   );
@@ -41,6 +43,119 @@ const TransactionHistoryScreen = ({navigation}) => {
   });
   const [showDatePicker, setShowDatePicker] = useState(null);
   const [page, setPage] = useState(1);
+
+  const styles = StyleSheet.create({
+    wrapper: {flex: 1, backgroundColor: orangeLight.colors.background},
+    scrollWrap: {
+      marginTop: 0,
+    },
+    backBtn: {
+      position: 'absolute',
+      top: insets.top + getSize.h(20),
+      left: getSize.w(24),
+      zIndex: 1,
+    },
+    headerTitle: {
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      top: insets.top + getSize.h(26),
+      textAlign: 'center',
+    },
+    filterBtn: {
+      position: 'absolute',
+      right: getSize.w(24),
+      top: insets.top + getSize.h(20),
+      width: getSize.w(36),
+      height: getSize.w(36),
+      borderRadius: getSize.w(36 / 2),
+      backgroundColor: orangeLight.colors.textContrast,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    filteringBtn: {
+      backgroundColor: 'transparent',
+      borderWidth: 2,
+      borderColor: orangeLight.colors.textContrast,
+    },
+    scrollCon: {
+      paddingBottom: getSize.h(20),
+    },
+    itemWrapper: {
+      paddingHorizontal: getSize.w(20),
+    },
+    itemContainer: {
+      borderBottomWidth: 1,
+      borderBottomColor: orangeLight.colors.divider,
+      height: getSize.h(68),
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    itemMeta: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      flex: 1,
+      flexGrow: 1,
+    },
+    itemDetail: {
+      marginHorizontal: getSize.w(10),
+      flex: 1,
+      flexGrow: 1,
+    },
+    itemUser: {
+      fontSize: getSize.f(17),
+      fontFamily: orangeLight.fonts.sfPro.medium,
+      color: orangeLight.colors.tagTxt,
+    },
+    itemValue: {
+      fontSize: getSize.f(17),
+      fontFamily: orangeLight.fonts.sfPro.medium,
+      color: orangeLight.colors.offered,
+    },
+    itemValueNegative: {
+      color: orangeLight.colors.primary,
+    },
+    filterWrap: {
+      backgroundColor: orangeLight.colors.paper,
+      borderBottomLeftRadius: getSize.h(30),
+      borderBottomRightRadius: getSize.h(30),
+      marginTop: insets.top + getSize.h(HEADER_HEIGHT),
+      elevation: 1,
+      zIndex: 0,
+      overflow: 'hidden',
+      ...orangeLight.shadow.small.ios,
+    },
+    filterBtnWrap: {
+      borderTopWidth: 1,
+      borderTopColor: orangeLight.colors.divider,
+      paddingTop: getSize.h(20),
+      paddingBottom: getSize.h(30),
+      paddingHorizontal: getSize.w(24),
+    },
+    filterCon: {
+      flexDirection: 'row',
+    },
+    dateBtn: {
+      paddingVertical: getSize.h(20),
+      paddingHorizontal: getSize.w(24),
+      flex: 1,
+    },
+    filterLabel: {
+      fontSize: getSize.f(15),
+    },
+    filterDate: {
+      fontSize: getSize.f(17),
+      fontFamily: orangeLight.fonts.sfPro.bold,
+      color: orangeLight.colors.primary,
+      marginTop: getSize.h(5),
+    },
+    dateDivider: {
+      borderRightWidth: 1,
+      borderRightColor: orangeLight.colors.divider,
+    },
+    filterHide: {height: 0},
+  });
 
   function loadList(p = 1) {
     dispatch(
@@ -169,7 +284,7 @@ const TransactionHistoryScreen = ({navigation}) => {
           <RefreshControl
             colors={theme.colors.gradient}
             tintColor={theme.colors.primary}
-            progressViewOffset={getStatusBarHeight()}
+            progressViewOffset={insets.top}
             onRefresh={handleRefresh}
             refreshing={transactionsLoading}
           />
@@ -193,118 +308,5 @@ const TransactionHistoryScreen = ({navigation}) => {
     </Wrapper>
   );
 };
-
-const styles = StyleSheet.create({
-  wrapper: {flex: 1, backgroundColor: orangeLight.colors.background},
-  scrollWrap: {
-    marginTop: 0,
-  },
-  backBtn: {
-    position: 'absolute',
-    top: getStatusBarHeight() + getSize.h(20),
-    left: getSize.w(24),
-    zIndex: 1,
-  },
-  headerTitle: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: getStatusBarHeight() + getSize.h(26),
-    textAlign: 'center',
-  },
-  filterBtn: {
-    position: 'absolute',
-    right: getSize.w(24),
-    top: getStatusBarHeight() + getSize.h(20),
-    width: getSize.w(36),
-    height: getSize.w(36),
-    borderRadius: getSize.w(36 / 2),
-    backgroundColor: orangeLight.colors.textContrast,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  filteringBtn: {
-    backgroundColor: 'transparent',
-    borderWidth: 2,
-    borderColor: orangeLight.colors.textContrast,
-  },
-  scrollCon: {
-    paddingBottom: getSize.h(20),
-  },
-  itemWrapper: {
-    paddingHorizontal: getSize.w(20),
-  },
-  itemContainer: {
-    borderBottomWidth: 1,
-    borderBottomColor: orangeLight.colors.divider,
-    height: getSize.h(68),
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  itemMeta: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1,
-    flexGrow: 1,
-  },
-  itemDetail: {
-    marginHorizontal: getSize.w(10),
-    flex: 1,
-    flexGrow: 1,
-  },
-  itemUser: {
-    fontSize: getSize.f(17),
-    fontFamily: orangeLight.fonts.sfPro.medium,
-    color: orangeLight.colors.tagTxt,
-  },
-  itemValue: {
-    fontSize: getSize.f(17),
-    fontFamily: orangeLight.fonts.sfPro.medium,
-    color: orangeLight.colors.offered,
-  },
-  itemValueNegative: {
-    color: orangeLight.colors.primary,
-  },
-  filterWrap: {
-    backgroundColor: orangeLight.colors.paper,
-    borderBottomLeftRadius: getSize.h(30),
-    borderBottomRightRadius: getSize.h(30),
-    marginTop: getStatusBarHeight() + getSize.h(HEADER_HEIGHT),
-    elevation: 1,
-    zIndex: 0,
-    overflow: 'hidden',
-    ...orangeLight.shadow.small.ios,
-  },
-  filterBtnWrap: {
-    borderTopWidth: 1,
-    borderTopColor: orangeLight.colors.divider,
-    paddingTop: getSize.h(20),
-    paddingBottom: getSize.h(30),
-    paddingHorizontal: getSize.w(24),
-  },
-  filterCon: {
-    flexDirection: 'row',
-  },
-  dateBtn: {
-    paddingVertical: getSize.h(20),
-    paddingHorizontal: getSize.w(24),
-    flex: 1,
-  },
-  filterLabel: {
-    fontSize: getSize.f(15),
-  },
-  filterDate: {
-    fontSize: getSize.f(17),
-    fontFamily: orangeLight.fonts.sfPro.bold,
-    color: orangeLight.colors.primary,
-    marginTop: getSize.h(5),
-  },
-  dateDivider: {
-    borderRightWidth: 1,
-    borderRightColor: orangeLight.colors.divider,
-  },
-  filterHide: {height: 0},
-});
 
 export default TransactionHistoryScreen;

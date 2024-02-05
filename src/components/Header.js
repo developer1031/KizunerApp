@@ -18,11 +18,14 @@ const Header = ({
 }) => {
   const insets = useSafeAreaInsets();
 
+  const minHeight = insets.top + getSize.h(45);
+  const height = props.height < minHeight ? props.height : minHeight;
+
   const styles = StyleSheet.create({
     container: {
       paddingHorizontal: getSize.w(24),
       flexDirection: 'row',
-      height: insets.top + getSize.h(45),
+      height: minHeight,
       paddingTop: insets.top + getSize.h(16),
       alignItems: 'center',
       justifyContent: 'space-between',

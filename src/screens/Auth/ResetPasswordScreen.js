@@ -5,7 +5,6 @@ import * as yup from 'yup';
 import {Formik} from 'formik';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
 
 import {resetPassword} from 'actions';
 import i18n from 'i18n';
@@ -56,7 +55,7 @@ const ResetPasswordScreen = ({navigation, route}) => {
     },
     backBtn: {
       position: 'absolute',
-      top: getStatusBarHeight() + getSize.h(28),
+      top: insets.top + getSize.h(28),
       left: getSize.w(24),
       zIndex: 10,
     },

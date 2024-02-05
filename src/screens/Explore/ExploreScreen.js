@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useSelector, useDispatch} from 'react-redux';
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
@@ -51,6 +51,8 @@ import {Icons} from 'utils/icon';
 const width = Dimensions.get('window').width;
 
 const ExploreScreen = () => {
+  const insets = useSafeAreaInsets();
+
   const navigation = useNavigation();
   const userInfo = useSelector((state) => state.auth.userInfo);
   const {guideVideos, guideVideosLoading, guideVideoLastPage} = useSelector(
@@ -181,7 +183,7 @@ const ExploreScreen = () => {
     // }
   }, [area, nearbyRadius]);
 
-  const TOP_SPACE = getStatusBarHeight();
+  const TOP_SPACE = insets.top;
 
   const [scrollAnim] = useState(new Animated.Value(0));
 
@@ -209,7 +211,7 @@ const ExploreScreen = () => {
       paddingHorizontal: getSize.w(24),
       flexDirection: 'row',
       height: TOP_SPACE + getSize.h(45),
-      paddingTop: getStatusBarHeight() + getSize.h(16),
+      paddingTop: insets.top + getSize.h(16),
       alignItems: 'center',
       justifyContent: 'space-between',
       zIndex: 1,

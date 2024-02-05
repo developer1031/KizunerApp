@@ -1,6 +1,6 @@
 import React, {useRef} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {useSelector} from 'react-redux';
 
@@ -16,7 +16,9 @@ const EditHangoutScreen = ({navigation, route}) => {
   const formOneRef = useRef();
   const formMulRef = useRef();
   const formRef = useRef();
-  const STATUS_BAR = getStatusBarHeight();
+  const insets = useSafeAreaInsets();
+
+  const STATUS_BAR = insets.top;
   const {hangout} = route.params;
   const beingUpdateHangout = useSelector(
     (state) => state.feed.beingUpdateHangout,

@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 import {IconButton} from 'react-native-paper';
 // import RNImageViewer from 'react-native-image-zoom-viewer';
 import Modal from 'react-native-modal';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {getSize} from 'utils/responsive';
 import useTheme from 'theme';
@@ -11,6 +11,20 @@ import orangeLight from '../theme/orangeLight';
 
 const ImageViewer = ({open, onClose, image}) => {
   const theme = useTheme();
+  const insets = useSafeAreaInsets();
+
+  const styles = StyleSheet.create({
+    wrapper: {
+      ...StyleSheet.absoluteFillObject,
+      margin: 0,
+      backgroundColor: orangeLight.colors.primary,
+    },
+    closeBtn: {
+      position: 'absolute',
+      top: insets.top,
+      right: getSize.h(15),
+    },
+  });
 
   return (
     <Modal
@@ -34,18 +48,5 @@ const ImageViewer = ({open, onClose, image}) => {
     </Modal>
   );
 };
-
-const styles = StyleSheet.create({
-  wrapper: {
-    ...StyleSheet.absoluteFillObject,
-    margin: 0,
-    backgroundColor: orangeLight.colors.primary,
-  },
-  closeBtn: {
-    position: 'absolute',
-    top: getStatusBarHeight(),
-    right: getSize.h(15),
-  },
-});
 
 export default ImageViewer;

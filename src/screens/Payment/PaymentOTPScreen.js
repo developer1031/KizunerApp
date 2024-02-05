@@ -5,9 +5,8 @@ import Text from 'components/Text';
 import Touchable from 'components/Touchable';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {getSize} from 'utils/responsive';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
-import useTheme from 'theme';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import useTheme from 'theme';
 import InputOTPCustom from 'components/InputOTPCustom';
 import Wrapper from 'components/Wrapper';
 import Paper from 'components/Paper';
@@ -26,12 +25,12 @@ const PaymentOTPScreen = ({navigation}) => {
   const styles = StyleSheet.create({
     btnBack: {
       position: 'absolute',
-      top: getStatusBarHeight() + getSize.h(20),
+      top: insets.top + getSize.h(20),
       left: getSize.w(24),
       zIndex: 10,
     },
     headerTitle: {
-      top: getStatusBarHeight() + getSize.h(26),
+      top: insets.top + getSize.h(26),
       textAlign: 'center',
     },
     mainContainer: {

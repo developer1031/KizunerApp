@@ -7,14 +7,13 @@ import {
   Dimensions,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {
   Placeholder,
   PlaceholderLine,
   PlaceholderMedia,
   Fade,
 } from 'rn-placeholder';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {getFriendList, getFollowerList, getFollowingList} from 'actions';
 import {EmptyState, Touchable, Avatar, Text} from 'components';
@@ -57,7 +56,7 @@ const UserList = ({route, navigation}) => {
       backgroundColor: theme.colors.background,
       flex: 1,
       flexGrow: 1,
-      height: height - (getStatusBarHeight() + getSize.h(97 + 50)),
+      height: height - (insets.top + getSize.h(97 + 50)),
     },
     scrollCon: {
       paddingBottom: getSize.h(70) + insets.bottom,

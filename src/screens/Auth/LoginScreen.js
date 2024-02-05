@@ -26,6 +26,7 @@ import {
 //   LoginManager,
 // } from 'react-native-fbsdk-next';
 // import {NativeModules} from 'react-native';
+import auth from '@react-native-firebase/auth';
 
 import FastImage from 'react-native-fast-image';
 import {
@@ -127,10 +128,19 @@ const LoginScreen = ({navigation, route}) => {
 
   const handleAppleSignIn = async () => {
     try {
-      const {identityToken, fullName, user} = await appleAuth.performRequest({
+      const response = await appleAuth.performRequest({
         requestedOperation: appleAuth.Operation.LOGIN,
-        requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
+        requestedScopes: [appleAuth.Scope.FULL_NAME, appleAuth.Scope.EMAIL],
       });
+      const {user, identityToken, fullName, nonce} = response;
+
+      // const appleCredential = auth.AppleAuthProvider.credential(
+      //   identityToken,
+      //   nonce,
+      // );
+      // // Sign the user in with the credential
+      // const authenticate = await auth().signInWithCredential(appleCredential);
+      console.log('______', response);
 
       await setLoad(true);
       const credentialState = await appleAuth.getCredentialStateForUser(user);

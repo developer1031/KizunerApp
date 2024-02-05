@@ -141,7 +141,8 @@ export const useWatchLocation = () => {
     }
   }, [location.area]);
 
-  return location;
+  // return location;
+  return null;
 };
 
 export function generateRandomPoint(center, radius) {

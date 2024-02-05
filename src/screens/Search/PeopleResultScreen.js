@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {StyleSheet, View, Keyboard} from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from 'react-redux';
 import {debounce} from 'throttle-debounce';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -14,6 +14,7 @@ const SearchScreen = ({navigation, route}) => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const {query, age, gender} = useSelector((state) => state.search);
+  const insets = useSafeAreaInsets();
 
   const HEADER_HEIGHT = 68;
 
@@ -49,7 +50,7 @@ const SearchScreen = ({navigation, route}) => {
       flex: 1,
     },
     headerWrap: {
-      paddingTop: getStatusBarHeight() + getSize.h(10),
+      paddingTop: insets.top + getSize.h(10),
       paddingBottom: getSize.h(10),
       paddingHorizontal: getSize.w(24),
       flexDirection: 'row',

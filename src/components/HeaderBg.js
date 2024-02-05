@@ -3,7 +3,7 @@ import {StyleSheet, Dimensions, Animated} from 'react-native';
 import Video from 'react-native-video';
 import LinearGradient from 'react-native-linear-gradient';
 import FastImage from 'react-native-fast-image';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import useTheme from 'theme';
 import {getSize} from 'utils/responsive';
@@ -26,9 +26,10 @@ const HeaderBg = ({
   addSBHeight,
 }) => {
   const theme = useTheme();
+  const insets = useSafeAreaInsets();
 
   const HEIGHT = addSBHeight
-    ? getSize.h(height || 611) + getStatusBarHeight()
+    ? getSize.h(height || 611) + insets.top
     : getSize.h(height || 611);
 
   const styles = StyleSheet.create({

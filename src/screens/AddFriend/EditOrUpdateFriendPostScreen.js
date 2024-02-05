@@ -7,9 +7,8 @@ import {
   Dimensions,
   RefreshControl,
 } from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
-import {useSelector, useDispatch} from 'react-redux';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useSelector, useDispatch} from 'react-redux';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -29,7 +28,6 @@ import {getFriendList, showAlert} from 'actions';
 import debounce from 'utils/debounce';
 
 const width = Dimensions.get('window').width;
-const STATUS_BAR = getStatusBarHeight();
 const HEADER_HEIGHT = 68;
 const lang = {
   title: 'Add Friends',
@@ -40,7 +38,10 @@ const lang = {
 
 const EditOrUpdateFriendPostScreen = ({navigation, route}) => {
   const theme = useTheme();
+
   const insets = useSafeAreaInsets();
+  const STATUS_BAR = insets.top;
+
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.auth.userInfo);
   const friend = useSelector((state) => state.contact.friend?.me);

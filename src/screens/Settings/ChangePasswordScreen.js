@@ -2,7 +2,7 @@ import React from 'react';
 import {View, StyleSheet, Dimensions, StatusBar, Keyboard} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import * as yup from 'yup';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Formik} from 'formik';
 
@@ -24,6 +24,7 @@ const ChangePasswordScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const theme = useTheme();
   const loading = useSelector((state) => state.auth.beingUpdatePassword);
+  const insets = useSafeAreaInsets();
 
   const lang = {
     send: 'Update',
@@ -38,14 +39,14 @@ const ChangePasswordScreen = ({navigation}) => {
     innerContainer: {
       position: 'absolute',
       alignItems: 'center',
-      top: getStatusBarHeight() + getSize.h(26),
+      top: insets.top + getSize.h(26),
       left: 0,
       right: 0,
       width,
     },
     backBtn: {
       position: 'absolute',
-      top: getStatusBarHeight() + getSize.h(20),
+      top: insets.top + getSize.h(20),
       left: getSize.w(24),
       zIndex: 1,
     },
@@ -102,7 +103,7 @@ const ChangePasswordScreen = ({navigation}) => {
             barStyle="light-content"
           />
           <View style={styles.container}>
-            <HeaderBg height={getStatusBarHeight() + 120} />
+            <HeaderBg height={insets.top + 120} />
             <Touchable onPress={navigation.goBack} style={styles.backBtn}>
               <MaterialCommunityIcons
                 name="chevron-left"

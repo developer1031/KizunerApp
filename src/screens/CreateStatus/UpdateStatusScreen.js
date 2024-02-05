@@ -1,10 +1,9 @@
 import React from 'react';
 import {StyleSheet, View, ScrollView, Keyboard} from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useSelector, useDispatch} from 'react-redux';
 import {Formik} from 'formik';
 import * as yup from 'yup';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {IconButton as PaperIconButton} from 'react-native-paper';
 
 import {
@@ -24,7 +23,7 @@ import {updateStatus} from 'actions';
 import ImageMultiple from 'components/ImageMultiple/ImageMultiple';
 
 const CreateHangoutScreen = ({navigation, route}) => {
-  const STATUS_BAR = getStatusBarHeight();
+  const STATUS_BAR = insets.top;
   const beingUpdateStatus = useSelector(
     (state) => state.feed.beingUpdateStatus,
   );

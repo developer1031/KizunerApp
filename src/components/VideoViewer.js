@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import Modal from 'react-native-modal';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {IconButton} from 'react-native-paper';
 
 import {getSize} from 'utils/responsive';
@@ -15,6 +15,46 @@ import {Platform} from 'react-native';
 
 const VideoViewer = ({open, onClose, selected}) => {
   const theme = useTheme();
+  const insets = useSafeAreaInsets();
+
+  const styles = StyleSheet.create({
+    wrapper: {
+      ...StyleSheet.absoluteFillObject,
+      margin: 0,
+      backgroundColor: '#000001',
+    },
+    closeBtn: {
+      position: 'absolute',
+      ...Platform.select({
+        ios: {
+          top: insets.top - getSize.h(20),
+          right: getSize.h(10),
+        },
+        android: {
+          top: insets.top - getSize.h(30),
+          right: getSize.h(6),
+        },
+      }),
+      zIndex: 10000000,
+    },
+    video: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      resizeMode: 'cover',
+      backgroundColor: orangeLight.colors.background,
+      ...Platform.select({
+        ios: {
+          marginVertical: getSize.h(65),
+        },
+        android: {
+          marginVertical: getSize.h(50),
+        },
+      }),
+    },
+  });
 
   function onFullScreen() {
     onClose && onClose();
@@ -51,44 +91,5 @@ const VideoViewer = ({open, onClose, selected}) => {
     </Modal>
   );
 };
-
-const styles = StyleSheet.create({
-  wrapper: {
-    ...StyleSheet.absoluteFillObject,
-    margin: 0,
-    backgroundColor: '#000001',
-  },
-  closeBtn: {
-    position: 'absolute',
-    ...Platform.select({
-      ios: {
-        top: getStatusBarHeight() - getSize.h(20),
-        right: getSize.h(10),
-      },
-      android: {
-        top: getStatusBarHeight() - getSize.h(30),
-        right: getSize.h(6),
-      },
-    }),
-    zIndex: 10000000,
-  },
-  video: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    resizeMode: 'cover',
-    backgroundColor: orangeLight.colors.background,
-    ...Platform.select({
-      ios: {
-        marginVertical: getSize.h(65),
-      },
-      android: {
-        marginVertical: getSize.h(50),
-      },
-    }),
-  },
-});
 
 export default VideoViewer;

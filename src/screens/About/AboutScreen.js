@@ -6,9 +6,8 @@ import {
   View,
   RefreshControl,
 } from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useDispatch, useSelector} from 'react-redux';
 import {getConfigs} from 'actions';
 import useTheme from 'theme';
@@ -49,7 +48,7 @@ const AboutScreen = ({navigation}) => {
       paddingVertical: getSize.h(30),
       flexDirection: 'row',
       alignItems: 'center',
-      marginTop: getStatusBarHeight() + getSize.h(30),
+      marginTop: insets.top + getSize.h(30),
       paddingHorizontal: getSize.w(24),
       marginHorizontal: getSize.w(24),
     },
@@ -67,12 +66,12 @@ const AboutScreen = ({navigation}) => {
     },
     backBtn: {
       position: 'absolute',
-      top: getStatusBarHeight() + getSize.h(20),
+      top: insets.top + getSize.h(20),
       left: getSize.w(24),
       zIndex: 10,
     },
     headerTitle: {
-      top: getStatusBarHeight() + getSize.h(26),
+      top: insets.top + getSize.h(26),
       textAlign: 'center',
     },
     titleText: {

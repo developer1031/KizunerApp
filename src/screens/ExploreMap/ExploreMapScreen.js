@@ -12,7 +12,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import LinearGradient from 'react-native-linear-gradient';
 import {useSelector, useDispatch} from 'react-redux';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {getDistance} from 'geolib';
 
 import useTheme from 'theme';
@@ -38,8 +38,6 @@ import {Icons} from 'utils/icon';
 
 const width = Dimensions.get('window').width;
 
-const HEADER_HEIGHT = getStatusBarHeight() + getSize.h(71);
-
 const DEFAULT_DELTA = {
   latitudeDelta: 0.075,
   longitudeDelta: 0.0605,
@@ -61,6 +59,9 @@ const ExploreMapScreen = ({navigation}) => {
   const [mapRegion, setMapRegion] = useState(null);
   const [showSearchArea, setShowSearchArea] = useState(false);
   const [dataRegion, setDataRegion] = useState(null);
+  const insets = useSafeAreaInsets();
+
+  const HEADER_HEIGHT = insets.top + getSize.h(71);
 
   async function getRadius() {
     const {northEast, southWest} = await mapView.current.getMapBoundaries();
@@ -195,7 +196,7 @@ const ExploreMapScreen = ({navigation}) => {
       position: 'relative',
     },
     headerWrap: {
-      paddingTop: getStatusBarHeight(),
+      paddingTop: insets.top,
       height: HEADER_HEIGHT,
       justifyContent: 'space-between',
       alignItems: 'center',
@@ -284,7 +285,7 @@ const ExploreMapScreen = ({navigation}) => {
 
   return (
     <Wrapper>
-      <HeaderBg height={HEADER_HEIGHT + getStatusBarHeight()} noBorder />
+      <HeaderBg height={HEADER_HEIGHT + insets.top} noBorder />
       <View style={styles.headerWrap}>
         <SearchBar
           placeholder={lang.searchPlaceholder}

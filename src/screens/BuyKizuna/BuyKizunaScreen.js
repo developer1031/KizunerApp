@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Animated, View, RefreshControl} from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FastImage from 'react-native-fast-image';
 import {useSelector, useDispatch} from 'react-redux';
@@ -26,6 +26,98 @@ const BuyKizunaScreen = ({navigation}) => {
   const {packages, beingLoadPackages, current} = useSelector(
     (state) => state.wallet,
   );
+  const insets = useSafeAreaInsets();
+
+  const styles = StyleSheet.create({
+    wrapper: {flex: 1},
+    scrollWrap: {flex: 1},
+    scrollCon: {
+      paddingHorizontal: getSize.w(24),
+      paddingBottom: getSize.h(20),
+    },
+    headerInfo: {
+      paddingVertical: getSize.h(22),
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginTop: insets.top + getSize.h(30),
+      marginBottom: getSize.h(20),
+      zIndex: 10,
+    },
+    backBtn: {
+      position: 'absolute',
+      top: insets.top + getSize.h(20),
+      left: getSize.w(24),
+      zIndex: 10,
+    },
+    headerTitle: {
+      top: insets.top + getSize.h(26),
+      textAlign: 'center',
+    },
+    headerInfoItem: {
+      flex: 1,
+      paddingHorizontal: getSize.w(24),
+      alignItems: 'flex-end',
+    },
+    balanceKizuna: {
+      color: orangeLight.colors.primary,
+      fontSize: getSize.f(15),
+    },
+    incomeKizuna: {
+      color: orangeLight.colors.secondary,
+      fontSize: getSize.f(15),
+    },
+    kizunaNumber: {
+      fontSize: getSize.f(32),
+      fontFamily: orangeLight.fonts.sfPro.bold,
+      letterSpacing: 0,
+    },
+    headerInfoLabel: {
+      fontSize: getSize.f(15),
+    },
+    headerLogo: {
+      width: getSize.w(43),
+      height: getSize.w(43),
+      resizeMode: 'contain',
+      marginLeft: getSize.w(24),
+    },
+    priceItem: {
+      paddingHorizontal: getSize.w(24),
+      paddingVertical: getSize.h(30),
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginBottom: getSize.h(20),
+      ...orangeLight.shadow.small.ios,
+      ...orangeLight.shadow.small.android,
+      backgroundColor: 'white',
+    },
+    priceItemKizuna: {
+      fontSize: getSize.f(18),
+      fontFamily: orangeLight.fonts.sfPro.bold,
+      color: orangeLight.colors.primary,
+    },
+    priceItemPrice: {
+      fontSize: getSize.f(18),
+      color: orangeLight.colors.text2,
+    },
+    priceItemBold: {
+      fontSize: getSize.f(18),
+      fontFamily: orangeLight.fonts.sfPro.bold,
+      color: orangeLight.colors.tagTxt,
+    },
+    buyNowBtn: {
+      backgroundColor: orangeLight.colors.primary,
+      height: getSize.h(38),
+      borderRadius: getSize.h(38 / 2),
+      paddingHorizontal: getSize.w(20),
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    buyNowTxt: {
+      fontFamily: orangeLight.fonts.sfPro.medium,
+      color: orangeLight.colors.textContrast,
+    },
+  });
 
   useEffect(() => {
     dispatch(getKizunaPackages());
@@ -53,7 +145,7 @@ const BuyKizunaScreen = ({navigation}) => {
   }
 
   const headerOpacity = scrollAnim.interpolate({
-    inputRange: [0, getStatusBarHeight() + getSize.h(100)],
+    inputRange: [0, insets.top + getSize.h(100)],
     outputRange: [1, 0],
     extrapolate: 'clamp',
   });
@@ -107,7 +199,7 @@ const BuyKizunaScreen = ({navigation}) => {
           <RefreshControl
             colors={theme.colors.gradient}
             tintColor={theme.colors.primary}
-            progressViewOffset={getStatusBarHeight()}
+            progressViewOffset={insets.top}
             onRefresh={() => dispatch(getKizunaPackages())}
             refreshing={beingLoadPackages}
           />
@@ -116,96 +208,5 @@ const BuyKizunaScreen = ({navigation}) => {
     </Wrapper>
   );
 };
-
-const styles = StyleSheet.create({
-  wrapper: {flex: 1},
-  scrollWrap: {flex: 1},
-  scrollCon: {
-    paddingHorizontal: getSize.w(24),
-    paddingBottom: getSize.h(20),
-  },
-  headerInfo: {
-    paddingVertical: getSize.h(22),
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: getStatusBarHeight() + getSize.h(30),
-    marginBottom: getSize.h(20),
-    zIndex: 10,
-  },
-  backBtn: {
-    position: 'absolute',
-    top: getStatusBarHeight() + getSize.h(20),
-    left: getSize.w(24),
-    zIndex: 10,
-  },
-  headerTitle: {
-    top: getStatusBarHeight() + getSize.h(26),
-    textAlign: 'center',
-  },
-  headerInfoItem: {
-    flex: 1,
-    paddingHorizontal: getSize.w(24),
-    alignItems: 'flex-end',
-  },
-  balanceKizuna: {
-    color: orangeLight.colors.primary,
-    fontSize: getSize.f(15),
-  },
-  incomeKizuna: {
-    color: orangeLight.colors.secondary,
-    fontSize: getSize.f(15),
-  },
-  kizunaNumber: {
-    fontSize: getSize.f(32),
-    fontFamily: orangeLight.fonts.sfPro.bold,
-    letterSpacing: 0,
-  },
-  headerInfoLabel: {
-    fontSize: getSize.f(15),
-  },
-  headerLogo: {
-    width: getSize.w(43),
-    height: getSize.w(43),
-    resizeMode: 'contain',
-    marginLeft: getSize.w(24),
-  },
-  priceItem: {
-    paddingHorizontal: getSize.w(24),
-    paddingVertical: getSize.h(30),
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: getSize.h(20),
-    ...orangeLight.shadow.small.ios,
-    ...orangeLight.shadow.small.android,
-    backgroundColor: 'white',
-  },
-  priceItemKizuna: {
-    fontSize: getSize.f(18),
-    fontFamily: orangeLight.fonts.sfPro.bold,
-    color: orangeLight.colors.primary,
-  },
-  priceItemPrice: {
-    fontSize: getSize.f(18),
-    color: orangeLight.colors.text2,
-  },
-  priceItemBold: {
-    fontSize: getSize.f(18),
-    fontFamily: orangeLight.fonts.sfPro.bold,
-    color: orangeLight.colors.tagTxt,
-  },
-  buyNowBtn: {
-    backgroundColor: orangeLight.colors.primary,
-    height: getSize.h(38),
-    borderRadius: getSize.h(38 / 2),
-    paddingHorizontal: getSize.w(20),
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  buyNowTxt: {
-    fontFamily: orangeLight.fonts.sfPro.medium,
-    color: orangeLight.colors.textContrast,
-  },
-});
 
 export default BuyKizunaScreen;

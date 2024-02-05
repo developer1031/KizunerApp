@@ -31,6 +31,7 @@ const Button = ({
     containerStyle: {
       overflow: 'visible',
       backgroundColor: theme.colors.paper,
+      borderRadius: getSize.h(48 / 2),
     },
     buttonViewStyle: {
       height: getSize.h(48),

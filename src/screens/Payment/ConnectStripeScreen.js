@@ -4,30 +4,53 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import useTheme from 'theme';
 import {getSize} from 'utils/responsive';
 import {Wrapper, Text, Touchable, Button} from 'components';
-import LinearGradient from 'react-native-linear-gradient';
 import {useDispatch, useSelector} from 'react-redux';
 import {connectStripe, getStripeCustomAccount} from 'actions';
-import {View} from 'react-native';
 import {Formik} from 'formik';
 import Paper from 'components/Paper';
 import FormikInput from 'components/FormikInput';
-import {ScrollView} from 'react-native';
 import WithdrawModel from './components/WithdrawModel';
 import {SpaceView} from 'components/SpaceView';
 import CountryPicker from 'components/CountryPicker';
 import {countries as countriesData} from 'assets/data';
 import FastImage from 'react-native-fast-image';
 import DatePicker from './components/DatePicker';
-import {TouchableWithoutFeedback} from 'react-native';
 import ImageStripePicker from 'components/ImageStripePicker';
 import * as yup from 'yup';
 import moment from 'moment';
-import {TouchableOpacity} from 'react-native';
+import {
+  Platform,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+  ScrollView,
+  View,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import {showAlert} from 'actions';
 import {getWalletStripeStatus} from 'actions';
-import {styles as style} from './styles/stripeCustom';
 import {HeaderLinear} from 'components/HeaderLinear';
 const {phone} = require('phone');
+import BankArgentina from './components/BankArgentina';
+import BankAustralia from './components/BankAustralia';
+import BankAzerbaijan from './components/BankAzerbaijan';
+import BankCanada from './components/BankCanada';
+import BankGhana from './components/BankGhana';
+import BankHongkong from './components/BankHongkong';
+import BankIndia from './components/BankIndia';
+import BankJapan from './components/BankJapan';
+import BankMalaysia from './components/BankMalaysia';
+import BankMexico from './components/BankMexico';
+import BankNewZeland from './components/BankNewZeland';
+import BankPeru from './components/BankPeru';
+import BankUK from './components/BankUK';
+import BankUS from './components/BankUS';
+import _BankIban from './components/_BankIban';
+import _BankNormal from './components/_BankNormal';
+import _BankNormalBranch from './components/_BankNormalBranch';
+import _BankNormalType from './components/_BankNormalType';
+
+const {width, height} = Dimensions.get('window');
 
 const initialValues = {
   first_name: '',
@@ -51,6 +74,7 @@ const initialValues = {
   // identity_document: '',
   // identity_document_back: '',
 };
+
 const ConnectStripeScreen = ({navigation}) => {
   const dispatch = useDispatch();
 
@@ -66,7 +90,6 @@ const ConnectStripeScreen = ({navigation}) => {
 
   const [showCountryPicker, setShowCountryPicker] = useState(false);
 
-  const [showCountryCodePicker, setShowCountryCodePicker] = useState(false);
   const [countryCode, setCountryCode] = useState('JP');
   const countryData = countriesData[countryCode];
 
@@ -80,6 +103,72 @@ const ConnectStripeScreen = ({navigation}) => {
   const [rerenderFlag, setRerenderFlag] = useState(false);
 
   const countryCodeData = countriesData[countryCode];
+
+  const styles = StyleSheet.create({
+    btnBack: {
+      position: 'absolute',
+      top: insets.top + getSize.h(20),
+      left: getSize.w(24),
+      zIndex: 10,
+    },
+    headerTitle: {
+      top: insets.top + getSize.h(26),
+      textAlign: 'center',
+    },
+    mainContainer: {
+      paddingVertical: getSize.w(24),
+      paddingHorizontal: getSize.w(24),
+    },
+    formWrapper: {
+      paddingVertical: getSize.h(40),
+      paddingHorizontal: getSize.w(24),
+    },
+    btnContainer: {
+      paddingTop: getSize.h(24),
+      paddingHorizontal: getSize.w(24),
+      backgroundColor: 'white',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+
+      shadowOpacity: 0.5,
+      shadowOffset: {
+        width: 0,
+        height: 5,
+      },
+      shadowColor: '#000',
+      shadowRadius: 5,
+      elevation: 5,
+    },
+    countryFlag: {
+      width: getSize.w(28),
+      height: getSize.h(20),
+      borderRadius: getSize.h(2),
+      resizeMode: 'contain',
+      marginRight: getSize.w(5),
+    },
+    countryValue: {
+      paddingVertical: getSize.h(Platform.OS === 'ios' ? 10 : 8),
+      fontSize: getSize.f(16),
+      letterSpacing: 1,
+    },
+    phoneInput: {
+      overflow: 'hidden',
+      flexGrow: 1,
+      maxWidth: width / 2 + getSize.w(10) - getSize.w(48),
+      paddingVertical: 0,
+      marginVertical: 0,
+    },
+
+    bodInterface: {
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
+      zIndex: 1,
+      top: 0,
+      left: 0,
+    },
+  });
 
   useEffect(() => {
     dispatch(
@@ -181,27 +270,15 @@ const ConnectStripeScreen = ({navigation}) => {
   };
   const onPressWithdraw = () => refWithdraw.current?.show();
 
-  const styles = {...style};
-
   return (
     <>
-      <CountryPicker
-        open={showCountryCodePicker}
-        onClose={() => setShowCountryCodePicker(false)}
-        value={countryCode}
-        onSelect={(value) => {
-          setCountryCode(value);
-          setShowCountryCodePicker(false);
-        }}
-      />
-
       <CountryPicker
         open={showCountryPicker}
         onClose={() => setShowCountryPicker(false)}
         value={countryCode}
         showCode={false}
         onSelect={(value) => {
-          setCountryCode(countryCode);
+          setCountryCode(value);
           setShowCountryPicker(false);
         }}
       />
@@ -240,7 +317,6 @@ const ConnectStripeScreen = ({navigation}) => {
             setShowCountryPicker={setShowCountryPicker}
             countryData={countryData}
             refDatePicker={refDatePicker}
-            setShowCountryCodePicker={setShowCountryCodePicker}
             countryCodeData={countryCodeData}
             theme={theme}
             insets={insets}
@@ -257,21 +333,93 @@ const ConnectStripeScreen = ({navigation}) => {
 };
 
 const FormikComponent = (props) => {
-  const {isEditing, defaultFormValues} = props;
+  const {isEditing, defaultFormValues, countryCode} = props;
 
   const [editBank, setEditBank] = useState(false);
   const [editVerification, setEditVerification] = useState(false);
   const [refresh, setRefresh] = useState(false);
+  const insets = useSafeAreaInsets();
 
   const styles = {
-    ...style,
+    btnBack: {
+      position: 'absolute',
+      top: insets.top + getSize.h(20),
+      left: getSize.w(24),
+      zIndex: 10,
+    },
+    headerTitle: {
+      top: insets.top + getSize.h(26),
+      textAlign: 'center',
+    },
+    mainContainer: {
+      paddingVertical: getSize.w(24),
+      paddingHorizontal: getSize.w(24),
+    },
+    formWrapper: {
+      paddingVertical: getSize.h(40),
+      paddingHorizontal: getSize.w(24),
+    },
+    btnContainer: {
+      paddingTop: getSize.h(24),
+      paddingHorizontal: getSize.w(24),
+      backgroundColor: 'white',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+
+      shadowOpacity: 0.5,
+      shadowOffset: {
+        width: 0,
+        height: 5,
+      },
+      shadowColor: '#000',
+      shadowRadius: 5,
+      elevation: 5,
+    },
+    phoneInputWrapper: {
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+    },
+    datePickerInput: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingTop: 10,
+    },
     countryInput: {
-      ...style.countryInput,
+      minWidth: 100,
+      borderBottomWidth: getSize.h(1),
       borderBottomColor: props.theme.colors.divider,
     },
+    countryWrap: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    countryFlag: {
+      width: getSize.w(28),
+      height: getSize.h(20),
+      borderRadius: getSize.h(2),
+      resizeMode: 'contain',
+      marginRight: getSize.w(5),
+    },
     countryValue: {
-      ...style.countryValue,
+      paddingVertical: getSize.h(Platform.OS === 'ios' ? 10 : 8),
+      fontSize: getSize.f(16),
+      letterSpacing: 1,
       color: props.theme.colors.text,
+    },
+    phoneWrapper: {
+      marginLeft: 20,
+      flexGrow: 1,
+      width: width - getSize.w(48 * 2 + 20 + 100),
+    },
+    bodInterface: {
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
+      zIndex: 1,
+      top: 0,
+      left: 0,
     },
     flex: {
       flex: 1,
@@ -511,7 +659,6 @@ const FormikComponent = (props) => {
                 {...props}
               />
               <PhoneComponent
-                onPress={() => props.setShowCountryCodePicker(true)}
                 formikProps={formikProps}
                 styles={styles}
                 {...props}
@@ -554,7 +701,11 @@ const FormikComponent = (props) => {
             )}
 
             {showBankEdit && (
-              <ReceivePayout styles={styles} formikProps={formikProps} />
+              <ReceivePayout
+                styles={styles}
+                formikProps={formikProps}
+                countryCode={countryCode}
+              />
             )}
           </ScrollView>
 
@@ -682,10 +833,10 @@ const CountryComponent = (props) => {
 };
 const PhoneComponent = (props) => {
   return (
-    <View style={props.styles.phoneInputWrapper}>
-      <Touchable onPress={props.onPress}>
+    <View>
+      <Text variant="inputLabel">Phone Number</Text>
+      <View style={props.styles.phoneInputWrapper}>
         <View style={props.styles.countryInput}>
-          <Text variant="inputLabel">Phone Number</Text>
           <View style={props.styles.countryWrap}>
             <FastImage
               style={props.styles.countryFlag}
@@ -701,19 +852,20 @@ const PhoneComponent = (props) => {
             />
           </View>
         </View>
-      </Touchable>
-      <FormikInput
-        name="phone"
-        {...props.formikProps}
-        inputProps={{
-          label: ' ',
-          returnKeyType: 'next',
-          placeholder: '',
-          wrapperStyle: props.styles.phoneWrapper,
-          type: 'phone-pad',
-          style: props.styles.phoneInput,
-        }}
-      />
+
+        <FormikInput
+          name="phone"
+          {...props.formikProps}
+          inputProps={{
+            label: '',
+            returnKeyType: 'next',
+            placeholder: '',
+            wrapperStyle: props.styles.phoneWrapper,
+            type: 'phone-pad',
+            style: props.styles.phoneInput,
+          }}
+        />
+      </View>
     </View>
   );
 };
@@ -721,7 +873,7 @@ const CalendarComponent = (props) => {
   return (
     <>
       <TouchableOpacity onPress={props.onPress}>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <View style={props.styles.datePickerInput}>
           <FormikInput
             name="dob"
             {...props.formikProps}
@@ -741,6 +893,7 @@ const CalendarComponent = (props) => {
           <View style={props.styles.bodInterface} />
         </View>
       </TouchableOpacity>
+
       <DatePicker
         ref={props.refs}
         onChange={props.onChange}
@@ -750,6 +903,19 @@ const CalendarComponent = (props) => {
   );
 };
 const ReceivePayout = (props) => {
+  const {countryCode, formikProps} = props;
+
+  console.log(countryCode);
+
+  switch (countryCode) {
+    case '':
+      return;
+  }
+
+  const render_country_bank = () => {
+    return <BankJapan formikProps={props.formikProps} />;
+  };
+
   return (
     <Paper style={props.styles.formWrapper}>
       <Wrapper dismissKeyboard style={{backgroundColor: 'transparent'}}>
@@ -757,47 +923,8 @@ const ReceivePayout = (props) => {
           Add your bank to receive payouts
         </Text>
 
-        <FormikInput
-          name="bank_name"
-          {...props.formikProps}
-          inputProps={{
-            label: 'Bank Name',
-            returnKeyType: 'next',
-            placeholder: '',
-          }}
-        />
+        {render_country_bank()}
 
-        {/* <FormikInput
-          name="bank_code"
-          {...props.formikProps}
-          inputProps={{
-            label: 'Bank Code',
-            returnKeyType: 'next',
-            placeholder: '',
-          }}
-        />
-
-        <FormikInput
-          name="branch_code"
-          {...props.formikProps}
-          inputProps={{
-            label: 'Branch Code',
-            type: 'number-pad',
-            returnKeyType: 'next',
-            placeholder: '',
-          }}
-        /> */}
-
-        <FormikInput
-          name="routing_number"
-          {...props.formikProps}
-          inputProps={{
-            label: 'Routing number',
-            type: 'number-pad',
-            returnKeyType: 'next',
-            placeholder: '1100000',
-          }}
-        />
         <FormikInput
           name="account_name"
           {...props.formikProps}
@@ -805,26 +932,6 @@ const ReceivePayout = (props) => {
             label: 'Account Holder Name',
             returnKeyType: 'next',
             placeholder: 'Kizuner',
-          }}
-        />
-        <FormikInput
-          name="account_number"
-          {...props.formikProps}
-          inputProps={{
-            label: 'Account number',
-            type: 'number-pad',
-            returnKeyType: 'next',
-            placeholder: '0001234',
-          }}
-        />
-        <FormikInput
-          name="aconfirm_account_number"
-          {...props.formikProps}
-          inputProps={{
-            label: 'Confirm account number',
-            type: 'number-pad',
-            returnKeyType: 'next',
-            placeholder: '0001234',
           }}
         />
       </Wrapper>

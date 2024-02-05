@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, KeyboardAvoidingView, Keyboard} from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useSelector, useDispatch} from 'react-redux';
 import {Formik} from 'formik';
 import * as yup from 'yup';
@@ -23,7 +23,7 @@ import {postPaymentCryptoCard, deletePaymentCryptoCard} from 'actions';
 import InputChooseCryptoCurrencyPayment from 'components/InputChooseCryptoCurrencyPayment';
 
 const CryptoPanelScreen = ({navigation, route}) => {
-  const STATUS_BAR = getStatusBarHeight();
+  const STATUS_BAR = insets.top;
   const {beingAddCard, beingRemoveCard} = useSelector((state) => state.wallet);
   const HEADER_HEIGHT = 120;
   const theme = useTheme();

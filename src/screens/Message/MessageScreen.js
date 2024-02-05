@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Dimensions,
 } from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from 'react-redux';
 import {useIsFocused, useScrollToTop} from '@react-navigation/native';
 import Feather from 'react-native-vector-icons/Feather';
@@ -26,7 +26,6 @@ import {getSize} from 'utils/responsive';
 import {listChatRoom} from 'actions';
 import {useDebouncedSearch} from 'utils/debounceSearch';
 import {View} from 'react-native';
-const HEADER_HEIGHT = 89;
 import orangeLight from '../../theme/orangeLight';
 import ChatUnseenBadge from 'components/ChatUnseenBadge';
 
@@ -44,6 +43,7 @@ const MemoMessageItem = memo(MessageItem, isEqualChatItem);
 const MessageScreen = ({navigation, route}) => {
   const theme = useTheme();
   const [scrollAnim] = useState(new Animated.Value(0));
+  const insets = useSafeAreaInsets();
 
   const {messageList, messageLastPage, messageLoading, reset, typeChat} =
     useSelector((state) => state.chat);
@@ -62,6 +62,172 @@ const MessageScreen = ({navigation, route}) => {
     }
   }, [reset]);
   useScrollToTop(listRef);
+
+  var HEADER_HEIGHT = 89;
+
+  const styles = StyleSheet.create({
+    wrapper: {flex: 1},
+    scrollWrap: {
+      ...StyleSheet.absoluteFillObject,
+      zIndex: -1,
+      backgroundColor: orangeLight.colors.paper,
+    },
+    scrollContainer: {
+      paddingBottom: getSize.h(20),
+      paddingTop:
+        Platform.OS === 'android'
+          ? insets.top + getSize.h(HEADER_HEIGHT + 48 / 2)
+          : 0,
+    },
+    hangoutHead: {
+      paddingHorizontal: getSize.w(24),
+      borderBottomColor: orangeLight.colors.divider,
+      borderBottomWidth: getSize.h(1),
+      paddingVertical: getSize.h(15),
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    hangoutCountWrap: {
+      borderTopColor: orangeLight.colors.divider,
+      borderTopWidth: getSize.h(1),
+      borderBottomColor: orangeLight.colors.divider,
+      borderBottomWidth: getSize.h(1),
+    },
+    separator: {
+      height: getSize.h(20),
+    },
+    headerWrap: {zIndex: 2, elevation: 3},
+    statusFilter: {
+      justifyContent: 'flex-end',
+      paddingBottom: getSize.h(20),
+      marginBottom: getSize.h(20),
+      paddingTop: getSize.h(90),
+    },
+    filterContainer: {
+      paddingHorizontal: getSize.w(24),
+    },
+    filterItem: {
+      marginRight: getSize.w(10),
+    },
+    actionWrap: {
+      position: 'absolute',
+      left: getSize.w(24),
+      right: getSize.w(24),
+      top: insets.top + getSize.h(HEADER_HEIGHT - 48 / 2),
+      zIndex: 3,
+      elevation: 4,
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    actionItem: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: 'row',
+    },
+    actionDivider: {
+      width: getSize.w(1.5),
+      backgroundColor: orangeLight.colors.divider,
+      height: getSize.h(44),
+    },
+    actionText: {
+      fontSize: getSize.f(17),
+      fontFamily: orangeLight.fonts.sfPro.medium,
+      color: orangeLight.colors.tagTxt,
+      marginLeft: getSize.w(10),
+    },
+    primary: {
+      color: orangeLight.colors.primary,
+    },
+    newChat: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    newChatTxt: {
+      fontSize: getSize.f(17),
+      color: orangeLight.colors.textContrast,
+      marginRight: getSize.w(5),
+    },
+    searchBar: {flex: 1},
+    emptyWrap: {
+      marginVertical: getSize.h(50),
+    },
+    floatAction: {
+      position: 'absolute',
+      zIndex: 1000,
+      bottom: getSize.w(28),
+      right: getSize.w(28),
+      width: getSize.w(50),
+      height: getSize.w(50),
+      backgroundColor: orangeLight.colors.primary,
+      borderRadius: getSize.w(25),
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    contextChangeChat: {
+      height: getSize.h(45),
+      flex: 1,
+      paddingHorizontal: getSize.w(24),
+      marginVertical: getSize.h(16),
+    },
+    contextChild: {
+      flex: 1,
+      backgroundColor: orangeLight.colors.grayLight,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      borderRadius: getSize.w(22),
+    },
+    itemChange: {
+      flex: 1,
+      borderRadius: getSize.w(22),
+      height: '100%',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    textItem: {
+      fontSize: getSize.f(14),
+      color: orangeLight.colors.textContrast,
+      fontFamily: orangeLight.fonts.sfPro.bold,
+    },
+    itemActive: {
+      backgroundColor: 'rgb(255,95,109)',
+    },
+
+    tabItem: {
+      height: getSize.h(38),
+      borderRadius: getSize.h(38 / 2),
+      backgroundColor: orangeLight.colors.tagBg,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: width / 3 - getSize.w(24 + 6),
+      marginRight: getSize.w(10),
+    },
+    tabItemActive: {
+      backgroundColor: orangeLight.colors.secondary,
+    },
+    tabLabel: {
+      fontFamily: orangeLight.fonts.sfPro.regular,
+      color: orangeLight.colors.text,
+    },
+    tabLabelActive: {
+      fontFamily: orangeLight.fonts.sfPro.regular,
+      color: orangeLight.colors.textContrast,
+    },
+    tabWrap: {
+      flexDirection: 'row',
+      paddingVertical: getSize.h(14),
+      paddingHorizontal: getSize.w(24),
+      alignItems: 'center',
+      // justifyContent: 'space-between',
+      backgroundColor: orangeLight.colors.paper,
+      //...orangeLight.shadow.large.ios,
+      //...orangeLight.shadow.large.android,
+    },
+  });
 
   const {setInputText} = useDebouncedSearch((value) => {
     handleLoadListChat(1, value, activeChat);
@@ -121,9 +287,7 @@ const MessageScreen = ({navigation, route}) => {
   }
 
   const TOP_INSET =
-    Platform.OS === 'ios'
-      ? getStatusBarHeight() + getSize.h(HEADER_HEIGHT + 24)
-      : 0;
+    Platform.OS === 'ios' ? insets.top + getSize.h(HEADER_HEIGHT + 24) : 0;
 
   const headerOpacity = scrollAnim.interpolate({
     inputRange: [-TOP_INSET, getSize.h(60)],
@@ -290,7 +454,7 @@ const MessageScreen = ({navigation, route}) => {
         //     tintColor={theme.colors.primary}
         //     onRefresh={handleRefresh}
         //     progressViewOffset={
-        //       getStatusBarHeight() + getSize.h(HEADER_HEIGHT + 24)
+        //       insets.top + getSize.h(HEADER_HEIGHT + 24)
         //     }
         //   />
         // }
@@ -300,169 +464,5 @@ const MessageScreen = ({navigation, route}) => {
     </Wrapper>
   );
 };
-
-const styles = StyleSheet.create({
-  wrapper: {flex: 1},
-  scrollWrap: {
-    ...StyleSheet.absoluteFillObject,
-    zIndex: -1,
-    backgroundColor: orangeLight.colors.paper,
-  },
-  scrollContainer: {
-    paddingBottom: getSize.h(20),
-    paddingTop:
-      Platform.OS === 'android'
-        ? getStatusBarHeight() + getSize.h(HEADER_HEIGHT + 48 / 2)
-        : 0,
-  },
-  hangoutHead: {
-    paddingHorizontal: getSize.w(24),
-    borderBottomColor: orangeLight.colors.divider,
-    borderBottomWidth: getSize.h(1),
-    paddingVertical: getSize.h(15),
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  hangoutCountWrap: {
-    borderTopColor: orangeLight.colors.divider,
-    borderTopWidth: getSize.h(1),
-    borderBottomColor: orangeLight.colors.divider,
-    borderBottomWidth: getSize.h(1),
-  },
-  separator: {
-    height: getSize.h(20),
-  },
-  headerWrap: {zIndex: 2, elevation: 3},
-  statusFilter: {
-    justifyContent: 'flex-end',
-    paddingBottom: getSize.h(20),
-    marginBottom: getSize.h(20),
-    paddingTop: getSize.h(90),
-  },
-  filterContainer: {
-    paddingHorizontal: getSize.w(24),
-  },
-  filterItem: {
-    marginRight: getSize.w(10),
-  },
-  actionWrap: {
-    position: 'absolute',
-    left: getSize.w(24),
-    right: getSize.w(24),
-    top: getStatusBarHeight() + getSize.h(HEADER_HEIGHT - 48 / 2),
-    zIndex: 3,
-    elevation: 4,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  actionItem: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  actionDivider: {
-    width: getSize.w(1.5),
-    backgroundColor: orangeLight.colors.divider,
-    height: getSize.h(44),
-  },
-  actionText: {
-    fontSize: getSize.f(17),
-    fontFamily: orangeLight.fonts.sfPro.medium,
-    color: orangeLight.colors.tagTxt,
-    marginLeft: getSize.w(10),
-  },
-  primary: {
-    color: orangeLight.colors.primary,
-  },
-  newChat: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  newChatTxt: {
-    fontSize: getSize.f(17),
-    color: orangeLight.colors.textContrast,
-    marginRight: getSize.w(5),
-  },
-  searchBar: {flex: 1},
-  emptyWrap: {
-    marginVertical: getSize.h(50),
-  },
-  floatAction: {
-    position: 'absolute',
-    zIndex: 1000,
-    bottom: getSize.w(28),
-    right: getSize.w(28),
-    width: getSize.w(50),
-    height: getSize.w(50),
-    backgroundColor: orangeLight.colors.primary,
-    borderRadius: getSize.w(25),
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  contextChangeChat: {
-    height: getSize.h(45),
-    flex: 1,
-    paddingHorizontal: getSize.w(24),
-    marginVertical: getSize.h(16),
-  },
-  contextChild: {
-    flex: 1,
-    backgroundColor: orangeLight.colors.grayLight,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    borderRadius: getSize.w(22),
-  },
-  itemChange: {
-    flex: 1,
-    borderRadius: getSize.w(22),
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  textItem: {
-    fontSize: getSize.f(14),
-    color: orangeLight.colors.textContrast,
-    fontFamily: orangeLight.fonts.sfPro.bold,
-  },
-  itemActive: {
-    backgroundColor: 'rgb(255,95,109)',
-  },
-
-  tabItem: {
-    height: getSize.h(38),
-    borderRadius: getSize.h(38 / 2),
-    backgroundColor: orangeLight.colors.tagBg,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: width / 3 - getSize.w(24 + 6),
-    marginRight: getSize.w(10),
-  },
-  tabItemActive: {
-    backgroundColor: orangeLight.colors.secondary,
-  },
-  tabLabel: {
-    fontFamily: orangeLight.fonts.sfPro.regular,
-    color: orangeLight.colors.text,
-  },
-  tabLabelActive: {
-    fontFamily: orangeLight.fonts.sfPro.regular,
-    color: orangeLight.colors.textContrast,
-  },
-  tabWrap: {
-    flexDirection: 'row',
-    paddingVertical: getSize.h(14),
-    paddingHorizontal: getSize.w(24),
-    alignItems: 'center',
-    // justifyContent: 'space-between',
-    backgroundColor: orangeLight.colors.paper,
-    //...orangeLight.shadow.large.ios,
-    //...orangeLight.shadow.large.android,
-  },
-});
 
 export default MessageScreen;

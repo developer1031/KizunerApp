@@ -14,7 +14,6 @@ import * as yup from 'yup';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Formik} from 'formik';
 import CheckBox from '@react-native-community/checkbox';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
 import LinearGradient from 'react-native-linear-gradient';
 
 import {signUp, showAlert} from 'actions';
@@ -176,7 +175,7 @@ const SignUpScreen = ({navigation}) => {
       ],
     },
     formScroll: {
-      height: height - getStatusBarHeight() - getSize.h(280),
+      height: height - insets.top - getSize.h(280),
     },
     formContainer: {
       paddingBottom: getSize.h(50),

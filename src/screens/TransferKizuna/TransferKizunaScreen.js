@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FastImage from 'react-native-fast-image';
 import * as yup from 'yup';
@@ -27,6 +27,7 @@ const TransferKizunaScreen = ({navigation}) => {
   const {current} = useSelector((state) => state.wallet);
   const [user, setUser] = useState(null);
   const dispatch = useDispatch();
+  const insets = useSafeAreaInsets();
 
   const styles = StyleSheet.create({
     wrapper: {flex: 1},
@@ -40,24 +41,24 @@ const TransferKizunaScreen = ({navigation}) => {
       paddingVertical: getSize.h(22),
       flexDirection: 'row',
       alignItems: 'center',
-      marginTop: getStatusBarHeight() + getSize.h(30),
+      marginTop: insets.top + getSize.h(30),
       marginHorizontal: getSize.w(24),
       zIndex: 10,
     },
     backBtn: {
       position: 'absolute',
-      top: getStatusBarHeight() + getSize.h(20),
+      top: insets.top + getSize.h(20),
       left: getSize.w(24),
       zIndex: 10,
     },
     sendBtn: {
       position: 'absolute',
-      top: getStatusBarHeight() + getSize.h(26),
+      top: insets.top + getSize.h(26),
       right: getSize.w(24),
       zIndex: 10,
     },
     headerTitle: {
-      top: getStatusBarHeight() + getSize.h(26),
+      top: insets.top + getSize.h(26),
       textAlign: 'center',
     },
     headerInfoItem: {

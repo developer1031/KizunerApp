@@ -1,10 +1,9 @@
 import React from 'react';
 import {StyleSheet, View, ScrollView} from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useSelector, useDispatch} from 'react-redux';
 import {Formik} from 'formik';
 import * as yup from 'yup';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {
   Wrapper,
@@ -20,7 +19,7 @@ import {getSize} from 'utils/responsive';
 import {reportContent} from 'actions';
 
 const ReportContentScreen = ({navigation, route}) => {
-  const STATUS_BAR = getStatusBarHeight();
+  const STATUS_BAR = insets.top;
   const {type, id} = route.params;
   const HEADER_HEIGHT = 120;
   const theme = useTheme();

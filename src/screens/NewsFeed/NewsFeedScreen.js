@@ -8,10 +8,9 @@ import {
   Platform,
 } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import {useSelector, useDispatch} from 'react-redux';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useScrollToTop} from '@react-navigation/native';
 import useTheme from 'theme';
 import {
@@ -32,7 +31,6 @@ import {
   FeedItemHangout,
   FeedItemHelp,
 } from 'components/FeedItem';
-import {styles as style} from './style';
 import orangeLight from '../../theme/orangeLight';
 import {createUUID} from 'utils/util';
 
@@ -98,23 +96,65 @@ const NewsFeedScreen = ({navigation}) => {
     });
   }, []);
 
-  const HEADER_HEIGHT = 89;
+  var HEADER_HEIGHT = 89;
 
   const styles = {
-    ...style,
+    wrapper: {flex: 1},
+
+    scrollContainer: {
+      paddingBottom: getSize.h(20),
+      paddingTop:
+        Platform.OS === 'android'
+          ? insets.top + getSize.h(HEADER_HEIGHT + 125)
+          : 0,
+    },
+
+    statusFilter: {
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      justifyContent: 'flex-end',
+      paddingBottom: getSize.h(20),
+      marginBottom: getSize.h(20),
+      paddingTop: insets.top + getSize.h(HEADER_HEIGHT + 45),
+      zIndex: 1,
+    },
+
+    actionWrap: {
+      position: 'absolute',
+      left: getSize.w(24),
+      right: getSize.w(24),
+      top: insets.top + getSize.h(HEADER_HEIGHT) - getSize.h(48 / 2),
+      zIndex: 3,
+      elevation: 4,
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+
     hasNewFeedWrap: {
-      ...style.hasNewFeedWrap,
       bottom: insets.bottom + getSize.h(20),
+
+      backgroundColor: orangeLight.colors.primary,
+      height: getSize.h(38),
+      borderRadius: getSize.h(38 / 2),
+      paddingHorizontal: getSize.w(15),
+      position: 'absolute',
+      justifyContent: 'center',
+      alignItems: 'center',
+      alignSelf: 'center',
+      zIndex: 20,
+      ...orangeLight.shadow.small.ios,
+      ...orangeLight.shadow.small.android,
     },
   };
 
   function renderItem({item, index}) {
     let data = item?.relation?.data;
-    index === 0 &&
-      console.log(
-        '🚀 ~ file: NewsFeedScreen.js:111 ~ renderItem ~ data:',
-        data,
-      );
+    // index === 0 &&
+    //   console.log(
+    //     '🚀 ~ file: NewsFeedScreen.js:111 ~ renderItem ~ data:',
+    //     data,
+    //   );
     let type = item?.type;
 
     let arr = {
@@ -127,9 +167,7 @@ const NewsFeedScreen = ({navigation}) => {
   }
 
   const TOP_INSET =
-    Platform.OS === 'ios'
-      ? getStatusBarHeight() + getSize.h(HEADER_HEIGHT + 125)
-      : 0;
+    Platform.OS === 'ios' ? insets.top + getSize.h(HEADER_HEIGHT + 125) : 0;
 
   const headerOpacity = scrollAnim.interpolate({
     inputRange: [
@@ -248,9 +286,7 @@ const NewsFeedScreen = ({navigation}) => {
             colors={theme.colors.gradient}
             tintColor={theme.colors.primary}
             onRefresh={handleRefresh}
-            progressViewOffset={
-              getStatusBarHeight() + getSize.h(HEADER_HEIGHT + 115)
-            }
+            progressViewOffset={insets.top + getSize.h(HEADER_HEIGHT + 115)}
           />
         }
       />

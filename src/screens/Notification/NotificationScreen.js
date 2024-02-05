@@ -7,7 +7,7 @@ import {
   Platform,
 } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from 'react-redux';
 
 import useTheme from 'theme';
@@ -34,6 +34,8 @@ import {
 const NotificationScreen = ({navigation}) => {
   const theme = useTheme();
   const dispatch = useDispatch();
+  const insets = useSafeAreaInsets();
+
   const {requestList, requestLastPage, requestLoading} = useSelector(
     (state) => state.contact,
   );
@@ -117,7 +119,7 @@ const NotificationScreen = ({navigation}) => {
       ]),
     );
 
-  const HEADER_HEIGHT = getStatusBarHeight() + 68;
+  const HEADER_HEIGHT = insets.top + 68;
   const styles = StyleSheet.create({
     wrapper: {flex: 1},
     scrollWrap: {
@@ -130,18 +132,18 @@ const NotificationScreen = ({navigation}) => {
     },
     backBtn: {
       position: 'absolute',
-      top: getStatusBarHeight() + getSize.h(20),
+      top: insets.top + getSize.h(20),
       left: getSize.w(24),
       zIndex: 1,
     },
     moreBtn: {
       position: 'absolute',
-      top: getStatusBarHeight() + getSize.h(25),
+      top: insets.top + getSize.h(25),
       right: getSize.w(24),
       zIndex: 1,
     },
     headerTitle: {
-      top: getStatusBarHeight() + getSize.h(26),
+      top: insets.top + getSize.h(26),
       textAlign: 'center',
     },
     sectionHeader: {

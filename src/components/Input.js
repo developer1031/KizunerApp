@@ -81,7 +81,7 @@ const Input = ({
       margin: 0,
     },
     helper: {
-      marginBottom: getSize.h(5),
+      marginBottom: getSize.h(4),
     },
     agreeBox: {
       position: 'absolute',
@@ -118,19 +118,24 @@ const Input = ({
     onPress && Platform.OS === 'android' ? Touchable : View;
   const InputComponent = masked ? TextInputMask : TextInput;
 
+  const showLabel = label || labelRight;
+
   return (
     <View style={[styles.wrapper, wrapperStyle]}>
       <WrapperComponent
         onPress={() => onPress && Platform.OS === 'android' && onPress()}
         style={[styles.container]}>
-        <View style={styles.labelWrapper}>
-          {label && (
-            <Text variant="inputLabel" style={labelStyle}>
-              {label}
-            </Text>
-          )}
-          {labelRight}
-        </View>
+        {showLabel && (
+          <View style={styles.labelWrapper}>
+            {label && (
+              <Text variant="inputLabel" style={labelStyle}>
+                {label}
+              </Text>
+            )}
+            {labelRight}
+          </View>
+        )}
+
         {leftIcon && <View style={styles.leftIcon}>{leftIcon}</View>}
         <InputComponent
           editable={!disabled && !onPress && editable}

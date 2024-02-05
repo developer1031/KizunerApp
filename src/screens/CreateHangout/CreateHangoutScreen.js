@@ -1,6 +1,6 @@
 import React, {useRef, useEffect, useState} from 'react';
 import {StyleSheet, View, Dimensions, Keyboard} from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {useSelector} from 'react-redux';
 //import {TourGuideProvider} from 'rn-tourguide';
@@ -14,8 +14,6 @@ import {useTourGuideController} from 'rn-tourguide';
 
 const Tab = createMaterialTopTabNavigator();
 const width = Dimensions.get('window').width;
-const STATUS_BAR = getStatusBarHeight();
-const HEADER_HEIGHT = STATUS_BAR + 68;
 
 const CreateHangoutScreen = ({navigation, route}) => {
   const formOneRef = useRef();
@@ -27,6 +25,11 @@ const CreateHangoutScreen = ({navigation, route}) => {
   const theme = useTheme();
   const {stop, eventEmitter} = useTourGuideController();
   const [isWorking, setIsWorking] = useState(false);
+  const insets = useSafeAreaInsets();
+
+  const STATUS_BAR = insets.top;
+  const HEADER_HEIGHT = STATUS_BAR + 68;
+
   const styles = StyleSheet.create({
     wrapper: {flex: 1},
     headerBg: {zIndex: 1},

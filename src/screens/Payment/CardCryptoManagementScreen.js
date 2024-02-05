@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, View, RefreshControl, Animated} from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useSelector, useDispatch} from 'react-redux';
 
@@ -29,6 +29,7 @@ const CardCryptoManagementScreen = ({navigation, route}) => {
   const {cryptoCards, beingLoadCards, beingLoadPaymentSecret} = useSelector(
     (state) => state.wallet,
   );
+  const insets = useSafeAreaInsets();
 
   const styles = StyleSheet.create({
     wrapper: {flex: 1},
@@ -38,7 +39,7 @@ const CardCryptoManagementScreen = ({navigation, route}) => {
       paddingBottom: getSize.h(20),
     },
     headerInfoWrap: {
-      marginTop: getStatusBarHeight() + getSize.h(30),
+      marginTop: insets.top + getSize.h(30),
       marginBottom: getSize.h(20),
       zIndex: 10,
     },
@@ -51,12 +52,12 @@ const CardCryptoManagementScreen = ({navigation, route}) => {
     },
     backBtn: {
       position: 'absolute',
-      top: getStatusBarHeight() + getSize.h(20),
+      top: insets.top + getSize.h(20),
       left: getSize.w(24),
       zIndex: 10,
     },
     headerTitle: {
-      top: getStatusBarHeight() + getSize.h(26),
+      top: insets.top + getSize.h(26),
       textAlign: 'center',
     },
     addCardTxt: {
@@ -152,7 +153,7 @@ const CardCryptoManagementScreen = ({navigation, route}) => {
   }
 
   const headerOpacity = scrollAnim.interpolate({
-    inputRange: [0, getStatusBarHeight() + getSize.h(100)],
+    inputRange: [0, insets.top + getSize.h(100)],
     outputRange: [1, 0],
     extrapolate: 'clamp',
   });
@@ -208,7 +209,7 @@ const CardCryptoManagementScreen = ({navigation, route}) => {
           <RefreshControl
             colors={theme.colors.gradient}
             tintColor={theme.colors.primary}
-            progressViewOffset={getStatusBarHeight()}
+            progressViewOffset={insets.top}
             onRefresh={() => dispatch(getPaymentCryptoCards())}
             refreshing={beingLoadCards}
           />

@@ -1,8 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {StyleSheet} from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {CONTACT_US} from 'utils/constants';
 import useTheme from 'theme';
 import {getSize} from 'utils/responsive';
@@ -20,8 +19,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import {supportByEmail} from 'actions';
 import * as yup from 'yup';
 
-const STATUS_BAR = getStatusBarHeight();
-
 const SupportScreen = ({navigation, route}) => {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
@@ -30,6 +27,7 @@ const SupportScreen = ({navigation, route}) => {
   const dispatch = useDispatch();
   const help_offer_id = route.params?.help_offer_id || '';
   const hangout_offer_id = route.params?.hangout_offer_id || '';
+  const STATUS_BAR = insets.top;
 
   useEffect(() => {
     refForm.current?.setFieldValue('name', userInfo.name);
@@ -43,7 +41,7 @@ const SupportScreen = ({navigation, route}) => {
     wrapper: {flex: 1},
     backBtn: {
       position: 'absolute',
-      top: getStatusBarHeight() + getSize.h(20),
+      top: insets.top + getSize.h(20),
       left: getSize.w(24),
       zIndex: 10,
     },

@@ -1,8 +1,7 @@
 import React, {useState, useEffect, Fragment, memo} from 'react';
 import {StyleSheet, FlatList, View, RefreshControl, Alert} from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useDispatch, useSelector} from 'react-redux';
 import uuid from 'uuid/v4';
 
@@ -51,7 +50,7 @@ const CastHelpManagementScreen = ({navigation}) => {
 
   const theme = useTheme();
   const insets = useSafeAreaInsets();
-  const HEADER_HEIGHT = getStatusBarHeight() + 97;
+  const HEADER_HEIGHT = insets.top + 97;
   const [filter, setFilter] = useState(null);
   const [showFilter, setShowFilter] = useState(false);
   const [isLoad, setLoad] = useState(false);
@@ -263,7 +262,7 @@ const CastHelpManagementScreen = ({navigation}) => {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      marginTop: getStatusBarHeight() + getSize.h(30),
+      marginTop: insets.top + getSize.h(30),
       paddingHorizontal: getSize.w(20),
       marginHorizontal: getSize.w(24),
     },
@@ -277,7 +276,7 @@ const CastHelpManagementScreen = ({navigation}) => {
     filterPopup: {
       left: getSize.w(24),
       right: getSize.w(24),
-      top: getStatusBarHeight() + getSize.h(130),
+      top: insets.top + getSize.h(130),
       position: 'absolute',
       zIndex: 1,
     },
@@ -301,12 +300,12 @@ const CastHelpManagementScreen = ({navigation}) => {
     },
     backBtn: {
       position: 'absolute',
-      top: getStatusBarHeight() + getSize.h(20),
+      top: insets.top + getSize.h(20),
       left: getSize.w(24),
       zIndex: 20,
     },
     headerTitle: {
-      top: getStatusBarHeight() + getSize.h(26),
+      top: insets.top + getSize.h(26),
       textAlign: 'center',
     },
     titleText: {

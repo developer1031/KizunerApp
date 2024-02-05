@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import * as yup from 'yup';
 import {Formik} from 'formik';
 import {useDispatch, useSelector} from 'react-redux';
@@ -27,6 +27,7 @@ const ReviewFormScreen = ({navigation, route}) => {
   const [rate, setRate] = useState(null);
   const dispatch = useDispatch();
   const {posting} = useSelector((state) => state.rating);
+  const insets = useSafeAreaInsets();
 
   const styles = StyleSheet.create({
     wrapper: {flex: 1},
@@ -38,11 +39,11 @@ const ReviewFormScreen = ({navigation, route}) => {
     },
     headerInfoWrap: {
       marginHorizontal: getSize.w(24),
-      marginTop: getStatusBarHeight() + getSize.h(30),
+      marginTop: insets.top + getSize.h(30),
     },
     headerInfo: {
       marginHorizontal: getSize.w(24),
-      marginTop: getStatusBarHeight() + getSize.h(30),
+      marginTop: insets.top + getSize.h(30),
       paddingVertical: getSize.h(22),
       flexDirection: 'row',
       alignItems: 'center',
@@ -51,18 +52,18 @@ const ReviewFormScreen = ({navigation, route}) => {
     },
     backBtn: {
       position: 'absolute',
-      top: getStatusBarHeight() + getSize.h(26),
+      top: insets.top + getSize.h(26),
       left: getSize.w(24),
       zIndex: 10,
     },
     sendBtn: {
       position: 'absolute',
-      top: getStatusBarHeight() + getSize.h(26),
+      top: insets.top + getSize.h(26),
       right: getSize.w(24),
       zIndex: 10,
     },
     headerTitle: {
-      top: getStatusBarHeight() + getSize.h(26),
+      top: insets.top + getSize.h(26),
       textAlign: 'center',
     },
     headerInfoItem: {

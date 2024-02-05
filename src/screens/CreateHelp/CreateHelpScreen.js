@@ -1,6 +1,6 @@
 import React, {useRef} from 'react';
 import {StyleSheet, View, Dimensions, Keyboard} from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {useSelector} from 'react-redux';
 
@@ -15,11 +15,13 @@ const Tab = createMaterialTopTabNavigator();
 const width = Dimensions.get('window').width;
 
 const CreateHelpScreen = ({navigation, route}) => {
+  const insets = useSafeAreaInsets();
+
   const formOneRef = useRef();
   const formMulRef = useRef();
   const formRef = useRef();
   const refDraftBtn = useRef();
-  const STATUS_BAR = getStatusBarHeight();
+  const STATUS_BAR = insets.top;
   const {onlyOneTime, callback, room_id} = route.params;
   const creating = useSelector((state) => state.feed.beingCreateHelp);
   const HEADER_HEIGHT = STATUS_BAR + 68;

@@ -7,7 +7,7 @@ import {
   Platform,
 } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 import moment from 'moment';
 import {useSelector, useDispatch} from 'react-redux';
@@ -164,6 +164,8 @@ export const FriendRequestItem = ({data}) => {
 const FriendRequestsScreen = ({navigation}) => {
   const theme = useTheme();
   const dispatch = useDispatch();
+  const insets = useSafeAreaInsets();
+
   const {requestList, requestLoading, requestLastPage, requestError} =
     useSelector((state) => state.contact);
   const [page, setPage] = useState(1);
@@ -188,7 +190,7 @@ const FriendRequestsScreen = ({navigation}) => {
     handleGetList(1);
   }, []);
 
-  const HEADER_HEIGHT = getStatusBarHeight() + 68;
+  const HEADER_HEIGHT = insets.top + 68;
   const styles = StyleSheet.create({
     wrapper: {flex: 1},
     scrollWrap: {
@@ -200,12 +202,12 @@ const FriendRequestsScreen = ({navigation}) => {
     },
     backBtn: {
       position: 'absolute',
-      top: getStatusBarHeight() + getSize.h(20),
+      top: insets.top + getSize.h(20),
       left: getSize.w(24),
       zIndex: 1,
     },
     headerTitle: {
-      top: getStatusBarHeight() + getSize.h(26),
+      top: insets.top + getSize.h(26),
       textAlign: 'center',
     },
     emptyState: {

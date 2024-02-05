@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Animated} from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
@@ -17,6 +17,41 @@ const AnimatedLG = Animated.createAnimatedComponent(LinearGradient);
 
 const ChartLeaderBoard = ({navigation}) => {
   const theme = useTheme();
+  const insets = useSafeAreaInsets();
+
+  const styles = StyleSheet.create({
+    wrapper: {flex: 1},
+    scrollWrap: {
+      flex: 1,
+      zIndex: -1,
+    },
+    backBtn: {
+      position: 'absolute',
+      top: insets.top + getSize.h(20),
+      left: getSize.w(24),
+      zIndex: 20,
+    },
+    headerTitle: {
+      top: insets.top + getSize.h(26),
+      textAlign: 'center',
+    },
+    tabStyle: {
+      paddingHorizontal: 0,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    labelStyle: {
+      fontSize: getSize.f(12),
+      fontFamily: orangeLight.fonts.sfPro.bold,
+      // width: '100%',
+      // alignItems: 'center',
+      // justifyContent: 'center',
+      // backgroundColor: 'red',
+    },
+    tabs: {
+      backgroundColor: 'transparent',
+    },
+  });
 
   return (
     <AnimatedLG
@@ -45,39 +80,5 @@ const ChartLeaderBoard = ({navigation}) => {
     </AnimatedLG>
   );
 };
-
-const styles = StyleSheet.create({
-  wrapper: {flex: 1},
-  scrollWrap: {
-    flex: 1,
-    zIndex: -1,
-  },
-  backBtn: {
-    position: 'absolute',
-    top: getStatusBarHeight() + getSize.h(20),
-    left: getSize.w(24),
-    zIndex: 20,
-  },
-  headerTitle: {
-    top: getStatusBarHeight() + getSize.h(26),
-    textAlign: 'center',
-  },
-  tabStyle: {
-    paddingHorizontal: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  labelStyle: {
-    fontSize: getSize.f(12),
-    fontFamily: orangeLight.fonts.sfPro.bold,
-    // width: '100%',
-    // alignItems: 'center',
-    // justifyContent: 'center',
-    // backgroundColor: 'red',
-  },
-  tabs: {
-    backgroundColor: 'transparent',
-  },
-});
 
 export default ChartLeaderBoard;

@@ -9,13 +9,13 @@ import {
   StatusBar,
   Platform,
 } from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import moment from 'moment';
 import FormData from 'form-data';
 import {useIsFocused, useScrollToTop} from '@react-navigation/native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {data as languagesDataJson} from 'assets/data';
 
@@ -88,10 +88,11 @@ const MyPageScreen = ({navigation}) => {
   const [page, setPage] = useState(1);
   const listRef = useRef(null);
   const isFocused = useIsFocused();
+  const insets = useSafeAreaInsets();
 
   useScrollToTop(listRef);
 
-  const HEADER_HEIGHT = 200 + getStatusBarHeight();
+  const HEADER_HEIGHT = 150 + insets.top;
 
   const handleGetHangouts = (p = page) => dispatch(getSelfFeed({page: p}));
 
@@ -151,8 +152,7 @@ const MyPageScreen = ({navigation}) => {
       height: getSize.h(20),
     },
     userWrap: {
-      marginTop:
-        getSize.h(HEADER_HEIGHT - getStatusBarHeight()) - getSize.h(55),
+      marginTop: getSize.h(HEADER_HEIGHT - insets.top) - getSize.h(55),
       paddingHorizontal: getSize.w(24),
       alignItems: 'center',
       flexDirection: 'row',

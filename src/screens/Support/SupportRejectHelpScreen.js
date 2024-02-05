@@ -1,6 +1,5 @@
 import React, {memo, useRef} from 'react';
 import {StyleSheet} from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import useTheme from 'theme';
 import {getSize} from 'utils/responsive';
@@ -16,13 +15,12 @@ import {useDispatch} from 'react-redux';
 import {updateOfferStatusHelp} from 'actions';
 import * as yup from 'yup';
 
-const STATUS_BAR = getStatusBarHeight();
-
 const SupportRejectHangoutScreen = ({navigation, route}) => {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
   const {id, status, helpId, userId, callback} = route.params;
+  const STATUS_BAR = insets.top;
 
   const refForm = useRef(null);
 
@@ -37,7 +35,7 @@ const SupportRejectHangoutScreen = ({navigation, route}) => {
     wrapper: {flex: 1},
     backBtn: {
       position: 'absolute',
-      top: getStatusBarHeight() + getSize.h(20),
+      top: insets.top + getSize.h(20),
       left: getSize.w(24),
       zIndex: 10,
     },

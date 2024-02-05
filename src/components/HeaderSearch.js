@@ -2,7 +2,8 @@ import React from 'react';
 import {StyleSheet, Dimensions} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {ShadowBox} from 'react-native-neomorph-shadows';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useNavigation} from '@react-navigation/native';
 
@@ -11,10 +12,42 @@ import {Touchable, SearchBar} from 'components';
 import orangeLight from '../theme/orangeLight';
 
 const width = Dimensions.get('window').width;
-const HEADER_HEIGHT = getSize.h(70) + getStatusBarHeight();
 
 const HeaderSearch = ({placeholder}) => {
+  const insets = useSafeAreaInsets();
+  const HEADER_HEIGHT = getSize.h(70) + insets.top;
   const navigation = useNavigation();
+
+  const styles = StyleSheet.create({
+    wrapper: {
+      position: 'absolute',
+      height: HEADER_HEIGHT,
+      borderBottomLeftRadius: getSize.h(30),
+      borderBottomRightRadius: getSize.h(30),
+      width,
+      zIndex: 2,
+      ...orangeLight.shadow.large.ios,
+      backgroundColor: 'white',
+    },
+    container: {
+      height: HEADER_HEIGHT,
+      paddingTop: insets.top + getSize.h(5),
+      paddingHorizontal: getSize.w(24),
+      borderBottomLeftRadius: getSize.h(30),
+      borderBottomRightRadius: getSize.h(30),
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    searchWrap: {
+      width: width - getSize.w(48 + 40),
+    },
+    backBtn: {
+      width: 40,
+      left: -getSize.w(8),
+      top: -getSize.h(3),
+    },
+  });
 
   return (
     <ShadowBox style={styles.wrapper}>
@@ -40,36 +73,5 @@ const HeaderSearch = ({placeholder}) => {
     </ShadowBox>
   );
 };
-
-const styles = StyleSheet.create({
-  wrapper: {
-    position: 'absolute',
-    height: HEADER_HEIGHT,
-    borderBottomLeftRadius: getSize.h(30),
-    borderBottomRightRadius: getSize.h(30),
-    width,
-    zIndex: 2,
-    ...orangeLight.shadow.large.ios,
-    backgroundColor: 'white',
-  },
-  container: {
-    height: HEADER_HEIGHT,
-    paddingTop: getStatusBarHeight() + getSize.h(5),
-    paddingHorizontal: getSize.w(24),
-    borderBottomLeftRadius: getSize.h(30),
-    borderBottomRightRadius: getSize.h(30),
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  searchWrap: {
-    width: width - getSize.w(48 + 40),
-  },
-  backBtn: {
-    width: 40,
-    left: -getSize.w(8),
-    top: -getSize.h(3),
-  },
-});
 
 export default HeaderSearch;

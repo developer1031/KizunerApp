@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, Dimensions} from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
 import {Wrapper, HeaderBg, Text, Touchable} from 'components';
@@ -13,9 +13,11 @@ const Tab = createMaterialTopTabNavigator();
 const width = Dimensions.get('window').width;
 
 const GuestListScreen = ({navigation, route}) => {
-  const STATUS_BAR = getStatusBarHeight();
+  const STATUS_BAR = insets.top;
   const HEADER_HEIGHT = STATUS_BAR + 68;
   const theme = useTheme();
+  const insets = useSafeAreaInsets();
+
   const {hangoutId, capacity, start, end} = route.params;
 
   const styles = StyleSheet.create({

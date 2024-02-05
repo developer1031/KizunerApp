@@ -32,14 +32,14 @@ import {Icons} from 'utils/icon';
 const Tab = createMaterialTopTabNavigator();
 
 const TABS = [
-  // {
-  //   name: 'ExploreStack',
-  //   label: 'Explore',
-  //   screen: ExploreStack,
-  //   icon: Icons.ic_explore,
-  //   iconActive: Icons.ic_explore_active,
-  //   size: 22,
-  // },
+  {
+    name: 'ExploreStack',
+    label: 'Explore',
+    screen: ExploreStack,
+    icon: Icons.ic_explore,
+    iconActive: Icons.ic_explore_active,
+    size: 22,
+  },
   {
     name: 'NewsFeedStack',
     label: 'News Feed',
@@ -48,30 +48,30 @@ const TABS = [
     iconActive: Icons.ic_newfeed_active,
     size: 22,
   },
-  // {
-  //   name: 'Message',
-  //   label: 'Message',
-  //   screen: MessageScreen,
-  //   icon: Icons.ic_message,
-  //   iconActive: Icons.ic_message_active,
-  //   size: 24,
-  // },
-  // {
-  //   name: 'MyPageStack',
-  //   label: 'My Page',
-  //   screen: MyPageStack,
-  //   icon: Icons.ic_mypage,
-  //   iconActive: Icons.ic_mypage_active,
-  //   size: 22,
-  // },
-  // {
-  //   name: 'Manage',
-  //   label: 'Manage',
-  //   screen: ManageScreen,
-  //   icon: Icons.ic_manage,
-  //   iconActive: Icons.ic_manage_active,
-  //   size: 17,
-  // },
+  {
+    name: 'Message',
+    label: 'Message',
+    screen: MessageScreen,
+    icon: Icons.ic_message,
+    iconActive: Icons.ic_message_active,
+    size: 24,
+  },
+  {
+    name: 'MyPageStack',
+    label: 'My Page',
+    screen: MyPageStack,
+    icon: Icons.ic_mypage,
+    iconActive: Icons.ic_mypage_active,
+    size: 22,
+  },
+  {
+    name: 'Manage',
+    label: 'Manage',
+    screen: ManageScreen,
+    icon: Icons.ic_manage,
+    iconActive: Icons.ic_manage_active,
+    size: 17,
+  },
 ];
 
 const AppTab = ({navigation}) => {
@@ -79,12 +79,6 @@ const AppTab = ({navigation}) => {
   const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
   const {userInfo} = useSelector((state) => state.auth);
-
-  useWatchLocation();
-  useSocket();
-  useNotification();
-  useDynamicLinkService();
-  useAppState();
 
   useEffect(() => {
     dispatch(getUserInfo());
@@ -154,48 +148,56 @@ const AppTab = ({navigation}) => {
   });
 
   return (
-    <Tab.Navigator
-      tabBarPosition="bottom"
-      swipeEnabled={false}
-      lazy
-      tabBarOptions={{
-        labelStyle: styles.labelStyle,
-        activeTintColor: theme.colors.primary,
-        inactiveTintColor: theme.colors.text2,
-        style: styles.barStyle,
-        showIcon: true,
-        tabStyle: styles.tabStyle,
-        renderIndicator: () => null,
-      }}>
-      {TABS.map((item) => (
-        <Tab.Screen
-          key={item.name}
-          name={item.name}
-          component={item.screen}
-          options={{
-            tabBarLabel: item.label,
-            tabBarIcon: ({focused}) => (
-              <>
-                <Image
-                  source={focused ? item.iconActive : item.icon}
-                  resizeMode="contain"
-                  tintColor={
-                    focused ? theme.colors.primary : theme.colors.text2
-                  }
-                  style={[
-                    styles.tabBarIcon,
-                    {width: getSize.w(item.size), height: getSize.w(22)},
-                  ]}
-                />
-                {item.label === 'Message' && (
-                  <ChatUnseenBadge style={styles.unseenBadge} />
-                )}
-              </>
-            ),
-          }}
-        />
-      ))}
-    </Tab.Navigator>
+    <>
+      {/* {useWatchLocation()}
+      {useSocket()}
+      {useNotification()}
+      {useDynamicLinkService()}
+      {useAppState()} */}
+
+      <Tab.Navigator
+        tabBarPosition="bottom"
+        swipeEnabled={false}
+        lazy
+        tabBarOptions={{
+          labelStyle: styles.labelStyle,
+          activeTintColor: theme.colors.primary,
+          inactiveTintColor: theme.colors.text2,
+          style: styles.barStyle,
+          showIcon: true,
+          tabStyle: styles.tabStyle,
+          renderIndicator: () => null,
+        }}>
+        {TABS.map((item) => (
+          <Tab.Screen
+            key={item.name}
+            name={item.name}
+            component={item.screen}
+            options={{
+              tabBarLabel: item.label,
+              tabBarIcon: ({focused}) => (
+                <>
+                  <Image
+                    source={focused ? item.iconActive : item.icon}
+                    resizeMode="contain"
+                    tintColor={
+                      focused ? theme.colors.primary : theme.colors.text2
+                    }
+                    style={[
+                      styles.tabBarIcon,
+                      {width: getSize.w(item.size), height: getSize.w(22)},
+                    ]}
+                  />
+                  {item.label === 'Message' && (
+                    <ChatUnseenBadge style={styles.unseenBadge} />
+                  )}
+                </>
+              ),
+            }}
+          />
+        ))}
+      </Tab.Navigator>
+    </>
   );
 };
 

@@ -622,7 +622,7 @@ export default () => {
         <Stack.Screen
           name="SupportCancelHelp"
           component={SupportCancelHelpScreen}
-        />
+        /> */}
 
         <Stack.Screen name="Wallet" component={WalletScreen} />
         <Stack.Screen
@@ -638,7 +638,7 @@ export default () => {
           component={CardCryptoManagementScreen}
         />
         <Stack.Screen name="PaymentCryptoPanel" component={CryptoPanelScreen} />
-        <Stack.Screen name="PaymentOTP" component={PaymentOTPScreen} /> */}
+        <Stack.Screen name="PaymentOTP" component={PaymentOTPScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

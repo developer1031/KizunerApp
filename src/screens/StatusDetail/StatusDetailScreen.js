@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
 import MaskedView from '@react-native-community/masked-view';
 import {
@@ -66,6 +66,113 @@ const StatusDetailScreen = ({navigation, route}) => {
   const [commentPage, setCommentPage] = useState(1);
 
   const theme = useTheme();
+  const insets = useSafeAreaInsets();
+
+  const styles = StyleSheet.create({
+    wrapper: {
+      flex: 1,
+    },
+    headerWrapper: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      paddingLeft: getSize.w(14),
+      paddingRight: getSize.w(24),
+      paddingTop: insets.top + getSize.h(20),
+      paddingBottom: getSize.h(20),
+      backgroundColor: orangeLight.colors.paper,
+      height: insets.top + getSize.h(70),
+      zIndex: 1,
+      ...orangeLight.shadow.large.ios,
+      ...orangeLight.shadow.large.android,
+    },
+    headerLeft: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    backBtn: {
+      marginRight: getSize.w(15),
+    },
+    scrollWrap: {
+      flex: 1,
+      backgroundColor: orangeLight.colors.paper,
+    },
+    scrollCon: {
+      paddingBottom: getSize.h(20),
+    },
+    commentComposer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingHorizontal: getSize.w(24),
+      paddingVertical: getSize.h(10),
+      paddingBottom: getSize.h(10),
+      backgroundColor: orangeLight.colors.paper,
+      ...orangeLight.shadow.large.ios,
+      ...orangeLight.shadow.large.android,
+    },
+    commentInputWrap: {
+      height: getSize.h(48),
+      borderRadius: getSize.h(48 / 2),
+      backgroundColor: orangeLight.colors.background,
+      paddingHorizontal: getSize.w(24),
+      justifyContent: 'center',
+      width: width - getSize.w(48 + 40),
+    },
+    commentInput: {
+      fontFamily: orangeLight.fonts.sfPro.regular,
+      fontSize: getSize.f(15),
+      color: orangeLight.colors.text,
+    },
+    commentSend: {
+      width: getSize.w(30),
+      marginLeft: getSize.w(10),
+    },
+    maskOverlay: {
+      width: getSize.w(30),
+      height: getSize.w(30),
+    },
+    flex1: {flex: 1},
+    hangoutActionsWrap: {
+      borderTopColor: orangeLight.colors.divider,
+      borderTopWidth: getSize.h(1),
+      borderBottomColor: orangeLight.colors.divider,
+      borderBottomWidth: getSize.h(1),
+      marginTop: getSize.h(20),
+    },
+    hangoutCountWrap: {
+      borderBottomColor: orangeLight.colors.divider,
+      borderBottomWidth: getSize.h(1),
+    },
+    placeWrapper: {
+      paddingHorizontal: getSize.w(24),
+      paddingVertical: getSize.w(20),
+    },
+    placeCover: {
+      marginTop: getSize.h(20),
+      height: getSize.h(183),
+      width: width - getSize.w(48),
+      borderRadius: getSize.h(10),
+    },
+    placeTitle: {
+      height: getSize.h(15),
+      marginBottom: getSize.h(20),
+    },
+    placeMetaWrap: {
+      marginTop: getSize.h(25),
+      marginBottom: getSize.h(10),
+      marginLeft: getSize.w(35),
+    },
+    disabled: {
+      opacity: 0.3,
+    },
+    loadPreviousComment: {
+      marginHorizontal: getSize.w(24),
+      marginTop: getSize.h(20),
+      fontFamily: orangeLight.fonts.sfPro.medium,
+    },
+  });
 
   function handleNewComment(event) {
     dispatch(newCommentFromSocket(event.data));
@@ -491,111 +598,5 @@ const StatusDetailScreen = ({navigation, route}) => {
     </Wrapper>
   );
 };
-
-const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-  },
-  headerWrapper: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingLeft: getSize.w(14),
-    paddingRight: getSize.w(24),
-    paddingTop: getStatusBarHeight() + getSize.h(20),
-    paddingBottom: getSize.h(20),
-    backgroundColor: orangeLight.colors.paper,
-    height: getStatusBarHeight() + getSize.h(70),
-    zIndex: 1,
-    ...orangeLight.shadow.large.ios,
-    ...orangeLight.shadow.large.android,
-  },
-  headerLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  backBtn: {
-    marginRight: getSize.w(15),
-  },
-  scrollWrap: {
-    flex: 1,
-    backgroundColor: orangeLight.colors.paper,
-  },
-  scrollCon: {
-    paddingBottom: getSize.h(20),
-  },
-  commentComposer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: getSize.w(24),
-    paddingVertical: getSize.h(10),
-    paddingBottom: getSize.h(10),
-    backgroundColor: orangeLight.colors.paper,
-    ...orangeLight.shadow.large.ios,
-    ...orangeLight.shadow.large.android,
-  },
-  commentInputWrap: {
-    height: getSize.h(48),
-    borderRadius: getSize.h(48 / 2),
-    backgroundColor: orangeLight.colors.background,
-    paddingHorizontal: getSize.w(24),
-    justifyContent: 'center',
-    width: width - getSize.w(48 + 40),
-  },
-  commentInput: {
-    fontFamily: orangeLight.fonts.sfPro.regular,
-    fontSize: getSize.f(15),
-    color: orangeLight.colors.text,
-  },
-  commentSend: {
-    width: getSize.w(30),
-    marginLeft: getSize.w(10),
-  },
-  maskOverlay: {
-    width: getSize.w(30),
-    height: getSize.w(30),
-  },
-  flex1: {flex: 1},
-  hangoutActionsWrap: {
-    borderTopColor: orangeLight.colors.divider,
-    borderTopWidth: getSize.h(1),
-    borderBottomColor: orangeLight.colors.divider,
-    borderBottomWidth: getSize.h(1),
-    marginTop: getSize.h(20),
-  },
-  hangoutCountWrap: {
-    borderBottomColor: orangeLight.colors.divider,
-    borderBottomWidth: getSize.h(1),
-  },
-  placeWrapper: {
-    paddingHorizontal: getSize.w(24),
-    paddingVertical: getSize.w(20),
-  },
-  placeCover: {
-    marginTop: getSize.h(20),
-    height: getSize.h(183),
-    width: width - getSize.w(48),
-    borderRadius: getSize.h(10),
-  },
-  placeTitle: {
-    height: getSize.h(15),
-    marginBottom: getSize.h(20),
-  },
-  placeMetaWrap: {
-    marginTop: getSize.h(25),
-    marginBottom: getSize.h(10),
-    marginLeft: getSize.w(35),
-  },
-  disabled: {
-    opacity: 0.3,
-  },
-  loadPreviousComment: {
-    marginHorizontal: getSize.w(24),
-    marginTop: getSize.h(20),
-    fontFamily: orangeLight.fonts.sfPro.medium,
-  },
-});
 
 export default StatusDetailScreen;

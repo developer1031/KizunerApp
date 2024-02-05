@@ -95,5 +95,5 @@ export default function useSocket() {
     };
   }, [isAuth, userInfo, roomDetail]);
 
-  return echo;
+  return null;
 }

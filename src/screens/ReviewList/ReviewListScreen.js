@@ -6,7 +6,7 @@ import {
   FlatList,
   RefreshControl,
 } from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useSelector, useDispatch} from 'react-redux';
 import moment from 'moment';
@@ -42,6 +42,7 @@ const ReviewListScreen = ({navigation, route}) => {
   const userInfo = useSelector((state) => state.auth.userInfo);
   const thisUser = user || userInfo;
   const rating = useSelector((state) => state.rating?.data?.[thisUser?.id]);
+  const insets = useSafeAreaInsets();
 
   function handleLoadList(p = page) {
     dispatch(getUserRating({id: thisUser?.id, page: p}));
@@ -75,25 +76,25 @@ const ReviewListScreen = ({navigation, route}) => {
       paddingVertical: getSize.h(22),
       flexDirection: 'row',
       alignItems: 'center',
-      marginTop: getStatusBarHeight() + getSize.h(30),
+      marginTop: insets.top + getSize.h(30),
       marginHorizontal: getSize.w(24),
       paddingHorizontal: getSize.w(24),
       zIndex: 10,
     },
     backBtn: {
       position: 'absolute',
-      top: getStatusBarHeight() + getSize.h(20),
+      top: insets.top + getSize.h(20),
       left: getSize.w(24),
       zIndex: 10,
     },
     sendBtn: {
       position: 'absolute',
-      top: getStatusBarHeight() + getSize.h(26),
+      top: insets.top + getSize.h(26),
       right: getSize.w(24),
       zIndex: 10,
     },
     headerTitle: {
-      top: getStatusBarHeight() + getSize.h(26),
+      top: insets.top + getSize.h(26),
       textAlign: 'center',
     },
     headerInfoItem: {

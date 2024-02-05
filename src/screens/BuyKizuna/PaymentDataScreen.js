@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, KeyboardAvoidingView, Keyboard} from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useSelector, useDispatch} from 'react-redux';
 import {Formik} from 'formik';
 import * as yup from 'yup';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import cardValid from 'card-validator';
@@ -35,7 +34,7 @@ import {
 const PaymentDataScreen = ({navigation, route}) => {
   const {createPaymentMethod, confirmPaymentMethod} = useStripe();
 
-  const STATUS_BAR = getStatusBarHeight();
+  const STATUS_BAR = insets.top;
   const {beingAddCard, beingPurchase, beingRemoveCard} = useSelector(
     (state) => state.wallet,
   );
@@ -47,8 +46,6 @@ const PaymentDataScreen = ({navigation, route}) => {
   const [loading, setLoading] = useState(false);
   const [keyboardShown, setKeyboardShown] = useState(false);
   const [cardDetailInfo, setCardDetailInfo] = useState(null);
-
-  console.log(client_secret);
 
   useEffect(() => {
     const keyboardShowListener = Keyboard.addListener('keyboardDidShow', () =>

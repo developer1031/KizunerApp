@@ -1,6 +1,6 @@
 import React, {useRef} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {useSelector} from 'react-redux';
 
@@ -13,9 +13,11 @@ import FormMultiTimesHelp from './FormMultiTimesHelp';
 const Tab = createMaterialTopTabNavigator();
 
 const EditHelpScreen = ({navigation, route}) => {
+  const insets = useSafeAreaInsets();
+
   const formOneRef = useRef();
   const formMulRef = useRef();
-  const STATUS_BAR = getStatusBarHeight();
+  const STATUS_BAR = insets.top;
   const {help} = route.params;
   const beingUpdateHelp = useSelector((state) => state.feed.beingUpdateHelp);
   const HEADER_HEIGHT = 68;

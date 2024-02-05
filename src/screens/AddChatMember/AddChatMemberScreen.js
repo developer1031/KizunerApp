@@ -7,9 +7,8 @@ import {
   Dimensions,
   RefreshControl,
 } from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
-import {useSelector, useDispatch} from 'react-redux';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useSelector, useDispatch} from 'react-redux';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -39,7 +38,7 @@ import lodash from 'lodash';
 const width = Dimensions.get('window').width;
 
 const AddChatMemberScreen = ({navigation}) => {
-  const STATUS_BAR = getStatusBarHeight();
+  const STATUS_BAR = insets.top;
   const HEADER_HEIGHT = 68;
   const theme = useTheme();
   const insets = useSafeAreaInsets();

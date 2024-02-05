@@ -8,7 +8,7 @@ import {
   RefreshControl,
   Image,
 } from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -87,9 +87,10 @@ const UserProfileScreen = ({navigation, route}) => {
   const dispatch = useDispatch();
   const [showCoverView, setShowCoverView] = useState(false);
   const [page, setPage] = useState(1);
+  const insets = useSafeAreaInsets();
 
-  const HEADER_HEIGHT = 68 + getStatusBarHeight();
-  const COVER_HEIGHT = 200 + 68 + getStatusBarHeight();
+  const HEADER_HEIGHT = 68 + insets.top;
+  const COVER_HEIGHT = 200 + 68 + insets.top;
 
   const handleGetHangouts = (p = page) =>
     dispatch(getUserFeed({page: p, userId}));
@@ -113,8 +114,8 @@ const UserProfileScreen = ({navigation, route}) => {
   const styles = StyleSheet.create({
     userWrap: {
       marginTop:
-        getSize.h(COVER_HEIGHT - getStatusBarHeight()) -
-        getSize.h(HEADER_HEIGHT - getStatusBarHeight() + 55),
+        getSize.h(COVER_HEIGHT - insets.top) -
+        getSize.h(HEADER_HEIGHT - insets.top + 55),
       paddingHorizontal: getSize.w(24),
       alignItems: 'center',
       flexDirection: 'row',
@@ -727,7 +728,7 @@ const UserProfileScreen = ({navigation, route}) => {
           )
         }
         // contentInset={{
-        //   top: Platform.OS === 'ios' ? getStatusBarHeight() + getSize.h(68) : 0,
+        //   top: Platform.OS === 'ios' ? insets.top + getSize.h(68) : 0,
         // }}
         refreshControl={
           <RefreshControl
@@ -735,7 +736,7 @@ const UserProfileScreen = ({navigation, route}) => {
             colors={theme.colors.gradient}
             tintColor={theme.colors.primary}
             onRefresh={handleRefresh}
-            progressViewOffset={getStatusBarHeight() + getSize.h(68)}
+            progressViewOffset={insets.top + getSize.h(68)}
           />
         }
       />

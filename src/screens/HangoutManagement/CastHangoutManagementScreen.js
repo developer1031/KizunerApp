@@ -1,13 +1,11 @@
 // @ts-nocheck
 
 import React, {useState, useEffect, Fragment, useCallback, useRef} from 'react';
-import {FlatList, View, RefreshControl, Alert} from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {FlatList, View, RefreshControl, Alert, StyleSheet} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useDispatch, useSelector} from 'react-redux';
 import uuid from 'uuid/v4';
-import {style} from './styleCastHangout';
 import useTheme from 'theme';
 import {getSize} from 'utils/responsive';
 import Clipboard from '@react-native-clipboard/clipboard';
@@ -45,12 +43,12 @@ const areEqualOfferItem = (prevProps, nextProps) => {
     prevProps?.id === nextProps?.id
   );
 };
-const HEADER_HEIGHT = getStatusBarHeight() + 97;
 
 const CastHangoutManagementScreen = () => {
   const navigation = useNavigation();
   const theme = useTheme();
   const insets = useSafeAreaInsets();
+  const HEADER_HEIGHT = insets.top + 97;
 
   const dispatch = useDispatch();
   const [filter, setFilter] = useState(null);
@@ -121,6 +119,80 @@ const CastHangoutManagementScreen = () => {
     setPage(1);
     getList(1);
   }
+
+  const style = StyleSheet.create({
+    wrapper: {flex: 1},
+    scrollWrap: {
+      flex: 1,
+      zIndex: -1,
+    },
+    scrollCon: {
+      paddingTop: getSize.h(20),
+      paddingHorizontal: getSize.w(24),
+    },
+    filterBtn: {
+      height: getSize.h(48),
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      marginTop: insets.top + getSize.h(30),
+      paddingHorizontal: getSize.w(20),
+      marginHorizontal: getSize.w(24),
+    },
+    filterLeft: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    filterText: {
+      marginLeft: getSize.w(14),
+    },
+    filterPopup: {
+      left: getSize.w(24),
+      right: getSize.w(24),
+      top: insets.top + getSize.h(130),
+      position: 'absolute',
+      zIndex: 1,
+    },
+    filterItem: {
+      paddingHorizontal: getSize.w(20),
+      height: getSize.h(48),
+      justifyContent: 'center',
+    },
+    filterItemDivider: {
+      height: getSize.h(1),
+      marginHorizontal: getSize.w(24),
+    },
+    filterItemText: {
+      textTransform: 'uppercase',
+    },
+    headerAppName: {
+      fontSize: getSize.f(18),
+    },
+    backBtn: {
+      position: 'absolute',
+      top: insets.top + getSize.h(20),
+      left: getSize.w(24),
+      zIndex: 20,
+    },
+    headerTitle: {
+      top: insets.top + getSize.h(26),
+      textAlign: 'center',
+    },
+    titleText: {
+      lineHeight: getSize.f(23),
+      fontSize: getSize.f(15),
+      marginBottom: getSize.h(10),
+    },
+    bodyText: {
+      fontSize: getSize.f(15),
+      marginBottom: getSize.h(10),
+      lineHeight: getSize.f(23),
+    },
+    seperator: {
+      height: getSize.h(20),
+    },
+    headerWrap: {zIndex: 10},
+  });
 
   const styles = {
     ...style,

@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {useDispatch, useSelector} from 'react-redux';
@@ -28,6 +28,7 @@ const ContactListScreen = ({navigation, route}) => {
   const theme = useTheme();
   const {userId, initialTab} = route.params;
   const dispatch = useDispatch();
+  const insets = useSafeAreaInsets();
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -44,13 +45,13 @@ const ContactListScreen = ({navigation, route}) => {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      marginTop: getStatusBarHeight() + getSize.h(30),
+      marginTop: insets.top + getSize.h(30),
       paddingHorizontal: getSize.w(20),
       marginHorizontal: getSize.w(24),
     },
     backBtn: {
       position: 'absolute',
-      top: getStatusBarHeight() + getSize.h(20),
+      top: insets.top + getSize.h(20),
       left: getSize.w(24),
       zIndex: 20,
     },
@@ -58,7 +59,7 @@ const ContactListScreen = ({navigation, route}) => {
       zIndex: 0,
     },
     headerTitle: {
-      top: getStatusBarHeight() + getSize.h(26),
+      top: insets.top + getSize.h(26),
       textAlign: 'center',
       zIndex: 1,
     },
@@ -66,7 +67,7 @@ const ContactListScreen = ({navigation, route}) => {
     tabWrapper: {
       justifyContent: 'flex-end',
       paddingBottom: getSize.h(20),
-      paddingTop: getStatusBarHeight() + getSize.h(97 + 50),
+      paddingTop: insets.top + getSize.h(97 + 50),
       left: 0,
       right: 0,
       zIndex: 1,

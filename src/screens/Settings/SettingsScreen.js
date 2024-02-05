@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {StyleSheet, ScrollView, View, Switch} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from 'react-redux';
 
 import useTheme from 'theme';
@@ -20,12 +20,13 @@ const SettingsScreen = ({navigation}) => {
     beingUpdateEmailSetting,
   } = useSelector((state) => state.notification);
   const {userInfo} = useSelector((state) => state.auth);
+  const insets = useSafeAreaInsets();
 
   useEffect(() => {
     dispatch(getNotiSetting());
   }, []);
 
-  const HEADER_HEIGHT = getStatusBarHeight() + 68;
+  const HEADER_HEIGHT = insets.top + 68;
   const styles = StyleSheet.create({
     wrapper: {flex: 1},
     scrollWrap: {
@@ -64,12 +65,12 @@ const SettingsScreen = ({navigation}) => {
     },
     backBtn: {
       position: 'absolute',
-      top: getStatusBarHeight() + getSize.h(20),
+      top: insets.top + getSize.h(20),
       left: getSize.w(24),
       zIndex: 1,
     },
     headerTitle: {
-      top: getStatusBarHeight() + getSize.h(26),
+      top: insets.top + getSize.h(26),
       textAlign: 'center',
     },
   });

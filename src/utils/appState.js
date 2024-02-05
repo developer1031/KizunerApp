@@ -25,5 +25,6 @@ export default function useAppState() {
     };
   }, []);
 
-  return appState;
+  // return appState;
+  return null;
 }

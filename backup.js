@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, KeyboardAvoidingView, Keyboard} from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {useSelector, useDispatch} from 'react-redux';
 import {Formik} from 'formik';
 import * as yup from 'yup';
@@ -37,14 +36,16 @@ import {
 } from 'actions';
 
 const PaymentDataScreen = ({navigation, route}) => {
-  const STATUS_BAR = getStatusBarHeight();
+  const theme = useTheme();
+  const insets = useSafeAreaInsets();
+  const dispatch = useDispatch();
+
   const {beingAddCard, beingPurchase, beingRemoveCard} = useSelector(
     (state) => state.wallet,
   );
   const HEADER_HEIGHT = 120;
-  const theme = useTheme();
-  const insets = useSafeAreaInsets();
-  const dispatch = useDispatch();
+  const STATUS_BAR = insets.top;
+
   const {client_secret, data, package_id} = route.params;
   const [loading, setLoading] = useState(false);
   const [keyboardShown, setKeyboardShown] = useState(false);

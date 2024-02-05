@@ -6,7 +6,7 @@ import {
   RefreshControl,
   Platform,
 } from 'react-native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -22,11 +22,12 @@ const MyWalletScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const {current, loading} = useSelector((state) => state.wallet);
   const userInfo = useSelector((state) => state.auth.userInfo);
+  const insets = useSafeAreaInsets();
 
   useEffect(() => {
     dispatch(getCurrentWallet());
     listRef?.current.scrollTo({
-      y: -getStatusBarHeight() - getSize.h(30),
+      y: -insets.top - getSize.h(30),
     });
   }, []);
 
@@ -41,17 +42,16 @@ const MyWalletScreen = ({navigation}) => {
       flexDirection: 'row',
       alignItems: 'center',
       marginBottom: getSize.h(20),
-      marginTop:
-        Platform.OS === 'android' ? getStatusBarHeight() + getSize.h(30) : 0,
+      marginTop: Platform.OS === 'android' ? insets.top + getSize.h(30) : 0,
     },
     backBtn: {
       position: 'absolute',
-      top: getStatusBarHeight() + getSize.h(20),
+      top: insets.top + getSize.h(20),
       left: getSize.w(24),
       zIndex: 10,
     },
     headerTitle: {
-      top: getStatusBarHeight() + getSize.h(26),
+      top: insets.top + getSize.h(26),
       textAlign: 'center',
     },
     menuItemWrap: {
@@ -158,13 +158,13 @@ const MyWalletScreen = ({navigation}) => {
       <ScrollView
         ref={listRef}
         style={styles.scrollWrap}
-        contentInset={{top: getStatusBarHeight() + getSize.h(30)}}
+        contentInset={{top: insets.top + getSize.h(30)}}
         contentContainerStyle={styles.scrollCon}
         refreshControl={
           <RefreshControl
             colors={theme.colors.gradient}
             tintColor={theme.colors.primary}
-            progressViewOffset={getStatusBarHeight()}
+            progressViewOffset={insets.top}
             onRefresh={() => dispatch(getCurrentWallet())}
             refreshing={loading}
           />
