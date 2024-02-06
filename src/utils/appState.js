@@ -1,20 +1,25 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useState, useRef} from 'react';
 import {AppState} from 'react-native';
 import {useDispatch} from 'react-redux';
 
 import {listChatRoom} from 'actions';
 
 export default function useAppState() {
-  const [appState, setAppState] = useState(AppState.currentState);
+  const appState = useRef(AppState.currentState);
+  const [appStateVisible, setAppStateVisible] = useState(appState.current);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   function handleAppStateChange(nextAppState) {
-    if (appState.match(/inactive|background/) && nextAppState === 'active') {
+    if (
+      appState.current.match(/inactive|background/) &&
+      nextAppState === 'active'
+    ) {
       // App has come to the foreground
       // dispatch(listChatRoom({page: 1, reset: true}));
     }
-    setAppState(nextAppState);
+    appState.current = nextAppState;
+    setAppStateVisible(appState.current);
   }
 
   useEffect(() => {
@@ -25,6 +30,5 @@ export default function useAppState() {
     };
   }, []);
 
-  // return appState;
-  return null;
+  return appStateVisible;
 }

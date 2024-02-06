@@ -33,6 +33,7 @@ import {
 
 const PaymentDataScreen = ({navigation, route}) => {
   const {createPaymentMethod, confirmPaymentMethod} = useStripe();
+  const insets = useSafeAreaInsets();
 
   const STATUS_BAR = insets.top;
   const {beingAddCard, beingPurchase, beingRemoveCard} = useSelector(
@@ -40,7 +41,6 @@ const PaymentDataScreen = ({navigation, route}) => {
   );
   const HEADER_HEIGHT = 120;
   const theme = useTheme();
-  const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
   const {client_secret, data, package_id} = route.params;
   const [loading, setLoading] = useState(false);

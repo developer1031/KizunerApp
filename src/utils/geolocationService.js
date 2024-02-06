@@ -102,9 +102,11 @@ export const useWatchLocation = () => {
     if (!(await hasLocationPermission())) {
       return;
     }
+
     dispatch(updateAddressRequest());
     try {
       const result = await fetchAddressForLocation(coords);
+
       const area = result?.address_components?.find(
         (item) =>
           item.types?.includes('administrative_area_level_2') ||
@@ -141,8 +143,7 @@ export const useWatchLocation = () => {
     }
   }, [location.area]);
 
-  // return location;
-  return null;
+  return location;
 };
 
 export function generateRandomPoint(center, radius) {

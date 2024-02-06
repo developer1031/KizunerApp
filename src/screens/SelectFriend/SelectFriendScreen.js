@@ -29,10 +29,12 @@ import lodash from 'lodash';
 const width = Dimensions.get('window').width;
 
 const SelectFriendScreen = ({navigation, route}) => {
-  const STATUS_BAR = insets.top;
-  const HEADER_HEIGHT = 89;
   const theme = useTheme();
   const insets = useSafeAreaInsets();
+
+  const STATUS_BAR = insets.top;
+  const HEADER_HEIGHT = 89;
+
   const dispatch = useDispatch();
   const {beingCreateRoom, beingSendMessage} = useSelector(
     (state) => state.chat,

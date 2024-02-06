@@ -13,10 +13,11 @@ const Tab = createMaterialTopTabNavigator();
 const width = Dimensions.get('window').width;
 
 const GuestListScreen = ({navigation, route}) => {
-  const STATUS_BAR = insets.top;
-  const HEADER_HEIGHT = STATUS_BAR + 68;
   const theme = useTheme();
   const insets = useSafeAreaInsets();
+
+  const STATUS_BAR = insets.top;
+  const HEADER_HEIGHT = STATUS_BAR + 68;
 
   const {hangoutId, capacity, start, end} = route.params;
 

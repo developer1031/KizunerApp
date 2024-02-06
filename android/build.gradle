@@ -13,6 +13,8 @@ buildscript {
         ext.kotlinVersion = '1.7.0'
 //        playServicesVersion = "16.0.0"
         androidMapsUtilsVersion = "0.5+"
+        googlePlayServicesVersion = "21.0.1"
+        googlePlayServicesIidVersion = "17.0.0"
     }
     subprojects { subproject ->
         afterEvaluate{
@@ -41,6 +43,7 @@ buildscript {
 
 allprojects {
     repositories {
+        google()
         mavenLocal()
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
@@ -53,7 +56,7 @@ allprojects {
         maven {
             url 'https://maven.fabric.io/public'
         }
-        google()
+
         maven { url 'https://jcenter.bintray.com' }
         jcenter() {
             content {

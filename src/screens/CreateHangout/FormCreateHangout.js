@@ -47,7 +47,6 @@ import {getUniqueId} from 'utils/util';
 import InputChooseCryptoAddressPayment from 'components/InputChooseCryptoAddressPayment';
 import SelectDropdown from 'react-native-select-dropdown';
 import {getWalletStripeStatus} from 'actions';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const constants = {
   fee: 10,

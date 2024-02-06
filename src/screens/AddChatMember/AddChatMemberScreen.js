@@ -38,10 +38,12 @@ import lodash from 'lodash';
 const width = Dimensions.get('window').width;
 
 const AddChatMemberScreen = ({navigation}) => {
-  const STATUS_BAR = insets.top;
-  const HEADER_HEIGHT = 68;
   const theme = useTheme();
   const insets = useSafeAreaInsets();
+
+  const STATUS_BAR = insets.top;
+  const HEADER_HEIGHT = 68;
+
   const dispatch = useDispatch();
   const following = useSelector((state) => state.contact.following?.me);
   const follower = useSelector((state) => state.contact.follower?.me);

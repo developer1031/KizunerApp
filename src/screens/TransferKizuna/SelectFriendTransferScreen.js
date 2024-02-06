@@ -28,10 +28,12 @@ import debounce from 'utils/debounce';
 const width = Dimensions.get('window').width;
 
 const SelectFriendTransferScreen = ({navigation, route}) => {
-  const STATUS_BAR = insets.top;
-  const HEADER_HEIGHT = 89;
   const theme = useTheme();
   const insets = useSafeAreaInsets();
+
+  const STATUS_BAR = insets.top;
+  const HEADER_HEIGHT = 89;
+
   const dispatch = useDispatch();
   const friend = useSelector((state) => state.contact.friend?.me);
   const {beingTransferKizuna} = useSelector((state) => state.wallet);

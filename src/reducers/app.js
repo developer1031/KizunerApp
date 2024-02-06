@@ -63,12 +63,12 @@ export default (state = INITIAL_STATE, action) => {
           ?.value,
         faqData: action.payload.data?.find((item) => item.path === 'faq')
           ?.value,
-        nearbyRadius: action.payload.data?.find(
-          (item) => item.path === 'nearby_radius',
-        )?.value,
-        mapRadius: action.payload.data?.find(
-          (item) => item.path === 'map_radius',
-        )?.value,
+        nearbyRadius:
+          action.payload.data?.find((item) => item.path === 'nearby_radius')
+            ?.value ?? INITIAL_STATE.nearbyRadius,
+        mapRadius:
+          action.payload.data?.find((item) => item.path === 'map_radius')
+            ?.value ?? INITIAL_STATE.mapRadius,
         aboutData: action.payload.data?.find((item) => item.path === 'about')
           ?.value,
       };

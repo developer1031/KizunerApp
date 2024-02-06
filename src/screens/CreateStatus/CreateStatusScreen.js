@@ -23,11 +23,11 @@ import {getSize} from 'utils/responsive';
 import {createStatus, showAlert} from 'actions';
 
 const CreateHangoutScreen = ({navigation}) => {
-  const STATUS_BAR = insets.top;
   const creating = useSelector((state) => state.feed.beingCreateStatus);
   const HEADER_HEIGHT = 120;
   const theme = useTheme();
   const insets = useSafeAreaInsets();
+  const STATUS_BAR = insets.top;
   const dispatch = useDispatch();
 
   const styles = StyleSheet.create({

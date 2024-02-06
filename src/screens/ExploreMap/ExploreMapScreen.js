@@ -45,6 +45,8 @@ const DEFAULT_DELTA = {
 
 const ExploreMapScreen = ({navigation}) => {
   const theme = useTheme();
+  const insets = useSafeAreaInsets();
+
   const userCoords = useSelector((state) => state.location.coords);
   const mapView = useRef(null);
   const listView = useRef(null);
@@ -59,7 +61,6 @@ const ExploreMapScreen = ({navigation}) => {
   const [mapRegion, setMapRegion] = useState(null);
   const [showSearchArea, setShowSearchArea] = useState(false);
   const [dataRegion, setDataRegion] = useState(null);
-  const insets = useSafeAreaInsets();
 
   const HEADER_HEIGHT = insets.top + getSize.h(71);
 

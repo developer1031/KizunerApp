@@ -46,10 +46,12 @@ import {SHARE_URL} from 'utils/constants';
 const width = Dimensions.get('window').width;
 
 const ShareAppWithFriendScreen = ({navigation, route}) => {
-  const STATUS_BAR = insets.top;
-  const HEADER_HEIGHT = 68;
   const theme = useTheme();
   const insets = useSafeAreaInsets();
+
+  const STATUS_BAR = insets.top;
+  const HEADER_HEIGHT = 68;
+
   const dispatch = useDispatch();
 
   const [showSearch, setShowSearch] = useState(false);

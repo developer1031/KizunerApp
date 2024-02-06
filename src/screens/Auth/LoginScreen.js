@@ -58,12 +58,12 @@ const {width} = Dimensions.get('window');
 const LoginScreen = ({navigation, route}) => {
   const dispatch = useDispatch();
   const theme = useTheme();
+  const insets = useSafeAreaInsets();
   // const loading = useSelector(state => state.auth.beingLogin)
   const {isAuth, userInfo, loading} = useSelector((state) => state.auth);
   const [eggCount, setEggCount] = useState(0);
   const [eggDevMode, setEggDevMode] = useState(0);
   const [isLoad, setLoad] = useState(false);
-  const insets = useSafeAreaInsets();
 
   useEffect(() => {
     const handleDeepLink = async ({url}) => {
@@ -74,12 +74,10 @@ const LoginScreen = ({navigation, route}) => {
       await handleLoginSocial('twitter', token, null);
     };
 
-    const listener = Linking.addEventListener('url', handleDeepLink);
+    Linking.addEventListener('url', handleDeepLink);
 
     return () => {
-      if (listener) {
-        listener();
-      }
+      Linking.removeEventListener('url', handleDeepLink);
     };
   }, []);
 
@@ -128,19 +126,10 @@ const LoginScreen = ({navigation, route}) => {
 
   const handleAppleSignIn = async () => {
     try {
-      const response = await appleAuth.performRequest({
+      const {user, identityToken, fullName} = await appleAuth.performRequest({
         requestedOperation: appleAuth.Operation.LOGIN,
         requestedScopes: [appleAuth.Scope.FULL_NAME, appleAuth.Scope.EMAIL],
       });
-      const {user, identityToken, fullName, nonce} = response;
-
-      // const appleCredential = auth.AppleAuthProvider.credential(
-      //   identityToken,
-      //   nonce,
-      // );
-      // // Sign the user in with the credential
-      // const authenticate = await auth().signInWithCredential(appleCredential);
-      console.log('______', response);
 
       await setLoad(true);
       const credentialState = await appleAuth.getCredentialStateForUser(user);

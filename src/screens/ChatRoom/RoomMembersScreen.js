@@ -25,10 +25,12 @@ import {
 const width = Dimensions.get('window').width;
 
 const RoomMemberScreen = ({navigation, route}) => {
-  const STATUS_BAR = insets.top;
-  const HEADER_HEIGHT = 89;
   const theme = useTheme();
   const insets = useSafeAreaInsets();
+
+  const STATUS_BAR = insets.top;
+  const HEADER_HEIGHT = 89;
+
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.auth.userInfo);
   const {roomDetail} = useSelector((state) => state.chat);

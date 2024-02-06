@@ -74,7 +74,7 @@ const ExploreScreen = () => {
     chatRoomPublicListLoading,
     chatRoomPublicListLastPage,
   } = useSelector((state) => state.feed);
-  const nearbyRadius = useSelector((state) => state.app.nearbyRadius);
+  const nearbyRadius = useSelector((state) => state.app.nearbyRadius) ?? 15;
   const {requestList} = useSelector((state) => state.contact);
   const [recommendPage, setRecommendPage] = useState(1);
   const [chatRoomPublicPage, setChatRoomPublicPage] = useState(1);
@@ -111,24 +111,16 @@ const ExploreScreen = () => {
   };
 
   const handleGetNearby = (p = nearbyPage) => {
-    dispatch(
-      getNearbyHangouts({
-        page: p,
-        lat: coords.latitude,
-        lng: coords.longitude,
-        radius: nearbyRadius,
-      }),
-    );
-    // if (coords?.latitude && coords?.longitude) {
-    //   dispatch(
-    //     getNearbyHangouts({
-    //       page: p,
-    //       lat: coords.latitude,
-    //       lng: coords.longitude,
-    //       radius: nearbyRadius,
-    //     }),
-    //   )
-    // }
+    if (coords?.latitude && coords?.longitude) {
+      dispatch(
+        getNearbyHangouts({
+          page: p,
+          lat: coords.latitude,
+          lng: coords.longitude,
+          radius: nearbyRadius,
+        }),
+      );
+    }
   };
 
   const handleGetPlaceDetail = async (value) => {
@@ -143,6 +135,7 @@ const ExploreScreen = () => {
   };
 
   const handleRefresh = () => {
+    console.log('REFRESH');
     setRecommendPage(1);
     handleGetRecommend(1);
     setNearbyPage(1);
@@ -529,7 +522,7 @@ const ExploreScreen = () => {
       </Animated.View>
 
       <Animated.ScrollView
-        bounces={false}
+        // bounces={false}
         ref={listRef}
         style={styles.scrollWrap}
         nestedScrollEnabled
@@ -653,13 +646,13 @@ const ExploreScreen = () => {
           }
         />
 
-        {/* <View style={styles.sectionHeader}>
+        <View style={styles.sectionHeader}>
           <Text style={styles.sectionHeaderText}>{lang.nearBy}</Text>
           {!nearbyLoading && !area ? (
             <Loading dark />
           ) : (
             <Touchable onPress={() => navigation.navigate('ExploreMap')}>
-              <Text variant='btnText'>
+              <Text variant="btnText">
                 {area || userInfo?.location?.address}
               </Text>
             </Touchable>
@@ -671,7 +664,7 @@ const ExploreScreen = () => {
           horizontal
           style={styles.sectionList}
           contentContainerStyle={styles.sectionListContent}
-          keyExtractor={item => createUUID()}
+          keyExtractor={(item) => createUUID()}
           showsHorizontalScrollIndicator={false}
           ListFooterComponent={
             nearbyLoading && (
@@ -692,7 +685,7 @@ const ExploreScreen = () => {
           ListEmptyComponent={
             !nearbyLoading && <EmptyState wrapperStyle={styles.sectionEmpty} />
           }
-        /> */}
+        />
 
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionHeaderText}>{lang.recommendation}</Text>

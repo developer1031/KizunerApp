@@ -428,7 +428,7 @@ export const getNearbyHangouts = ({page = 1, lat, lng, radius}) =>
   generateThunkAction({
     actionType: GET_NEARBY_HANGOUTS,
     apiOptions: {
-      endpoint: '/suggest/online',
+      endpoint: '/suggest/nearby',
       params: {
         per_page: DEFAULT_PERPAGE,
         page,

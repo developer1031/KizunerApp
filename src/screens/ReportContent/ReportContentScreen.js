@@ -19,11 +19,14 @@ import {getSize} from 'utils/responsive';
 import {reportContent} from 'actions';
 
 const ReportContentScreen = ({navigation, route}) => {
-  const STATUS_BAR = insets.top;
   const {type, id} = route.params;
-  const HEADER_HEIGHT = 120;
+
   const theme = useTheme();
   const insets = useSafeAreaInsets();
+
+  const STATUS_BAR = insets.top;
+  const HEADER_HEIGHT = 120;
+
   const dispatch = useDispatch();
   const reporting = useSelector((state) => state.app.reporting);
 
