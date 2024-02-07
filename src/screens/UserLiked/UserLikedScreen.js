@@ -42,12 +42,12 @@ const UserLikedScreen = ({navigation, route}) => {
     wrapper: {flex: 1},
     backBtn: {
       position: 'absolute',
-      top: insets.top + getSize.h(20),
+      top: insets.top + getSize.h(10),
       left: getSize.w(24),
       zIndex: 1,
     },
     headerTitle: {
-      top: insets.top + getSize.h(26),
+      top: insets.top + getSize.h(16),
       textAlign: 'center',
     },
     scrollWrap: {
@@ -111,7 +111,7 @@ const UserLikedScreen = ({navigation, route}) => {
     dispatch(
       showModalize([
         {
-          label: 'Add friend',
+          label: 'Follow',
           onPress: () => {
             dispatch(hideModalize());
             dispatch(sendFriendRequest(data, () => handleGetList()));

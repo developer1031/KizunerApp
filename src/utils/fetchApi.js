@@ -35,6 +35,11 @@ export default async ({
   const token = await AsyncStorage.getItem(USER_TOKEN_KEY);
   const axiost = useOnce ? once : axios;
 
+  var header = headers;
+  if (endpoint.includes('/upload')) {
+    header['Content-Type'] = 'multipart/form-data';
+  }
+
   try {
     return await axiost({
       method,
@@ -45,9 +50,9 @@ export default async ({
         token && token.length
           ? {
               Authorization: `Bearer ${token}`,
-              ...headers,
+              ...header,
             }
-          : headers,
+          : header,
       validateStatus: (status) => {
         return true;
       },

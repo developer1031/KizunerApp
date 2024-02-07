@@ -287,3 +287,4 @@ export const GET_WALLET_STRIPE_STATUS = generateThunkType(
   'GET_WALLET_STRIPE_STATUS',
 );
 export const PAYOUT_STRIPE = generateThunkType('PAYOUT_STRIPE');
+export const UPDATE_USER_DETAIL = 'UPDATE_USER_DETAIL';

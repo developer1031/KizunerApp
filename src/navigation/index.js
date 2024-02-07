@@ -176,20 +176,22 @@ const horizontalAnimation = {
 };
 
 const MainScreen = () => {
-  const dispatch = useDispatch();
-  const {isAuth, userInfo, needVerifyEmail} = useSelector(
-    (state) => state.auth,
-  );
-  const {isFirstLaunch} = useSelector((state) => state.app);
+  // remove tutorial
 
-  if (userInfo?.has_posted == false) {
-    if (isFirstLaunch == true) {
-      return <OnboardingScreen />;
-    } else if (isFirstLaunch == false) {
-      return <AppTab />;
-    }
-    return <OnboardingScreen />;
-  }
+  // const dispatch = useDispatch();
+  // const {isAuth, userInfo, needVerifyEmail} = useSelector(
+  //   (state) => state.auth,
+  // );
+  // const {isFirstLaunch} = useSelector((state) => state.app);
+  // if (userInfo?.has_posted == false) {
+  //   if (isFirstLaunch == true) {
+  //     return <OnboardingScreen />;
+  //   } else if (isFirstLaunch == false) {
+  //     return <AppTab />;
+  //   }
+  //   return <OnboardingScreen />;
+  // }
+
   return <AppTab />;
 };
 
@@ -323,7 +325,7 @@ export default () => {
           <Stack.Screen name="AppTab" component={MainScreen} />
         )}
 
-        {/* <Stack.Screen
+        <Stack.Screen
           name="VerifyPhone"
           component={VerifyPhoneScreen}
           initialParams={{confirmResult: null}}
@@ -622,7 +624,7 @@ export default () => {
         <Stack.Screen
           name="SupportCancelHelp"
           component={SupportCancelHelpScreen}
-        /> */}
+        />
 
         <Stack.Screen name="Wallet" component={WalletScreen} />
         <Stack.Screen

@@ -135,7 +135,6 @@ const ExploreScreen = () => {
   };
 
   const handleRefresh = () => {
-    console.log('REFRESH');
     setRecommendPage(1);
     handleGetRecommend(1);
     setNearbyPage(1);
@@ -606,7 +605,7 @@ const ExploreScreen = () => {
         </Paper> */}
 
         <View style={styles.sectionHeader}>
-          <Text style={styles.sectionHeaderText}>Online</Text>
+          <Text style={styles.sectionHeaderText}>{lang.nearBy}</Text>
           {!nearbyLoading && !area ? (
             <Loading dark />
           ) : (
@@ -647,7 +646,7 @@ const ExploreScreen = () => {
         />
 
         <View style={styles.sectionHeader}>
-          <Text style={styles.sectionHeaderText}>{lang.nearBy}</Text>
+          <Text style={styles.sectionHeaderText}>Online</Text>
           {!nearbyLoading && !area ? (
             <Loading dark />
           ) : (

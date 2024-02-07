@@ -26,6 +26,7 @@ import {Text} from 'components';
 import orangeLight from '../../theme/orangeLight';
 import {ProgressBar} from 'react-native-paper';
 import {isVideoType} from 'utils/fileTypes';
+import PropTypes from 'prop-types';
 
 const constants = {
   gap: 3,
@@ -114,6 +115,7 @@ const ImageMultiple = memo(
             ImagePicker.openCamera({
               mediaType: 'photo',
               forceJpg: true,
+              maxFiles: maxFilesImage,
             }).then((res) => {
               dispatch(hideModalize());
               const media = {
@@ -137,6 +139,7 @@ const ImageMultiple = memo(
           onPress: () => {
             ImagePicker.openCamera({
               mediaType: 'video',
+              maxFiles: maxFilesVideo,
             }).then((res) => {
               dispatch(hideModalize());
               const media = {
@@ -336,23 +339,27 @@ const ViewImage = memo((props) => {
                   />
                 </MediaData>
 
-                <MediaData2
-                  data={props.data}
-                  onPress={props.setImage(2)}
-                  disabled={props.isViewer}>
-                  <ImageComponent
-                    source={props.data[2].thumb}
-                    isVideo={isVideoType(props.data[2].path)}
-                    resizeMode={props.resizeMode}
-                  />
-                </MediaData2>
+                {props.data.length > 2 && (
+                  <MediaData2
+                    data={props.data}
+                    onPress={props.setImage(2)}
+                    disabled={props.isViewer}>
+                    <ImageComponent
+                      source={props.data[2].thumb}
+                      isVideo={isVideoType(props.data[2].path)}
+                      resizeMode={props.resizeMode}
+                    />
+                  </MediaData2>
+                )}
 
-                <MediaData3
-                  data={props.data}
-                  onPress={props.setImage(2)}
-                  disabled={props.isViewer}
-                  title={`+${props.data.length - 3}`}
-                />
+                {props.data.length > 3 && (
+                  <MediaData3
+                    data={props.data}
+                    onPress={props.setImage(2)}
+                    disabled={props.isViewer}
+                    title={`+${props.data.length - 3}`}
+                  />
+                )}
               </View>
             )}
           </>
@@ -527,3 +534,8 @@ const styles = StyleSheet.create({
 });
 
 export default ImageMultiple;
+
+ImageMultiple.propTypes = {
+  maxFilesImage: PropTypes.number,
+  maxFilesVideo: PropTypes.number,
+};

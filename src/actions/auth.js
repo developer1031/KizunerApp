@@ -41,6 +41,7 @@ import {
   INVITE_CONTACT_LIST,
   NEED_VERIFY_EMAIL,
   SUPPORT_BY_EMAIL,
+  UPDATE_USER_DETAIL,
 } from './types';
 import {USER_TOKEN_KEY} from 'utils/constants';
 import {showAlert} from './alert';
@@ -420,6 +421,12 @@ export const updateUserIdentify = (data) =>
     callback: {
       success: async (result, dispatch) => {
         await AsyncStorage.setItem(USER_TOKEN_KEY, result?.data?.access_token);
+
+        dispatch({
+          type: UPDATE_USER_DETAIL,
+          payload: result?.data?.self?.data,
+        });
+
         dispatch(
           showAlert({
             title: 'Success',

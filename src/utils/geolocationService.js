@@ -90,6 +90,10 @@ export const useWatchLocation = () => {
   };
 
   useEffect(() => {
+    if (Platform.OS === 'ios') {
+      Geolocation.requestAuthorization('whenInUse');
+    }
+
     const watchId = getLocationUpdates();
     return () => {
       if (watchId) {

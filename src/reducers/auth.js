@@ -32,6 +32,7 @@ import {
   UPDATE_CATEGORIES,
   //TOGGLE_IS_FIRST_LAUNCH,
   NEED_VERIFY_EMAIL,
+  UPDATE_USER_DETAIL,
 } from 'actions';
 
 const INITIAL_STATE = {
@@ -554,6 +555,16 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         needVerifyEmail: action.payload,
+      };
+    case UPDATE_USER_DETAIL:
+      return {
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          email: action.payload.email,
+          name: action.payload.name,
+          username: action.payload.username,
+        },
       };
     default:
       return state;

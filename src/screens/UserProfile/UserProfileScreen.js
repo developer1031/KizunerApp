@@ -606,10 +606,10 @@ const UserProfileScreen = ({navigation, route}) => {
                     <IconButton
                       onPress={showOptions}
                       icon={
-                        <MaterialCommunityIcons
+                        <MaterialIcons
                           name="settings"
                           color={theme.colors.textContrast}
-                          size={getSize.f(24)}
+                          size={getSize.f(22)}
                         />
                       }
                     />

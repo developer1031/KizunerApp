@@ -365,7 +365,7 @@ const ManageScreen = ({navigation}) => {
     },
     {
       icon: (
-        <MaterialCommunityIcons
+        <MaterialIcons
           name="settings"
           color={theme.colors.primary}
           size={getSize.f(22)}
