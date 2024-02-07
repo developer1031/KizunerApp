@@ -192,8 +192,8 @@ const ExploreScreen = () => {
     online: 'online',
   };
 
-  const HEADER_PAPER_HEIGHT = getSize.h(220);
-  const IMAGE_BG_HEIGHT = getSize.h(195);
+  const HEADER_PAPER_HEIGHT = getSize.h(200);
+  const IMAGE_BG_HEIGHT = getSize.h(190);
 
   const styles = StyleSheet.create({
     wrapper: {
@@ -202,7 +202,7 @@ const ExploreScreen = () => {
     headerContainer: {
       paddingHorizontal: getSize.w(24),
       flexDirection: 'row',
-      height: TOP_SPACE + getSize.h(45),
+      // height: TOP_SPACE + getSize.h(45),
       paddingTop: insets.top + getSize.h(16),
       alignItems: 'center',
       justifyContent: 'space-between',
@@ -228,7 +228,7 @@ const ExploreScreen = () => {
       right: -getSize.w(5),
     },
     headerContent: {
-      marginTop: TOP_SPACE + getSize.h(5),
+      marginTop: getSize.h(35),
       paddingHorizontal: getSize.w(24),
       zIndex: 1,
     },
@@ -483,6 +483,7 @@ const ExploreScreen = () => {
           style={[styles.descriptionText, {opacity: greetingOpacity}]}>
           {lang.description}
         </Animated.Text>
+
         <View style={styles.headerSearch}>
           <SearchBar
             placeholder={lang.searchPlaceholder}

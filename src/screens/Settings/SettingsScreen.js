@@ -90,10 +90,7 @@ const SettingsScreen = ({navigation}) => {
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.scrollWrap}>
-        <Touchable
-          onPress={() => {}}
-          key={'toggleNotification'}
-          style={styles.menuItemWrap}>
+        <View key={'toggleNotification'} style={styles.menuItemWrap}>
           <View style={styles.menuItemContainer}>
             <View style={styles.menuItemLeft}>
               <View style={styles.menuItemIcon}>
@@ -105,6 +102,7 @@ const SettingsScreen = ({navigation}) => {
               </View>
               <Text style={styles.menuItemWrapLabel}>On/ Off Notification</Text>
             </View>
+
             <Switch
               trackColor={{
                 false: theme.colors.disabled,
@@ -124,11 +122,8 @@ const SettingsScreen = ({navigation}) => {
               disabled={beingGetNotiSetting || beingUpdateSetting}
             />
           </View>
-        </Touchable>
-        <Touchable
-          onPress={() => {}}
-          key={'toggleReceiveEmail'}
-          style={styles.menuItemWrap}>
+        </View>
+        <View key={'toggleReceiveEmail'} style={styles.menuItemWrap}>
           <View style={styles.menuItemContainer}>
             <View style={styles.menuItemLeft}>
               <View style={styles.menuItemIcon}>
@@ -142,6 +137,7 @@ const SettingsScreen = ({navigation}) => {
                 On/ Off Receive Email
               </Text>
             </View>
+
             <Switch
               trackColor={{
                 false: theme.colors.disabled,
@@ -161,7 +157,8 @@ const SettingsScreen = ({navigation}) => {
               disabled={beingGetNotiSetting || beingUpdateEmailSetting}
             />
           </View>
-        </Touchable>
+        </View>
+
         <Touchable
           onPress={() => navigation.navigate('BlockList')}
           key={'blockList'}
