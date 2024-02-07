@@ -26,6 +26,9 @@ const ChangePasswordScreen = ({navigation}) => {
   const loading = useSelector((state) => state.auth.beingUpdatePassword);
   const insets = useSafeAreaInsets();
 
+  const {userInfo} = useSelector((state) => state.auth);
+  const isSocial = userInfo?.social_id != null;
+
   const lang = {
     send: 'Update',
   };
@@ -93,7 +96,7 @@ const ChangePasswordScreen = ({navigation}) => {
           .max(255)
           .oneOf([yup.ref('password'), null], 'passwords must match')
           .required(),
-        password_current: yup.string().min(6).max(255).required(),
+        // password_current: yup.string().min(6).max(255).required(),
       })}>
       {(formikProps) => (
         <Wrapper dismissKeyboard>
@@ -124,6 +127,7 @@ const ChangePasswordScreen = ({navigation}) => {
                     type: 'password',
                   }}
                 />
+
                 <FormikInput
                   name="password"
                   {...formikProps}

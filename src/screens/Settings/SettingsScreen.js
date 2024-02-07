@@ -19,7 +19,6 @@ const SettingsScreen = ({navigation}) => {
     beingUpdateSetting,
     beingUpdateEmailSetting,
   } = useSelector((state) => state.notification);
-  const {userInfo} = useSelector((state) => state.auth);
   const insets = useSafeAreaInsets();
 
   useEffect(() => {
@@ -197,25 +196,24 @@ const SettingsScreen = ({navigation}) => {
             </View>
           </View>
         </Touchable>
-        {!userInfo?.social_id && (
-          <Touchable
-            onPress={() => navigation.navigate('ChangePassword')}
-            key={'changePass'}
-            style={styles.menuItemWrap}>
-            <View style={styles.menuItemContainer}>
-              <View style={styles.menuItemLeft}>
-                <View style={styles.menuItemIcon}>
-                  <MaterialCommunityIcons
-                    name="lock"
-                    size={getSize.f(22)}
-                    color={theme.colors.primary}
-                  />
-                </View>
-                <Text style={styles.menuItemWrapLabel}>Change Password</Text>
+
+        <Touchable
+          onPress={() => navigation.navigate('ChangePassword')}
+          key={'changePass'}
+          style={styles.menuItemWrap}>
+          <View style={styles.menuItemContainer}>
+            <View style={styles.menuItemLeft}>
+              <View style={styles.menuItemIcon}>
+                <MaterialCommunityIcons
+                  name="lock"
+                  size={getSize.f(22)}
+                  color={theme.colors.primary}
+                />
               </View>
+              <Text style={styles.menuItemWrapLabel}>Change Password</Text>
             </View>
-          </Touchable>
-        )}
+          </View>
+        </Touchable>
       </ScrollView>
     </Wrapper>
   );
