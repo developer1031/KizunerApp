@@ -226,7 +226,7 @@ const FormCreateHangout = ({navigation, route}) => {
           ],
         );
       }),
-    [navigation, hangoutType, isOnline, isNoTime, priceType],
+    [navigation, hangoutType, isOnline, isNoTime, priceType, roomId],
   );
 
   const styles = StyleSheet.create({
@@ -569,6 +569,7 @@ const FormCreateHangout = ({navigation, route}) => {
       <ModalChooseDraft
         ref={refModalDraft}
         type="hangout"
+        roomId={roomId}
         onChooseDraft={(draft) => {
           setRoomId((prev) => (draft.roomId ? draft.roomId : null));
           formRef.current?.setFieldValue('title', draft.title);

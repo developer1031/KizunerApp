@@ -557,7 +557,7 @@ const FormCreateHelp = ({navigation, route}) => {
           ],
         );
       }),
-    [navigation, helpType, isOnline, isNoTime, priceType],
+    [navigation, helpType, isOnline, isNoTime, priceType, roomId],
   );
 
   return (
@@ -565,6 +565,7 @@ const FormCreateHelp = ({navigation, route}) => {
       <ModalChooseDraft
         ref={refModalDraft}
         type="help"
+        roomId={roomId}
         onChooseDraft={(draft) => {
           setRoomId((prev) => (draft.roomId ? draft.roomId : null));
           formRef.current?.setFieldValue('title', draft.title);

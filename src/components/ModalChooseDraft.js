@@ -19,7 +19,7 @@ const constants = {
   maxSavedDraft: 10,
 };
 const ModalChooseDraft = forwardRef(
-  ({type = 'hangout', onChooseDraft = () => {}}, ref) => {
+  ({type = 'hangout', onChooseDraft = () => {}, roomId = null}, ref) => {
     const [visible, setVisible] = useState(false);
     const [dataList, setDataList] = useState([]);
 
@@ -63,7 +63,7 @@ const ModalChooseDraft = forwardRef(
             {/* <Entypo name='chevron-thin-right' /> */}
             <TouchableOpacity
               style={{padding: 10}}
-              onPress={() => remove(index)}>
+              onPress={() => remove(item.id)}>
               <Entypo name="trash" size={20} color="gray" />
             </TouchableOpacity>
           </View>
@@ -91,23 +91,27 @@ const ModalChooseDraft = forwardRef(
     const clear = () => {
       AsyncStorage.removeItem(StoreKey);
     };
-    const remove = (index) => {
+    const remove = (id) => {
       AsyncStorage.getItem(StoreKey)
         .then((data) => {
-          const draftList = JSON.parse(data);
-          draftList.splice(index, 1);
-          const draftString = JSON.stringify(draftList);
+          const draftList = JSON.parse(data) ?? [];
+          const newData = draftList.filter((d) => d.id != id);
+          const draftString = JSON.stringify(newData);
 
           AsyncStorage.setItem(StoreKey, draftString);
-          setDataList((prev) => (prev = draftList));
+          setDataList(
+            (prev) => (prev = newData.filter((d) => d.roomId == roomId)),
+          );
         })
         .catch(() => {});
     };
     const open = () => {
       AsyncStorage.getItem(StoreKey).then((data) => {
-        const draftList = JSON.parse(data);
+        const draftList = JSON.parse(data) ?? [];
 
-        setDataList((prev) => (prev = draftList));
+        setDataList(
+          (prev) => (prev = draftList.filter((d) => d.roomId == roomId)),
+        );
         setVisible((prev) => (prev = true));
       });
     };
