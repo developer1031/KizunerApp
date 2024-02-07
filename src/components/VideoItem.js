@@ -45,26 +45,27 @@ const VideoItem = ({wrapperStyle, subWrapper, data}) => {
     },
     wrapper: {
       width: width - getSize.w(24 * 2),
+    },
+    contentVideo: {
       height: CARD_HEIGHT,
+      width: '100%',
+      // paddingHorizontal: getSize.w(63),
       borderRadius: getSize.h(10),
+      ...theme.shadow.small.ios,
+      ...theme.shadow.small.android,
+      backgroundColor: theme.colors.grayLight,
       overflow: 'hidden',
       justifyContent: 'center',
       alignItems: 'center',
-      paddingHorizontal: getSize.w(63),
-      backgroundColor: theme.colors.grayLight,
-      ...theme.shadow.small.ios,
-      ...theme.shadow.small.android,
     },
     title: {
       fontSize: getSize.f(18),
-      textAlign: 'center',
       lineHeight: getSize.h(20),
       fontFamily: theme.fonts.sfPro.bold,
-      color: theme.colors.textContrast,
+      paddingHorizontal: getSize.w(8),
     },
     category: {
       fontFamily: theme.fonts.sfPro.bold,
-      color: theme.colors.textContrast,
       textAlign: 'center',
       marginRight: 8,
     },
@@ -80,16 +81,10 @@ const VideoItem = ({wrapperStyle, subWrapper, data}) => {
       alignItems: 'center',
     },
     cateWrap: {
-      position: 'absolute',
-      height: getSize.h(24),
-      borderRadius: getSize.h(24 / 2),
       paddingHorizontal: getSize.w(8),
-      left: getSize.w(10),
-      bottom: getSize.h(10),
-      backgroundColor: theme.colors.grayDark,
-      justifyContent: 'center',
       alignItems: 'center',
       flexDirection: 'row',
+      marginVertical: 4,
     },
     timeText: {
       fontSize: getSize.f(10),
@@ -105,27 +100,29 @@ const VideoItem = ({wrapperStyle, subWrapper, data}) => {
           label: data.text,
         })
       }
-      style={wrapperStyle}
+      style={[wrapperStyle, styles.wrapper]}
       activeOpacity={1}>
       <ImageBackground
         source={{
           uri: data.cover,
         }}
-        style={[styles.wrapper, subWrapper]}>
+        style={[styles.contentVideo, subWrapper]}>
         <View style={styles.overflow} />
-        <Text style={styles.title}>{data.text}</Text>
-        <View style={styles.cateWrap}>
-          {data?.categories?.map((category) => (
-            <Text numberOfLines={1} style={styles.category}>
-              {'#'}
-              {category?.name}
-            </Text>
-          ))}
-        </View>
+
         <View style={styles.timeWrap}>
           <Text style={styles.timeText}>{data.duration}</Text>
         </View>
       </ImageBackground>
+
+      <View style={styles.cateWrap}>
+        {data?.categories?.map((category) => (
+          <Text numberOfLines={1} style={styles.category}>
+            {'#'}
+            {category?.name}
+          </Text>
+        ))}
+      </View>
+      <Text style={styles.title}>{data.text}</Text>
     </Touchable>
   );
 };
