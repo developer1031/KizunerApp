@@ -103,11 +103,13 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         beingVerifyEmail: true,
+        needVerifyEmail: true,
       };
     case VERIFY_EMAIL.SUCCESS:
       return {
         ...state,
         beingVerifyEmail: false,
+        needVerifyEmail: false,
         userInfo: {
           ...state.userInfo,
           email_verified_at: new Date(),
@@ -117,6 +119,7 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         beingVerifyEmail: false,
+        needVerifyEmail: false,
       };
     case SEND_VERIFY_EMAIL_CODE.REQUEST:
       return {

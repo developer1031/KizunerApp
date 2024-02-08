@@ -91,7 +91,14 @@ const ContactListScreen = ({navigation, route}) => {
       fontFamily: theme.fonts.sfPro.semiBold,
       textAlign: 'center',
     },
-    tabNav: {position: 'absolute', zIndex: -1, top: 0, left: 0, right: 0},
+    tabNav: {
+      position: 'absolute',
+      zIndex: -1,
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+    },
     tabScene: {
       backgroundColor: theme.colors.background,
     },

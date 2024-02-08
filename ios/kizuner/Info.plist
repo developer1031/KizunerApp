@@ -74,6 +74,13 @@
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
+			<key>applinks:kizuner.page.link</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
 			<key>localhost</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
@@ -81,22 +88,22 @@
 			</dict>
 		</dict>
 	</dict>
-  <key>NSCameraUsageDescription</key>
-  <string>$(PRODUCT_NAME) would like to use your camera to update avatar and take hangout picture</string>
-  <key>NSContactsUsageDescription</key>
-  <string>$(PRODUCT_NAME) would like access to your contacts to share app to your contacts</string>
-  <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-  <string>$(PRODUCT_NAME) would like access to your location to explore nearby hangouts</string>
-  <key>NSLocationAlwaysUsageDescription</key>
-  <string>$(PRODUCT_NAME) would like access to your location to explore nearby hangouts</string>
-  <key>NSLocationWhenInUseUsageDescription</key>
-  <string>$(PRODUCT_NAME) would like access to your location to explore nearby hangouts</string>
-  <key>NSMicrophoneUsageDescription</key>
-  <string>Your message to user when the microsphone is accessed for the first time</string>
-  <key>NSPhotoLibraryAddUsageDescription</key>
-  <string>$(PRODUCT_NAME) would like to save hangout photos to your photo gallery</string>
-  <key>NSPhotoLibraryUsageDescription</key>
-  <string>$(PRODUCT_NAME) would like access to your photo gallery to update avatar and upload hangout picture</string>
+	<key>NSCameraUsageDescription</key>
+	<string>$(PRODUCT_NAME) would like to use your camera to update avatar and take hangout picture</string>
+	<key>NSContactsUsageDescription</key>
+	<string>$(PRODUCT_NAME) would like access to your contacts to share app to your contacts</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>$(PRODUCT_NAME) would like access to your location to explore nearby hangouts</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>$(PRODUCT_NAME) would like access to your location to explore nearby hangouts</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>$(PRODUCT_NAME) would like access to your location to explore nearby hangouts</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Your message to user when the microsphone is accessed for the first time</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>$(PRODUCT_NAME) would like to save hangout photos to your photo gallery</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>$(PRODUCT_NAME) would like access to your photo gallery to update avatar and upload hangout picture</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>

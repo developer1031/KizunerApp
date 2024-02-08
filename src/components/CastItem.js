@@ -92,7 +92,7 @@ const CastItem = ({data, openChat}) => {
 const styles = StyleSheet.create({
   wrapper: {
     paddingHorizontal: getSize.w(24),
-    height: getSize.h(120),
+    paddingVertical: getSize.h(15),
     flexDirection: 'row',
     alignItems: 'center',
     borderBottomWidth: 1,

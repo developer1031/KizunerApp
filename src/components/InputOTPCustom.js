@@ -29,8 +29,14 @@ const InputOTPCustom = memo(({style, onChange = () => {}, length = 6}) => {
             onFocus={onFocus(index)}
             onChange={(char) => {
               let tmpOTP = [...otpArr];
-              tmpOTP[index] = char;
-              setOtpArr((prev) => (prev = tmpOTP));
+
+              if (char) {
+                tmpOTP[index] = char;
+              } else {
+                tmpOTP[index] = '';
+              }
+
+              setOtpArr(tmpOTP);
               setIndexFocused((prev) => (prev = (index + 1) % length));
             }}
           />
@@ -53,7 +59,8 @@ const BoxCustom = memo(({isFocused, value, onFocus, onChange}) => {
       onFocus={onFocus}
       value={value}
       onChangeText={(val) => {
-        const text = val.replace(value, '').slice(-1);
+        // const text = val.replace(value, '').slice(-1);
+        const text = val.slice(-1);
         onChange(text);
       }}
     />

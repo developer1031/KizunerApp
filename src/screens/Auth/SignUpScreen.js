@@ -18,7 +18,6 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import {signUp, showAlert} from 'actions';
 import i18n from 'i18n';
-import {countries as countriesData} from 'assets/data';
 
 import Wrapper from 'components/Wrapper';
 import Button from 'components/Button';
@@ -43,6 +42,10 @@ const SignUpScreen = ({navigation}) => {
   const [agree, setAgree] = useState(false);
 
   const insets = useSafeAreaInsets();
+
+  // useEffect(() => {
+  //   navigation.navigate('VerifyEmail');
+  // }, []);
 
   const lang = {
     login: i18n.t('signUp.login'),

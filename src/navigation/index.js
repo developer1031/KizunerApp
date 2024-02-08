@@ -283,6 +283,8 @@ export default () => {
     }
   }
 
+  const authenticated = isAuth && !needVerifyEmail;
+
   return (
     <NavigationContainer
       ref={navigationRef}
@@ -290,7 +292,9 @@ export default () => {
       linking={linking}>
       <Stack.Navigator
         screenOptions={{headerShown: false, gestureEnabled: false}}>
-        {!isAuth ? (
+        {authenticated ? (
+          <Stack.Screen name="AppTab" component={MainScreen} />
+        ) : (
           <>
             <Stack.Screen
               name="Login"
@@ -321,8 +325,6 @@ export default () => {
               initialParams={{email: null, token: null, callback: () => {}}}
             />
           </>
-        ) : (
-          <Stack.Screen name="AppTab" component={MainScreen} />
         )}
 
         <Stack.Screen

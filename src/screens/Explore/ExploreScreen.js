@@ -522,7 +522,7 @@ const ExploreScreen = () => {
       </Animated.View>
 
       <Animated.ScrollView
-        // bounces={false}
+        bounces={false}
         ref={listRef}
         style={styles.scrollWrap}
         nestedScrollEnabled

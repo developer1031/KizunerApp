@@ -91,23 +91,24 @@ const AppTab = ({navigation}) => {
     Orientation.lockToPortrait();
   }, []);
 
-  useEffect(() => {
-    if (userInfo?.email && !userInfo?.email_verified_at) {
-      Alert.alert(
-        'Verify email',
-        'Your email is not evified. I recommend you to verify it!',
-        [
-          {
-            text: 'Yes',
-            onPress: () => dispatch(sendVerifyEmailCode()),
-          },
-          {
-            text: 'Later',
-          },
-        ],
-      );
-    }
-  }, [userInfo?.email, userInfo?.email_verified_at]);
+  // email verification is required before login
+  // useEffect(() => {
+  //   if (userInfo?.email && !userInfo?.email_verified_at) {
+  //     Alert.alert(
+  //       'Verify email',
+  //       'Your email is not verified. I recommend you to verify it!',
+  //       [
+  //         {
+  //           text: 'Yes',
+  //           onPress: () => dispatch(sendVerifyEmailCode()),
+  //         },
+  //         {
+  //           text: 'Later',
+  //         },
+  //       ],
+  //     );
+  //   }
+  // }, [userInfo?.email, userInfo?.email_verified_at]);
 
   // useEffect(() => {
   //   const checkBagdeMessagetimer = setInterval(() => {

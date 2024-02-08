@@ -750,12 +750,12 @@ const HangoutDetail = ({navigation, route}) => {
                           // }}
                           onPressShare={!isPrivate && sharePostStatus}
                           showHangout={!data?.schedule && data?.show_hangout}
-                          // showFindNearFriend
-                          // onPressFindNearFriend={() => {
-                          //   navigation.navigate('NearFriend', {
-                          //     casts: data?.casts,
-                          //   })
-                          // }}
+                          showFindNearFriend={data?.location}
+                          onPressFindNearFriend={() => {
+                            navigation.navigate('NearFriend', {
+                              casts: data?.casts,
+                            });
+                          }}
                           offered={data?.offered}
                           hangoutLoading={beingCreateOffer?.includes(hangoutId)}
                           hangoutOnPress={() =>

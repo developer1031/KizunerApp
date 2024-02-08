@@ -160,7 +160,8 @@ export const verifyEmail = (pin) =>
     },
     callback: {
       success: (_, dispatch) => {
-        NavigationService.navigate('MyDetails');
+        NavigationService.navigate('AppTab');
+
         dispatch(
           showAlert({
             title: 'Success',
@@ -350,6 +351,7 @@ export const signUp = (data) =>
           const fcmToken = await getFcmToken();
           dispatch(updateFcmToken({fcm_token: fcmToken}));
           dispatch(getRewardSetting());
+          // dispatch(sendVerifyEmailCode());
         } catch (error) {
           console.log(error);
         }
@@ -360,6 +362,8 @@ export const signUp = (data) =>
             body: `Welcome to Kizuner, ${result?.data?.self?.data?.name}!`,
           }),
         );
+
+        NavigationService.navigate('VerifyEmail');
       },
     },
   })();
