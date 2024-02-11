@@ -94,7 +94,7 @@ const ModalizeWithAll = ({...props}) => {
             return (
               <Touchable
                 key={item.id}
-                disabled={item.disabled}
+                disabled={item.disabled ? true : false}
                 onPress={() => {
                   setSelecting(
                     isSelected

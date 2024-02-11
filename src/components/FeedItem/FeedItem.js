@@ -27,7 +27,7 @@ import {
 } from 'actions';
 import {Touchable, Paper} from 'components';
 import NavigationService from 'navigation/service';
-import {shareMultipleMediaFile, shareTitleWithUrl} from 'utils/share';
+import {shareMultipleMediaFile, shareDownloadImage} from 'utils/share';
 
 import HangoutAction from './HangoutAction';
 import HangoutBody from './HangoutBody';
@@ -720,14 +720,14 @@ const FeedItem = ({type, data, isChangeStatus}) => {
     dispatch(showModalize(selectedShareOption));
     return;
 
-    async function shareImage() {
-      await shareDownloadImage(
-        'Kizuner',
-        title + address + ' ' + urlFile,
-        Object.assign(data, {type: type}),
-        urlImage,
-      );
-    }
+    // async function shareImage() {
+    //   await shareDownloadImage(
+    //     'Kizuner',
+    //     title + address + ' ' + urlFile,
+    //     Object.assign(data, {type: type}),
+    //     urlImage,
+    //   );
+    // }
 
     async function sharePost() {
       await shareMultipleMediaFile(

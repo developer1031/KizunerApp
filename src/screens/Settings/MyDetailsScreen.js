@@ -313,7 +313,7 @@ const MyDetailsScreen = ({navigation}) => {
                   title={lang.send}
                   loading={loading}
                   fullWidth
-                  disabled={!formikProps.dirty}
+                  disabled={!formikProps.dirty ? true : false}
                 />
               </Paper>
             </View>

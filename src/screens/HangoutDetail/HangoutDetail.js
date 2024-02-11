@@ -877,7 +877,9 @@ const HangoutDetail = ({navigation, route}) => {
               </View>
               <Touchable
                 onPress={handlePostComment}
-                disabled={!loaded || comment?.posting || !commentValue}
+                disabled={
+                  !loaded || comment?.posting || !commentValue ? true : false
+                }
                 style={[
                   styles.commentSend,
                   (!loaded || comment?.posting || !commentValue) &&

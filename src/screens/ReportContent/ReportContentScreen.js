@@ -129,7 +129,7 @@ const ReportContentScreen = ({navigation, route}) => {
             ) : (
               <Touchable
                 onPress={formikProps.handleSubmit}
-                disabled={reporting}>
+                disabled={reporting ? true : false}>
                 <Text style={styles.headerBtn}>{lang.post}</Text>
               </Touchable>
             )}

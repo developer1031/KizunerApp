@@ -256,6 +256,9 @@ const ImageMultiple = memo(
         onChange(mediaData);
       }, [mediaData]);
 
+      const disabled =
+        mediaData.length || uploading || !editable ? true : false;
+
       return (
         <>
           <ImageViewer ref={refImageViewer} data={mediaData} />
@@ -269,7 +272,7 @@ const ImageMultiple = memo(
             />
             <ViewImage
               data={mediaData}
-              disabled={mediaData.length || uploading || !editable}
+              disabled={disabled}
               onPress={(e) => {
                 e.stopPropagation();
                 dispatch(showModalize(selectMediaType));
@@ -294,7 +297,7 @@ const ImageMultiple = memo(
 
 const ViewImage = memo((props) => {
   return (
-    <Pressable onPress={props.onPress} disabled={props.disabled}>
+    <Pressable onPress={props.onPress} disabled={props.disabled ? true : false}>
       <View
         style={[
           styles.container,
@@ -316,7 +319,7 @@ const ViewImage = memo((props) => {
                 ]}
                 onPress={props.setImage(0)}
                 activeOpacity={0.8}
-                disabled={props.isViewer}>
+                disabled={props.isViewer ? true : false}>
                 <ImagePath
                   source={props.data[0].thumb}
                   isVideo={props.isVideo}
@@ -331,7 +334,7 @@ const ViewImage = memo((props) => {
                 <MediaData
                   data={props.data}
                   onPress={props.setImage(1)}
-                  disabled={props.isViewer}>
+                  disabled={props.isViewer ? true : false}>
                   <ImageComponent
                     source={props.data[1].thumb}
                     isVideo={isVideoType(props.data[1].path)}
@@ -343,7 +346,7 @@ const ViewImage = memo((props) => {
                   <MediaData2
                     data={props.data}
                     onPress={props.setImage(2)}
-                    disabled={props.isViewer}>
+                    disabled={props.isViewer ? true : false}>
                     <ImageComponent
                       source={props.data[2].thumb}
                       isVideo={isVideoType(props.data[2].path)}
@@ -356,7 +359,7 @@ const ViewImage = memo((props) => {
                   <MediaData3
                     data={props.data}
                     onPress={props.setImage(2)}
-                    disabled={props.isViewer}
+                    disabled={props.isViewer ? true : false}
                     title={`+${props.data.length - 3}`}
                   />
                 )}
@@ -397,7 +400,7 @@ const MediaData = memo((props) => {
         ]}
         activeOpacity={0.8}
         onPress={props.onPress}
-        disabled={props.disabled}>
+        disabled={props.disabled ? true : false}>
         {props.children}
       </TouchableOpacity>
     </TouchableWithoutFeedback>
@@ -411,7 +414,7 @@ const MediaData2 = memo((props) => {
           style={styles.fullWidth}
           activeOpacity={0.8}
           onPress={props.onPress}
-          disabled={props.disabled}>
+          disabled={props.disabled ? true : false}>
           {props.children}
         </TouchableOpacity>
       </TouchableWithoutFeedback>
@@ -426,7 +429,7 @@ const MediaData3 = memo((props) => {
           style={styles.moreContainer}
           activeOpacity={0.8}
           onPress={props.onPress}
-          disabled={props.disabled}>
+          disabled={props.disabled ? true : false}>
           <Text style={{color: '#fff'}}>{props.title}</Text>
         </TouchableOpacity>
       </TouchableWithoutFeedback>

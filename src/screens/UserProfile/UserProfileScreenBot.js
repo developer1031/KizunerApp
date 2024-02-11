@@ -427,7 +427,7 @@ const UserProfileScreenBot = ({navigation, route}) => {
       case FRIENDSHIP.FRIEND:
         return (
           <Button
-            title="Friends"
+            title="Users"
             style={styles.actionButton}
             onPress={showUnfriendOptions}
             loading={requesting.includes(userId)}

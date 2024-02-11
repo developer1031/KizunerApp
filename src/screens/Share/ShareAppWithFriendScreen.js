@@ -635,7 +635,7 @@ const ShareAppWithFriendScreen = ({navigation, route}) => {
           }}
           onPress={handleDone}
           fullWidth
-          disabled={!selected.length}>
+          disabled={!selected.length ? true : false}>
           <Text variant="button" style={{color: 'white'}}>
             {'Invite your friends'}
           </Text>

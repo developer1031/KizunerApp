@@ -136,7 +136,7 @@ const UpdateGroupNameScreen = ({navigation}) => {
                   title={lang.send}
                   loading={beingUpdateName}
                   fullWidth
-                  disabled={!formikProps.dirty}
+                  disabled={!formikProps.dirty ? true : false}
                 />
               </Paper>
             </View>

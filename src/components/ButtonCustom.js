@@ -42,7 +42,7 @@ export const ButtonCustom = (props) => {
   }
   return (
     <Touchable
-      disabled={props.isLoading}
+      disabled={props.isLoading ? true : false}
       onPress={props.onPress}
       style={props.style}>
       {props.isLoading ? (

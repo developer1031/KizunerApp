@@ -46,6 +46,8 @@ const FeedItemHelp = ({type, data, isChangeStatus, enableShare = true}) => {
 
   const isOwn = data?.user?.data?.id === userInfo?.id;
 
+  const refModalChooseCrypto = useRef(null);
+
   const dataSelectHelp = isChangeStatus
     ? [
         {
@@ -381,8 +383,6 @@ const FeedItemHelp = ({type, data, isChangeStatus, enableShare = true}) => {
   }
 
   const showHelpOptions = () => dispatch(showModalize(dataSelectHelp));
-
-  const refModalChooseCrypto = useRef(null);
 
   const _pressMessage = () => {
     dispatch(

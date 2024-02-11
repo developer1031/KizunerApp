@@ -79,7 +79,7 @@ const WalletScreen = ({navigation}) => {
     },
   });
 
-  const labelConnection = 'Payment Connection';
+  const labelConnection = 'Stripe Connection';
   const MENU_ITEMS = [
     {
       icon: (

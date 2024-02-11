@@ -123,7 +123,7 @@ const HangoutBody = ({
   }, []);
 
   return (
-    <Touchable disabled={!onPress} onPress={onPress}>
+    <Touchable disabled={onPress ? false : true} onPress={onPress}>
       {Boolean(title) && <Text style={styles.title}>{title}</Text>}
       {Boolean(description) && (
         <Hyperlink linkStyle={stylesMain.linkStyle} linkDefault>
@@ -191,7 +191,7 @@ const HangoutBody = ({
         <HangoutHelper
           isMinCapacity={isMinCapacity}
           capacity={capacity}
-          disabled={disableGuest}
+          disabled={disableGuest ? true : false}
           onPress={() =>
             !show_help &&
             navigation.navigate('GuestHelpList', {
@@ -207,7 +207,7 @@ const HangoutBody = ({
         <HangoutCapacity
           isMinCapacity={isMinCapacity}
           capacity={capacity}
-          disabled={disableGuest}
+          disabled={disableGuest ? true : false}
           onPress={() =>
             !show_hangout &&
             navigation.navigate('GuestList', {

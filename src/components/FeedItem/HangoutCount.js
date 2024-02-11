@@ -33,7 +33,7 @@ const HangoutCount = ({
             </Touchable>
           ) : (
             <Touchable
-              disabled={disableGuest}
+              disabled={disableGuest ? true : false}
               onPress={onPressHangout}
               style={styles.countText}>
               <Text variant="caption" style={!disableGuest && styles.primary}>
@@ -53,7 +53,7 @@ const HangoutCount = ({
             </Touchable>
           ) : (
             <Touchable
-              disabled={disableGuest}
+              disabled={disableGuest ? true : false}
               onPress={onPressHelp}
               style={styles.countText}>
               <Text variant="caption" style={!disableGuest && styles.primary}>

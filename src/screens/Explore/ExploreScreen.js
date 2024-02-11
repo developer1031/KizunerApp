@@ -648,15 +648,6 @@ const ExploreScreen = () => {
 
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionHeaderText}>Online</Text>
-          {!nearbyLoading && !area ? (
-            <Loading dark />
-          ) : (
-            <Touchable onPress={() => navigation.navigate('ExploreMap')}>
-              <Text variant="btnText">
-                {area || userInfo?.location?.address}
-              </Text>
-            </Touchable>
-          )}
         </View>
         <FlatList
           data={filteredNearbyList}

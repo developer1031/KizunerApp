@@ -236,7 +236,7 @@ const ExploreMapScreen = ({navigation}) => {
       paddingBottom: getSize.h(4),
       transform: [
         {
-          rotate: '45deg',
+          rotateX: '45deg',
         },
       ],
     },
@@ -306,6 +306,7 @@ const ExploreMapScreen = ({navigation}) => {
           }
         />
       </View>
+
       <View style={styles.mapWrapper}>
         <MapView
           ref={mapView}
@@ -349,6 +350,7 @@ const ExploreMapScreen = ({navigation}) => {
               </Marker>
             ))}
         </MapView>
+
         <IconButton
           wrapperStyle={styles.myLocationBtn}
           activeOpacity={1}
@@ -356,7 +358,7 @@ const ExploreMapScreen = ({navigation}) => {
           onPress={() => mapView?.current.animateToRegion(USER_REGION)}
           icon={
             <Ionicons
-              name="md-navigate"
+              name="navigate"
               size={getSize.f(24)}
               color={theme.colors.textContrast}
               style={styles.navigateIcon}

@@ -56,7 +56,7 @@ const IconButton = ({
   return (
     <Touchable
       scalable
-      disabled={disabled || loading}
+      disabled={disabled || loading ? true : false}
       style={wrapperStyle}
       {...props}>
       <ViewComponent

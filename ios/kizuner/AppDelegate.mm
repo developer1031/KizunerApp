@@ -37,6 +37,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  [GMSServices provideAPIKey:@"AIzaSyBRQTWz3Vtr8P0Qx5O49sUecTr0WZHZflg"];
+  
   [AppCenterReactNative register];
   [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];
   [AppCenterReactNativeCrashes registerWithAutomaticProcessing];
@@ -50,7 +52,6 @@
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
   
-  [GMSServices provideAPIKey:@"AIzaSyBRQTWz3Vtr8P0Qx5O49sUecTr0WZHZflg"];
   [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error: nil];
   
 //  [RNFirebaseNotifications configure];

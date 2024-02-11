@@ -424,6 +424,8 @@ const PickLocationPostScreen = ({navigation, route}) => {
         <Button
           disabled={
             searching || !search || !region?.latitude || !region?.longitude
+              ? true
+              : false
           }
           title="Select"
           fullWidth

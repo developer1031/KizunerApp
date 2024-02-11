@@ -274,7 +274,7 @@ const Profile = memo((props) => {
   return (
     <TouchableOpacity
       onPress={props.onPressProfile}
-      disabled={props.disableProfile}
+      disabled={props.disableProfile ? true : false}
       style={props.styles.itemLeft}>
       <View
         style={{

@@ -167,7 +167,7 @@ const Input = ({
         {rightIconPropsCheckBox && (
           <CheckBox
             value={valueCheckBox}
-            disabled={disabled}
+            disabled={disabled ? true : false}
             style={styles.agreeBox}
             boxType="square"
             lineWidth={3}

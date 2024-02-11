@@ -16,7 +16,7 @@ const HangoutHelper = ({capacity, onPress, disabled, isMinCapacity}) => {
           <Touchable
             onPress={onPress}
             style={stylesMain.wrapper}
-            disabled={disabled}>
+            disabled={disabled ? true : false}>
             <MaterialCommunityIcons
               name="account-multiple"
               color={theme.colors.primary}
@@ -29,7 +29,7 @@ const HangoutHelper = ({capacity, onPress, disabled, isMinCapacity}) => {
         <Touchable
           onPress={onPress}
           style={stylesMain.wrapper}
-          disabled={disabled}>
+          disabled={disabled ? true : false}>
           <MaterialCommunityIcons
             name="account-multiple"
             color={theme.colors.primary}

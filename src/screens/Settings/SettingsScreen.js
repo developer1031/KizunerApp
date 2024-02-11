@@ -119,7 +119,9 @@ const SettingsScreen = ({navigation}) => {
                 )
               }
               value={allow}
-              disabled={beingGetNotiSetting || beingUpdateSetting}
+              disabled={
+                beingGetNotiSetting || beingUpdateSetting ? true : false
+              }
             />
           </View>
         </View>
@@ -154,7 +156,9 @@ const SettingsScreen = ({navigation}) => {
                 )
               }
               value={allowEmail}
-              disabled={beingGetNotiSetting || beingUpdateEmailSetting}
+              disabled={
+                beingGetNotiSetting || beingUpdateEmailSetting ? true : false
+              }
             />
           </View>
         </View>

@@ -255,7 +255,7 @@ const SelectFriendTransferScreen = ({navigation, route}) => {
         <Touchable onPress={() => navigation.goBack(null)}>
           <Text style={styles.headerBtn}>{lang.cancel}</Text>
         </Touchable>
-        <Touchable disabled={!selected} onPress={handleSend}>
+        <Touchable disabled={!selected ? true : false} onPress={handleSend}>
           <Text style={[styles.headerBtn, !selected && styles.disabled]}>
             {sendLabel}
           </Text>

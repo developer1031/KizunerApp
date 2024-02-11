@@ -6,7 +6,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {payoutStripe} from 'actions';
 import {num_delimiter} from 'utils/util';
 
-const WithdrawModel = forwardRef(({externalAccountId, countryCode}, ref) => {
+const WithdrawModel = forwardRef(({countryCode}, ref) => {
   const dispatch = useDispatch();
 
   const [visible, setVisible] = useState(false);
@@ -20,13 +20,12 @@ const WithdrawModel = forwardRef(({externalAccountId, countryCode}, ref) => {
   const show = () => setVisible(true);
   const close = () => setVisible(false);
   const onPayout = () => {
-    if (externalAccountId) {
+    if (amount) {
       dispatch(
         payoutStripe(
           {
-            amount: amount - 3,
-            externalAccountId,
-            currency: countryCode === 'JP' ? 'jpy' : 'usd',
+            // amount: amount - 3,
+            // currency: countryCode === 'JP' ? 'jpy' : 'usd',
           },
           {
             success: (result) => {

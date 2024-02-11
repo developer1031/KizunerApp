@@ -94,6 +94,8 @@ const HangoutUser = ({data, user, isFake}) => {
     <Touchable
       disabled={
         userInfo?.id === data?.user?.data?.id || userInfo?.id === user?.id
+          ? true
+          : false
       }
       onPress={() => {
         if (isFake) {

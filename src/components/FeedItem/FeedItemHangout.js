@@ -587,7 +587,7 @@ const InfoReaction = memo((props) => {
         like={props.like}
         showHangout={props.showHangout}
         hideGuest={props.hideGuest}
-        disableGuest={props.disableGuest}
+        disableGuest={props.disableGuest ? true : false}
         onPressLike={props.setLike}
         onPressHangout={props.setHangout}
       />

@@ -2,7 +2,6 @@ import Share from 'react-native-share';
 // import {ShareDialog} from 'react-native-fbsdk-next';
 import RNFetchBlob from 'rn-fetch-blob';
 import {PermissionsAndroid, ToastAndroid, Alert, Platform} from 'react-native';
-// import {firebase} from '@react-native-firebase/dynamic-links';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 
 var fs = require('react-native-fs');
@@ -36,8 +35,27 @@ export const shareMultipleMediaFile = async (
   data,
   callback = () => {},
 ) => {
-  //share-expert&userId=2300&expertId=2564
-  const urlImage = data?.media?.data?.path || data?.media?.data?.thumb;
+  let urlImage = null,
+    imageBase64 = null;
+  const mediaData = data?.media?.data;
+  if (mediaData) {
+    if (mediaData.length > 0) {
+      urlImage = mediaData[0].path || mediaData[0].thumb;
+    }
+  }
+  if (urlImage) {
+    imageBase64 = await RNFetchBlob.config({
+      fileCache: true,
+    })
+      .fetch('GET', urlImage)
+      .then((resp) => {
+        let base64s = RNFetchBlob.fs
+          .readFile(resp.data, 'base64')
+          .then((dataImage) => 'data:image/png;base64,' + dataImage);
+        return base64s;
+      });
+  }
+
   const shareLinks =
     'https://kizuner.com/?type=' + data?.type + '&id=' + data?.id;
 
@@ -59,12 +77,10 @@ export const shareMultipleMediaFile = async (
       descriptionText: data?.description,
     },
   };
-  // const longDynamicLink = await dynamicLinks().buildLink(dynamicLinkParameters);
   const url = await dynamicLinks().buildShortLink(dynamicLinkParameters);
 
   const dl = url.replace('https://kizuner.page.link/', '');
 
-  // eslint-disable-next-line prettier/prettier
   const hackyLinking = `${SHARE_URL}/k?dl=${dl}&t=${encodeURIComponent(
     data?.title,
   )}&d=${encodeURIComponent(data?.description)}&i=${encodeURIComponent(
@@ -74,46 +90,54 @@ export const shareMultipleMediaFile = async (
     ),
   )}&k=${encodeURIComponent(data.type)}&id=${encodeURIComponent(data?.id)}`;
 
-  console.log(hackyLinking);
   const shortLink = await generateShortLink(hackyLinking);
-  console.log(shortLink);
   try {
-    console.log(shortLink);
-    const result = await Share.open(
-      Platform.select({
-        android: {
-          title: title || 'Kizuner',
-          message: message || '',
-          failOnCancel: false,
-          url: shortLink || urls[0] || 'https://kizuner.com',
-        },
-        ios: {
-          activityItemSources: [
-            {
-              placeholderItem: {
-                type: 'text',
-                content: `${message} ${shortLink}`,
-              },
-              item: {
-                copyToPasteBoard: {
-                  type: 'text',
-                  content: `${message} ${shortLink}`,
-                },
-                default: {
-                  type: 'text',
-                  content: `${message} ${shortLink}`,
-                },
-              },
-              subject: {
-                copyToPasteBoard: `${message} ${shortLink}`,
-                default: title,
-              },
-              linkMetadata: {originalUrl: shortLink, shortLink, title},
-            },
-          ],
-        },
-      }),
-    );
+    const sharingUrls = [];
+    if (imageBase64) {
+      sharingUrls.push(imageBase64);
+    }
+    sharingUrls.push(shortLink || urls[0] || 'https://kizuner.com');
+
+    Share.open({
+      title: title || 'Kizuner',
+      message: message || '',
+      urls: sharingUrls,
+    });
+    // await Share.open(
+    //   Platform.select({
+    //     android: {
+    //       title: title || 'Kizuner',
+    //       message: message || '',
+    //       failOnCancel: false,
+    //       url: shortLink || urls[0] || 'https://kizuner.com',
+    //     },
+    //     ios: {
+    //       activityItemSources: [
+    //         {
+    //           placeholderItem: {
+    //             type: 'text',
+    //             content: `${message} ${shortLink}`,
+    //           },
+    //           item: {
+    //             copyToPasteBoard: {
+    //               type: 'text',
+    //               content: `${message} ${shortLink}`,
+    //             },
+    //             default: {
+    //               type: 'text',
+    //               content: `${message} ${shortLink}`,
+    //             },
+    //           },
+    //           subject: {
+    //             copyToPasteBoard: `${message} ${shortLink}`,
+    //             default: title,
+    //           },
+    //           linkMetadata: {originalUrl: shortLink, shortLink, title},
+    //         },
+    //       ],
+    //     },
+    //   }),
+    // );
 
     callback();
   } catch (e) {

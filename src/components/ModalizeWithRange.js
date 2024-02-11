@@ -86,7 +86,7 @@ const ModalizeWithRange = ({
           .map((item) => (
             <Touchable
               key={item.label}
-              disabled={item.disabled}
+              disabled={item.disabled ? true : false}
               onPress={() => {
                 if (item.onPress) {
                   item.onPress(item.value);

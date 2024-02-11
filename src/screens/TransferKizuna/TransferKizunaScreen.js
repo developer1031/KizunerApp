@@ -155,7 +155,7 @@ const TransferKizunaScreen = ({navigation}) => {
           </Text>
           <Touchable
             onPress={formikProps.handleSubmit}
-            disabled={!user && styles.disabled}
+            disabled={!user && styles.disabled ? true : false}
             style={[styles.sendBtn, !user && styles.disabled]}>
             <Text style={styles.sendBtnTxt}>Send</Text>
           </Touchable>

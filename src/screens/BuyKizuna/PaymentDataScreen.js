@@ -134,9 +134,6 @@ const PaymentDataScreen = ({navigation, route}) => {
         card: {token: client_secret},
       });
 
-      console.log('ERROR: ', error);
-      console.log('PaymentMethods: ', paymentMethod);
-
       if (error) {
         dispatch(
           showAlert({
