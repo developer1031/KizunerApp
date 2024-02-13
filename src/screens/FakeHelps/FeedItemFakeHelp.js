@@ -93,7 +93,7 @@ const FeedItemFakeHelp = ({type, data, isChangeStatus}) => {
           hide: true,
         },
         {
-          label: hangoutStatus ? 'Set Online' : 'Set No time',
+          label: hangoutStatus ? 'Set Online' : 'Set Time Free',
           icon: (
             <MaterialCommunityIcons
               size={getSize.f(22)}

@@ -23,12 +23,14 @@ import {postPaymentCryptoCard, deletePaymentCryptoCard} from 'actions';
 import InputChooseCryptoCurrencyPayment from 'components/InputChooseCryptoCurrencyPayment';
 
 const CryptoPanelScreen = ({navigation, route}) => {
+  const insets = useSafeAreaInsets();
+  const dispatch = useDispatch();
+
   const STATUS_BAR = insets.top;
   const {beingAddCard, beingRemoveCard} = useSelector((state) => state.wallet);
   const HEADER_HEIGHT = 120;
   const theme = useTheme();
-  const insets = useSafeArea();
-  const dispatch = useDispatch();
+
   const defaultInitialData = route.params?.data;
 
   const styles = StyleSheet.create({

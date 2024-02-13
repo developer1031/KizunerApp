@@ -866,7 +866,7 @@ const FormOneTimeHelp = ({navigation, route}) => {
                     onTintColor={'grey'}
                   />
                   <Text style={[styles.formHeaderText, {color: 'grey'}]}>
-                    No Time
+                    Time Free
                   </Text>
                 </View>
 

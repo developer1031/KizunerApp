@@ -4,8 +4,9 @@ import {
   CREATE_HANGOUT,
   CREATE_STATUS,
   GET_RECOMMEND_HANGOUTS,
-  GET_NEARBY_HANGOUTS,
   GET_MAP_HANGOUTS,
+  GET_NEARBY_HANGOUTS,
+  GET_ONLINE_HANGOUTS,
   CREATE_OFFER,
   UPDATE_OFFER_STATUS,
   TOGGLE_LIKE_HANGOUT,
@@ -48,12 +49,18 @@ const INITIAL_STATE = {
   recommendList: [],
   recommendListLoading: false,
   recommendListLastPage: 1,
+
   nearbyList: [],
   nearbyListLoading: false,
   nearbyListLastPage: 1,
+
   mapList: [],
   mapListLoading: false,
   mapListLastPage: 1,
+
+  onlineList: [],
+  onlineListLoading: false,
+  onlineListLastPage: 1,
   beingCreateOffer: [],
   beingUpdateOffer: [],
   beingCreateOfferHelp: [],
@@ -886,7 +893,30 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         chatRoomPublicListLoading: false,
       };
-
+    case GET_MAP_HANGOUTS.REQUEST:
+      return {
+        ...state,
+        mapListLoading: true,
+        mapList: action.payload?.params?.page === 1 ? [] : state.mapList,
+      };
+    case GET_MAP_HANGOUTS.SUCCESS:
+      let hangoutsData = action?.payload?.data?.hangouts?.data || [];
+      let helpsData = action?.payload?.data?.helps?.data || [];
+      let listMap = [...hangoutsData, ...helpsData];
+      return {
+        ...state,
+        mapListLoading: false,
+        mapList:
+          action.payload?.meta?.pagination?.current_page === 1
+            ? listMap
+            : [...state.mapList, ...listMap],
+        mapListLastPage: action.payload.meta?.pagination?.total_pages || 1,
+      };
+    case GET_MAP_HANGOUTS.FAILURE:
+      return {
+        ...state,
+        mapListLoading: false,
+      };
     case GET_NEARBY_HANGOUTS.REQUEST:
       return {
         ...state,
@@ -911,29 +941,29 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         nearbyListLoading: false,
       };
-    case GET_MAP_HANGOUTS.REQUEST:
+    case GET_ONLINE_HANGOUTS.REQUEST:
       return {
         ...state,
-        mapListLoading: true,
-        mapList: action.payload?.params?.page === 1 ? [] : state.mapList,
+        onlineListLoading: true,
+        onlineList: action.payload?.params?.page === 1 ? [] : state.onlineList,
       };
-    case GET_MAP_HANGOUTS.SUCCESS:
+    case GET_ONLINE_HANGOUTS.SUCCESS:
       let hangoutsMapList = action?.payload?.data?.hangouts?.data || [];
       let helpsMapList = action?.payload?.data?.helps?.data || [];
       let listMapList = [...hangoutsMapList, ...helpsMapList];
       return {
         ...state,
-        mapListLoading: false,
-        mapList:
+        onlineListLoading: false,
+        onlineList:
           action.payload?.meta?.pagination?.current_page === 1
             ? listMapList
-            : [...state.mapList, ...listMapList],
-        mapListLastPage: action.payload.meta?.pagination?.total_pages || 1,
+            : [...state.onlineList, ...listMapList],
+        onlineListLastPage: action.payload.meta?.pagination?.total_pages || 1,
       };
-    case GET_MAP_HANGOUTS.FAILURE:
+    case GET_ONLINE_HANGOUTS.FAILURE:
       return {
         ...state,
-        mapListLoading: false,
+        onlineListLoading: false,
       };
     case GET_NEWS_FEED.REQUEST:
       return {

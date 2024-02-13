@@ -21,7 +21,9 @@
     "ios:prod": "react-native run-ios --scheme 'Production'",
     "ios:prod-release": "react-native run-ios --configuration Release --scheme 'Production'",
     "ios:staging": "react-native run-ios --scheme 'Staging'",
-    "ios:staging-release": "react-native run-ios --configuration Release --scheme 'Staging'"
+    "ios:staging-release": "react-native run-ios --configuration Release --scheme 'Staging'",
+    "android:build": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
+    "android:prod": "react-native build-android --mode=release"
   },
   "dependencies": {
     "@invertase/react-native-apple-authentication": "^2.3.0",

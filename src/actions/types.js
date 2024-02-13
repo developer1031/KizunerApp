@@ -62,8 +62,9 @@ export const GET_USER_HANGOUTS = generateThunkType('GET_USER_HANGOUTS');
 export const GET_RECOMMEND_HANGOUTS = generateThunkType(
   'GET_RECOMMEND_HANGOUTS',
 );
-export const GET_NEARBY_HANGOUTS = generateThunkType('GET_NEARBY_HANGOUTS');
 export const GET_MAP_HANGOUTS = generateThunkType('GET_MAP_HANGOUTS');
+export const GET_NEARBY_HANGOUTS = generateThunkType('GET_NEARBY_HANGOUTS');
+export const GET_ONLINE_HANGOUTS = generateThunkType('GET_ONLINE_HANGOUTS');
 export const SEARCH_HANGOUTS = generateThunkType('SEARCH_HANGOUTS');
 export const CREATE_OFFER = generateThunkType('CREATE_OFFER');
 export const CREATE_OFFER_HELP = generateThunkType('CREATE_OFFER_HELP');

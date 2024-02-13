@@ -490,14 +490,14 @@ const TourGuildPostHangoutScreen = ({navigation, route}, ...props) => {
                       callback={setAvailableStatus}
                       status={EnumHangoutStatus.NO_TIME}
                       choose={availableStatus}
-                      title={'Is No time'}
+                      title={'Is Time Free'}
                       isDisable={stepGuid}
                     />
                     <CheckBoxTitle
                       callback={setAvailableStatus}
                       status={EnumHangoutStatus.COMBINE}
                       choose={availableStatus}
-                      title={'No time & Online'}
+                      title={'Time Free & Online'}
                       isReverse={true}
                       isDisable={stepGuid}
                     />

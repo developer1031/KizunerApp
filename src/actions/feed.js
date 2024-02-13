@@ -2,9 +2,10 @@ import {
   UPLOAD_SINGLE_IMAGE,
   CREATE_HANGOUT,
   GET_USER_HANGOUTS,
+  GET_MAP_HANGOUTS,
   GET_NEARBY_HANGOUTS,
   GET_RECOMMEND_HANGOUTS,
-  GET_MAP_HANGOUTS,
+  GET_ONLINE_HANGOUTS,
   TOGGLE_LIKE_HANGOUT,
   TOGGLE_LIKE_HELP,
   GET_DETAIL_HANGOUT,
@@ -439,17 +440,29 @@ export const getNearbyHangouts = ({page = 1, lat, lng, radius}) =>
     },
   })();
 
-export const getMapHangouts = ({page = 1, lat, lng, radius}, callback) =>
+export const getMapHangouts = ({page = 1, lat, lng, radius}) =>
   generateThunkAction({
     actionType: GET_MAP_HANGOUTS,
     apiOptions: {
-      endpoint: '/suggest/online',
+      endpoint: '/suggest/nearby',
       params: {
         per_page: DEFAULT_PERPAGE,
         page,
         radius: parseInt(radius),
         lat,
         lng,
+      },
+    },
+  })();
+
+export const getOnlineHangouts = ({page = 1}, callback) =>
+  generateThunkAction({
+    actionType: GET_ONLINE_HANGOUTS,
+    apiOptions: {
+      endpoint: '/suggest/online',
+      params: {
+        per_page: DEFAULT_PERPAGE,
+        page,
       },
     },
     callback,

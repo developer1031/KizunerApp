@@ -736,7 +736,7 @@ const FormCreateHangout = ({navigation, route}) => {
                             onCheckColor={theme.colors.primary}
                             onTintColor={theme.colors.primary}
                           />
-                          <Text style={styles.formHeaderText}>No Time</Text>
+                          <Text style={styles.formHeaderText}>Time Free</Text>
                         </View>
 
                         {!isNoTime && (

@@ -81,7 +81,7 @@ const ExploreMapScreen = ({navigation}) => {
           page: p,
           lat: region.latitude,
           lng: region.longitude,
-          radius,
+          radius: radius,
         },
         {
           success: () => {

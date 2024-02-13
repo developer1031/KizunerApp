@@ -95,7 +95,7 @@ const PickLocationScreen = ({navigation, route}) => {
       paddingBottom: getSize.h(4),
       transform: [
         {
-          rotate: '45deg',
+          rotateX: '45deg',
         },
       ],
     },
@@ -313,7 +313,7 @@ const PickLocationScreen = ({navigation, route}) => {
         onPress={() => mapView?.current.animateToRegion(USER_REGION)}
         icon={
           <Ionicons
-            name="md-navigate"
+            name="navigate"
             size={getSize.f(24)}
             color={theme.colors.textContrast}
             style={styles.navigateIcon}

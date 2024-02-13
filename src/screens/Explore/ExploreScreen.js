@@ -37,6 +37,7 @@ import i18n from 'i18n';
 import {
   getRecommendHangouts,
   getNearbyHangouts,
+  getOnlineHangouts,
   getFriendRequestList,
   getGuideVideos,
   getNotiCount,
@@ -66,9 +67,14 @@ const ExploreScreen = () => {
     recommendList,
     recommendListLoading,
     recommendListLastPage,
+
     nearbyList,
     nearbyListLoading,
     nearbyListLastPage,
+
+    onlineList,
+    onlineListLoading,
+    onlineListLastPage,
 
     chatRoomPublicList,
     chatRoomPublicListLoading,
@@ -79,6 +85,7 @@ const ExploreScreen = () => {
   const [recommendPage, setRecommendPage] = useState(1);
   const [chatRoomPublicPage, setChatRoomPublicPage] = useState(1);
   const [nearbyPage, setNearbyPage] = useState(1);
+  const [onlinePage, setOnlinePage] = useState(1);
   const {count} = useSelector((state) => state.notification);
   const [videoPage, setVideoPage] = useState(1);
   const listRef = useRef(null);
@@ -123,6 +130,20 @@ const ExploreScreen = () => {
     }
   };
 
+  const handleGetOnline = (p = onlinePage) => {
+    dispatch(
+      getOnlineHangouts({
+        page: p,
+      }),
+    );
+  };
+  const handleGetMoreOnline = () => {
+    if (onlinePage < onlineListLastPage) {
+      handleGetOnline(onlinePage + 1);
+      setOnlinePage(onlinePage + 1);
+    }
+  };
+
   const handleGetPlaceDetail = async (value) => {
     const result = await fetchAddressForLocation(value);
   };
@@ -161,6 +182,7 @@ const ExploreScreen = () => {
   useEffect(() => {
     dispatch(getRewardSetting());
     dispatch(getFriendRequestList({page: 1}));
+    handleGetOnline(1);
     handleGetRecommend(1);
     handleGetRoomPublic(1);
     dispatch(getNotiCount());
@@ -522,7 +544,7 @@ const ExploreScreen = () => {
       </Animated.View>
 
       <Animated.ScrollView
-        bounces={false}
+        // bounces={false}
         ref={listRef}
         style={styles.scrollWrap}
         nestedScrollEnabled
@@ -542,40 +564,6 @@ const ExploreScreen = () => {
           [{nativeEvent: {contentOffset: {y: scrollAnim}}}],
           {useNativeDriver: false},
         )}>
-        {/* <View style={styles.sectionHeader}>
-          <Text style={styles.sectionHeaderText}>{lang.online}</Text>
-        </View>
-        <FlatList
-          data={chatRoomPublicList}
-          renderItem={renderChatRoomPublic}
-          horizontal
-          style={styles.sectionList}
-          contentContainerStyle={styles.sectionListContent}
-          keyExtractor={item => createUUID()}
-          showsHorizontalScrollIndicator={false}
-          ListFooterComponent={
-            chatRoomPublicListLoading && (
-              <PlaceholderItems
-                // eslint-disable-next-line react-native/no-inline-styles
-                style={{
-                  marginLeft: chatRoomPublicList.length ? getSize.w(4) : 0,
-                }}
-              />
-            )
-          }
-          ItemSeparatorComponent={() => (
-            <View style={styles.sectionListSeparator} />
-          )}
-          initialNumToRender={6}
-          onEndReachedThreshold={0.5}
-          onEndReached={handleGetMoreRoomPublic}
-          ListEmptyComponent={
-            !chatRoomPublicListLoading && (
-              <EmptyState wrapperStyle={styles.sectionEmpty} />
-            )
-          }
-        /> */}
-
         {/* <Paper style={styles.paper}>
           <View style={[styles.categoryWrap]}>
             <View style={styles.categoryTitleWrap}>
@@ -647,10 +635,10 @@ const ExploreScreen = () => {
         />
 
         <View style={styles.sectionHeader}>
-          <Text style={styles.sectionHeaderText}>Online</Text>
+          <Text style={styles.sectionHeaderText}>{lang.online}</Text>
         </View>
         <FlatList
-          data={filteredNearbyList}
+          data={onlineList}
           renderItem={renderHangoutItem}
           horizontal
           style={styles.sectionList}
@@ -658,11 +646,11 @@ const ExploreScreen = () => {
           keyExtractor={(item) => createUUID()}
           showsHorizontalScrollIndicator={false}
           ListFooterComponent={
-            nearbyLoading && (
+            onlineListLoading && (
               <PlaceholderItems
                 // eslint-disable-next-line react-native/no-inline-styles
                 style={{
-                  marginLeft: filteredNearbyList.length ? getSize.w(4) : 0,
+                  marginLeft: onlineList.length ? getSize.w(4) : 0,
                 }}
               />
             )
@@ -672,9 +660,11 @@ const ExploreScreen = () => {
           )}
           initialNumToRender={6}
           onEndReachedThreshold={0.5}
-          onEndReached={handleGetMoreNearby}
+          onEndReached={handleGetMoreOnline}
           ListEmptyComponent={
-            !nearbyLoading && <EmptyState wrapperStyle={styles.sectionEmpty} />
+            !onlineListLoading && (
+              <EmptyState wrapperStyle={styles.sectionEmpty} />
+            )
           }
         />
 
