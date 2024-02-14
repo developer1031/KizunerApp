@@ -225,7 +225,7 @@ const CreateHangoutScreen = ({navigation, route}) => {
         <Tab.Screen
           name="All"
           component={FormCreateHangout}
-          initialParams={{formRef, callback, room_id, refDraftBtn}}
+          initialParams={{formRef, callback, roomId: room_id, refDraftBtn}}
         />
       </Tab.Navigator>
     </Wrapper>

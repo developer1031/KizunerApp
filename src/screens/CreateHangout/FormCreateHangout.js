@@ -58,30 +58,24 @@ const FormCreateHangout = ({navigation, route}) => {
   const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.auth.userInfo);
-  const {stripeStatusResponse} = useSelector((state) => state.wallet);
-  const {status} = stripeStatusResponse;
-  console.log(
-    '🚀 ~ file: FormCreateHangout.js:62 ~ FormCreateHangout ~ stripeStatusResponse:',
-    stripeStatusResponse,
+  const {stripeStatusResponse, beingLoadStripeStatus} = useSelector(
+    (state) => state.wallet,
   );
+  const {status} = stripeStatusResponse;
+
   const isStripeConnected = status === 'CONNECTED';
   const coords = useSelector((state) => state.location.coords);
   const creating = useSelector((state) => state.feed.beingCreateHangout);
-  const [roomId, setRoomId] = useState(null);
 
   const {
     formRef,
     initialValues,
     formType,
     callback,
-    room_id,
+    roomId,
     hangoutType: cHangoutType,
     refDraftBtn,
   } = route.params;
-
-  useEffect(() => {
-    setRoomId((prev) => (prev = room_id));
-  }, [room_id]);
 
   // const [showDatePicker, setShowDatePicker] = useState(false);
   const [showStartTimePicker, setShowStartTimePicker] = useState(false);
@@ -167,6 +161,7 @@ const FormCreateHangout = ({navigation, route}) => {
           initialValues.available_status === 'combine'),
     );
   }, [initialValues?.available_status, hangoutType]);
+
   useEffect(
     () =>
       navigation.addListener('beforeRemove', (e) => {
@@ -227,6 +222,12 @@ const FormCreateHangout = ({navigation, route}) => {
         );
       }),
     [navigation, hangoutType, isOnline, isNoTime, priceType, roomId],
+  );
+
+  if (beingLoadStripeStatus) return <></>;
+  console.log(
+    '🚀 ~ file: FormCreateHangout.js:62 ~ FormCreateHangout ~ stripeStatusResponse:',
+    stripeStatusResponse,
   );
 
   const styles = StyleSheet.create({
@@ -571,7 +572,6 @@ const FormCreateHangout = ({navigation, route}) => {
         type="hangout"
         roomId={roomId}
         onChooseDraft={(draft) => {
-          setRoomId((prev) => (draft.roomId ? draft.roomId : null));
           formRef.current?.setFieldValue('title', draft.title);
           formRef.current?.setFieldValue('description', draft.description);
           refImageMultiple.current?.setMediaData(draft.cover);

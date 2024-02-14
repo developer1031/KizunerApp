@@ -41,6 +41,7 @@ const ModalChooseDraft = forwardRef(
     const renderItem = ({item, index}) => {
       const onPress = (draft) => () => {
         onChooseDraft(draft);
+        remove(draft.id);
         setVisible(false);
       };
 
@@ -112,11 +113,11 @@ const ModalChooseDraft = forwardRef(
         setDataList(
           (prev) => (prev = draftList.filter((d) => d.roomId == roomId)),
         );
-        setVisible((prev) => (prev = true));
+        setVisible(true);
       });
     };
     const close = () => {
-      setVisible((prev) => (prev = false));
+      setVisible(false);
     };
 
     useImperativeHandle(
@@ -128,11 +129,11 @@ const ModalChooseDraft = forwardRef(
         open,
         close,
       }),
-      [store, remove],
+      [store, remove, clear, close, open],
     );
 
     return (
-      <Modal transparent animationType="fade" visible={visible}>
+      <Modal animationType="none" visible={visible}>
         <View style={styles.background}>
           <View style={styles.container}>
             <View style={styles.btnContainer}>

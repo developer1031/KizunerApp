@@ -55,13 +55,9 @@ const FormCreateHelp = ({navigation, route}) => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.auth.userInfo);
   const {cards} = useSelector((state) => state.wallet);
-  const [roomId, setRoomId] = useState(null);
 
-  const {formRef, initialValues, formType, callback, room_id, refDraftBtn} =
+  const {formRef, initialValues, formType, callback, roomId, refDraftBtn} =
     route.params;
-  useEffect(() => {
-    setRoomId((prev) => (prev = room_id));
-  }, [room_id]);
 
   const coords = useSelector((state) => state.location.coords);
   const creating = useSelector((state) => state.feed.beingCreateHelp);
@@ -567,7 +563,6 @@ const FormCreateHelp = ({navigation, route}) => {
         type="help"
         roomId={roomId}
         onChooseDraft={(draft) => {
-          setRoomId((prev) => (draft.roomId ? draft.roomId : null));
           formRef.current?.setFieldValue('title', draft.title);
           formRef.current?.setFieldValue('description', draft.description);
           refImageMultiple.current?.setMediaData(draft.cover);

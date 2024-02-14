@@ -184,7 +184,7 @@ const MyDetailsScreen = ({navigation}) => {
                   name="username"
                   {...formikProps}
                   inputProps={{
-                    label: 'Username',
+                    label: 'ID',
                     returnKeyType: 'next',
                     placeholder: 'enter your username',
                   }}
