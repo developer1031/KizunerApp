@@ -1421,8 +1421,8 @@ PODS:
     - React-Core
   - RNAppleAuthentication (2.3.0):
     - React-Core
-  - RNBootSplash (1.2.1):
-    - React
+  - RNBootSplash (5.4.0):
+    - React-Core
   - RNCAsyncStorage (1.12.1):
     - React-Core
   - RNCCheckbox (0.5.16):
@@ -2011,7 +2011,7 @@ SPEC CHECKSUMS:
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
   rn-fetch-blob: f065bb7ab7fb48dd002629f8bdcb0336602d3cba
   RNAppleAuthentication: e99eaf3c4c01ad8ecb6125dd6f0cfd98871685b5
-  RNBootSplash: 823a7eacaf6aa6e4725bf8dee9f6eeb013b27bc9
+  RNBootSplash: 009c55e0258f3e56be9c5f7a578bf2baf140c4bc
   RNCAsyncStorage: b03032fdbdb725bea0bd9e5ec5a7272865ae7398
   RNCCheckbox: 75255b03e604bbcc26411eb31c4cbe3e3865f538
   RNCClipboard: 90e241893de33a2f5962fc34d76ada4576033e49

@@ -43,6 +43,7 @@ import GuestListHelpScreen from 'screens/GuestHelpList';
 
 import PickSpecialtyScreen from 'screens/PickSpecialty';
 import PickCategoryScreen from 'screens/PickCategory';
+import BootSplash from 'react-native-bootsplash';
 
 import {UserProfileScreen, UserProfileScreenBot} from 'screens/UserProfile';
 import ContactListScreen from 'screens/ContactList';
@@ -289,6 +290,9 @@ export default () => {
     <NavigationContainer
       ref={navigationRef}
       onStateChange={handleStateChange}
+      onReady={() => {
+        BootSplash.hide();
+      }}
       linking={linking}>
       <Stack.Navigator
         screenOptions={{headerShown: false, gestureEnabled: false}}>
