@@ -403,7 +403,7 @@ const StatusDetailScreen = ({navigation, route}) => {
     const urlFile = [
       data?.dymanic_link || data?.media?.data?.path || 'https://kizuner.com/',
     ];
-    const title = data?.title;
+    const title = data?.status;
     const address = data?.location?.data?.address
       ? ' - ' + data?.location?.data?.address
       : '';
@@ -440,7 +440,7 @@ const StatusDetailScreen = ({navigation, route}) => {
     async function sharePost() {
       await shareMultipleMediaFile(
         'Kizuner',
-        title + address + ' ' + data?.description,
+        title + ' ' + address,
         urlFile,
         Object.assign(data, {type: 'status'}),
         !data?.liked && onPressLike,

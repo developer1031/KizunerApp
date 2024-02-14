@@ -135,6 +135,13 @@ const MyDetailsScreen = ({navigation}) => {
       validationSchema={yup.object().shape({
         name: yup.string().max(18).min(2).trim().required(),
         email: yup.string().email(),
+        username: yup
+          .string()
+          .matches(
+            /^[a-zA-Z0-9._]+$/,
+            'Invalid format. Use only a-zA-Z and . and _',
+          ),
+
         // phone: yup
         //   .string()
         //   .trim()
@@ -189,6 +196,7 @@ const MyDetailsScreen = ({navigation}) => {
                     placeholder: 'enter your username',
                   }}
                 />
+                <Text>A-Z and Numbers and . and _ </Text>
                 <FormikInput
                   name="name"
                   {...formikProps}
