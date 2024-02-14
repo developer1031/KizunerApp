@@ -36,7 +36,7 @@ export default async ({
   const axiost = useOnce ? once : axios;
 
   var header = headers;
-  if (endpoint.includes('/upload')) {
+  if (endpoint.includes('/upload') || endpoint.includes('/identity-document')) {
     header['Content-Type'] = 'multipart/form-data';
   }
 

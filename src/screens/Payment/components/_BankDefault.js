@@ -1,32 +1,18 @@
 import React from 'react';
 import FormikInput from 'components/FormikInput';
-import {View} from 'react-native';
 
 const App = ({formikProps}) => {
   return (
     <>
-      <View style={{flex: 1}}>
-        <FormikInput
-          name="bank_code"
-          {...formikProps}
-          inputProps={{
-            label: 'Bank Code',
-            returnKeyType: 'next',
-            placeholder: '',
-          }}
-        />
-      </View>
-
       <FormikInput
-        name="branch_code"
+        name="routing_number"
         {...formikProps}
         inputProps={{
-          label: 'Branch Code',
+          label: 'Routing Number',
           returnKeyType: 'next',
           placeholder: '',
         }}
       />
-
       <FormikInput
         name="account_name"
         {...formikProps}
@@ -36,7 +22,6 @@ const App = ({formikProps}) => {
           placeholder: '',
         }}
       />
-
       <FormikInput
         name="account_number"
         {...formikProps}
