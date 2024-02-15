@@ -129,6 +129,8 @@ const SearchFilter = ({navigation}) => {
               lng: address.lng,
             },
             amount: priceType === 'none' ? null : priceValue.amount,
+            min_amount: priceType === 'range' ? priceValue.min_amount : null,
+            max_amount: priceType === 'range' ? priceValue.max_amount : null,
           }),
         ),
       100,
@@ -329,7 +331,7 @@ const SearchFilter = ({navigation}) => {
       </RNModalize>
 
       <RNModalize
-        withReactModal={Platform.OS === 'android' ? false : true}
+        withReactModal={Platform.OS === 'android' ? true : true}
         ref={refModalPrice}
         modalHeight={Dimensions.get('screen').height / 2.2}
         onClose={() => {
@@ -420,12 +422,12 @@ const SearchFilter = ({navigation}) => {
                       choose={priceType}
                       title="Fixed"
                     />
-                    {/* <CheckBoxTitle
+                    <CheckBoxTitle
                       callback={setPriceType}
                       status={'range'}
                       choose={priceType}
-                      title='Range'
-                    /> */}
+                      title="Range"
+                    />
                   </View>
 
                   {priceType !== 'none' &&
@@ -467,11 +469,12 @@ const SearchFilter = ({navigation}) => {
                       </View>
                     ))}
 
-                  <Button
-                    title="Confirm"
-                    onPress={() => refFormPrice.current?.handleSubmit()}
-                    style={{marginTop: 20}}
-                  />
+                  <View style={{marginTop: 20}}>
+                    <Button
+                      title="Confirm"
+                      onPress={() => refFormPrice.current?.handleSubmit()}
+                    />
+                  </View>
                 </>
               );
             }}

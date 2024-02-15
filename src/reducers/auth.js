@@ -398,6 +398,7 @@ export default (state = INITIAL_STATE, action) => {
         accessToken: action.payload?.data?.access_token,
         streamToken: action.payload?.data?.stream_token,
         beingLogin: false,
+        needVerifyEmail: action.payload?.data?.need_verify,
       };
     // case TOGGLE_IS_FIRST_LAUNCH:
     //   return {

@@ -935,6 +935,7 @@ const ChatRoomScreen = ({navigation, route}) => {
     );
 
   const handleGoBack = async () => {
+    dispatch(hideModalize());
     await AsyncStorage.setItem(roomDetail && roomDetail.id, message);
     dispatch(
       reloadDraftMessageByRoomId({

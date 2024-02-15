@@ -21,6 +21,8 @@ import {
   sendVerifyEmailCode,
   getPaymentCards,
   getNowPaymentsCurrencies,
+  getBadgeChatSingle,
+  getBadgeChatGroup,
 } from 'actions';
 import {ChatUnseenBadge} from 'components';
 import useDynamicLinkService from 'utils/dynamicLinkService';
@@ -110,15 +112,15 @@ const AppTab = ({navigation}) => {
   //   }
   // }, [userInfo?.email, userInfo?.email_verified_at]);
 
-  // useEffect(() => {
-  //   const checkBagdeMessagetimer = setInterval(() => {
-  //     dispatch(getBadgeChatSingle())
-  //     dispatch(getBadgeChatGroup())
-  //   }, 15000)
-  //   return () => {
-  //     clearInterval(checkBagdeMessagetimer)
-  //   }
-  // }, [])
+  useEffect(() => {
+    const checkBagdeMessagetimer = setInterval(() => {
+      dispatch(getBadgeChatSingle());
+      dispatch(getBadgeChatGroup());
+    }, 15000);
+    return () => {
+      clearInterval(checkBagdeMessagetimer);
+    };
+  }, []);
   useEffect(() => {
     dispatch(getNowPaymentsCurrencies());
     dispatch(getPaymentCards());

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {SectionList, StyleSheet, View} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {Text, EmptyState, SearchItem, VideoItem} from 'components';
 import {getSize} from 'utils/responsive';
@@ -10,6 +11,8 @@ import {ftsAll} from 'actions';
 import {Icons} from 'utils/icon';
 
 const SearchList = () => {
+  const insets = useSafeAreaInsets();
+
   const theme = useTheme();
   const dispatch = useDispatch();
   const {
@@ -64,13 +67,24 @@ const SearchList = () => {
       marginHorizontal: getSize.w(24),
     },
     itemWrapper: {
-      marginHorizontal: getSize.h(5),
+      marginHorizontal: getSize.h(24),
       marginVertical: getSize.w(5),
     },
     subWrapper: {
       width: '100%',
     },
   });
+
+  const key =
+    users.length +
+    'users' +
+    hangouts.length +
+    'hangouts' +
+    helps.length +
+    'helps' +
+    statuses.length +
+    'statues' +
+    videos.length;
 
   let DATA = [];
   if (users?.length > 0) {
@@ -151,10 +165,12 @@ const SearchList = () => {
 
   return (
     <SectionList
+      key={key}
       showsVerticalScrollIndicator={false}
       style={styles.wrapper}
-      sections={DATA || []}
-      extraData={[users, hangouts, statuses]}
+      contentContainerStyle={{paddingBottom: insets.bottom}}
+      sections={loading ? [] : DATA || []}
+      extraData={DATA || []}
       renderItem={renderSearchItem}
       stickySectionHeadersEnabled
       renderSectionHeader={({section: {title}}) => (

@@ -343,6 +343,10 @@ const SignUpScreen = ({navigation}) => {
                         lineWidth={3}
                         onCheckColor={theme.colors.primary}
                         onTintColor={theme.colors.primary}
+                        tintColors={{
+                          true: theme.colors.primary,
+                          false: theme.colors.inputLabel,
+                        }}
                       />
                       <Text variant="text1" style={styles.agreeText}>
                         By creating an account, I agree to Kizuner’s{' '}

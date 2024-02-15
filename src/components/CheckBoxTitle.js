@@ -67,6 +67,11 @@ export const CheckBoxTitle = ({
         lineWidth={3}
         onCheckColor={theme.colors.primary}
         onTintColor={theme.colors.primary}
+        tintColors={{
+          true: theme.colors.primary,
+          false: theme.colors.inputLabel,
+        }}
+        animationDuration={0.1}
       />
       <Text style={styles.formHeaderText}>{title}</Text>
     </View>

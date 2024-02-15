@@ -149,6 +149,7 @@ const Input = ({
           {...inputProps}
           {...props}
           keyboardType={type}
+          autoCapitalize={false}
         />
         {showEye && (
           <IconButton
@@ -173,6 +174,10 @@ const Input = ({
             lineWidth={3}
             onCheckColor={theme.colors.primary}
             onTintColor={theme.colors.primary}
+            tintColors={{
+              true: theme.colors.primary,
+              false: theme.colors.inputLabel,
+            }}
             onValueChange={(event) => {
               if (event) {
                 callback && callback(true);

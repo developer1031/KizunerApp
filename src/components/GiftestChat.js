@@ -6,6 +6,7 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import {
   GiftedChat,
@@ -18,6 +19,7 @@ import {
 } from 'react-native-gifted-chat';
 import Feather from 'react-native-vector-icons/Feather';
 import FastImage from 'react-native-fast-image';
+import 'dayjs/locale/en';
 
 import useTheme from 'theme';
 import {
@@ -247,10 +249,9 @@ const GiftestChat = ({
       <GiftedChat
         text={message}
         onInputTextChanged={(value) => {
-          console.log(value);
           setMessage(value);
         }}
-        locale="vi"
+        locale="en"
         dateFormat="LL"
         keyboardShouldPersistTaps="handled"
         alwaysShowSend
@@ -337,13 +338,25 @@ const GiftestChat = ({
         )}
         renderChatEmpty={() =>
           loading ? (
-            <View style={{transform: [{scaleY: -1}]}}>
+            <View
+              style={{
+                transform:
+                  Platform.OS == 'ios'
+                    ? [{scaleY: -1}]
+                    : [{scaleY: -1}, {scaleX: -1}],
+              }}>
               <Text variant="caption" style={stylesMain.bottomMessage}>
                 Loading messages...
               </Text>
             </View>
           ) : (
-            <View style={{transform: [{scaleY: -1}]}}>
+            <View
+              style={{
+                transform:
+                  Platform.OS == 'ios'
+                    ? [{scaleY: -1}]
+                    : [{scaleY: -1}, {scaleX: -1}],
+              }}>
               <Text variant="caption" style={stylesMain.bottomMessage}>
                 Let's start the conversation!
               </Text>

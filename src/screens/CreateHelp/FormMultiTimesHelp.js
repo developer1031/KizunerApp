@@ -681,6 +681,10 @@ const FormMultiTimesHelp = ({navigation, route}) => {
                     lineWidth={3}
                     onCheckColor={'grey'}
                     onTintColor={'grey'}
+                    tintColors={{
+                      true: theme.colors.primary,
+                      false: theme.colors.inputLabel,
+                    }}
                   />
                   <Text style={[styles.formHeaderText, {color: 'grey'}]}>
                     Is Online

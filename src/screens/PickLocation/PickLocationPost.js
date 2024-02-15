@@ -208,7 +208,7 @@ const PickLocationPostScreen = ({navigation, route}) => {
       handleStringAddress(
         political?.long_name,
         country?.long_name,
-        subRouteAddress ? subRouteAddress : routeAddress?.long_name,
+        // subRouteAddress ? subRouteAddress : routeAddress?.long_name,
       ),
     );
 

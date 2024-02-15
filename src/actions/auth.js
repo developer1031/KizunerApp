@@ -279,13 +279,19 @@ export const login = (data) => {
         } catch (error) {
           console.log(error);
         }
-        dispatch(
-          showAlert({
-            title: 'Success',
-            type: 'success',
-            body: `Welcome back, ${result?.data?.self?.data?.name}!`,
-          }),
-        );
+
+        const {need_verify} = result?.data;
+        if (need_verify) {
+          NavigationService.navigate('VerifyEmail');
+        } else {
+          dispatch(
+            showAlert({
+              title: 'Success',
+              type: 'success',
+              body: `Welcome back, ${result?.data?.self?.data?.name}!`,
+            }),
+          );
+        }
       },
     },
   })();

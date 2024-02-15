@@ -99,6 +99,7 @@ const FormCreateHangout = ({navigation, route}) => {
   const refSelectDropdown = useRef(null);
 
   const minimumCreditPrice = 10;
+  const minimumCryptoPrice = 11;
 
   const [minimumCryptoUsdPrice, setMinimumCryptoUsdPrice] = useState(0);
   const [minimumCryptoCoinPrice, setMinimumCryptoCoinPrice] = useState(0);
@@ -108,10 +109,12 @@ const FormCreateHangout = ({navigation, route}) => {
 
   const fee =
     paymentType === 'credit' ? constants.feeCredit : constants.feeCrypto;
+  // const minimumPrice =
+  //   paymentType === 'credit'
+  //     ? minimumCreditPrice
+  //     : (minimumCryptoUsdPrice / 100) * fee + minimumCryptoUsdPrice;
   const minimumPrice =
-    paymentType === 'credit'
-      ? minimumCreditPrice
-      : (minimumCryptoUsdPrice / 100) * fee + minimumCryptoUsdPrice;
+    paymentType === 'credit' ? minimumCreditPrice : minimumCryptoPrice;
 
   const minimumPriceCryptoCoin =
     (minimumCryptoCoinPrice / 100) * fee + minimumCryptoCoinPrice;
@@ -489,16 +492,13 @@ const FormCreateHangout = ({navigation, route}) => {
       amount:
         priceType === 'fixed' &&
         yup
-
           .number()
-          // secretKeyThinh
-          // .min(minimumCreditPrice, `Minimum price is ${minimumCreditPrice }$`)
-          // .min(
-          //   paymentType === 'credit' ? minimumCreditPrice : minimumPrice,
-          //   `Minimum price is ${
-          //     paymentType === 'credit' ? minimumCreditPrice : minimumPrice
-          //   }$`,
-          // )
+          .min(
+            paymentType === 'credit' ? minimumCreditPrice : minimumCryptoPrice,
+            `Minimum price is ${
+              paymentType === 'credit' ? minimumCreditPrice : minimumCryptoPrice
+            }$`,
+          )
           .max(10000)
           .nullable()
           .typeError('Please enter number value only')
@@ -735,6 +735,10 @@ const FormCreateHangout = ({navigation, route}) => {
                             lineWidth={3}
                             onCheckColor={theme.colors.primary}
                             onTintColor={theme.colors.primary}
+                            tintColors={{
+                              true: theme.colors.primary,
+                              false: theme.colors.inputLabel,
+                            }}
                           />
                           <Text style={styles.formHeaderText}>Time Free</Text>
                         </View>
@@ -809,6 +813,10 @@ const FormCreateHangout = ({navigation, route}) => {
                         lineWidth={3}
                         onCheckColor={theme.colors.primary}
                         onTintColor={theme.colors.primary}
+                        tintColors={{
+                          true: theme.colors.primary,
+                          false: theme.colors.inputLabel,
+                        }}
                       />
                       <Text style={styles.formHeaderText}>Is Online</Text>
                     </View>
@@ -1042,7 +1050,9 @@ const FormCreateHangout = ({navigation, route}) => {
                       priceType={priceType}
                       currency={currency}
                       fee={fee}
+                      minimumPrice={minimumPrice}
                       minimumCreditPrice={minimumCreditPrice}
+                      minimumCryptoPrice={minimumCryptoPrice}
                       minimumCryptoUsdPrice={minimumCryptoUsdPrice}
                       minimumPriceCryptoCoin={minimumPriceCryptoCoin}
                       amountValue={parseFloat(
@@ -1204,8 +1214,10 @@ const PriceInfo = ({
   paymentType,
   priceType,
   currency,
+  // minimumPrice,
   minimumCreditPrice = 10,
-  minimumCryptoUsdPrice,
+  minimumCryptoPrice,
+  // minimumCryptoUsdPrice,
   minimumPriceCryptoCoin,
   amountValue,
   minAmountValue,
@@ -1214,21 +1226,28 @@ const PriceInfo = ({
   const price_info = (kind = 'credit') => {
     const fee = kind == 'credit' ? constants.feeCredit : constants.feeCrypto;
 
-    const minimumPrice =
-      kind === 'credit'
-        ? minimumCreditPrice
-        : (minimumCryptoUsdPrice / 100) * fee + minimumCryptoUsdPrice;
+    // const minimumPrice =
+    //   kind === 'credit'
+    //     ? minimumCreditPrice
+    //     : (minimumCryptoUsdPrice / 100) * fee + minimumCryptoUsdPrice;
 
     const amount = (amountValue * (100 - fee)) / 100;
     const minAmount = (minAmountValue * (100 - fee)) / 100;
     const maxAmount = (maxAmountValue * (100 - fee)) / 100;
 
+    var minimumPrice =
+      kind == 'credit' ? minimumCreditPrice : minimumCryptoPrice;
+    let minLabel = minimumPrice;
+    if (kind === 'crypto' && !amountValue) {
+      minLabel = 0;
+    }
+
     return (
-      <>
+      <View key={kind}>
         <Text variant="inputLabel">
           {'   '}• Min price:{' '}
           <Text>
-            {minimumPrice} USD
+            {minLabel} USD
             {kind == 'crypto' &&
               ` ~ ${minimumPriceCryptoCoin.toFixed(5)} ${currency}`}
           </Text>
@@ -1258,7 +1277,7 @@ const PriceInfo = ({
             </Text>
           )}
         </Text>
-      </>
+      </View>
     );
   };
 

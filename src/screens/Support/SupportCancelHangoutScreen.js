@@ -190,6 +190,10 @@ const SupportCancelHangoutScreen = ({navigation, route}) => {
                       lineWidth={3}
                       onCheckColor={theme.colors.primary}
                       onTintColor={theme.colors.primary}
+                      tintColors={{
+                        true: theme.colors.primary,
+                        false: theme.colors.inputLabel,
+                      }}
                     />
                     <Text style={styles.formHeaderText}>{message}</Text>
                   </View>

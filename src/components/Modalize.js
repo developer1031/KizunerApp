@@ -37,15 +37,15 @@ const Modalize = ({...props}) => {
   return (
     <RNModalize
       ref={rnModalize}
-      // adjustToContentHeight
       //disableScrollIfPossible={Platform.OS === 'ios' ? true : false}
       modalHeight={Dimensions.get('screen').height / 2.2}
       onClose={() => dispatch(hideModalize())}
       modalStyle={{
         paddingTop: getSize.h(30),
       }}
-      scrollViewProps={{showsVerticalScrollIndicator: false}}
-      {...props}>
+      withReactModal
+      {...props}
+      scrollViewProps={{showsVerticalScrollIndicator: false}}>
       <View style={styles.wrapper}>
         {options
           .filter((i) => !i.hide)

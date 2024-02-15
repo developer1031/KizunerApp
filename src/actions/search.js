@@ -7,29 +7,29 @@ import {
   CLEAR_SEARCH_RESULT,
   SET_FTS_FILTER,
   FTS_HELP,
-} from './types'
-import {generateThunkAction} from './utilities'
+} from './types';
+import {generateThunkAction} from './utilities';
 
-const PER_PAGE = 10
+const PER_PAGE = 10;
 
-export function setFtsFilter (payload) {
+export function setFtsFilter(payload) {
   return {
     type: SET_FTS_FILTER,
     payload,
-  }
+  };
 }
 
-export function clearSearchResult () {
+export function clearSearchResult() {
   return {
     type: CLEAR_SEARCH_RESULT,
-  }
+  };
 }
 
-export function setFtsQuery (query) {
+export function setFtsQuery(query) {
   return {
     type: SET_FTS_QUERY,
     payload: {query},
-  }
+  };
 }
 
 export const ftsAll = ({
@@ -45,16 +45,9 @@ export const ftsAll = ({
   payment_method,
   location,
   amount,
+  min_amount,
+  max_amount,
 }) =>
-  console.log({
-    query,
-    page,
-    age,
-    gender,
-    skills,
-    categories,
-    available_status,
-  }) ||
   generateThunkAction({
     actionType: FTS_ALL,
     apiOptions: {
@@ -72,9 +65,11 @@ export const ftsAll = ({
         payment_method,
         location,
         amount,
+        min_amount,
+        max_amount,
       },
     },
-  })()
+  })();
 
 export const ftsHelp = ({query, page}) =>
   generateThunkAction({
@@ -83,7 +78,7 @@ export const ftsHelp = ({query, page}) =>
       endpoint: '/search',
       params: {query, page, type: 'help', per_page: PER_PAGE},
     },
-  })()
+  })();
 
 export const ftsHangouts = ({query, page}) =>
   generateThunkAction({
@@ -92,7 +87,7 @@ export const ftsHangouts = ({query, page}) =>
       endpoint: '/search',
       params: {query, page, type: 'hangouts', per_page: PER_PAGE},
     },
-  })()
+  })();
 
 export const ftsStatuses = ({query, page}) =>
   generateThunkAction({
@@ -101,7 +96,7 @@ export const ftsStatuses = ({query, page}) =>
       endpoint: '/search',
       params: {query, page, type: 'statuses', per_page: PER_PAGE},
     },
-  })()
+  })();
 
 export const ftsUsers = ({query, page}) =>
   generateThunkAction({
@@ -110,4 +105,4 @@ export const ftsUsers = ({query, page}) =>
       endpoint: '/search',
       params: {query, page, type: 'users', per_page: PER_PAGE},
     },
-  })()
+  })();

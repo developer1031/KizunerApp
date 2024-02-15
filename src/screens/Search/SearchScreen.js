@@ -6,7 +6,13 @@ import {useDispatch, useSelector} from 'react-redux';
 import {debounce} from 'throttle-debounce';
 
 import useTheme from 'theme';
-import {setFtsQuery, ftsAll, clearSearchResult} from 'actions';
+import {
+  setFtsQuery,
+  ftsAll,
+  clearSearchResult,
+  hideModalizeAll,
+  hideModalize,
+} from 'actions';
 import {getSize} from 'utils/responsive';
 import {Wrapper, Touchable, Text, HeaderBg, SearchBar} from 'components';
 
@@ -27,6 +33,9 @@ const SearchScreen = ({navigation, route}) => {
 
   function handleBack() {
     Keyboard.dismiss();
+    dispatch(hideModalize());
+    // dispatch(hideModalizeAll());
+
     navigation.goBack();
   }
 
