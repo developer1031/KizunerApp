@@ -1,5 +1,5 @@
 import React, {useRef, useEffect} from 'react';
-import {View, StyleSheet, Dimensions} from 'react-native';
+import {View, StyleSheet, Dimensions, Platform} from 'react-native';
 import {Modalize as RNModalize} from 'react-native-modalize';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from 'react-redux';
@@ -37,13 +37,13 @@ const Modalize = ({...props}) => {
   return (
     <RNModalize
       ref={rnModalize}
+      withReactModal
       //disableScrollIfPossible={Platform.OS === 'ios' ? true : false}
       modalHeight={Dimensions.get('screen').height / 2.2}
       onClose={() => dispatch(hideModalize())}
       modalStyle={{
         paddingTop: getSize.h(30),
       }}
-      withReactModal
       {...props}
       scrollViewProps={{showsVerticalScrollIndicator: false}}>
       <View style={styles.wrapper}>

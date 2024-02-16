@@ -52,23 +52,18 @@ const App = () => {
           <TourGuideProvider androidStatusBarVisible={true}>
             <PaperProvider>
               <SafeAreaProvider>
-                <>
+                <GestureHandlerRootView style={{flex: 1}}>
                   <TopUpLeaderBoard />
                   <StatusBar barStyle="light-content" />
                   <TopAlert />
 
                   <Navigation />
 
-                  <GestureHandlerRootView>
-                    <Modalize />
-                  </GestureHandlerRootView>
-
-                  <GestureHandlerRootView>
-                    <ModalizeWithAll />
-                  </GestureHandlerRootView>
+                  <Modalize />
+                  <ModalizeWithAll />
 
                   <Crashlytic />
-                </>
+                </GestureHandlerRootView>
               </SafeAreaProvider>
             </PaperProvider>
           </TourGuideProvider>

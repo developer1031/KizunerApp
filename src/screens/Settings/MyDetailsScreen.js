@@ -196,7 +196,6 @@ const MyDetailsScreen = ({navigation}) => {
                     placeholder: 'enter your username',
                   }}
                 />
-                <Text>A-Z and Numbers and . and _ </Text>
                 <FormikInput
                   name="name"
                   {...formikProps}

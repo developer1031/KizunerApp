@@ -80,18 +80,28 @@ export default (state = INITIAL_STATE, action) => {
         loading: true,
       };
     case FTS_ALL.SUCCESS:
+      const {data} = action.payload;
+
+      let users = [];
+      let usersPage = state.usersPage;
+      if (data.users) {
+        if (data.users.meta.pagination.current_page === 1) {
+          users = data.users.data;
+          usersPage = data.users.meta.pagination.total_pages;
+        } else {
+          users = [...state.users, ...data.users.data];
+        }
+      }
+
       return {
         ...state,
         loading: false,
-        users:
-          action.payload.data.users.meta.pagination.current_page === 1
-            ? action.payload.data.users.data
-            : [...state.users, ...action.payload.data.users.data],
-        usersPage: action.payload.data.users.meta.pagination.total_pages,
+        users: users,
+        usersPage: usersPage,
         videos: action.payload.data?.videos?.data || [],
-        hangouts: action.payload.data.hangouts.data,
-        statuses: action.payload.data.statuses.data,
-        helps: action.payload.data.helps.data,
+        hangouts: action.payload.data?.hangouts?.data || [],
+        statuses: action.payload.data?.statuses?.data || [],
+        helps: action.payload.data?.helps?.data || [],
       };
     case FTS_ALL.FAILURE:
       return {

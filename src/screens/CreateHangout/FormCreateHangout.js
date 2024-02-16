@@ -99,7 +99,7 @@ const FormCreateHangout = ({navigation, route}) => {
   const refSelectDropdown = useRef(null);
 
   const minimumCreditPrice = 10;
-  const minimumCryptoPrice = 11;
+  const minimumCryptoPrice = 10;
 
   const [minimumCryptoUsdPrice, setMinimumCryptoUsdPrice] = useState(0);
   const [minimumCryptoCoinPrice, setMinimumCryptoCoinPrice] = useState(0);
@@ -1055,6 +1055,9 @@ const FormCreateHangout = ({navigation, route}) => {
                       minimumCryptoPrice={minimumCryptoPrice}
                       minimumCryptoUsdPrice={minimumCryptoUsdPrice}
                       minimumPriceCryptoCoin={minimumPriceCryptoCoin}
+                      crypto_wallet_id={
+                        formikProps.getFieldProps('crypto_wallet_id').value
+                      }
                       amountValue={parseFloat(
                         formikProps.getFieldProps('amount').value || 0,
                       )}
@@ -1146,16 +1149,20 @@ const FormCreateHangout = ({navigation, route}) => {
                     <SpecialtyList data={draftSkills} />
                   </Paper>
                 </ScrollView>
-                <Button
-                  title="Post"
-                  // disabled={!isStripeConnected}
+
+                <View
                   style={{
                     marginHorizontal: getSize.w(24),
-                    marginTop: getSize.w(12),
-                  }}
-                  onPress={formRef.current?.handleSubmit}
-                  loading={creating}
-                />
+                    marginVertical: getSize.w(12),
+                  }}>
+                  <Button
+                    title="Post"
+                    // disabled={!isStripeConnected}
+                    style={{}}
+                    onPress={formRef.current?.handleSubmit}
+                    loading={creating}
+                  />
+                </View>
               </KeyboardAvoidingView>
               <DateTimePicker
                 open={showStartTimePicker}
@@ -1219,6 +1226,7 @@ const PriceInfo = ({
   minimumCryptoPrice,
   // minimumCryptoUsdPrice,
   minimumPriceCryptoCoin,
+  crypto_wallet_id,
   amountValue,
   minAmountValue,
   maxAmountValue,
@@ -1242,13 +1250,15 @@ const PriceInfo = ({
       minLabel = 0;
     }
 
+    const hasCryptoSelected = kind == 'crypto' && crypto_wallet_id;
+
     return (
       <View key={kind}>
         <Text variant="inputLabel">
           {'   '}• Min price:{' '}
           <Text>
             {minLabel} USD
-            {kind == 'crypto' &&
+            {hasCryptoSelected &&
               ` ~ ${minimumPriceCryptoCoin.toFixed(5)} ${currency}`}
           </Text>
         </Text>
@@ -1260,7 +1270,7 @@ const PriceInfo = ({
           {priceType === 'fixed' ? (
             <Text>
               {amount.toFixed(2)} USD
-              {kind === 'crypto' &&
+              {hasCryptoSelected &&
                 ` ~ ${parseFloat(
                   (amount * minimumPriceCryptoCoin) / minimumPrice || 0,
                 ).toFixed(5)} ${currency}`}
@@ -1268,7 +1278,7 @@ const PriceInfo = ({
           ) : (
             <Text>
               {minAmount.toFixed(2)} - {maxAmount.toFixed(2)} USD
-              {kind === 'crypto' &&
+              {hasCryptoSelected &&
                 ` ~ ${parseFloat(
                   (minAmount * minimumPriceCryptoCoin) / minimumPrice || 0,
                 ).toFixed(5)} - ${parseFloat(
@@ -1280,6 +1290,8 @@ const PriceInfo = ({
       </View>
     );
   };
+
+  if (!amountValue) return <></>;
 
   if (paymentType != 'both') return price_info(paymentType);
 
