@@ -284,7 +284,15 @@ export default () => {
     }
   }
 
-  const authenticated = isAuth && !needVerifyEmail;
+  let needVerify = false;
+  let authenticated = isAuth;
+  if (isAuth) {
+    needVerify = !userInfo?.email_verified_at && !userInfo?.social_id;
+
+    if (needVerify) {
+      authenticated = false;
+    }
+  }
 
   return (
     <NavigationContainer
