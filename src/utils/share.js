@@ -143,31 +143,32 @@ export const shareMultipleMediaFile = async (
   } catch (e) {
     console.log(e);
   }
-  try {
-    if (data?.type === 'status') {
-      fetchApi({
-        method: 'POST',
-        endpoint: '/statuses/react',
-        data: {status_id: data?.id, react_type: 'share'},
-      });
-    }
-    if (data?.type === 'hangout') {
-      fetchApi({
-        method: 'POST',
-        endpoint: '/hangouts/react',
-        data: {hangout_id: data?.id, react_type: 'share'},
-      });
-    }
-    if (data?.type === 'help') {
-      fetchApi({
-        method: 'POST',
-        endpoint: '/helps/react',
-        data: {help_id: data?.id, react_type: 'share'},
-      });
-    }
 
-    // return shareResponse;
-  } catch (error) {}
+  // try {
+  //   if (data?.type === 'status') {
+  //     fetchApi({
+  //       method: 'POST',
+  //       endpoint: '/statuses/react',
+  //       data: {status_id: data?.id, react_type: 'share'},
+  //     });
+  //   }
+  //   if (data?.type === 'hangout') {
+  //     fetchApi({
+  //       method: 'POST',
+  //       endpoint: '/hangouts/react',
+  //       data: {hangout_id: data?.id, react_type: 'share'},
+  //     });
+  //   }
+  //   if (data?.type === 'help') {
+  //     fetchApi({
+  //       method: 'POST',
+  //       endpoint: '/helps/react',
+  //       data: {help_id: data?.id, react_type: 'share'},
+  //     });
+  //   }
+
+  //   // return shareResponse;
+  // } catch (error) {}
 };
 
 export const shareDownloadImage = async (title, message, data, urlImage) => {

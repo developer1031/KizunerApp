@@ -79,7 +79,7 @@ const WalletScreen = ({navigation}) => {
     },
   });
 
-  const labelConnection = 'Stripe Connection';
+  const labelConnection = 'PaymentHub';
   const MENU_ITEMS = [
     {
       icon: (
@@ -89,7 +89,7 @@ const WalletScreen = ({navigation}) => {
           size={getSize.f(22)}
         />
       ),
-      label: 'Credit Card Management',
+      label: 'Credit Card',
       onPress: () => navigation.navigate('PaymentCreditCardManagement'),
     },
     {
@@ -100,7 +100,7 @@ const WalletScreen = ({navigation}) => {
           size={getSize.f(22)}
         />
       ),
-      label: 'Crypto Card Management',
+      label: 'Crypto Address',
       onPress: () => navigation.navigate('PaymentCryptoCardManagement'),
     },
     // secretKeyThinh

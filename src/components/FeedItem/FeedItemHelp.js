@@ -377,7 +377,7 @@ const FeedItemHelp = ({type, data, isChangeStatus, enableShare = true}) => {
         title + address + ' ' + data?.description,
         urlFile,
         Object.assign(data, {type: 'help'}),
-        !data?.liked && onPressLike,
+        // !data?.liked && onPressLike,
       );
     }
   }

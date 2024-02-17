@@ -495,7 +495,7 @@ const HelpDetail = ({navigation, route}) => {
         title + address + ' ' + data?.description,
         urlFile,
         Object.assign(data, {type: 'help'}),
-        !data?.liked && onPressLike,
+        // !data?.liked && onPressLike,
       );
     }
   }

@@ -735,7 +735,7 @@ const FeedItem = ({type, data, isChangeStatus}) => {
         title + address + ' ' + data?.description,
         urlFile,
         Object.assign(data, {type: type}),
-        !data?.liked && onPressLike(type),
+        // !data?.liked && onPressLike(type),
       );
     }
   }

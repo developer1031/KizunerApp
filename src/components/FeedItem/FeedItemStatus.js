@@ -132,7 +132,7 @@ const FeedItemStatus = ({type, data, enableShare = true}) => {
         title + address + ' ' + data?.description,
         urlFile,
         Object.assign(data, {type: 'status'}),
-        !data?.liked && onPressLike,
+        // !data?.liked && onPressLike,
       );
     }
   }

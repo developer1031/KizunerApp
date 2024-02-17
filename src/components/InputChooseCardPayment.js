@@ -5,14 +5,17 @@ import {useSelector} from 'react-redux';
 import CreditCardIcon from './CreditCardIcon';
 import {getSize} from '../utils/responsive';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import NavigationService from 'navigation/service';
 
 const InputChooseCardPayment = ({onChange = (id) => {}, visible = true}) => {
   const {cards} = useSelector((state) => state.wallet);
-
+  const emptyState = [
+    "You haven't set up your credit card yet. Click here to set up.",
+  ];
   return (
     <View style={{display: visible ? 'flex' : 'none'}}>
       <SelectDropdown
-        data={cards}
+        data={cards.length > 0 ? cards : emptyState}
         buttonStyle={{
           width: '100%',
           backgroundColor: 'transparent',
@@ -21,7 +24,7 @@ const InputChooseCardPayment = ({onChange = (id) => {}, visible = true}) => {
           marginBottom: 10,
         }}
         renderCustomizedButtonChild={(card, i) => {
-          if (!card) {
+          if (!card || !cards.length) {
             return <Text style={{marginLeft: 10}}>Choose credit card</Text>;
           }
           return (
@@ -45,10 +48,16 @@ const InputChooseCardPayment = ({onChange = (id) => {}, visible = true}) => {
                 alignItems: 'center',
                 paddingLeft: 15,
               }}>
-              <CreditCardIcon name={card.brand} size={getSize.f(40)} />
-              <Text style={{marginLeft: 10}}>
-                {card.name} *** {card['4digit']}
-              </Text>
+              {cards.length > 0 ? (
+                <>
+                  <CreditCardIcon name={card.brand} size={getSize.f(40)} />
+                  <Text style={{marginLeft: 10}}>
+                    {card.name} *** {card['4digit']}
+                  </Text>
+                </>
+              ) : (
+                <Text style={{color: '#FF6667'}}>{card}</Text>
+              )}
             </View>
           );
         }}
@@ -56,7 +65,11 @@ const InputChooseCardPayment = ({onChange = (id) => {}, visible = true}) => {
           return <AntDesign name="down" color={'black'} size={getSize.f(15)} />;
         }}
         onSelect={(selectedItem, index) => {
-          onChange(selectedItem.id);
+          if (cards.length === 0) {
+            NavigationService.navigate('PaymentCreditCardManagement');
+          } else {
+            onChange(selectedItem.id);
+          }
         }}
         buttonTextAfterSelection={(selectedItem, index) => {
           // text represented after item is selected

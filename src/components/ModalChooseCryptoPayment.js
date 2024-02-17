@@ -111,7 +111,7 @@ const ModalChooseCryptoPayment = forwardRef(
                   }}
                 />
                 <Text variant="inputLabel">
-                  {'   '}• Choose address in case you want to refund
+                  {'   '}• Choose address to receive payment.
                 </Text>
                 <Text variant="errorHelper" style={{marginBottom: 10}}>
                   {errorAddressString}

@@ -175,7 +175,7 @@ const CardCryptoManagementScreen = ({navigation, route}) => {
         animated
         variant="header"
         style={[styles.headerTitle, {opacity: headerOpacity}]}>
-        Crypto Coin
+        Crypto Address
       </Text>
       <Animated.FlatList
         data={cryptoCards}

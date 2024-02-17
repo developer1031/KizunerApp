@@ -403,10 +403,14 @@ const StatusDetailScreen = ({navigation, route}) => {
     const urlFile = [
       data?.dymanic_link || data?.media?.data?.path || 'https://kizuner.com/',
     ];
+
+    console.log(data);
     const title = data?.status;
     const address = data?.location?.data?.address
       ? ' - ' + data?.location?.data?.address
       : '';
+
+    console.log(title, address);
 
     const selectedShareOption = [
       {
@@ -443,7 +447,7 @@ const StatusDetailScreen = ({navigation, route}) => {
         title + ' ' + address,
         urlFile,
         Object.assign(data, {type: 'status'}),
-        !data?.liked && onPressLike,
+        // !data?.liked && onPressLike,
       );
     }
   }

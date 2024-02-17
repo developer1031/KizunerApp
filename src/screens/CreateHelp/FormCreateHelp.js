@@ -46,8 +46,8 @@ import {Linking} from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
 
 const constants = {
-  feeCredit: 10, // %
-  feeCrypto: 8, // %
+  feeCredit: 5, // %
+  feeCrypto: 0, // %
 };
 const FormCreateHelp = ({navigation, route}) => {
   const theme = useTheme();
@@ -1131,9 +1131,9 @@ const PriceInfo = ({
     //     ? minimumCreditPrice
     //     : (minimumCryptoUsdPrice / 100) * fee + minimumCryptoUsdPrice;
 
-    const amount = (amountValue * (100 - fee)) / 100;
-    const minAmount = (minAmountValue * (100 - fee)) / 100;
-    const maxAmount = (maxAmountValue * (100 - fee)) / 100;
+    const amount = (amountValue * (100 + fee)) / 100;
+    const minAmount = (minAmountValue * (100 + fee)) / 100;
+    const maxAmount = (maxAmountValue * (100 + fee)) / 100;
 
     var minimumPrice =
       kind == 'credit' ? minimumCreditPrice : minimumCryptoPrice;
@@ -1158,7 +1158,7 @@ const PriceInfo = ({
           {'   '}• Fee: <Text>{fee}% + transaction fee</Text>
         </Text>
         <Text variant="inputLabel" style={{marginBottom: 15}}>
-          {'   '}• Actual amount received:{' '}
+          {'   '}• Actual amount to pay:{' '}
           {priceType === 'fixed' ? (
             <Text>
               {amount.toFixed(2)} USD

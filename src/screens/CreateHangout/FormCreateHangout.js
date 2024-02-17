@@ -927,7 +927,7 @@ const FormCreateHangout = ({navigation, route}) => {
                             alignItems: 'center',
                           }}>
                           <Text variant="inputLabel" style={{flex: 1}}>
-                            {'   '}• Credit: you have not connected Stripe yet.
+                            {'   '}• You have not connected to Paymenthub yet.
                             Press button to connect now!
                           </Text>
 

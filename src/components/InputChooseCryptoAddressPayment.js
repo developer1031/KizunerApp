@@ -5,17 +5,21 @@ import {useSelector} from 'react-redux';
 import CreditCardIcon from './CreditCardIcon';
 import {getSize} from '../utils/responsive';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import NavigationService from 'navigation/service';
 
 const InputChooseCryptoAddressPayment = ({
   onChange = () => {},
   visible = true,
 }) => {
   const {cryptoCards} = useSelector((state) => state.wallet);
+  const emptyState = [
+    "You haven't set up your crypto address yet. Click here to set up.",
+  ];
 
   return (
     <View style={{display: visible ? 'flex' : 'none'}}>
       <SelectDropdown
-        data={cryptoCards}
+        data={cryptoCards.length > 0 ? cryptoCards : emptyState}
         buttonStyle={{
           width: '100%',
           backgroundColor: 'transparent',
@@ -24,7 +28,7 @@ const InputChooseCryptoAddressPayment = ({
           marginBottom: 10,
         }}
         renderCustomizedButtonChild={(crypto, i) => {
-          if (!crypto) {
+          if (!crypto || !cryptoCards.length) {
             return <Text style={{marginLeft: 10}}>Choose crypto address</Text>;
           }
           return (
@@ -47,9 +51,15 @@ const InputChooseCryptoAddressPayment = ({
                 alignItems: 'center',
                 paddingLeft: 15,
               }}>
-              {/* <CreditCardIcon name={crypto.brand} size={getSize.f(40)} /> */}
-              <Text style={{marginHorizontal: 10}}>{crypto.currency}</Text>
-              <Text numberOfLines={1}>{crypto.wallet_address}</Text>
+              {cryptoCards.length > 0 ? (
+                <>
+                  {/* <CreditCardIcon name={crypto.brand} size={getSize.f(40)} /> */}
+                  <Text style={{marginHorizontal: 10}}>{crypto.currency}</Text>
+                  <Text numberOfLines={1}>{crypto.wallet_address}</Text>
+                </>
+              ) : (
+                <Text style={{color: '#FF6667'}}>{crypto}</Text>
+              )}
             </View>
           );
         }}
@@ -57,7 +67,11 @@ const InputChooseCryptoAddressPayment = ({
           return <AntDesign name="down" color={'black'} size={getSize.f(15)} />;
         }}
         onSelect={(selectedItem, index) => {
-          onChange(selectedItem);
+          if (cryptoCards.length === 0) {
+            NavigationService.navigate('PaymentCryptoCardManagement');
+          } else {
+            onChange(selectedItem);
+          }
         }}
         buttonTextAfterSelection={(selectedItem, index) => {
           // text represented after item is selected

@@ -381,7 +381,7 @@ const FeedItemHangout = ({type, data, isChangeStatus, enableShare = true}) => {
         title + address + ' ' + data?.description,
         urlFile,
         Object.assign(data, {type: 'hangout'}),
-        !data?.liked && onPressLike,
+        // !data?.liked && onPressLike,
       );
     }
   };
