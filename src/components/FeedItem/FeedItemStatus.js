@@ -92,10 +92,7 @@ const FeedItemStatus = ({type, data, enableShare = true}) => {
     const urlFile = [
       data?.dymanic_link || data?.media?.data?.path || 'https://kizuner.com/',
     ];
-    const title = data?.title;
-    const address = data?.location?.data?.address
-      ? ' - ' + data?.location?.data?.address
-      : '';
+    const title = data?.status;
 
     const selectedShareOption = [
       {
@@ -129,7 +126,7 @@ const FeedItemStatus = ({type, data, enableShare = true}) => {
     async function sharePost() {
       await shareMultipleMediaFile(
         'Kizuner',
-        title + address + ' ' + data?.description,
+        title,
         urlFile,
         Object.assign(data, {type: 'status'}),
         // !data?.liked && onPressLike,

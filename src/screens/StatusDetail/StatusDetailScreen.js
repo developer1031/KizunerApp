@@ -404,13 +404,7 @@ const StatusDetailScreen = ({navigation, route}) => {
       data?.dymanic_link || data?.media?.data?.path || 'https://kizuner.com/',
     ];
 
-    console.log(data);
     const title = data?.status;
-    const address = data?.location?.data?.address
-      ? ' - ' + data?.location?.data?.address
-      : '';
-
-    console.log(title, address);
 
     const selectedShareOption = [
       {
@@ -435,7 +429,7 @@ const StatusDetailScreen = ({navigation, route}) => {
     async function shareImage() {
       await shareDownloadImage(
         'Kizuner',
-        title + address + ' ' + urlFile,
+        title + ' ' + urlFile,
         Object.assign(data, {type: 'status'}),
         urlImage,
       );
@@ -444,7 +438,7 @@ const StatusDetailScreen = ({navigation, route}) => {
     async function sharePost() {
       await shareMultipleMediaFile(
         'Kizuner',
-        title + ' ' + address,
+        title,
         urlFile,
         Object.assign(data, {type: 'status'}),
         // !data?.liked && onPressLike,

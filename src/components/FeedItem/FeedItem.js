@@ -695,10 +695,14 @@ const FeedItem = ({type, data, isChangeStatus}) => {
     const urlFile = [
       data?.dymanic_link || data?.media?.data?.path || 'https://kizuner.com/',
     ];
-    const title = data?.title;
-    const address = data?.location?.data?.address
-      ? ' - ' + data?.location?.data?.address
-      : '';
+
+    let contentTitle = data?.title;
+    if (type != 'status') {
+      const address = data?.location?.data?.address
+        ? ' - ' + data?.location?.data?.address
+        : '';
+      contentTitle = contentTitle + address + ' ' + data?.description;
+    }
 
     const selectedShareOption = [
       {
@@ -732,7 +736,7 @@ const FeedItem = ({type, data, isChangeStatus}) => {
     async function sharePost() {
       await shareMultipleMediaFile(
         'Kizuner',
-        title + address + ' ' + data?.description,
+        contentTitle,
         urlFile,
         Object.assign(data, {type: type}),
         // !data?.liked && onPressLike(type),

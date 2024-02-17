@@ -15,7 +15,15 @@ import orangeLight from '../../theme/orangeLight';
 
 const defaultFormat = 'LLL'; // 'DD/MM/YYYY hh:mm A'
 
-const HangoutCalendar = ({title, location, schedule, start, end, isNoTime}) => {
+const HangoutCalendar = ({
+  title,
+  location,
+  schedule,
+  start,
+  end,
+  isNoTime,
+  availableStatus,
+}) => {
   const theme = useTheme();
   // const {timezone, loaded} = useGetTimezone(
   //   location?.lat,
@@ -58,9 +66,9 @@ const HangoutCalendar = ({title, location, schedule, start, end, isNoTime}) => {
   //   );
   // }
 
-  if (!location?.address && !schedule && !start) {
-    return null;
-  }
+  // if (!location?.address && !schedule && !start) {
+  //   return null;
+  // }
 
   // const isSameTimezone =
   //   !schedule &&
@@ -85,6 +93,7 @@ const HangoutCalendar = ({title, location, schedule, start, end, isNoTime}) => {
     }
     return '';
   }
+
   return (
     <View style={stylesMain.metaWrap}>
       {/* <TouchableOpacity scalable style={stylesMain.metaLeft}>
@@ -141,6 +150,22 @@ const HangoutCalendar = ({title, location, schedule, start, end, isNoTime}) => {
               </Text>
             </View>
           </TouchableOpacity>
+        )}
+        {['combine', 'online'].includes(availableStatus) && (
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              paddingTop: Boolean(schedule || start || end) ? 8 : 0,
+            }}>
+            <MaterialIcons
+              name="location-on"
+              color={theme.colors.primary}
+              size={getSize.f(24)}
+              style={{marginRight: 10}}
+            />
+            <Text style={stylesMain.location}>Online</Text>
+          </View>
         )}
       </View>
     </View>

@@ -348,7 +348,6 @@ const FormMultiTimesHangout = ({navigation, route}) => {
   }
 
   useEffect(() => {
-    console.log(initialValues?.available_status);
     if (!initialValues?.available_status) {
       return;
     }

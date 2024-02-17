@@ -73,8 +73,8 @@ export const shareMultipleMediaFile = async (
     },
     social: {
       imageUrl: urlImage,
-      title: data?.title,
-      descriptionText: data?.description,
+      title: data.type != 'status' ? data?.title : title,
+      descriptionText: data.type != 'status' ? data?.description : '',
     },
   };
   const url = await dynamicLinks().buildShortLink(dynamicLinkParameters);

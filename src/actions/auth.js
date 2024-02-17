@@ -160,6 +160,7 @@ export const verifyEmail = (pin) =>
     },
     callback: {
       success: (_, dispatch) => {
+        NavigationService.goBack();
         NavigationService.navigate('AppTab');
 
         dispatch(

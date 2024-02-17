@@ -186,6 +186,7 @@ const HangoutBody = ({
         start={start}
         end={end}
         isNoTime={isNoTime}
+        availableStatus={availableStatus}
       />
       {type === 'help' && Boolean(capacity) && (
         <HangoutHelper
