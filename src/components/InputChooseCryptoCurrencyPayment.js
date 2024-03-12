@@ -6,6 +6,7 @@ import SelectDropdown from 'react-native-select-dropdown';
 import CreditCardIcon from './CreditCardIcon';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {getSize} from 'utils/responsive';
+import useTheme from 'theme';
 
 const InputChooseCryptoCurrencyPayment = ({
   onChange = () => {},
@@ -13,6 +14,8 @@ const InputChooseCryptoCurrencyPayment = ({
   defaultCurrency,
   disabled = false,
 }) => {
+  const theme = useTheme();
+
   const {paymentNowCurrencies} = useSelector((state) => state.wallet);
 
   const defaultValueByIndex = defaultCurrency
@@ -56,7 +59,9 @@ const InputChooseCryptoCurrencyPayment = ({
                 paddingLeft: 15,
               }}>
               {/* <CreditCardIcon name={card.brand} size={getSize.f(40)} /> */}
-              <Text style={{marginLeft: 10}}>{card.name}</Text>
+              <Text style={{marginLeft: 10, color: theme.colors.text}}>
+                {card.name}
+              </Text>
             </View>
           );
         }}

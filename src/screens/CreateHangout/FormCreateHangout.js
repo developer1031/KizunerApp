@@ -495,9 +495,9 @@ const FormCreateHangout = ({navigation, route}) => {
           .number()
           .min(
             paymentType === 'credit' ? minimumCreditPrice : minimumCryptoPrice,
-            `Minimum price is ${
+            `Minimum price is $${
               paymentType === 'credit' ? minimumCreditPrice : minimumCryptoPrice
-            }$`,
+            }`,
           )
           .max(10000)
           .nullable()
@@ -1217,6 +1217,108 @@ const FormCreateHangout = ({navigation, route}) => {
   );
 };
 
+const CreditPriceInfo = ({
+  priceType,
+  amountValue,
+  minAmountValue,
+  maxAmountValue,
+}) => {
+  const fee = 10;
+  const guestFee = 5;
+
+  const amount = (amountValue * (100 - fee)) / 100;
+  const minAmount = (minAmountValue * (100 - fee)) / 100;
+  const maxAmount = (maxAmountValue * (100 - fee)) / 100;
+  const amountPay = (amountValue * (100 + guestFee)) / 100;
+
+  return (
+    <View>
+      <Text variant="inputLabel">
+        • Min price: <Text>10 USD</Text>
+      </Text>
+      <Text variant="inputLabel">
+        • Guest will pay: <Text>{amountPay} USD</Text>
+      </Text>
+      <Text variant="inputLabel" style={{marginBottom: 15}}>
+        • Actual amount received:{' '}
+        {priceType === 'fixed' ? (
+          <Text>{amount.toFixed(2)} USD</Text>
+        ) : (
+          <Text>
+            {minAmount.toFixed(2)} - {maxAmount.toFixed(2)} USD
+          </Text>
+        )}
+      </Text>
+    </View>
+  );
+};
+const CryptoPriceInfo = ({
+  priceType,
+  amountValue,
+  minAmountValue,
+  maxAmountValue,
+  currency,
+  crypto_wallet_id,
+  minimumPriceCryptoCoin,
+}) => {
+  const minPrice = 10;
+  const fee = 8;
+  const guestFee = 0.5;
+
+  const amount = (amountValue * (100 - fee)) / 100;
+  const minAmount = (minAmountValue * (100 - fee)) / 100;
+  const maxAmount = (maxAmountValue * (100 - fee)) / 100;
+  const amountPay = (amountValue * (100 + guestFee)) / 100;
+
+  // const hasWallet = crypto_wallet_id != null;
+  const hasWallet = false;
+
+  return (
+    <View>
+      <Text variant="inputLabel">
+        • Min price:{' '}
+        <Text>
+          {minPrice} USD
+          {hasWallet && ` ~ ${minimumPriceCryptoCoin.toFixed(3)} ${currency}`}
+        </Text>
+      </Text>
+
+      <Text variant="inputLabel">• Guest will pay:</Text>
+      <Text>
+        {'   '}
+        {amountPay} USD + Network Fee
+        {hasWallet &&
+          ` ~ ${parseFloat(
+            (amountPay * minimumPriceCryptoCoin) / minPrice || 0,
+          ).toFixed(5)} ${currency}`}
+      </Text>
+
+      <Text variant="inputLabel" style={{marginBottom: 15}}>
+        • Actual amount received:{' '}
+        {priceType === 'fixed' ? (
+          <Text>
+            {amount.toFixed(2)} USD
+            {hasWallet &&
+              ` ~ ${parseFloat(
+                (amount * minimumPriceCryptoCoin) / minPrice || 0,
+              ).toFixed(5)} ${currency}`}
+          </Text>
+        ) : (
+          <Text>
+            {minAmount.toFixed(2)} - {maxAmount.toFixed(2)} USD
+            {hasWallet &&
+              ` ~ ${parseFloat(
+                (minAmount * minimumPriceCryptoCoin) / minPrice || 0,
+              ).toFixed(5)} - ${parseFloat(
+                (maxAmount * minimumPriceCryptoCoin) / minPrice || 0,
+              ).toFixed(5)} ${currency}`}
+          </Text>
+        )}
+      </Text>
+    </View>
+  );
+};
+
 const PriceInfo = ({
   paymentType,
   priceType,
@@ -1231,74 +1333,45 @@ const PriceInfo = ({
   minAmountValue,
   maxAmountValue,
 }) => {
-  const price_info = (kind = 'credit') => {
-    const fee = kind == 'credit' ? constants.feeCredit : constants.feeCrypto;
-
-    // const minimumPrice =
-    //   kind === 'credit'
-    //     ? minimumCreditPrice
-    //     : (minimumCryptoUsdPrice / 100) * fee + minimumCryptoUsdPrice;
-
-    const amount = (amountValue * (100 - fee)) / 100;
-    const minAmount = (minAmountValue * (100 - fee)) / 100;
-    const maxAmount = (maxAmountValue * (100 - fee)) / 100;
-
-    var minimumPrice =
-      kind == 'credit' ? minimumCreditPrice : minimumCryptoPrice;
-    let minLabel = minimumPrice;
-    if (kind === 'crypto' && !amountValue) {
-      minLabel = 0;
-    }
-
-    const hasCryptoSelected = kind == 'crypto' && crypto_wallet_id;
-
+  if (paymentType == 'credit') {
     return (
-      <View key={kind}>
-        <Text variant="inputLabel">
-          {'   '}• Min price:{' '}
-          <Text>
-            {minLabel} USD
-            {hasCryptoSelected &&
-              ` ~ ${minimumPriceCryptoCoin.toFixed(5)} ${currency}`}
-          </Text>
-        </Text>
-        <Text variant="inputLabel">
-          {'   '}• Fee: <Text>{fee}% + transaction fee</Text>
-        </Text>
-        <Text variant="inputLabel" style={{marginBottom: 15}}>
-          {'   '}• Actual amount received:{' '}
-          {priceType === 'fixed' ? (
-            <Text>
-              {amount.toFixed(2)} USD
-              {hasCryptoSelected &&
-                ` ~ ${parseFloat(
-                  (amount * minimumPriceCryptoCoin) / minimumPrice || 0,
-                ).toFixed(5)} ${currency}`}
-            </Text>
-          ) : (
-            <Text>
-              {minAmount.toFixed(2)} - {maxAmount.toFixed(2)} USD
-              {hasCryptoSelected &&
-                ` ~ ${parseFloat(
-                  (minAmount * minimumPriceCryptoCoin) / minimumPrice || 0,
-                ).toFixed(5)} - ${parseFloat(
-                  (maxAmount * minimumPriceCryptoCoin) / minimumPrice || 0,
-                ).toFixed(5)} ${currency}`}
-            </Text>
-          )}
-        </Text>
-      </View>
+      <CreditPriceInfo
+        {...{priceType, amountValue, minAmountValue, maxAmountValue}}
+      />
     );
-  };
-
-  if (!amountValue) return <></>;
-
-  if (paymentType != 'both') return price_info(paymentType);
+  }
+  if (paymentType == 'crypto') {
+    return (
+      <CryptoPriceInfo
+        {...{
+          priceType,
+          amountValue,
+          minAmountValue,
+          maxAmountValue,
+          currency,
+          crypto_wallet_id,
+          minimumPriceCryptoCoin,
+        }}
+      />
+    );
+  }
 
   return (
     <>
-      {price_info('credit')}
-      {price_info('crypto')}
+      <CreditPriceInfo
+        {...{priceType, amountValue, minAmountValue, maxAmountValue}}
+      />
+      <CryptoPriceInfo
+        {...{
+          priceType,
+          amountValue,
+          minAmountValue,
+          maxAmountValue,
+          currency,
+          crypto_wallet_id,
+          minimumPriceCryptoCoin,
+        }}
+      />
     </>
   );
 };

@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {ScrollView, StyleSheet, View, Switch} from 'react-native';
+import {ScrollView, StyleSheet, View, Switch, Dimensions} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {Button, Select, ModalizeWithRange, Text} from 'components';
@@ -15,7 +15,8 @@ import FormikInput from 'components/FormikInput';
 import {TextInput} from 'react-native';
 import {Formik} from 'formik';
 import * as yup from 'yup';
-import {Dimensions} from 'react-native';
+import LanguagePicker from 'components/LanguagePicker';
+import {data as languagesDataJson} from 'assets/data';
 
 const SearchFilter = ({navigation}) => {
   const theme = useTheme();
@@ -42,6 +43,8 @@ const SearchFilter = ({navigation}) => {
     lng: null,
     short_address: '',
   });
+  const [showCountryPicker, setShowCountryPicker] = useState(false);
+  const [language, setLanguage] = useState(null);
 
   const userInfo = useSelector((state) => state.auth.userInfo);
   const minimumFixedPrice = 10;
@@ -116,7 +119,7 @@ const SearchFilter = ({navigation}) => {
             skills: selectedSpecialities.map((i) => i.id),
             categories: selectedCategories.map((i) => i.id),
             available_status: isOnlineOnly ? 'online' : null,
-
+            language: language,
             offer_type: typePost === 1 ? null : typePost === 2 ? 1 : 2,
             payment_method:
               paymentMethod === 1
@@ -198,6 +201,12 @@ const SearchFilter = ({navigation}) => {
             ageRange ? `from ${ageRange.min} to ${ageRange.max}` : 'All Ages'
           }
           onPress={() => setShowAgeFilter(true)}
+          wrapperStyle={styles.selectWrap}
+        />
+        <Select
+          label="Filter by Language"
+          value={language ? languagesDataJson[language].name : 'All Languages'}
+          onPress={() => setShowCountryPicker(true)}
           wrapperStyle={styles.selectWrap}
         />
         <Select
@@ -481,6 +490,17 @@ const SearchFilter = ({navigation}) => {
           </Formik>
         </View>
       </RNModalize>
+
+      <LanguagePicker
+        isSearch={true}
+        open={showCountryPicker}
+        onClose={() => setShowCountryPicker(false)}
+        value={language}
+        onSelect={(value) => {
+          setLanguage(value);
+          setShowCountryPicker(false);
+        }}
+      />
     </>
   );
 };

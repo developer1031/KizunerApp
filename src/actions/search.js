@@ -40,7 +40,7 @@ export const ftsAll = ({
   categories = null,
   skills = null,
   available_status = null,
-
+  language,
   offer_type,
   payment_method,
   location,
@@ -67,6 +67,7 @@ export const ftsAll = ({
         amount,
         min_amount,
         max_amount,
+        language,
       },
     },
   })();

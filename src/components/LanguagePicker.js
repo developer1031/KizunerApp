@@ -12,10 +12,11 @@ import {getSize} from 'utils/responsive';
 import orangeLight from '../theme/orangeLight';
 import {Dimensions} from 'react-native';
 
-const LanguagePicker = ({open, onSelect, onClose, value}) => {
+const LanguagePicker = ({open, onSelect, onClose, value, isSearch = false}) => {
   const [languageSearch, setLanguageSearch] = useState('');
   const [selectedLanguage, setSelectedLange] = useState(value);
   const modalRef = useRef(null);
+
   useEffect(() => {
     if (open) {
       modalRef?.current?.open();
@@ -39,13 +40,27 @@ const LanguagePicker = ({open, onSelect, onClose, value}) => {
     );
 
   const renderCountryItem = ({item}) => {
-    const isSelected = selectedLanguage.filter((i, index) => i === item.id)[0];
+    let isSelected;
+    if (isSearch) {
+      isSelected = selectedLanguage === item.id;
+    } else {
+      isSelected = selectedLanguage.includes(item.id);
+    }
+
     return (
       <Touchable
         onPress={() => {
-          isSelected
-            ? setSelectedLange(selectedLanguage.filter((i) => i !== item.id))
-            : setSelectedLange([...selectedLanguage, item.id]);
+          if (isSearch) {
+            if (selectedLanguage == item.id) {
+              setSelectedLange(null);
+            } else {
+              setSelectedLange(item.id);
+            }
+          } else {
+            isSelected
+              ? setSelectedLange(selectedLanguage.filter((i) => i !== item.id))
+              : setSelectedLange([...selectedLanguage, item.id]);
+          }
         }}>
         <View style={styles.countryItemWrap}>
           <View style={styles.countryItemMeta}>
@@ -66,32 +81,37 @@ const LanguagePicker = ({open, onSelect, onClose, value}) => {
     );
   };
 
-  const renderCountryHeader = ({section}) => (
-    <LinearGradient
-      start={{x: 0, y: 0}}
-      end={{x: 1, y: 0}}
-      colors={orangeLight.color.gradient}
-      style={styles.countrySectionHeader}>
-      <Text color={orangeLight.colors.textContrast}>{section.title}</Text>
-    </LinearGradient>
+  // const renderCountryHeader = ({section}) => (
+  //   <LinearGradient
+  //     start={{x: 0, y: 0}}
+  //     end={{x: 1, y: 0}}
+  //     colors={orangeLight.color.gradient}
+  //     style={styles.countrySectionHeader}>
+  //     <Text color={orangeLight.colors.textContrast}>{section.title}</Text>
+  //   </LinearGradient>
+  // );
+
+  const renderHeader = () => (
+    <View style={styles.countryPickerHeader}>
+      <Text variant="inputLabel">Select language:</Text>
+      <Touchable
+        onPress={() => {
+          onSelect(selectedLanguage);
+        }}>
+        <Text style={styles.txtDone}>Done</Text>
+      </Touchable>
+    </View>
   );
 
   return (
     <Modalize
       ref={modalRef}
-      onClose={onClose}
+      onClose={() => {
+        setSelectedLange(value);
+        onClose();
+      }}
       modalHeight={Dimensions.get('window').height / 1.5}
-      HeaderComponent={() => (
-        <View style={styles.countryPickerHeader}>
-          <Text variant="inputLabel">Select language:</Text>
-          <Touchable
-            onPress={() => {
-              onSelect(selectedLanguage);
-            }}>
-            <Text style={styles.txtDone}>Done</Text>
-          </Touchable>
-        </View>
-      )}
+      HeaderComponent={renderHeader}
       flatListProps={{
         // section: countryList,
         data: countryList,

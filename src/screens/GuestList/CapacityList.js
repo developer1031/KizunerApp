@@ -188,7 +188,10 @@ const CapacityList = ({route, navigation}) => {
         key={`${index}-${item.id}`}
         onPressProfile={() => _pushProfile(item)}
         onPressRating={() => _pushRating(item)}
-        isPending={canHangout && item?.status === 'pending'}
+        isPending={
+          canHangout &&
+          (item?.status === 'pending' || item?.status == 'queuing')
+        }
         isAccept={item?.status === 'accept'}
         rating={item?.user?.data?.rating?.rating || 0}
         name={item.user?.data?.name}

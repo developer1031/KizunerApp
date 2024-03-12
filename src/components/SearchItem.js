@@ -121,6 +121,7 @@ const SearchItem = ({data, type}) => {
             data?.user?.data?.id === userInfo?.id ||
             data?.user?.id === userInfo?.id
           }
+          availableStatus={data?.available_status}
           onPress={() =>
             navigation.push('HangoutDetail', {
               hangoutId: data.id,
@@ -161,6 +162,7 @@ const SearchItem = ({data, type}) => {
             data?.user?.data?.id === userInfo?.id ||
             data?.user?.id === userInfo?.id
           }
+          availableStatus={data?.available_status}
           onPress={() =>
             navigation.push('HelpDetail', {
               helpId: data.id,
