@@ -1,6 +1,48 @@
 import React from 'react';
 import FormikInput from 'components/FormikInput';
 
+export const IBAN_COUNTRY = [
+  'BE',
+  'BG',
+  'CR',
+  'CI',
+  'HR',
+  'CY',
+  'CZ',
+  'DK',
+  'EE',
+  'FI',
+  'FR',
+  'DE',
+  'GI',
+  'GR',
+  'HU',
+  'IS',
+  'IE',
+  'IL',
+  'IT',
+  'LV',
+  'LI',
+  'LT',
+  'LU',
+  'MT',
+  'MC',
+  'NL',
+  'NE',
+  'NO',
+  'PL',
+  'PT',
+  'RO',
+  'SN',
+  'SK',
+  'SI',
+  'ES',
+  'SE',
+  'CH',
+  'TN',
+  'AE',
+];
+
 const App = ({formikProps}) => {
   return (
     <>

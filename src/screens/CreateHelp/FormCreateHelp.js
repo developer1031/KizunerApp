@@ -1118,15 +1118,17 @@ const CreditPriceInfo = ({
   const amountPay = (amountValue * (100 + guestFee)) / 100;
 
   return (
-    <View>
+    <View style={{marginBottom: 15}}>
       <Text variant="inputLabel">
-        • Min price: <Text>10 USD</Text>
+        • Min price: <Text>${minPrice}</Text>
       </Text>
+
       <Text variant="inputLabel">
         • Actual amount to pay: <Text>{amountPay} USD</Text>
       </Text>
-      <Text variant="inputLabel" style={{marginBottom: 15}}>
-        • Helper will receive:{' '}
+
+      {/* <Text variant="inputLabel">
+        • Actual amount to receive:
         {priceType === 'fixed' ? (
           <Text>{amount.toFixed(2)} USD</Text>
         ) : (
@@ -1134,7 +1136,7 @@ const CreditPriceInfo = ({
             {minAmount.toFixed(2)} - {maxAmount.toFixed(2)} USD
           </Text>
         )}
-      </Text>
+      </Text> */}
     </View>
   );
 };
@@ -1160,24 +1162,24 @@ const CryptoPriceInfo = ({
   const hasWallet = false;
 
   return (
-    <View>
+    <View style={{marginBottom: 15}}>
       <Text variant="inputLabel">
         • Min price:{' '}
         <Text>
-          {minPrice} USD
+          ${minPrice}
           {hasWallet && ` ~ ${minimumPriceCryptoCoin.toFixed(3)} ${currency}`}
         </Text>
       </Text>
       <Text variant="inputLabel">• Actual amount to pay:</Text>
       <Text>
-        {'   '}
-        {amountPay} USD + Network Fee
+        {'   '}${amountPay} + Network Fee
         {hasWallet &&
           ` ~ ${parseFloat(
             (amountPay * minimumPriceCryptoCoin) / minPrice || 0,
           ).toFixed(5)} ${currency}`}
       </Text>
-      <Text variant="inputLabel" style={{marginBottom: 15}}>
+
+      {/* <Text variant="inputLabel" style={{marginBottom: 15}}>
         • Helper will receive:{' '}
         {priceType === 'fixed' ? (
           <Text>
@@ -1198,7 +1200,7 @@ const CryptoPriceInfo = ({
               ).toFixed(5)} ${currency}`}
           </Text>
         )}
-      </Text>
+      </Text> */}
     </View>
   );
 };

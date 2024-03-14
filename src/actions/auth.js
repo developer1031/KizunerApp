@@ -289,7 +289,7 @@ export const login = (data) => {
             showAlert({
               title: 'Success',
               type: 'success',
-              body: `Welcome back, ${result?.data?.self?.data?.name}!`,
+              body: `Welcome Kizuner, ${result?.data?.self?.data?.name}!`,
             }),
           );
         }
@@ -325,7 +325,7 @@ export const loginSocial = (provider, token, name, secret = null) =>
           showAlert({
             title: 'Success',
             type: 'success',
-            body: `Welcome back, ${result?.data?.self?.data?.name}!`,
+            body: `Welcome Kizuner, ${result?.data?.self?.data?.name}!`,
           }),
         );
         if (provider === 'facebook') {

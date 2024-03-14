@@ -1,6 +1,8 @@
 import React from 'react';
 import FormikInput from 'components/FormikInput';
 
+export const BANK_NORMAL_COUNTRY = ['BD', 'BO', 'ID', 'PY', 'TH', 'UY', 'VN'];
+
 const App = ({formikProps}) => {
   return (
     <>

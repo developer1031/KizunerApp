@@ -162,8 +162,8 @@ const WalletScreen = ({navigation}) => {
                     {item.label === labelConnection && isStripeConnected && (
                       <>
                         <Text variant="headerBlack">
-                          {currency == 'jpy' ? '￥' : '$'}
-                          {num_delimiter(amount)}
+                          {/* {currency == 'jpy' ? '￥' : '$'} */}
+                          {`$${num_delimiter(amount)}`}
                         </Text>
                         <Text
                           variant="caption"

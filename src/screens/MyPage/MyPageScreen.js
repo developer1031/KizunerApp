@@ -8,6 +8,7 @@ import {
   RefreshControl,
   StatusBar,
   Platform,
+  ScrollView,
 } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -60,7 +61,7 @@ import {
   getUserInfo,
   getSelfFeed,
 } from 'actions';
-import {ScrollView} from 'react-native';
+import {getWalletStripeStatus} from 'actions';
 
 const width = Dimensions.get('window').width;
 
@@ -105,6 +106,7 @@ const MyPageScreen = ({navigation}) => {
 
   useEffect(() => {
     handleGetHangouts(page);
+    dispatch(getWalletStripeStatus());
   }, []);
 
   useEffect(() => {

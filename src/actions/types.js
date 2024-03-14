@@ -183,6 +183,14 @@ export const DELETE_RATING = generateThunkType('DELETE_RATING');
 export const GET_USER_RATINGS = generateThunkType('GET_USER_RATINGS');
 export const UPDATE_FCM_TOKEN = generateThunkType('UPDATE_FCM_TOKEN');
 export const UPDATE_NOTI_SETTING = generateThunkType('UPDATE_NOTI_SETTING');
+export const UPDATE_NOTI_HANGOUT_HELP = generateThunkType(
+  'UPDATE_NOTI_HANGOUT_HELP',
+);
+export const UPDATE_NOTI_MESSAGE = generateThunkType('UPDATE_NOTI_MESSAGE');
+export const UPDATE_NOTI_FOLLOW = generateThunkType('UPDATE_NOTI_FOLLOW');
+export const UPDATE_NOTI_LIKE = generateThunkType('UPDATE_NOTI_LIKE');
+export const UPDATE_NOTI_COMMENT = generateThunkType('UPDATE_NOTI_COMMENT');
+export const UPDATE_EMAIL_PAYMENT = generateThunkType('UPDATE_EMAIL_PAYMENT');
 export const UPDATE_EMAIL_SETTING = generateThunkType('UPDATE_EMAIL_SETTING');
 export const GET_NOTI_SETTING = generateThunkType('GET_NOTI_SETTING');
 export const GET_EMAIL_SETTING = generateThunkType('GET_EMAIL_SETTING');

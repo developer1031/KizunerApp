@@ -5,15 +5,6 @@ const App = ({formikProps}) => {
   return (
     <>
       <FormikInput
-        name="account_name"
-        {...formikProps}
-        inputProps={{
-          label: 'Account Name',
-          returnKeyType: 'next',
-          placeholder: '',
-        }}
-      />
-      <FormikInput
         name="routing_number"
         {...formikProps}
         inputProps={{

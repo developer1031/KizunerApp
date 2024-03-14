@@ -397,7 +397,7 @@ const GuestHangoutManagementScreen = ({navigation}) => {
   const renderItem = ({item, index}) => {
     return (
       <OfferItem
-        key={`${index}-${item.id}`}
+        key={`${index}-${item.id}-${item.payment_status}`}
         type="guest"
         data={item}
         isHangout={true}

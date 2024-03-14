@@ -261,7 +261,9 @@ const CastHangoutManagementScreen = () => {
   };
 
   const payByInvoicUrl = async (invoice_url) => {
+    console.log(invoice_url);
     const supported = await Linking.canOpenURL(invoice_url);
+    console.log(supported);
     if (supported) {
       await Linking.openURL(invoice_url);
 
@@ -287,6 +289,8 @@ const CastHangoutManagementScreen = () => {
   const onPayHangout = (item) => {
     setSelectedItem((prev) => (prev = item));
     setLoad(true);
+
+    console.log(item);
 
     if (item.invoice_url) {
       return payByInvoicUrl(item.invoice_url);
@@ -579,9 +583,12 @@ const CastHangoutManagementScreen = () => {
       dispatch(
         updateOfferStatus(data, {
           success: (res) => {
+            console.log('updateOfferStatus', res.data);
+            setLoad(false);
             payByInvoicUrl(res.data.invoice_url);
           },
           error: () => {
+            console.log("_____ERROR");
             setLoad(false);
             setSelectedItem({});
           },

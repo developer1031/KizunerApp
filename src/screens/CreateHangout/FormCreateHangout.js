@@ -1223,6 +1223,7 @@ const CreditPriceInfo = ({
   minAmountValue,
   maxAmountValue,
 }) => {
+  const minPrice = 10;
   const fee = 10;
   const guestFee = 5;
 
@@ -1234,18 +1235,16 @@ const CreditPriceInfo = ({
   return (
     <View>
       <Text variant="inputLabel">
-        • Min price: <Text>10 USD</Text>
+        • Min price: <Text>${minPrice}</Text>
       </Text>
-      <Text variant="inputLabel">
-        • Guest will pay: <Text>{amountPay} USD</Text>
-      </Text>
+
       <Text variant="inputLabel" style={{marginBottom: 15}}>
         • Actual amount received:{' '}
         {priceType === 'fixed' ? (
-          <Text>{amount.toFixed(2)} USD</Text>
+          <Text>${amount.toFixed(2)}</Text>
         ) : (
           <Text>
-            {minAmount.toFixed(2)} - {maxAmount.toFixed(2)} USD
+            ${minAmount.toFixed(2)} - ${maxAmount.toFixed(2)}
           </Text>
         )}
       </Text>
@@ -1274,16 +1273,16 @@ const CryptoPriceInfo = ({
   const hasWallet = false;
 
   return (
-    <View>
+    <View style={{marginBottom: 15}}>
       <Text variant="inputLabel">
         • Min price:{' '}
         <Text>
-          {minPrice} USD
+          ${minPrice}
           {hasWallet && ` ~ ${minimumPriceCryptoCoin.toFixed(3)} ${currency}`}
         </Text>
       </Text>
 
-      <Text variant="inputLabel">• Guest will pay:</Text>
+      {/* <Text variant="inputLabel">• Guest will pay:</Text>
       <Text>
         {'   '}
         {amountPay} USD + Network Fee
@@ -1291,30 +1290,28 @@ const CryptoPriceInfo = ({
           ` ~ ${parseFloat(
             (amountPay * minimumPriceCryptoCoin) / minPrice || 0,
           ).toFixed(5)} ${currency}`}
-      </Text>
+      </Text> */}
 
-      <Text variant="inputLabel" style={{marginBottom: 15}}>
-        • Actual amount received:{' '}
-        {priceType === 'fixed' ? (
-          <Text>
-            {amount.toFixed(2)} USD
-            {hasWallet &&
-              ` ~ ${parseFloat(
-                (amount * minimumPriceCryptoCoin) / minPrice || 0,
-              ).toFixed(5)} ${currency}`}
-          </Text>
-        ) : (
-          <Text>
-            {minAmount.toFixed(2)} - {maxAmount.toFixed(2)} USD
-            {hasWallet &&
-              ` ~ ${parseFloat(
-                (minAmount * minimumPriceCryptoCoin) / minPrice || 0,
-              ).toFixed(5)} - ${parseFloat(
-                (maxAmount * minimumPriceCryptoCoin) / minPrice || 0,
-              ).toFixed(5)} ${currency}`}
-          </Text>
-        )}
-      </Text>
+      <Text variant="inputLabel">• Actual amount received: </Text>
+      {priceType === 'fixed' ? (
+        <Text>
+          {'   '}${amount.toFixed(2)} - Network Fee
+          {hasWallet &&
+            ` ~ ${parseFloat(
+              (amount * minimumPriceCryptoCoin) / minPrice || 0,
+            ).toFixed(5)} ${currency}`}
+        </Text>
+      ) : (
+        <Text>
+          {'   '}${minAmount.toFixed(2)} - ${maxAmount.toFixed(2)} - Network Fee
+          {hasWallet &&
+            ` ~ ${parseFloat(
+              (minAmount * minimumPriceCryptoCoin) / minPrice || 0,
+            ).toFixed(5)} - ${parseFloat(
+              (maxAmount * minimumPriceCryptoCoin) / minPrice || 0,
+            ).toFixed(5)} ${currency}`}
+        </Text>
+      )}
     </View>
   );
 };

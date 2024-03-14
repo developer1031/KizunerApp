@@ -11,6 +11,12 @@ import {
   READ_NOTI,
   DELETE_NOTI,
   UPDATE_EMAIL_SETTING,
+  UPDATE_NOTI_HANGOUT_HELP,
+  UPDATE_NOTI_MESSAGE,
+  UPDATE_NOTI_FOLLOW,
+  UPDATE_NOTI_LIKE,
+  UPDATE_NOTI_COMMENT,
+  UPDATE_EMAIL_PAYMENT,
 } from './types';
 
 export const readNoti = (id, callback) =>
@@ -106,5 +112,65 @@ export const getNotiList = ({page}) =>
         per_page: 10,
         page,
       },
+    },
+  })();
+
+export const updateHangoutHelpNoti = ({hangout_help_notification}) =>
+  generateThunkAction({
+    actionType: UPDATE_NOTI_HANGOUT_HELP,
+    apiOptions: {
+      endpoint: '/devices/hangout_help_notification',
+      method: 'POST',
+      data: {hangout_help_notification},
+    },
+  })();
+
+export const updateMessageNoti = ({message_notification}) =>
+  generateThunkAction({
+    actionType: UPDATE_NOTI_MESSAGE,
+    apiOptions: {
+      endpoint: '/devices/message_notification',
+      method: 'POST',
+      data: {message_notification},
+    },
+  })();
+
+export const updateFollowNoti = ({follow_notification}) =>
+  generateThunkAction({
+    actionType: UPDATE_NOTI_FOLLOW,
+    apiOptions: {
+      endpoint: '/devices/follow_notification',
+      method: 'POST',
+      data: {follow_notification},
+    },
+  })();
+
+export const updateCommentNoti = ({comment_notification}) =>
+  generateThunkAction({
+    actionType: UPDATE_NOTI_COMMENT,
+    apiOptions: {
+      endpoint: '/devices/comment_notification',
+      method: 'POST',
+      data: {comment_notification},
+    },
+  })();
+
+export const updateLikeNoti = ({like_notification}) =>
+  generateThunkAction({
+    actionType: UPDATE_NOTI_LIKE,
+    apiOptions: {
+      endpoint: '/devices/like_notification',
+      method: 'POST',
+      data: {like_notification},
+    },
+  })();
+
+export const updatePaymentEmail = ({payment_email_notification}) =>
+  generateThunkAction({
+    actionType: UPDATE_EMAIL_PAYMENT,
+    apiOptions: {
+      endpoint: '/devices/payment_email_notification',
+      method: 'POST',
+      data: {payment_email_notification},
     },
   })();

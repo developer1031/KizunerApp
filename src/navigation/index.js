@@ -37,6 +37,8 @@ import {
 import SettingsScreen, {
   MyDetailsScreen,
   ChangePasswordScreen,
+  NotificationSetting,
+  EmailSetting,
 } from 'screens/Settings';
 import GuestListScreen from 'screens/GuestList';
 import GuestListHelpScreen from 'screens/GuestHelpList';
@@ -390,6 +392,11 @@ export default () => {
         />
         <Stack.Screen name="EditProfile" component={EditProfileScreen} />
         <Stack.Screen name="Settings" component={SettingsScreen} />
+        <Stack.Screen
+          name="NotificationSetting"
+          component={NotificationSetting}
+        />
+        <Stack.Screen name="EmailSetting" component={EmailSetting} />
         <Stack.Screen name="MyDetails" component={MyDetailsScreen} />
         <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} />
 

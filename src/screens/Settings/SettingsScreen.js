@@ -90,79 +90,40 @@ const SettingsScreen = ({navigation}) => {
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.scrollWrap}>
-        <View key={'toggleNotification'} style={styles.menuItemWrap}>
+        <Touchable
+          onPress={() => navigation.navigate('NotificationSetting')}
+          key={'toggleNotification'}
+          style={styles.menuItemWrap}>
           <View style={styles.menuItemContainer}>
             <View style={styles.menuItemLeft}>
               <View style={styles.menuItemIcon}>
                 <MaterialCommunityIcons
                   name="bell"
-                  size={getSize.f(22)}
+                  size={getSize.f(20)}
                   color={theme.colors.primary}
                 />
               </View>
-              <Text style={styles.menuItemWrapLabel}>On/ Off Notification</Text>
+              <Text style={styles.menuItemWrapLabel}>Notification Setting</Text>
             </View>
-
-            <Switch
-              trackColor={{
-                false: theme.colors.disabled,
-                true: theme.colors.secondary,
-              }}
-              thumbColor={theme.colors.paper}
-              ios_backgroundColor={theme.colors.disabled}
-              onValueChange={() =>
-                dispatch(
-                  updateNotiSetting({
-                    notification: !allow,
-                    email_notification: allowEmail,
-                  }),
-                )
-              }
-              value={allow}
-              disabled={
-                beingGetNotiSetting || beingUpdateSetting ? true : false
-              }
-            />
           </View>
-        </View>
-        <View key={'toggleReceiveEmail'} style={styles.menuItemWrap}>
+        </Touchable>
+        <Touchable
+          onPress={() => navigation.navigate('EmailSetting')}
+          key={'toggleReceiveEmail'}
+          style={styles.menuItemWrap}>
           <View style={styles.menuItemContainer}>
             <View style={styles.menuItemLeft}>
               <View style={styles.menuItemIcon}>
                 <MaterialCommunityIcons
                   name="bell"
-                  size={getSize.f(22)}
+                  size={getSize.f(20)}
                   color={theme.colors.primary}
                 />
               </View>
-              <Text style={styles.menuItemWrapLabel}>
-                On/ Off Receive Email
-              </Text>
+              <Text style={styles.menuItemWrapLabel}>Email Setting</Text>
             </View>
-
-            <Switch
-              trackColor={{
-                false: theme.colors.disabled,
-                true: theme.colors.secondary,
-              }}
-              thumbColor={theme.colors.paper}
-              ios_backgroundColor={theme.colors.disabled}
-              onValueChange={() =>
-                dispatch(
-                  updateEmailSetting({
-                    notification: allow,
-                    email_notification: !allowEmail,
-                  }),
-                )
-              }
-              value={allowEmail}
-              disabled={
-                beingGetNotiSetting || beingUpdateEmailSetting ? true : false
-              }
-            />
           </View>
-        </View>
-
+        </Touchable>
         <Touchable
           onPress={() => navigation.navigate('BlockList')}
           key={'blockList'}

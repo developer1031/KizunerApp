@@ -1,6 +1,8 @@
 import React from 'react';
 import FormikInput from 'components/FormikInput';
 
+export const BANK_BRANCH_CODES = ['BR', 'DO', 'JM', 'SG', 'LK', 'TT', 'UZ'];
+
 const App = ({formikProps}) => {
   return (
     <>

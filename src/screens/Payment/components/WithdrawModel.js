@@ -1,9 +1,9 @@
 import {Dimensions, Modal, StyleSheet, View} from 'react-native';
 import React, {forwardRef, useImperativeHandle, useState} from 'react';
 import {getSize} from 'utils/responsive';
-import {Text, Touchable, Button} from 'components';
+import {Text, Loading, Button} from 'components';
 import {useSelector, useDispatch} from 'react-redux';
-import {payoutStripe} from 'actions';
+import {payoutStripe, showAlert} from 'actions';
 import {num_delimiter} from 'utils/util';
 
 const WithdrawModel = forwardRef(({countryCode}, ref) => {
@@ -13,6 +13,7 @@ const WithdrawModel = forwardRef(({countryCode}, ref) => {
   const walletState = useSelector((state) => state.wallet);
   const {stripeStatusResponse} = walletState;
   const {amount, currency} = stripeStatusResponse;
+  const [loading, setLoding] = useState(false);
 
   const unit = currency == 'jpy' ? '￥' : '$';
   const unitFee = currency === 'jpy' ? 3 * 100 : 3;
@@ -21,6 +22,8 @@ const WithdrawModel = forwardRef(({countryCode}, ref) => {
   const close = () => setVisible(false);
   const onPayout = () => {
     if (amount) {
+      setLoding(true);
+
       dispatch(
         payoutStripe(
           {
@@ -29,12 +32,28 @@ const WithdrawModel = forwardRef(({countryCode}, ref) => {
           },
           {
             success: (result) => {
-              console.log(result);
+              setLoding(false);
               setVisible(false);
+              console.log(result);
+              dispatch(
+                showAlert({
+                  title: 'Success',
+                  type: 'success',
+                  body: 'Payout success',
+                }),
+              );
             },
             failure: (err) => {
-              console.log(err);
+              setLoding(false);
               setVisible(false);
+              console.log(err);
+              dispatch(
+                showAlert({
+                  title: 'Error',
+                  type: 'error',
+                  body: 'Payout failed',
+                }),
+              );
             },
           },
         ),
@@ -84,7 +103,10 @@ const WithdrawModel = forwardRef(({countryCode}, ref) => {
             </View>
 
             <View style={{flex: 1}}>
-              <Button title="Confirm" onPress={onPayout} />
+              <Button
+                title={loading ? <Loading /> : 'Confirm'}
+                onPress={onPayout}
+              />
             </View>
           </View>
         </View>

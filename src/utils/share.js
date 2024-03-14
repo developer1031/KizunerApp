@@ -43,18 +43,18 @@ export const shareMultipleMediaFile = async (
       urlImage = mediaData[0].path || mediaData[0].thumb;
     }
   }
-  if (urlImage) {
-    imageBase64 = await RNFetchBlob.config({
-      fileCache: true,
-    })
-      .fetch('GET', urlImage)
-      .then((resp) => {
-        let base64s = RNFetchBlob.fs
-          .readFile(resp.data, 'base64')
-          .then((dataImage) => 'data:image/png;base64,' + dataImage);
-        return base64s;
-      });
-  }
+  // if (urlImage) {
+  //   imageBase64 = await RNFetchBlob.config({
+  //     fileCache: true,
+  //   })
+  //     .fetch('GET', urlImage)
+  //     .then((resp) => {
+  //       let base64s = RNFetchBlob.fs
+  //         .readFile(resp.data, 'base64')
+  //         .then((dataImage) => 'data:image/png;base64,' + dataImage);
+  //       return base64s;
+  //     });
+  // }
 
   const shareLinks =
     'https://kizuner.com/?type=' + data?.type + '&id=' + data?.id;
@@ -77,98 +77,83 @@ export const shareMultipleMediaFile = async (
       descriptionText: data.type != 'status' ? data?.description : '',
     },
   };
-  const url = await dynamicLinks().buildShortLink(dynamicLinkParameters);
 
-  const dl = url.replace('https://kizuner.page.link/', '');
-
-  const hackyLinking = `${SHARE_URL}/k?dl=${dl}&t=${encodeURIComponent(
-    data?.title,
-  )}&d=${encodeURIComponent(data?.description)}&i=${encodeURIComponent(
-    urlImage?.replace(
-      'https://storage.googleapis.com/kizuner-storage-live/',
-      '',
-    ),
-  )}&k=${encodeURIComponent(data.type)}&id=${encodeURIComponent(data?.id)}`;
-
-  const shortLink = await generateShortLink(hackyLinking);
   try {
-    const sharingUrls = [];
-    if (imageBase64) {
-      sharingUrls.push(imageBase64);
-    }
-    sharingUrls.push(shortLink || urls[0] || 'https://kizuner.com');
+    // let url = await dynamicLinks().buildLink(dynamicLinkParameters);
+    const url = await dynamicLinks().buildShortLink(
+      dynamicLinkParameters,
+      'SHORT',
+    );
 
-    Share.open({
-      title: title || 'Kizuner',
-      message: message || '',
-      urls: sharingUrls,
-    });
-    // await Share.open(
-    //   Platform.select({
-    //     android: {
-    //       title: title || 'Kizuner',
-    //       message: message || '',
-    //       failOnCancel: false,
-    //       url: shortLink || urls[0] || 'https://kizuner.com',
-    //     },
-    //     ios: {
-    //       activityItemSources: [
-    //         {
-    //           placeholderItem: {
-    //             type: 'text',
-    //             content: `${message} ${shortLink}`,
-    //           },
-    //           item: {
-    //             copyToPasteBoard: {
-    //               type: 'text',
-    //               content: `${message} ${shortLink}`,
-    //             },
-    //             default: {
-    //               type: 'text',
-    //               content: `${message} ${shortLink}`,
-    //             },
-    //           },
-    //           subject: {
-    //             copyToPasteBoard: `${message} ${shortLink}`,
-    //             default: title,
-    //           },
-    //           linkMetadata: {originalUrl: shortLink, shortLink, title},
-    //         },
-    //       ],
-    //     },
-    //   }),
-    // );
+    const dl = url.replace('https://kizuner.page.link/', '');
+
+    console.log(urlImage);
+
+    const hackyLinking = `${SHARE_URL}/k?dl=${dl}&t=${encodeURIComponent(
+      data?.title,
+    )}&d=${encodeURIComponent(data?.description)}&i=${encodeURIComponent(
+      urlImage?.replace(
+        'https://storage.googleapis.com/kizuner-storage-live/',
+        '',
+      ),
+    )}&k=${encodeURIComponent(data.type)}&id=${encodeURIComponent(data?.id)}`;
+
+    const shortLink = await generateShortLink(hackyLinking);
+
+    // const sharingUrls = [];
+    // if (imageBase64) {
+    //   sharingUrls.push(imageBase64);
+    // }
+    // sharingUrls.push(shortLink || urls[0] || 'https://kizuner.com');
+
+    console.log(urls);
+    console.log(shortLink);
+
+    // Share.open({
+    //   title: title || 'Kizuner',
+    //   message: message || '',
+    //   urls: sharingUrls,
+    // });
+    await Share.open(
+      Platform.select({
+        android: {
+          title: title || 'Kizuner',
+          message: message || '',
+          failOnCancel: false,
+          url: shortLink || urls[0] || 'https://kizuner.com',
+        },
+        ios: {
+          activityItemSources: [
+            {
+              placeholderItem: {
+                type: 'text',
+                content: `${message} ${shortLink}`,
+              },
+              item: {
+                copyToPasteBoard: {
+                  type: 'text',
+                  content: `${message} ${shortLink}`,
+                },
+                default: {
+                  type: 'text',
+                  content: `${message} ${shortLink}`,
+                },
+              },
+              subject: {
+                copyToPasteBoard: `${message} ${shortLink}`,
+                default: title,
+              },
+              linkMetadata: {originalUrl: shortLink, shortLink, title},
+            },
+          ],
+        },
+      }),
+    );
 
     callback();
   } catch (e) {
     console.log(e);
   }
-
-  // try {
-  //   if (data?.type === 'status') {
-  //     fetchApi({
-  //       method: 'POST',
-  //       endpoint: '/statuses/react',
-  //       data: {status_id: data?.id, react_type: 'share'},
-  //     });
-  //   }
-  //   if (data?.type === 'hangout') {
-  //     fetchApi({
-  //       method: 'POST',
-  //       endpoint: '/hangouts/react',
-  //       data: {hangout_id: data?.id, react_type: 'share'},
-  //     });
-  //   }
-  //   if (data?.type === 'help') {
-  //     fetchApi({
-  //       method: 'POST',
-  //       endpoint: '/helps/react',
-  //       data: {help_id: data?.id, react_type: 'share'},
-  //     });
-  //   }
-
-  //   // return shareResponse;
-  // } catch (error) {}
 };
 
 export const shareDownloadImage = async (title, message, data, urlImage) => {

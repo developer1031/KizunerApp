@@ -30,57 +30,32 @@ import {
 import {showAlert} from 'actions';
 import {getWalletStripeStatus} from 'actions';
 import {HeaderLinear} from 'components/HeaderLinear';
-const {phone} = require('phone');
 
 import BankJapan from './components/BankJapan';
 import BankDefault from './components/_BankDefault';
-import BankACOnly from './components/_BankACOnly';
+import BankACOnly, {ACN_ONLY_COUNTRY} from './components/_BankACOnly';
+import BankIban, {IBAN_COUNTRY} from './components/_BankIban';
+import BankNormal, {BANK_NORMAL_COUNTRY} from './components/_BankNormal';
+import BankNormalType, {BANK_TYPE_CODES} from './components/_BankNormalType';
+import BankNormalBranch, {
+  BANK_BRANCH_CODES,
+} from './components/_BankNormalBranch';
+import BankSwift, {BANK_SWIFT_CODES} from './components/_BankSwift';
+import BankArgentina from './components/BankArgentina';
+import BankkAustralia from './components/BankAustralia';
+import BankAzerbaijan from './components/BankAzerbaijan';
+import BankCanada from './components/BankCanada';
+import BankGhana from './components/BankGhana';
+import BankHongkong from './components/BankHongkong';
+import BankIndia from './components/BankIndia';
+import BankMalaysia from './components/BankMalaysia';
+import BankMexico from './components/BankMexico';
+import BankNewZealand from './components/BankNewZeland';
+import BankPeru from './components/BankPeru';
+import BankUK from './components/BankUK';
+import BankUS from './components/BankUS';
 
 const {width, height} = Dimensions.get('window');
-const ACN_ONLY_COUNTRY = [
-  'AR',
-  'BE',
-  'BG',
-  'CR',
-  'CI',
-  'HR',
-  'CY',
-  'CZ',
-  'DK',
-  'EE',
-  'FI',
-  'FR',
-  'DE',
-  'GI',
-  'HU',
-  'IS',
-  'IE',
-  'IL',
-  'IT',
-  'LV',
-  'LI',
-  'LT',
-  'LU',
-  'MT',
-  'MC',
-  'NL',
-  'NE',
-  'NO',
-  'PL',
-  'PT',
-  'RO',
-  'SN',
-  'SK',
-  'SI',
-  'ES',
-  'SE',
-  'CH',
-  'TN',
-  'AE',
-  'MX',
-  'NZ',
-  'PE',
-];
 
 const initialValues = {
   first_name: '',
@@ -97,15 +72,26 @@ const initialValues = {
   dob: '',
   phone: '',
   id_number: '',
-  // ssn_last_4: '',
-  bank_code: '',
-  branch_code: '',
+  ssn_last_4: '',
+  identity_document: '',
+  identity_document_back: '',
   routing_number: '',
   account_name: '',
   account_number: '',
   aconfirm_account_number: '',
-  identity_document: '',
-  identity_document_back: '',
+  iban: '',
+  bank_code: '',
+  branch_code: '',
+  sort_code: '',
+  bsb: '',
+  transit_number: '',
+  institution_number: '',
+  swift_code: '',
+  clabe: '',
+  cci: '',
+  ifsc_code: '',
+  clearing_code: '',
+  cbu: '',
 };
 
 const ConnectStripeScreen = ({navigation}) => {
@@ -124,7 +110,7 @@ const ConnectStripeScreen = ({navigation}) => {
 
   const [showCountryPicker, setShowCountryPicker] = useState(false);
 
-  const [countryCode, setCountryCode] = useState('JP');
+  const [countryCode, setCountryCode] = useState('US');
   const countryData = countriesData[countryCode];
 
   const [initialized, setInitialized] = useState(false);
@@ -212,29 +198,41 @@ const ConnectStripeScreen = ({navigation}) => {
         {
           success: (result) => {
             const {account} = result;
+            const callingCode = countriesData[account.country].callingCode[0];
 
             const {individual} = account;
-            const {countryCode, phoneNumber, countryIso2} = phone(
-              individual.phone,
-            );
 
-            setDefaultFormValues({
-              first_name: individual.first_name,
-              last_name: individual.last_name,
-              first_name_kana: individual.first_name_kana,
-              last_name_kana: individual.last_name_kana,
-              postal_code: individual.address_kana.postal_code,
-              address_state: individual.address_kanji.state,
-              address_city: individual.address_kanji.city,
-              address_line1: individual.address_kanji.line1,
-              address_line1_kana: individual.address_kana.line1,
-              address_line2: individual.address_kanji.line2,
-              address_line2_kana: individual.address_kana.line2,
-              dob: `${individual.dob.day}/${individual.dob.month}/${individual.dob.year}`,
-              phone: phoneNumber.substring(countryCode.length),
-            });
+            if (countryCode == 'JP') {
+              setDefaultFormValues({
+                first_name: individual.first_name,
+                last_name: individual.last_name,
+                first_name_kana: individual.first_name_kana,
+                last_name_kana: individual.last_name_kana,
+                postal_code: individual.address_kana.postal_code,
+                address_state: individual.address_kanji.state,
+                address_city: individual.address_kanji.city,
+                address_line1: individual.address_kanji.line1,
+                address_line1_kana: individual.address_kana.line1,
+                address_line2: individual.address_kanji.line2,
+                address_line2_kana: individual.address_kana.line2,
+                dob: `${individual.dob.day}/${individual.dob.month}/${individual.dob.year}`,
+                phone: individual.phone.substring(callingCode.length + 1),
+              });
+            } else {
+              setDefaultFormValues({
+                first_name: individual.first_name,
+                last_name: individual.last_name,
+                postal_code: individual.address.postal_code,
+                address_state: individual.address.state,
+                address_city: individual.address.city,
+                address_line1: individual.address.line1,
+                address_line2: individual.address.line2,
+                dob: `${individual.dob.day}/${individual.dob.month}/${individual.dob.year}`,
+                phone: individual.phone.substring(callingCode.length + 1),
+              });
+            }
 
-            setCountryCode(countryIso2);
+            setCountryCode(account.country);
             setIsEditing(true);
             setInitialized(true);
           },
@@ -268,10 +266,8 @@ const ConnectStripeScreen = ({navigation}) => {
       currency: countryCodeData.currency[0],
       phone: `+${countryCodeData.callingCode[0]}${data.phone}`,
       dob: date,
+      isEditing: isEditing,
     };
-    if (countryCode == 'JP') {
-      req.routing_number = data.bank_code + data.branch_code;
-    }
 
     dispatch(
       connectStripe(req, {
@@ -472,9 +468,10 @@ const FormikComponent = (props) => {
         if (countryCode == 'JP') {
           validateOptions.bank_code = yup.string().required('required');
           validateOptions.branch_code = yup.string().required('required');
+          validateOptions.account_name = yup.string().required('required');
         } else if (ACN_ONLY_COUNTRY.includes(countryCode)) {
-        } else {
-          validateOptions.routing_number = yup.string().required('required');
+        } else if (IBAN_COUNTRY.includes(countryCode)) {
+          validateOptions.iban = yup.string().required('required');
         }
 
         validateOptions.account_name = yup.string().required('required');
@@ -484,6 +481,7 @@ const FormikComponent = (props) => {
         delete validateOptions.routing_number;
         delete validateOptions.account_number;
         delete validateOptions.confirm_account_number;
+        delete validateOptions.iban;
       }
       setRefresh(!refresh);
     }
@@ -496,15 +494,9 @@ const FormikComponent = (props) => {
         validateOptions.identity_document_back = yup
           .string()
           .required('required');
-        validateOptions.id_number = yup
-          .number()
-          .integer()
-          .typeError('please enter number value only')
-          .required('required');
       } else {
         delete validateOptions.identity_document;
         delete validateOptions.identity_document_back;
-        delete validateOptions.id_number;
       }
       setRefresh(!refresh);
     } else {
@@ -523,10 +515,8 @@ const FormikComponent = (props) => {
     } else if (ACN_ONLY_COUNTRY.includes(countryCode)) {
       validateOptions.account_name = yup.string().required('required');
       validateOptions.account_number = yup.string().required('required');
-    } else {
-      validateOptions.account_name = yup.string().required('required');
-      validateOptions.routing_number = yup.string().required('required');
-      validateOptions.account_number = yup.string().required('required');
+    } else if (IBAN_COUNTRY.includes(countryCode)) {
+      validateOptions.iban = yup.string().required('required');
     }
   }, [countryCode]);
 
@@ -660,6 +650,30 @@ const FormikComponent = (props) => {
                   />
                 </>
               )}
+
+              {['KR', 'AU'].includes(countryCode) && (
+                <>
+                  <FormikInput
+                    name="address_state"
+                    {...formikProps}
+                    inputProps={{
+                      label: 'Province',
+                      returnKeyType: 'next',
+                      placeholder: '',
+                    }}
+                  />
+                  <FormikInput
+                    name="address_city"
+                    {...formikProps}
+                    inputProps={{
+                      label: 'City',
+                      returnKeyType: 'next',
+                      placeholder: '',
+                    }}
+                  />
+                </>
+              )}
+
               <CountryComponent
                 onPress={() => props.setShowCountryPicker(true)}
                 styles={styles}
@@ -681,6 +695,8 @@ const FormikComponent = (props) => {
                 styles={styles}
                 {...props}
               />
+
+              {/* COUNTRY-CODE */}
             </InfoComponent>
 
             {isEditing && !editVerification && (
@@ -706,16 +722,28 @@ const FormikComponent = (props) => {
                   formikProps={formikProps}
                 />
 
-                <FormikInput
-                  name="id_number"
-                  {...formikProps}
-                  inputProps={{
-                    label: 'Social Security number',
-                    type: 'number-pad',
-                    returnKeyType: 'next',
-                    placeholder: '123-45-6789',
-                  }}
-                />
+                {countryCode == 'US' && (
+                  <>
+                    <FormikInput
+                      name="id_number"
+                      {...formikProps}
+                      inputProps={{
+                        label: 'Social Security number',
+                        returnKeyType: 'next',
+                        placeholder: '123-45-6789',
+                      }}
+                    />
+                    <FormikInput
+                      name="tax_id"
+                      {...formikProps}
+                      inputProps={{
+                        label: 'Taxpayer Identification Number (TIN)',
+                        returnKeyType: 'next',
+                        placeholder: '123-45-6789',
+                      }}
+                    />
+                  </>
+                )}
               </VerificationComponent>
             )}
 
@@ -902,16 +930,55 @@ const ExternalAccount = ({styles, countryCode, formikProps}) => {
       return <BankJapan formikProps={formikProps} />;
     } else if (ACN_ONLY_COUNTRY.includes(countryCode)) {
       return <BankACOnly formikProps={formikProps} />;
-    } else {
-      return <BankDefault formikProps={formikProps} />;
+    } else if (IBAN_COUNTRY.includes(countryCode)) {
+      return <BankIban formikProps={formikProps} />;
+    } else if (BANK_BRANCH_CODES.includes(countryCode)) {
+      return <BankNormalBranch formikProps={formikProps} />;
+    } else if (BANK_NORMAL_COUNTRY.includes(countryCode)) {
+      return <BankNormal formikProps={formikProps} />;
+    } else if (BANK_SWIFT_CODES.includes(countryCode)) {
+      return <BankSwift formikProps={formikProps} />;
+    } else if (BANK_TYPE_CODES.includes(countryCode)) {
+      return <BankNormalType formikProps={formikProps} />;
     }
+
+    switch (countryCode) {
+      case 'AR':
+        return <BankArgentina formikProps={formikProps} />;
+      case 'AU':
+        return <BankkAustralia formikProps={formikProps} />;
+      case 'AZ':
+        return <BankAzerbaijan formikProps={formikProps} />;
+      case 'CA':
+        return <BankCanada formikProps={formikProps} />;
+      case 'GH':
+        return <BankGhana formikProps={formikProps} />;
+      case 'HK':
+        return <BankHongkong formikProps={formikProps} />;
+      case 'IN':
+        return <BankIndia formikProps={formikProps} />;
+      case 'MY':
+        return <BankMalaysia formikProps={formikProps} />;
+      case 'MX':
+        return <BankMexico formikProps={formikProps} />;
+      case 'NZ':
+        return <BankNewZealand formikProps={formikProps} />;
+      case 'PE':
+        return <BankPeru formikProps={formikProps} />;
+      case 'GB':
+        return <BankUK formikProps={formikProps} />;
+      case 'US':
+        return <BankUS formikProps={formikProps} />;
+    }
+
+    return <BankDefault formikProps={formikProps} />;
   };
 
   return (
     <Paper style={styles.formWrapper}>
       <Wrapper dismissKeyboard style={{backgroundColor: 'transparent'}}>
         <Text variant="bold" style={{marginBottom: getSize.w(24)}}>
-          Add your bank to receive payouts
+          Add your bank to receive payouts.
         </Text>
 
         {render_country_bank()}

@@ -85,14 +85,9 @@ export function generateThunkAction({
           }
         }
       } catch (error) {
-        console.log('=================================');
-        console.log('=================================');
         console.log('=========== error ===============');
         console.log(error);
         console.log(apiOptions);
-        console.log('=================================');
-        console.log('=================================');
-        console.log('=================================');
         dispatch({
           type: actionType.FAILURE,
           payload: {error, inputPayload},
