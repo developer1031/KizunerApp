@@ -1,7 +1,8 @@
 import React, {useRef, useEffect} from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Text} from 'react-native';
 import DropdownAlert from 'react-native-dropdownalert';
 import {useSelector, useDispatch} from 'react-redux';
+import LinearGradient from 'react-native-linear-gradient';
 
 import {hideAlert} from 'actions';
 import useTheme from 'theme';
@@ -28,19 +29,18 @@ const TopAlert = () => {
     }
   }, [alert]);
 
-  const handleTap = ({payload}) => {
-    switch (payload?.type) {
-      default:
-        return;
-    }
-  };
+  // const handleTap = ({payload}) => {
+  //   switch (payload?.type) {
+  //     default:
+  //       return;
+  //   }
+  // };
 
   return (
     <DropdownAlert
       ref={alertRef}
-      errorColor={'rgb(255,95,109)'}
-      successColor={'rgb(255,95,109)'}
-      // successColor={'#198754'}
+      errorColor={'rgb(250, 100, 100)'}
+      successColor={'rgb(250, 100, 100)'}
       zIndex={999999}
       elevation={10}
       translucent
@@ -48,10 +48,14 @@ const TopAlert = () => {
       defaultContainer={styles.container}
       titleStyle={styles.title}
       messageStyle={styles.message}
-      onTap={handleTap}
+      // onTap={handleTap}
       titleTextProps={{allowFontScaling: false}}
-      messageTextProps={{allowFontScaling: false}}
-    />
+      messageTextProps={{allowFontScaling: false}}>
+      {/* <LinearGradient
+        colors={theme.colors.gradient}
+        start={{x: 0, y: 0}}
+        end={{x: 1, y: 0}}></LinearGradient> */}
+    </DropdownAlert>
   );
 };
 
@@ -59,6 +63,8 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: getSize.w(15),
     paddingVertical: getSize.h(10),
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
   },
   logo: {
     width: getSize.h(30),

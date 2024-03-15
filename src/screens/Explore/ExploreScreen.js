@@ -43,6 +43,7 @@ import {
   getNotiCount,
   listChatRoomPublic,
   getRewardSetting,
+  showAlert,
 } from 'actions';
 import {fetchAddressForLocation} from 'utils/geolocationService';
 import {createUUID} from 'utils/util';
@@ -51,7 +52,7 @@ import {Icons} from 'utils/icon';
 
 const width = Dimensions.get('window').width;
 
-const ExploreScreen = () => {
+function ExploreScreen() {
   const insets = useSafeAreaInsets();
 
   const navigation = useNavigation();
@@ -380,15 +381,21 @@ const ExploreScreen = () => {
     mapIconBlack: {tintColor: '#000'},
   });
 
-  function renderHangoutItem({item}) {
+  function renderHangoutItem({item, index}) {
     return <HangoutExploreItem wrapperStyle={styles.itemWrapper} data={item} />;
   }
 
-  function renderChatRoomPublic({item}) {
-    return <ChatRoomExplore wrapperStyle={styles.itemWrapper} data={item} />;
+  function renderChatRoomPublic({item, index}) {
+    return (
+      <ChatRoomExplore
+        key={index}
+        wrapperStyle={styles.itemWrapper}
+        data={item}
+      />
+    );
   }
 
-  function renderVideoItem({item}) {
+  function renderVideoItem({item, index}) {
     return <VideoItem data={item} wrapperStyle={styles.itemWrapper} />;
   }
 
@@ -562,7 +569,7 @@ const ExploreScreen = () => {
         }
         onScroll={Animated.event(
           [{nativeEvent: {contentOffset: {y: scrollAnim}}}],
-          {useNativeDriver: false},
+          {useNativeDriver: true},
         )}>
         {/* <Paper style={styles.paper}>
           <View style={[styles.categoryWrap]}>
@@ -643,7 +650,7 @@ const ExploreScreen = () => {
           horizontal
           style={styles.sectionList}
           contentContainerStyle={styles.sectionListContent}
-          keyExtractor={(item) => createUUID()}
+          keyExtractor={(item) => `nearby_${item?.id}`}
           showsHorizontalScrollIndicator={false}
           ListFooterComponent={
             onlineListLoading && (
@@ -680,7 +687,7 @@ const ExploreScreen = () => {
           horizontal
           style={styles.sectionList}
           contentContainerStyle={styles.sectionListContent}
-          keyExtractor={(item) => createUUID()}
+          keyExtractor={(item) => `recommend_${item?.id}`}
           showsHorizontalScrollIndicator={false}
           ListFooterComponent={
             recommendListLoading && (
@@ -712,11 +719,11 @@ const ExploreScreen = () => {
           horizontal
           style={styles.sectionList}
           contentContainerStyle={styles.sectionListContent}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => `videos_${item.id}`}
           showsHorizontalScrollIndicator={false}
           snapToInterval={width - getSize.w(24 + 10)}
           pagingEnabled
-          initialNumToRender={6}
+          initialNumToRender={3}
           onEndReachedThreshold={0.5}
           onEndReached={handleGetMoreVideo}
           ItemSeparatorComponent={() => (
@@ -733,6 +740,6 @@ const ExploreScreen = () => {
       </Animated.ScrollView>
     </Wrapper>
   );
-};
+}
 
 export default ExploreScreen;

@@ -173,7 +173,7 @@ const BuyKizunaScreen = ({navigation}) => {
         data={packages}
         onScroll={Animated.event(
           [{nativeEvent: {contentOffset: {y: scrollAnim}}}],
-          {useNativeDriver: false},
+          {useNativeDriver: true},
         )}
         style={styles.scrollWrap}
         ListHeaderComponent={

@@ -93,7 +93,12 @@ import {OnboardingScreen, MainTourScreen} from 'screens/Onboarding';
 import {FakeHelpsScreen, FakeHangoutScreen} from 'screens/FakeHelps';
 import {EditCategoriesScreen} from 'screens/EditCategories';
 import Orientation from 'react-native-orientation-locker';
-import {getNotiCount, getConfigs, setNeedVerifyEmail} from 'actions';
+import {
+  getNotiCount,
+  getConfigs,
+  setNeedVerifyEmail,
+  updateFcmToken,
+} from 'actions';
 import {Platform} from 'react-native';
 import ConnectStripeScreen from '../screens/Payment/ConnectStripeScreen';
 import CardCreditManagementScreen from '../screens/Payment/CardCreditManagementScreen';
@@ -111,6 +116,7 @@ import {
 } from 'screens/Support';
 import WalletScreen from 'screens/Payment/WalletScreen';
 import PaymentOTPScreen from 'screens/Payment/PaymentOTPScreen';
+import {getFcmToken} from 'utils/notificationService';
 
 const Stack = createStackNavigator();
 
@@ -217,12 +223,17 @@ export default () => {
 
   useEffect(() => {
     dispatch(getConfigs());
-    Orientation.lockToPortrait();
   }, []);
 
   useEffect(() => {
     if (isAuth) {
       dispatch(getNotiCount());
+
+      async function fcmToken() {
+        const token = await getFcmToken();
+        dispatch(updateFcmToken({fcm_token: token}));
+      }
+      fcmToken();
     }
     // if (isAuth) {
     //   if (Platform.OS === 'ios') {
@@ -235,7 +246,7 @@ export default () => {
     // } else {
     //   firebase.notifications().setBadge(0);
     // }
-  }, [isAuth, count, requestList.length]);
+  }, [isAuth]);
 
   // useCallback(() => {
   //   if (isAuth) {
@@ -255,36 +266,36 @@ export default () => {
   //   checkFirstLauchApp();
   // }, []);
 
-  useEffect(() => {
-    //setIsFirstLaunch(false);
-    if (userInfo) {
-      analytics().setUserId(userInfo?.id);
-      analytics().setUserProperties({
-        name: userInfo?.name,
-        about: userInfo?.about,
-        phone: userInfo?.phone,
-        email: userInfo?.email,
-        birth_date: String(userInfo?.birth_date),
-        gender: String(userInfo?.gender),
-        age: String(userInfo.age),
-        kizuna: String(userInfo?.kizuna),
-      });
-    }
-  }, [userInfo]);
+  // useEffect(() => {
+  //   //setIsFirstLaunch(false);
+  //   if (userInfo) {
+  //     analytics().setUserId(userInfo?.id);
+  //     analytics().setUserProperties({
+  //       name: userInfo?.name,
+  //       about: userInfo?.about,
+  //       phone: userInfo?.phone,
+  //       email: userInfo?.email,
+  //       birth_date: String(userInfo?.birth_date),
+  //       gender: String(userInfo?.gender),
+  //       age: String(userInfo.age),
+  //       kizuna: String(userInfo?.kizuna),
+  //     });
+  //   }
+  // }, [userInfo]);
 
-  function handleStateChange(state) {
-    if (state) {
-      const previousRouteName = routeNameRef.current;
-      const currentRouteName = getActiveRouteName(state);
-      if (previousRouteName !== currentRouteName) {
-        analytics().logScreenView({
-          screen_class: currentRouteName,
-          screen_name: currentRouteName,
-        });
-      }
-      routeNameRef.current = currentRouteName;
-    }
-  }
+  // function handleStateChange(state) {
+  //   if (state) {
+  //     const previousRouteName = routeNameRef.current;
+  //     const currentRouteName = getActiveRouteName(state);
+  //     if (previousRouteName !== currentRouteName) {
+  //       analytics().logScreenView({
+  //         screen_class: currentRouteName,
+  //         screen_name: currentRouteName,
+  //       });
+  //     }
+  //     routeNameRef.current = currentRouteName;
+  //   }
+  // }
 
   let needVerify = false;
   let authenticated = isAuth;
@@ -299,7 +310,7 @@ export default () => {
   return (
     <NavigationContainer
       ref={navigationRef}
-      onStateChange={handleStateChange}
+      // onStateChange={handleStateChange}
       onReady={() => {
         BootSplash.hide();
       }}

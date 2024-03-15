@@ -30,7 +30,7 @@ const ActionButton = (props) => {
     if (props.active) {
       Animated.spring(anim.current, {
         toValue: 1,
-        useNativeDriver: false,
+        useNativeDriver: true,
       }).start();
       setActive(true);
       setResetToken(props.resetToken);
@@ -39,7 +39,7 @@ const ActionButton = (props) => {
 
       Animated.spring(anim.current, {
         toValue: 0,
-        useNativeDriver: false,
+        useNativeDriver: true,
       }).start();
       timeout.current = setTimeout(() => {
         setActive(false);
@@ -247,7 +247,7 @@ const ActionButton = (props) => {
     if (animate) {
       Animated.spring(anim.current, {
         toValue: 1,
-        useNativeDriver: false,
+        useNativeDriver: true,
       }).start();
     } else {
       anim.current.setValue(1);
@@ -262,7 +262,7 @@ const ActionButton = (props) => {
     if (animate) {
       Animated.spring(anim.current, {
         toValue: 0,
-        useNativeDriver: false,
+        useNativeDriver: true,
       }).start();
     } else {
       anim.current.setValue(0);

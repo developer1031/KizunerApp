@@ -183,7 +183,7 @@ const CardCreditManagementScreen = ({navigation, route}) => {
         style={styles.scrollWrap}
         onScroll={Animated.event(
           [{nativeEvent: {contentOffset: {y: scrollAnim}}}],
-          {useNativeDriver: false},
+          {useNativeDriver: true},
         )}
         ListHeaderComponent={
           <Touchable

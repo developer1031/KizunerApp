@@ -47,7 +47,7 @@ import Clipboard from '@react-native-clipboard/clipboard';
 
 const constants = {
   feeCredit: 5, // %
-  feeCrypto: 5, // %
+  feeCrypto: 0.5, // %
 };
 const FormCreateHelp = ({navigation, route}) => {
   const theme = useTheme();
@@ -81,7 +81,6 @@ const FormCreateHelp = ({navigation, route}) => {
   const [paymentType, setPaymentType] = useState('credit'); // credit | crypto
 
   const minimumCreditPrice = 10;
-  const minimumCryptoPrice = 10;
 
   const [minimumCryptoUsdPrice, setMinimumCryptoUsdPrice] = useState(0);
   const [minimumCryptoCoinPrice, setMinimumCryptoCoinPrice] = useState(0);
@@ -92,9 +91,7 @@ const FormCreateHelp = ({navigation, route}) => {
   const fee =
     paymentType === 'credit' ? constants.feeCredit : constants.feeCrypto;
   const minimumPrice =
-    paymentType === 'credit'
-      ? minimumCreditPrice
-      : (minimumCryptoUsdPrice / 100) * fee + minimumCryptoUsdPrice;
+    paymentType === 'credit' ? minimumCreditPrice : minimumCryptoUsdPrice;
 
   const minimumPriceCryptoCoin =
     (minimumCryptoCoinPrice / 100) * fee + minimumCryptoCoinPrice;
@@ -430,7 +427,7 @@ const FormCreateHelp = ({navigation, route}) => {
         priceType === 'fixed' &&
         yup
           .number()
-          .min(10, 'Minimum price is $10')
+          .min(minimumPrice, 'Minimum price is $' + minimumPrice)
           .max(10000)
           .nullable()
           .typeError('please enter number value only')
@@ -439,7 +436,7 @@ const FormCreateHelp = ({navigation, route}) => {
         priceType === 'range' &&
         yup
           .number()
-          .min(minimumPrice, `minimum price is ${minimumPrice}$`)
+          .min(minimumPrice, 'Minimum price is $' + minimumPrice)
           .max(10000, 'min price should lower max price')
           .nullable()
           .typeError('Please enter number value only')
@@ -856,8 +853,9 @@ const FormCreateHelp = ({navigation, route}) => {
 
                         formikProps.setFieldValue('currency', value);
                         formikProps.setFieldValue('card_id', '');
+
                         setMinimumCryptoUsdPrice(
-                          (prev) => (prev = min_amount_usd),
+                          (prev) => (prev = Math.ceil(min_amount_usd)),
                         );
                         setMinimumCryptoCoinPrice(
                           (prev) => (prev = min_amount_coin),
@@ -940,7 +938,6 @@ const FormCreateHelp = ({navigation, route}) => {
                       fee={fee}
                       minimumPrice={minimumPrice}
                       minimumCreditPrice={minimumCreditPrice}
-                      minimumCryptoPrice={minimumCryptoPrice}
                       minimumCryptoUsdPrice={minimumCryptoUsdPrice}
                       minimumPriceCryptoCoin={minimumPriceCryptoCoin}
                       crypto_wallet_id={
@@ -1148,8 +1145,9 @@ const CryptoPriceInfo = ({
   currency,
   crypto_wallet_id,
   minimumPriceCryptoCoin,
+  minimumCryptoUsdPrice,
 }) => {
-  const minPrice = 10;
+  const minPrice = minimumCryptoUsdPrice;
   const fee = 8;
   const guestFee = 0.5;
 
@@ -1209,10 +1207,9 @@ const PriceInfo = ({
   paymentType,
   priceType,
   currency,
-  // minimumPrice,
+  minimumPrice,
   minimumCreditPrice = 10,
-  minimumCryptoPrice,
-  // minimumCryptoUsdPrice,
+  minimumCryptoUsdPrice,
   minimumPriceCryptoCoin,
   crypto_wallet_id,
   amountValue,
@@ -1237,6 +1234,7 @@ const PriceInfo = ({
           currency,
           crypto_wallet_id,
           minimumPriceCryptoCoin,
+          minimumCryptoUsdPrice,
         }}
       />
     );
@@ -1256,6 +1254,7 @@ const PriceInfo = ({
           currency,
           crypto_wallet_id,
           minimumPriceCryptoCoin,
+          minimumCryptoUsdPrice,
         }}
       />
     </>

@@ -3,7 +3,6 @@ import {StatusBar, Platform, UIManager} from 'react-native';
 import {Provider as PaperProvider} from 'react-native-paper';
 import {Provider as ReduxProvider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
-import {enableScreens} from 'react-native-screens';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import moment from 'moment';
 import momentDurationFormatSetup from 'moment-duration-format';
@@ -33,12 +32,11 @@ if (Platform.OS === 'android') {
 
 momentDurationFormatSetup(moment);
 
-enableScreens();
-
-GoogleSignin.configure();
-
-console.warn = function () {};
-console.error = function () {};
+GoogleSignin.configure({
+  offlineAccess: true,
+  webClientId:
+    '558493488596-4boer0m5rut9e5e6mq6gc8qo5ino47qj.apps.googleusercontent.com',
+});
 
 const App = () => {
   useEffect(() => {
@@ -62,7 +60,7 @@ const App = () => {
                   <Modalize />
                   <ModalizeWithAll />
 
-                  <Crashlytic />
+                  {/* <Crashlytic /> */}
                 </GestureHandlerRootView>
               </SafeAreaProvider>
             </PaperProvider>

@@ -19,6 +19,7 @@ import {
   deleteHelp,
   changeHelpStatus,
   createOfferHelp,
+  showAlert,
 } from 'actions';
 import {Touchable, Paper} from 'components';
 import NavigationService from 'navigation/service';
@@ -428,6 +429,7 @@ const FeedItemHelp = ({type, data, isChangeStatus, enableShare = true}) => {
         userId: data?.user?.data?.id,
         type: type,
       };
+
       dispatch(createOfferHelp(_data));
     }, 200);
 

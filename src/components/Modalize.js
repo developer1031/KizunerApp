@@ -38,6 +38,9 @@ const Modalize = ({...props}) => {
     <RNModalize
       ref={rnModalize}
       withReactModal
+      openAnimationConfig={{
+        timing: {duration: 50, delay: 0},
+      }}
       //disableScrollIfPossible={Platform.OS === 'ios' ? true : false}
       modalHeight={Dimensions.get('screen').height / 2.2}
       onClose={() => dispatch(hideModalize())}

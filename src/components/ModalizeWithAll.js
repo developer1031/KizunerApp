@@ -1,4 +1,4 @@
-import React, {useRef, useEffect, useState} from 'react';
+import React, {useRef, useEffect, useState, useCallback} from 'react';
 import {View, StyleSheet, Dimensions} from 'react-native';
 import {Modalize as RNModalize} from 'react-native-modalize';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -29,25 +29,6 @@ const ModalizeWithAll = ({...props}) => {
     }
   }, [selected]);
 
-  const styles = StyleSheet.create({
-    wrapper: {
-      paddingBottom: getSize.h(100) + insets.bottom,
-    },
-    modal: {},
-    buttons: {
-      flexDirection: 'row',
-      paddingHorizontal: getSize.w(12),
-      flex: 1,
-      flexGrow: 1,
-      zIndex: 2,
-    },
-    button: {
-      flex: 1,
-      flexGrow: 1,
-      marginHorizontal: getSize.w(12),
-    },
-  });
-
   useEffect(() => {
     if (open) {
       rnModalize?.current?.open();
@@ -56,27 +37,34 @@ const ModalizeWithAll = ({...props}) => {
     }
   }, [open]);
 
+  const onClose = useCallback(() => {
+    dispatch(hideModalizeAll());
+  }, []);
+
   return (
     <RNModalize
       ref={rnModalize}
+      openAnimationConfig={{
+        timing: {duration: 50, delay: 0},
+      }}
       // adjustToContentHeight
       //disableScrollIfPossible={Platform.OS === 'ios' ? true : false}
       modalHeight={Dimensions.get('screen').height / 1.25}
-      onClose={() => dispatch(hideModalizeAll())}
+      onClose={onClose}
       modalStyle={{
         paddingTop: getSize.h(20),
       }}
       HeaderComponent={
-        <View style={styles.buttons}>
+        <View style={stylesMain.buttons}>
           <Button
             title="Clear all"
             variant="ghost"
-            containerStyle={styles.button}
+            containerStyle={stylesMain.button}
             onPress={onClear}
           />
           <Button
             title={`Apply (${selecting?.length || 0})`}
-            containerStyle={styles.button}
+            containerStyle={stylesMain.button}
             onPress={() => onApply?.(selecting)}
           />
         </View>
@@ -86,7 +74,11 @@ const ModalizeWithAll = ({...props}) => {
         style: {marginTop: getSize.h(65)},
       }}
       {...props}>
-      <View style={styles.wrapper}>
+      <View
+        style={[
+          stylesMain.wrapper,
+          {paddingBottom: getSize.h(100) + insets.bottom},
+        ]}>
         {options
           .filter((i) => !i.hide)
           .map((item, index) => {
@@ -124,6 +116,22 @@ const ModalizeWithAll = ({...props}) => {
 };
 
 const stylesMain = StyleSheet.create({
+  wrapper: {
+    //
+  },
+  modal: {},
+  buttons: {
+    flexDirection: 'row',
+    paddingHorizontal: getSize.w(12),
+    flex: 1,
+    flexGrow: 1,
+    zIndex: 2,
+  },
+  button: {
+    flex: 1,
+    flexGrow: 1,
+    marginHorizontal: getSize.w(12),
+  },
   itemWrap: {
     height: getSize.h(65),
     borderBottomColor: orangeLight.colors.divider,

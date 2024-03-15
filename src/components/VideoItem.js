@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {StyleSheet, View, ImageBackground, Dimensions} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {Placeholder, PlaceholderMedia, Fade} from 'rn-placeholder';
@@ -92,14 +92,16 @@ const VideoItem = ({wrapperStyle, subWrapper, data}) => {
     },
   });
 
+  const onNavigate = useCallback(() => {
+    navigation.navigate('GuideVideo', {
+      videoId: getYoutubeId(data.url),
+      label: data.text,
+    });
+  }, []);
+
   return (
     <Touchable
-      onPress={() =>
-        navigation.navigate('GuideVideo', {
-          videoId: getYoutubeId(data.url),
-          label: data.text,
-        })
-      }
+      onPress={onNavigate}
       style={[wrapperStyle, styles.wrapper]}
       activeOpacity={1}>
       <ImageBackground
@@ -115,8 +117,8 @@ const VideoItem = ({wrapperStyle, subWrapper, data}) => {
       </ImageBackground>
 
       <View style={styles.cateWrap}>
-        {data?.categories?.map((category) => (
-          <Text numberOfLines={1} style={styles.category}>
+        {data?.categories?.map((category, i) => (
+          <Text key={i} numberOfLines={1} style={styles.category}>
             {'#'}
             {category?.name}
           </Text>

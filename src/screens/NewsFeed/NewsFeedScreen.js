@@ -34,7 +34,7 @@ import {
 import orangeLight from '../../theme/orangeLight';
 import {createUUID} from 'utils/util';
 
-const NewsFeedScreen = ({navigation}) => {
+function NewsFeedScreen({navigation}) {
   const theme = useTheme();
   const [filter, setFilter] = useState('All');
   const [scrollAnim] = useState(new Animated.Value(0));
@@ -277,7 +277,7 @@ const NewsFeedScreen = ({navigation}) => {
         onScroll={Animated.event(
           [{nativeEvent: {contentOffset: {y: scrollAnim}}}],
           {
-            useNativeDriver: false,
+            useNativeDriver: true,
           },
         )}
         refreshControl={
@@ -302,7 +302,7 @@ const NewsFeedScreen = ({navigation}) => {
       {/* {newsFeedLoading && <Loading dark fullscreen />} */}
     </Wrapper>
   );
-};
+}
 
 const HeaderFunction = memo((props) => {
   return (

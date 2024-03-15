@@ -66,28 +66,20 @@ const LoginScreen = ({navigation, route}) => {
   const [isLoad, setLoad] = useState(false);
 
   useEffect(() => {
-    const handleDeepLink = async ({url}) => {
+    async function handleDeepLink({url}) {
       // const route = url.replace(/.*?:\/\//g, '');
       // const routeName = route.split('/')[0];
       const token = url.split('token=')[1];
-      console.log(token);
-      await handleLoginSocial('twitter', token, null);
-    };
+      if (token) {
+        await handleLoginSocial('twitter', token, null);
+      }
+    }
 
-    Linking.addEventListener('url', handleDeepLink);
+    const listener = Linking.addEventListener('url', handleDeepLink);
 
     return () => {
-      Linking.removeEventListener('url', handleDeepLink);
+      listener.remove();
     };
-  }, []);
-
-  useEffect(() => {
-    GoogleSignin.configure({
-      offlineAccess: true,
-      webClientId:
-        '558493488596-4boer0m5rut9e5e6mq6gc8qo5ino47qj.apps.googleusercontent.com',
-    });
-    // Settings.setAppID('764564298842192');
   }, []);
 
   const activeEasterEgg = () => {

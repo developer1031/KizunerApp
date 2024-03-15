@@ -60,6 +60,7 @@ import {
   updateUserCover,
   getUserInfo,
   getSelfFeed,
+  showAlert,
 } from 'actions';
 import {getWalletStripeStatus} from 'actions';
 
@@ -103,6 +104,16 @@ const MyPageScreen = ({navigation}) => {
       setPage(page + 1);
     }
   };
+
+  // useEffect(() => {
+  //   dispatch(
+  //     showAlert({
+  //       title: 'Success',
+  //       type: 'success',
+  //       body: 'Reset password successfully, please login again!',
+  //     }),
+  //   );
+  // }, []);
 
   useEffect(() => {
     handleGetHangouts(page);

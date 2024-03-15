@@ -99,7 +99,6 @@ const FormCreateHangout = ({navigation, route}) => {
   const refSelectDropdown = useRef(null);
 
   const minimumCreditPrice = 10;
-  const minimumCryptoPrice = 10;
 
   const [minimumCryptoUsdPrice, setMinimumCryptoUsdPrice] = useState(0);
   const [minimumCryptoCoinPrice, setMinimumCryptoCoinPrice] = useState(0);
@@ -109,12 +108,9 @@ const FormCreateHangout = ({navigation, route}) => {
 
   const fee =
     paymentType === 'credit' ? constants.feeCredit : constants.feeCrypto;
-  // const minimumPrice =
-  //   paymentType === 'credit'
-  //     ? minimumCreditPrice
-  //     : (minimumCryptoUsdPrice / 100) * fee + minimumCryptoUsdPrice;
+
   const minimumPrice =
-    paymentType === 'credit' ? minimumCreditPrice : minimumCryptoPrice;
+    paymentType === 'credit' ? minimumCreditPrice : minimumCryptoUsdPrice;
 
   const minimumPriceCryptoCoin =
     (minimumCryptoCoinPrice / 100) * fee + minimumCryptoCoinPrice;
@@ -228,10 +224,6 @@ const FormCreateHangout = ({navigation, route}) => {
   );
 
   if (beingLoadStripeStatus) return <></>;
-  console.log(
-    '🚀 ~ file: FormCreateHangout.js:62 ~ FormCreateHangout ~ stripeStatusResponse:',
-    stripeStatusResponse,
-  );
 
   const styles = StyleSheet.create({
     disabled: {opacity: 0.5},
@@ -493,12 +485,7 @@ const FormCreateHangout = ({navigation, route}) => {
         priceType === 'fixed' &&
         yup
           .number()
-          .min(
-            paymentType === 'credit' ? minimumCreditPrice : minimumCryptoPrice,
-            `Minimum price is $${
-              paymentType === 'credit' ? minimumCreditPrice : minimumCryptoPrice
-            }`,
-          )
+          .min(minimumPrice, 'Minimum price is $' + minimumPrice)
           .max(10000)
           .nullable()
           .typeError('Please enter number value only')
@@ -507,7 +494,7 @@ const FormCreateHangout = ({navigation, route}) => {
         priceType === 'range' &&
         yup
           .number()
-          .min(minimumCreditPrice, `Minimum price is ${minimumCreditPrice}$`)
+          .min(minimumPrice, 'Minimum price is $' + minimumPrice)
           .max(10000, 'min price should lower max price')
           .nullable()
           .integer()
@@ -836,7 +823,6 @@ const FormCreateHangout = ({navigation, route}) => {
                           );
                           navigation.navigate('PickLocationPost', {
                             onSelect: async (data) => {
-                              console.log(data);
                               formikProps.setFieldError('address', null);
                               formikProps.setFieldValue(
                                 'short_address',
@@ -961,11 +947,13 @@ const FormCreateHangout = ({navigation, route}) => {
                                     absolute_min_amount_usd: min_amount_usd,
                                     absolute_min_amount: min_amount_coin,
                                   } = res;
+
                                   setMinimumCryptoCoinPrice(
                                     (prev) => (prev = min_amount_coin),
                                   );
                                   setMinimumCryptoUsdPrice(
-                                    (prev) => (prev = min_amount_usd),
+                                    (prev) =>
+                                      (prev = Math.ceil(min_amount_usd)),
                                   );
                                   setCurrency((prev) => (prev = data.currency));
                                 },
@@ -1052,7 +1040,6 @@ const FormCreateHangout = ({navigation, route}) => {
                       fee={fee}
                       minimumPrice={minimumPrice}
                       minimumCreditPrice={minimumCreditPrice}
-                      minimumCryptoPrice={minimumCryptoPrice}
                       minimumCryptoUsdPrice={minimumCryptoUsdPrice}
                       minimumPriceCryptoCoin={minimumPriceCryptoCoin}
                       crypto_wallet_id={
@@ -1259,8 +1246,9 @@ const CryptoPriceInfo = ({
   currency,
   crypto_wallet_id,
   minimumPriceCryptoCoin,
+  minimumCryptoUsdPrice,
 }) => {
-  const minPrice = 10;
+  const minPrice = minimumCryptoUsdPrice;
   const fee = 8;
   const guestFee = 0.5;
 
@@ -1322,8 +1310,7 @@ const PriceInfo = ({
   currency,
   // minimumPrice,
   minimumCreditPrice = 10,
-  minimumCryptoPrice,
-  // minimumCryptoUsdPrice,
+  minimumCryptoUsdPrice,
   minimumPriceCryptoCoin,
   crypto_wallet_id,
   amountValue,
@@ -1348,6 +1335,7 @@ const PriceInfo = ({
           currency,
           crypto_wallet_id,
           minimumPriceCryptoCoin,
+          minimumCryptoUsdPrice,
         }}
       />
     );
@@ -1367,6 +1355,7 @@ const PriceInfo = ({
           currency,
           crypto_wallet_id,
           minimumPriceCryptoCoin,
+          minimumCryptoUsdPrice,
         }}
       />
     </>

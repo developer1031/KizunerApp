@@ -413,7 +413,7 @@ const LeaderBoardRequest = ({navigation}) => {
         onScroll={Animated.event(
           [{nativeEvent: {contentOffset: {y: scrollAnim}}}],
           {
-            useNativeDriver: false,
+            useNativeDriver: true,
           },
         )}
         contentContainerStyle={styles.scrollCon}

@@ -85,22 +85,22 @@ export function generateThunkAction({
           }
         }
       } catch (error) {
-        console.log('=========== error ===============');
         console.log(error);
         console.log(apiOptions);
+
         dispatch({
           type: actionType.FAILURE,
           payload: {error, inputPayload},
         });
+
         callback?.failure || apiOptions?.useOnce
           ? callback?.failure(error.message, dispatch, error)
           : error.message !== 'Unauthenticated.' &&
             dispatch(
               showAlert({
                 title: 'Error',
-                body: __DEV__ ? error.message : 'Something went wrong!',
-                // body: error.message,
                 type: 'error',
+                body: error.message,
               }),
             );
       }

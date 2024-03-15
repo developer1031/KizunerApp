@@ -30,9 +30,8 @@ async function getFcmToken() {
   const enabled = await messaging().hasPermission();
   if (!enabled) {
     await messaging().requestPermission();
-    // await firebase.messaging().ios.registerForRemoteNotifications();
   }
-  await messaging().registerDeviceForRemoteMessages();
+  // await messaging().registerDeviceForRemoteMessages();
   const token = await messaging().getToken();
   return token || '';
 }
@@ -401,7 +400,7 @@ export default function useNotification() {
 
   async function requestPermission() {
     messaging().requestPermission();
-    messaging().ios.registerForRemoteNotifications();
+    // messaging().registerDeviceForRemoteMessages();
   }
 
   async function createListener() {

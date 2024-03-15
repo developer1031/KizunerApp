@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useCallback} from 'react';
 import {StyleSheet, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import moment from 'moment-timezone';
@@ -245,6 +245,27 @@ const HangoutExploreItem = ({data, selected, wrapperStyle, onPress}) => {
     },
   });
 
+  const onNavigate = useCallback(() => {
+    if (onPress) {
+      onPress();
+      return;
+    }
+    switch (data?.post_type) {
+      case 'help':
+        navigation.push('HelpDetail', {
+          helpId: data.id,
+        });
+        break;
+      case 'hangout':
+        navigation.push('HangoutDetail', {
+          hangoutId: data.id,
+        });
+        break;
+      default:
+        break;
+    }
+  }, [data, navigation]);
+
   if (!data) {
     return null;
   }
@@ -281,29 +302,7 @@ const HangoutExploreItem = ({data, selected, wrapperStyle, onPress}) => {
   }
 
   return (
-    <Touchable
-      scalable
-      onPress={() => {
-        if (onPress) {
-          onPress();
-          return;
-        }
-        switch (data?.post_type) {
-          case 'help':
-            navigation.push('HelpDetail', {
-              helpId: data.id,
-            });
-            break;
-          case 'hangout':
-            navigation.push('HangoutDetail', {
-              hangoutId: data.id,
-            });
-            break;
-          default:
-            break;
-        }
-      }}
-      style={wrapperStyle}>
+    <Touchable scalable onPress={onNavigate} style={wrapperStyle}>
       <Wrapper {...wrapperProps}>
         <View style={styles.wrapper}>
           {data?.cover?.thumb ? (

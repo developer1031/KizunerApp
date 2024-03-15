@@ -445,7 +445,7 @@ const MessageScreen = ({navigation, route}) => {
         // }
         onScroll={Animated.event(
           [{nativeEvent: {contentOffset: {y: scrollAnim}}}],
-          {useNativeDriver: false},
+          {useNativeDriver: true},
         )}
         // refreshControl={
         //   <RefreshControl

@@ -420,7 +420,7 @@ const ExploreMapScreen = ({navigation}) => {
             ],
             {
               listener: handleListScroll,
-              useNativeDriver: false,
+              useNativeDriver: true,
             },
           )}
           initialNumToRender={6}

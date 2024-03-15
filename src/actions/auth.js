@@ -45,9 +45,7 @@ import {
 } from './types';
 import {USER_TOKEN_KEY} from 'utils/constants';
 import {showAlert} from './alert';
-import {updateFcmToken} from './notification';
 import fetchApi from 'utils/fetchApi';
-import {getFcmToken} from 'utils/notificationService';
 import {getRewardSetting} from './app';
 import {fetchAddressForLocation} from 'utils/geolocationService';
 import {hideModalize} from './modalize';
@@ -271,16 +269,6 @@ export const login = (data) => {
     },
     callback: {
       success: async (result, dispatch) => {
-        /**
-         * Update device token
-         */
-        try {
-          const fcmToken = await getFcmToken();
-          dispatch(updateFcmToken({fcm_token: fcmToken}));
-        } catch (error) {
-          console.log(error);
-        }
-
         const {need_verify} = result?.data;
         if (need_verify) {
           NavigationService.navigate('VerifyEmail');
@@ -289,7 +277,7 @@ export const login = (data) => {
             showAlert({
               title: 'Success',
               type: 'success',
-              body: `Welcome Kizuner, ${result?.data?.self?.data?.name}!`,
+              body: `Welcome to Kizuner, ${result?.data?.self?.data?.name}!`,
             }),
           );
         }
@@ -312,20 +300,11 @@ export const loginSocial = (provider, token, name, secret = null) =>
     },
     callback: {
       success: async (result, dispatch) => {
-        /**
-         * Update device token
-         */
-        try {
-          const fcmToken = await getFcmToken();
-          dispatch(updateFcmToken({fcm_token: fcmToken}));
-        } catch (error) {
-          console.log('Error Login Social ', provider, error);
-        }
         dispatch(
           showAlert({
             title: 'Success',
             type: 'success',
-            body: `Welcome Kizuner, ${result?.data?.self?.data?.name}!`,
+            body: `Welcome to Kizuner, ${result?.data?.self?.data?.name}!`,
           }),
         );
         if (provider === 'facebook') {
@@ -355,9 +334,7 @@ export const signUp = (data) =>
          * Update device token
          */
         try {
-          const fcmToken = await getFcmToken();
-          dispatch(updateFcmToken({fcm_token: fcmToken}));
-          dispatch(getRewardSetting());
+          // dispatch(getRewardSetting());
           // dispatch(sendVerifyEmailCode());
         } catch (error) {
           console.log(error);
@@ -391,8 +368,7 @@ export const getUserInfo = () =>
         //   const locationShort = await processCoords(location);
         //   dispatch(setShortLocation(locationShort?.short_name || null));
         // }
-
-        dispatch(getRewardSetting());
+        // dispatch(getRewardSetting());
       },
     },
   })();
