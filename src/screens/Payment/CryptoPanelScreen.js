@@ -98,7 +98,6 @@ const CryptoPanelScreen = ({navigation, route}) => {
   });
 
   const handleSubmit = (values) => {
-    console.log(values);
     dispatch(postPaymentCryptoCard(values));
   };
 

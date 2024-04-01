@@ -1,4 +1,4 @@
 <resources>
-    <color name="primary">#FF6360</color>
-    <color name="windowBackgroundColor">#FFFFFF</color>
+  <color name="primary">#FF6360</color>
+  <color name="windowBackgroundColor">#FFFFFF</color>
 </resources>

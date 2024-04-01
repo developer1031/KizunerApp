@@ -22,7 +22,9 @@
     "ios:prod-release": "react-native run-ios --configuration Release --scheme 'Production'",
     "ios:staging": "react-native run-ios --scheme 'Staging'",
     "ios:staging-release": "react-native run-ios --configuration Release --scheme 'Staging'",
-    "android:build": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res"
+    "clean:drawable": "rm -rf ./android/app/src/main/res/drawable-* && rm -rf ./android/app/src/main/res/raw",
+    "generate:bundle": "npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && yarn clean:drawable",
+    "android:release": "yarn generate:bundle && npx react-native run-android --variant=release"
   },
   "dependencies": {
     "@invertase/react-native-apple-authentication": "^2.3.0",
