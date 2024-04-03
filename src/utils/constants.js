@@ -49,30 +49,30 @@ export const GENDERS = [
 export const PAYMENT_METHOD = [
   {
     label: 'Both',
-    value: 1,
+    value: 'both',
   },
   {
     label: 'Credit',
-    value: 2,
+    value: 'credit',
   },
   {
     label: 'Crypto',
-    value: 3,
+    value: 'crypto',
   },
 ];
 
 export const TYPE_POST = [
   {
     label: 'Both',
-    value: 1,
+    value: 'all',
   },
   {
     label: 'One-Time',
-    value: 2,
+    value: 1,
   },
   {
     label: 'Multi-Times',
-    value: 3,
+    value: 2,
   },
 ];
 

@@ -310,9 +310,9 @@ const PickCategoryScreen = ({navigation, route}) => {
                 }}
               />
               <View style={styles.listWrapper}>
-                {newCategories.map((item) => (
+                {newCategories.map((item, index) => (
                   <Tag
-                    key={item}
+                    key={index}
                     value={item}
                     active
                     wrapperStyle={styles.tagWrapper}

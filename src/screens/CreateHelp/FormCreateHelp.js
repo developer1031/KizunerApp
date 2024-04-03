@@ -78,7 +78,7 @@ const FormCreateHelp = ({navigation, route}) => {
 
   const [helpType, setHelpType] = useState('oneTime'); // oneTime | multiTimes
   const [priceType, setPriceType] = useState('fixed'); // fixed | range
-  const [paymentType, setPaymentType] = useState('credit'); // credit | crypto
+  const [paymentType, setPaymentType] = useState('credit'); // credit | crypto | both
 
   const minimumCreditPrice = 10;
 
@@ -481,8 +481,12 @@ const FormCreateHelp = ({navigation, route}) => {
       schedule: helpType === 'multiTimes' && yup.string().required(),
       categories: yup.array(yup.object()).min(1).required(),
       friends: yup.array(yup.object()).min(0),
-      card_id: paymentType === 'credit' && yup.string().nullable().required(),
-      currency: paymentType === 'crypto' && yup.string().nullable().required(),
+      card_id:
+        ['credit', 'both'].includes(paymentType) &&
+        yup.string().nullable().required(),
+      currency:
+        ['crypto', 'both'].includes(paymentType) &&
+        yup.string().nullable().required(),
     });
   }
 
@@ -582,7 +586,7 @@ const FormCreateHelp = ({navigation, route}) => {
           formRef.current?.setFieldValue('lat', draft.lat);
           formRef.current?.setFieldValue('lng', draft.lng);
 
-          setPaymentType((prev) => (prev = draft.payment_method));
+          setPaymentType(draft.payment_method);
           refInputChoosePaymentMethod.current?.setPaymentMethod(
             draft.payment_method,
           );
@@ -838,35 +842,49 @@ const FormCreateHelp = ({navigation, route}) => {
                         value,
                         min_amount_usd,
                         min_amount_coin,
+                        creditId = null,
                       ) => {
                         formikProps.setFieldValue('payment_method', type);
-                        setPaymentType((prev) => (prev = type));
+                        setPaymentType(type);
+                        console.log('onchange: ', type);
 
-                        const isCredit = type === 'credit';
+                        if (!type) return;
 
-                        if (isCredit) {
+                        if (type == 'both') {
+                          console.log(creditId);
+                          formikProps.setFieldValue('card_id', creditId);
+                          formikProps.setFieldValue('currency', value);
+
+                          setMinimumCryptoUsdPrice(
+                            (prev) => (prev = Math.ceil(min_amount_usd)),
+                          );
+                          setMinimumCryptoCoinPrice(
+                            (prev) => (prev = min_amount_coin),
+                          );
+                        } else if (type == 'credit') {
                           formikProps.setFieldValue('card_id', value);
                           formikProps.setFieldValue('currency', '');
-
                           return;
+                        } else if (type == 'crypto') {
+                          formikProps.setFieldValue('currency', value);
+                          formikProps.setFieldValue('card_id', '');
+
+                          setMinimumCryptoUsdPrice(
+                            (prev) => (prev = Math.ceil(min_amount_usd)),
+                          );
+                          setMinimumCryptoCoinPrice(
+                            (prev) => (prev = min_amount_coin),
+                          );
                         }
-
-                        formikProps.setFieldValue('currency', value);
-                        formikProps.setFieldValue('card_id', '');
-
-                        setMinimumCryptoUsdPrice(
-                          (prev) => (prev = Math.ceil(min_amount_usd)),
-                        );
-                        setMinimumCryptoCoinPrice(
-                          (prev) => (prev = min_amount_coin),
-                        );
                       }}
                     />
 
                     <Text variant="errorHelper" style={{marginBottom: 10}}>
                       {(paymentType === 'credit' &&
                         formikProps.errors.card_id) ||
-                      (paymentType === 'crypto' && formikProps.errors.currency)
+                      (paymentType === 'crypto' &&
+                        formikProps.errors.currency) ||
+                      (paymentType === 'both' && formikProps.errors.currency)
                         ? 'Please choose payment method'
                         : ' '}
                     </Text>
@@ -1216,6 +1234,10 @@ const PriceInfo = ({
   minAmountValue,
   maxAmountValue,
 }) => {
+  console.log(paymentType);
+
+  if (!paymentType) return <></>;
+
   if (paymentType == 'credit') {
     return (
       <CreditPriceInfo
@@ -1223,6 +1245,7 @@ const PriceInfo = ({
       />
     );
   }
+
   if (paymentType == 'crypto') {
     return (
       <CryptoPriceInfo

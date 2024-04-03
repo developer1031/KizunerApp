@@ -13,13 +13,30 @@ import {getNowPaymentsMinAmount} from 'actions';
 
 const InputChoosePaymentMethod = forwardRef(({onChange = () => {}}, ref) => {
   const dispatch = useDispatch();
-  const [type, setType] = useState('credit'); // credit | crypto
+  // const [type, setType] = useState('credit'); // credit | crypto
+
+  const [credit, setCredit] = useState('credit');
+  const [crypto, setCrypto] = useState(null);
+
   const [creditId, setCreditId] = useState('');
   const [cryptoId, setCryptoId] = useState('');
   const [minAmountCryptoUsd, setMinAmountCryptoUsd] = useState(0);
   const [minAmountCryptoCoin, setMinAmountCryptoCoin] = useState(0);
 
-  const setPaymentMethod = (method) => setType(method);
+  const setPaymentMethod = (method) => {
+    if (method === 'credit') {
+      setCredit(true);
+      setCrypto(false);
+    }
+    if (method === 'crypto') {
+      setCredit(false);
+      setCrypto(true);
+    }
+    if (method === 'both') {
+      setCredit(true);
+      setCrypto(true);
+    }
+  };
 
   useImperativeHandle(
     ref,
@@ -30,36 +47,48 @@ const InputChoosePaymentMethod = forwardRef(({onChange = () => {}}, ref) => {
   );
 
   useEffect(() => {
-    const isCredit = type === 'credit';
+    if (credit && crypto) {
+      onChange(
+        'both',
+        cryptoId,
+        minAmountCryptoUsd,
+        minAmountCryptoCoin,
+        creditId,
+      );
+      return;
+    }
 
-    if (isCredit) {
-      onChange(type, creditId);
+    if (credit) {
+      onChange('credit', creditId);
 
       return;
     }
 
-    onChange(type, cryptoId, minAmountCryptoUsd, minAmountCryptoCoin);
-  }, [type]);
+    if (crypto) {
+      onChange('crypto', cryptoId, minAmountCryptoUsd, minAmountCryptoCoin);
+      return;
+    }
+
+    onChange(null);
+  }, [credit, crypto]);
 
   return (
     <View>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-        }}>
+      <View style={styles.flex}>
         <CheckBoxTitle
-          callback={setType}
+          callback={setCredit}
           status={'credit'}
-          choose={type}
+          choose={credit}
           title="Credit"
+          isGroup={false}
         />
         <CheckBoxTitle
-          callback={setType}
+          callback={setCrypto}
           status={'crypto'}
-          choose={type}
+          choose={crypto}
           title="Crypto"
-          isReverse={true}
+          isGroup={false}
+          // isReverse={true}
         />
       </View>
 
@@ -68,7 +97,7 @@ const InputChoosePaymentMethod = forwardRef(({onChange = () => {}}, ref) => {
           setCreditId((prev) => (prev = id));
           onChange('credit', id);
         }}
-        visible={type === 'credit'}
+        visible={credit}
       />
 
       <InputChooseCryptoCurrencyPayment
@@ -83,12 +112,23 @@ const InputChoosePaymentMethod = forwardRef(({onChange = () => {}}, ref) => {
                 } = data;
                 setMinAmountCryptoUsd((prev) => (prev = min_amount_usd));
                 setMinAmountCryptoCoin((prev) => (prev = min_amount_coin));
-                onChange('crypto', crypto, min_amount_usd, min_amount_coin);
+
+                if (credit) {
+                  onChange(
+                    'both',
+                    crypto,
+                    min_amount_usd,
+                    min_amount_coin,
+                    creditId,
+                  );
+                } else {
+                  onChange('crypto', crypto, min_amount_usd, min_amount_coin);
+                }
               },
             }),
           );
         }}
-        visible={type === 'crypto'}
+        visible={crypto}
       />
     </View>
   );
@@ -96,4 +136,9 @@ const InputChoosePaymentMethod = forwardRef(({onChange = () => {}}, ref) => {
 
 export default InputChoosePaymentMethod;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  flex: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+});

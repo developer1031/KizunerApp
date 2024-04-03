@@ -646,9 +646,8 @@ const HelpDetail = ({navigation, route}) => {
                           onPressShare={!isPrivate && sharePostStatus}
                           showHangout={!data?.schedule && data?.show_hangout}
                           showHelp={
-                            data?.type !== 2 &&
-                            data?.show_help &&
-                            data.payment_status === 'paid'
+                            data?.type !== 2 && data?.show_help
+                            // data.payment_status === 'paid'
                           }
                           offered={data?.offered}
                           hangoutLoading={beingCreateOfferHelp?.includes(

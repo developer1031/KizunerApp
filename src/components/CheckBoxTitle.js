@@ -15,6 +15,7 @@ export const CheckBoxTitle = ({
   isReverse = false,
   title,
   isDisable,
+  isGroup = true,
   ...props
 }) => {
   const theme = useTheme();
@@ -53,11 +54,11 @@ export const CheckBoxTitle = ({
     <View style={styleContainer}>
       <CheckBox
         // disabled={isDisable}
-        disabled={isDisable || choose === status}
+        disabled={isDisable}
         value={choose === status}
         onValueChange={(event) => {
           if (event) {
-            callback && callback(status);
+            callback && callback(isGroup ? status : event);
           } else {
             callback && callback(null);
           }

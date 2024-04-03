@@ -181,20 +181,14 @@ const SearchList = () => {
         </View>
       )}
       onEndReached={handleLoadMore}
-      ListEmptyComponent={() => (
+      ListEmptyComponent={
         <EmptyState
           imageSource={Icons.searchPending}
           imageStyle={styles.defaultImage}
-          label={
-            query.length > 0
-              ? loading
-                ? 'Searching...'
-                : 'No result'
-              : 'Enter a few words\nto search on Kizuner'
-          }
+          label={loading ? 'Searching...' : 'No result'}
           wrapperStyle={styles.emptyStateWrap}
         />
-      )}
+      }
       renderSectionFooter={({section: {title, data}}) =>
         data.length === 0 && (
           // <EmptyState
@@ -210,11 +204,12 @@ const SearchList = () => {
           <EmptyState
             imageSource={Icons.searchPending}
             imageStyle={styles.defaultImage}
-            label={
-              query.length > 0
-                ? 'No result'
-                : 'Enter a few words\nto search on Kizuner'
-            }
+            label={loading ? 'Searching...' : 'No result'}
+            // label={
+            //   query.length > 0
+            //     ? 'No result'
+            //     : 'Enter a few words\nto search on Kizuner'
+            // }
             wrapperStyle={styles.emptyStateWrap}
           />
         )

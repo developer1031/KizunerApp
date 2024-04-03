@@ -26,11 +26,14 @@ const SearchFilter = ({navigation}) => {
   const keyboardHeight = useKeyboardHeight();
   const [showAgeFilter, setShowAgeFilter] = useState(false);
   const [showAgeRange, setShowAgeRange] = useState(false);
-  const [gender, setGender] = useState(-1);
   const [ageRange, setAgeRange] = useState(null);
+  const [isAllAge, setIsAllAge] = useState(null);
+
+  const [gender, setGender] = useState(null);
+
   const {query} = useSelector((state) => state.search);
-  const [paymentMethod, setPaymentMethod] = useState(1);
-  const [typePost, setTypePost] = useState(1);
+  const [paymentMethod, setPaymentMethod] = useState(null);
+  const [typePost, setTypePost] = useState(null);
   const [priceType, setPriceType] = useState('none'); // none | fixed | range
   const [priceValue, setPriceValue] = useState({
     amount: 0,
@@ -96,8 +99,13 @@ const SearchFilter = ({navigation}) => {
   });
 
   function handleApplyFilter() {
-    const age = ageRange ? `${ageRange.min}-${ageRange.max}` : null;
-    const gend = gender !== -1 ? gender : null;
+    const age = ageRange
+      ? `${ageRange.min}-${ageRange.max}`
+      : isAllAge
+      ? 'all'
+      : null;
+    // const gend = gender !== -1 ? gender : null;
+    const gend = gender;
     dispatch(
       setFtsFilter({
         age,
@@ -120,13 +128,8 @@ const SearchFilter = ({navigation}) => {
             categories: selectedCategories.map((i) => i.id),
             available_status: isOnlineOnly ? 'online' : null,
             language: language,
-            offer_type: typePost === 1 ? null : typePost === 2 ? 1 : 2,
-            payment_method:
-              paymentMethod === 1
-                ? null
-                : paymentMethod === 2
-                ? 'credit'
-                : 'crypto',
+            offer_type: typePost,
+            payment_method: paymentMethod,
             location: {
               lat: address.lat,
               lng: address.lng,
@@ -181,6 +184,8 @@ const SearchFilter = ({navigation}) => {
     );
   }
 
+  const genderValues = [{label: 'All Genders', value: -1}, ...GENDERS];
+
   return (
     <>
       <ScrollView
@@ -188,24 +193,26 @@ const SearchFilter = ({navigation}) => {
         contentContainerStyle={styles.container}>
         <Select
           label="Filter by Gender"
-          value={
-            GENDERS.find((i) => i.value === gender)?.label || 'All Genders'
-          }
-          options={[{label: 'All Genders', value: -1}, ...GENDERS]}
+          value={genderValues.find((i) => i.value === gender)?.label ?? null}
+          options={genderValues}
           wrapperStyle={styles.selectWrap}
           onSelect={(value) => setGender(value)}
         />
         <Select
           label="Filter by Age"
           value={
-            ageRange ? `from ${ageRange.min} to ${ageRange.max}` : 'All Ages'
+            ageRange
+              ? `from ${ageRange.min} to ${ageRange.max}`
+              : isAllAge
+              ? 'All Ages'
+              : ''
           }
           onPress={() => setShowAgeFilter(true)}
           wrapperStyle={styles.selectWrap}
         />
         <Select
           label="Filter by Language"
-          value={language ? languagesDataJson[language].name : 'All Languages'}
+          value={language ? languagesDataJson[language].name : ''}
           onPress={() => setShowCountryPicker(true)}
           wrapperStyle={styles.selectWrap}
         />
@@ -289,8 +296,11 @@ const SearchFilter = ({navigation}) => {
         options={[
           {
             label: 'All Ages',
-            value: false,
-            onPress: () => {
+            value: 'all',
+            onPress: (value) => {
+              if (value === 'all') {
+                setIsAllAge('all');
+              }
               setShowAgeRange(false);
               setShowAgeFilter(false);
               setAgeRange(null);
@@ -298,7 +308,7 @@ const SearchFilter = ({navigation}) => {
           },
           {label: 'Custom', value: true, onPress: () => setShowAgeRange(true)},
         ]}
-        selected={showAgeRange}
+        selected={showAgeRange ? showAgeRange : isAllAge}
         showRange={showAgeRange}
         onSelectRange={(range) => setAgeRange(range)}
       />
