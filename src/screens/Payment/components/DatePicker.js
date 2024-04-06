@@ -20,6 +20,7 @@ const DatePicker = forwardRef(({onChange = () => {}, maximumDate}, ref) => {
 
     onChange(date);
   };
+
   const onCancel = () => {
     hide();
   };
@@ -35,7 +36,7 @@ const DatePicker = forwardRef(({onChange = () => {}, maximumDate}, ref) => {
 
   return (
     <DateTimePickerModal
-      locale="en"
+      // locale="ja"
       isVisible={visible}
       mode="date"
       display={'spinner'}

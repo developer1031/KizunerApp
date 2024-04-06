@@ -1,5 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {ScrollView, StyleSheet, View, Switch, Dimensions} from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  View,
+  Switch,
+  Dimensions,
+  KeyboardAvoidingView,
+} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {Button, Select, ModalizeWithRange, Text} from 'components';
@@ -70,6 +77,7 @@ const SearchFilter = ({navigation}) => {
       backgroundColor: theme.colors.paper,
     },
     container: {
+      flexGrow: 1,
       paddingHorizontal: getSize.w(24),
       paddingVertical: getSize.h(30),
     },
@@ -133,6 +141,7 @@ const SearchFilter = ({navigation}) => {
             location: {
               lat: address.lat,
               lng: address.lng,
+              short_address: address.short_address,
             },
             amount: priceType === 'none' ? null : priceValue.amount,
             min_amount: priceType === 'range' ? priceValue.min_amount : null,
@@ -187,7 +196,7 @@ const SearchFilter = ({navigation}) => {
   const genderValues = [{label: 'All Genders', value: -1}, ...GENDERS];
 
   return (
-    <>
+    <KeyboardAvoidingView style={{flex: 1}} behavior="padding">
       <ScrollView
         style={styles.wrapper}
         contentContainerStyle={styles.container}>
@@ -352,7 +361,7 @@ const SearchFilter = ({navigation}) => {
       <RNModalize
         withReactModal={Platform.OS === 'android' ? true : true}
         ref={refModalPrice}
-        modalHeight={Dimensions.get('screen').height / 2.2}
+        modalHeight={Dimensions.get('screen').height / 2}
         onClose={() => {
           setPriceType(refCurrPriceType.current);
         }}>
@@ -511,7 +520,7 @@ const SearchFilter = ({navigation}) => {
           setShowCountryPicker(false);
         }}
       />
-    </>
+    </KeyboardAvoidingView>
   );
 };
 

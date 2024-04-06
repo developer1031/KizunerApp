@@ -26,6 +26,8 @@ import {
   ScrollView,
   View,
   TouchableWithoutFeedback,
+  KeyboardAvoidingView,
+  Keyboard,
 } from 'react-native';
 import {showAlert} from 'actions';
 import {getWalletStripeStatus} from 'actions';
@@ -301,7 +303,7 @@ const ConnectStripeScreen = ({navigation}) => {
   const onPressWithdraw = () => refWithdraw.current?.show();
 
   return (
-    <>
+    <KeyboardAvoidingView behavior="padding" style={{flex: 1}}>
       <CountryPicker
         open={showCountryPicker}
         onClose={() => setShowCountryPicker(false)}
@@ -356,7 +358,7 @@ const ConnectStripeScreen = ({navigation}) => {
           />
         )}
       </View>
-    </>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -367,6 +369,28 @@ const FormikComponent = (props) => {
   const [editVerification, setEditVerification] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const insets = useSafeAreaInsets();
+  const [showSubmit, setShowSubmit] = useState(true);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardWillShow',
+      () => {
+        setShowSubmit(false);
+      },
+    );
+
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setShowSubmit(true);
+      },
+    );
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
 
   const styles = {
     btnBack: {
@@ -380,6 +404,7 @@ const FormikComponent = (props) => {
       textAlign: 'center',
     },
     mainContainer: {
+      flexGrow: 1,
       paddingVertical: getSize.w(24),
       paddingHorizontal: getSize.w(24),
     },
@@ -764,14 +789,16 @@ const FormikComponent = (props) => {
             )}
           </ScrollView>
 
-          <FooterFormik
-            loading={props.loading}
-            formikProps={formikProps}
-            notConnected={props.notConnected}
-            paddingBottom={props.insets.bottom || getSize.h(24)}
-            styles={styles}
-            onPressWithdraw={props.onPressWithdraw}
-          />
+          {showSubmit && (
+            <FooterFormik
+              loading={props.loading}
+              formikProps={formikProps}
+              notConnected={props.notConnected}
+              paddingBottom={props.insets.bottom || getSize.h(24)}
+              styles={styles}
+              onPressWithdraw={props.onPressWithdraw}
+            />
+          )}
         </>
       )}
     </Formik>
@@ -919,7 +946,7 @@ const CalendarComponent = (props) => {
       <DatePicker
         ref={props.refs}
         onChange={props.onChange}
-        maximumDate={new Date(new Date().getFullYear() - 13, 12, 31)}
+        maximumDate={new Date(new Date().getFullYear() - 14, 12, 31)}
       />
     </>
   );
