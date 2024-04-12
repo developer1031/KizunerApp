@@ -110,6 +110,7 @@ const Input = ({
     };
   } else if (type === 'password') {
     inputProps = {
+      keyboardType: 'default',
       secureTextEntry: showEye ? !eyeOpen : true,
     };
   }
@@ -148,8 +149,6 @@ const Input = ({
           allowFontScaling={false}
           {...inputProps}
           {...props}
-          keyboardType={type}
-          autoCapitalize={false}
         />
         {showEye && (
           <IconButton

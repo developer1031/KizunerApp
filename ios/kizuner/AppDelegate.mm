@@ -74,6 +74,10 @@
   return [Orientation getOrientation];
 }
 
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+  [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+}
+
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 {
 #if DEBUG

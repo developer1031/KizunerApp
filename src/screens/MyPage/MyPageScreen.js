@@ -13,7 +13,7 @@ import {
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Feather from 'react-native-vector-icons/Feather';
-import moment from 'moment';
+import moment, {lang} from 'moment';
 import FormData from 'form-data';
 import {useIsFocused, useScrollToTop} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -441,6 +441,30 @@ const MyPageScreen = ({navigation}) => {
     return null;
   }
 
+  function renderLanguagePart() {
+    let langData = ['en'];
+    if (userInfo?.language?.length > 0) {
+      langData = userInfo?.language;
+    }
+
+    return (
+      <View style={styles.languageWrap}>
+        {langData.map((item, index) => {
+          return (
+            <View
+              key={languagesDataJson[item]?.name}
+              style={styles.languageLetter}>
+              <Text>
+                {languagesDataJson[item]?.name}
+                {index != langData.length - 1 && ' - '}
+              </Text>
+            </View>
+          );
+        })}
+      </View>
+    );
+  }
+
   return (
     <Wrapper style={styles.wrapper}>
       <FlatList
@@ -597,31 +621,7 @@ const MyPageScreen = ({navigation}) => {
               </View>
               <View style={styles.genBirthCon}>
                 <Text style={styles.infoLabel}>Language</Text>
-                {userInfo?.language && (
-                  <View style={styles.languageWrap}>
-                    {/* {userInfo?.language.map((item, index) => {
-                      return (
-                        <FastImage
-                          key={languagesData[item].flag}
-                          style={styles.countryFlag}
-                          source={{uri: languagesData[item].flag}}
-                        />
-                      );
-                    })} */}
-                    {userInfo?.language.map((item, index) => {
-                      return (
-                        <View
-                          key={languagesDataJson[item]?.name}
-                          style={styles.languageLetter}>
-                          <Text>
-                            {languagesDataJson[item]?.name}
-                            {index != userInfo?.language?.length - 1 && ' - '}
-                          </Text>
-                        </View>
-                      );
-                    })}
-                  </View>
-                )}
+                {renderLanguagePart()}
               </View>
               <Text style={styles.infoLabel}>SNS Links</Text>
               {socialLinks?.length > 0 && (

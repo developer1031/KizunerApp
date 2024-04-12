@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -24,18 +24,21 @@ import {Formik} from 'formik';
 import * as yup from 'yup';
 import LanguagePicker from 'components/LanguagePicker';
 import {data as languagesDataJson} from 'assets/data';
+import ModalDateSearch from 'components/ModalDateSearch';
+import moment from 'moment';
 
 const SearchFilter = ({navigation}) => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const refModalLocation = useRef(null);
   const refModalPrice = useRef(null);
+  const refModalDateSearch = useRef(null);
+
   const keyboardHeight = useKeyboardHeight();
   const [showAgeFilter, setShowAgeFilter] = useState(false);
   const [showAgeRange, setShowAgeRange] = useState(false);
   const [ageRange, setAgeRange] = useState(null);
   const [isAllAge, setIsAllAge] = useState(null);
-
   const [gender, setGender] = useState(null);
 
   const {query} = useSelector((state) => state.search);
@@ -51,8 +54,9 @@ const SearchFilter = ({navigation}) => {
     address: '',
     lat: null,
     lng: null,
-    short_address: '',
+    short_address: null,
   });
+  const [dateFilter, setDateFilter] = useState(null);
   const [showCountryPicker, setShowCountryPicker] = useState(false);
   const [language, setLanguage] = useState(null);
 
@@ -124,32 +128,38 @@ const SearchFilter = ({navigation}) => {
       }),
     );
 
-    setTimeout(
-      () =>
-        dispatch(
-          ftsAll({
-            age,
-            gender: gend,
-            query,
-            page: 1,
-            skills: selectedSpecialities.map((i) => i.id),
-            categories: selectedCategories.map((i) => i.id),
-            available_status: isOnlineOnly ? 'online' : null,
-            language: language,
-            offer_type: typePost,
-            payment_method: paymentMethod,
-            location: {
-              lat: address.lat,
-              lng: address.lng,
-              short_address: address.short_address,
-            },
-            amount: priceType === 'none' ? null : priceValue.amount,
-            min_amount: priceType === 'range' ? priceValue.min_amount : null,
-            max_amount: priceType === 'range' ? priceValue.max_amount : null,
-          }),
-        ),
-      100,
-    );
+    const obj = {
+      age,
+      gender: gend,
+      query,
+      page: 1,
+      skills: selectedSpecialities.map((i) => i.id),
+      categories: selectedCategories.map((i) => i.id),
+      available_status: isOnlineOnly ? 'online' : null,
+      language: language,
+      offer_type: typePost,
+      payment_method: paymentMethod,
+      location: {
+        lat: address.lat,
+        lng: address.lng,
+        short_address: address.short_address,
+      },
+      amount: priceType === 'none' ? null : priceValue.amount,
+      min_amount: priceType === 'range' ? priceValue.min_amount : null,
+      max_amount: priceType === 'range' ? priceValue.max_amount : null,
+    };
+    if (typePost === 1) {
+      const dateObj = {};
+      if (dateFilter.date) {
+        dateObj.date = moment(dateFilter.date).format('YYYY-MM-DD');
+      } else if (dateFilter.fromDate && dateFilter.endDate) {
+        dateObj.fromDate = moment(dateFilter.fromDate).format('YYYY-MM-DD');
+        dateObj.endDate = moment(dateFilter.endDate).format('YYYY-MM-DD');
+      }
+      obj.dateFilter = dateObj;
+    }
+
+    setTimeout(() => dispatch(ftsAll(obj)), 100);
     navigation.goBack();
   }
 
@@ -194,6 +204,22 @@ const SearchFilter = ({navigation}) => {
   }
 
   const genderValues = [{label: 'All Genders', value: -1}, ...GENDERS];
+
+  const dateFilterString = useMemo(() => {
+    if (!dateFilter) {
+      return '';
+    }
+
+    const {date, fromDate, endDate} = dateFilter;
+
+    if (date) {
+      return moment(date).format('YYYY/M/D');
+    } else {
+      return `${moment(fromDate).format('YYYY/M/D')} - ${moment(endDate).format(
+        'YYYY/M/D',
+      )}`;
+    }
+  }, [dateFilter]);
 
   return (
     <KeyboardAvoidingView style={{flex: 1}} behavior="padding">
@@ -266,9 +292,21 @@ const SearchFilter = ({navigation}) => {
         />
         <Select
           label="Date or Multi-times"
-          value={TYPE_POST.find((i) => i.value === typePost)?.label}
+          value={
+            typePost != 1
+              ? TYPE_POST.find((i) => i.value === typePost)?.label
+              : dateFilterString
+          }
           options={TYPE_POST}
-          onSelect={(value) => setTypePost(value)}
+          onSelect={(value) => {
+            if (value == 1) {
+              setTimeout(() => {
+                refModalDateSearch.current?.open();
+              }, 600);
+            } else {
+              setTypePost(value);
+            }
+          }}
           wrapperStyle={styles.selectWrap}
         />
 
@@ -336,7 +374,7 @@ const SearchFilter = ({navigation}) => {
                   address: '',
                   lat: null,
                   lng: null,
-                  short_address: '',
+                  short_address: null,
                 });
                 refModalLocation.current?.close();
               }}
@@ -518,6 +556,16 @@ const SearchFilter = ({navigation}) => {
         onSelect={(value) => {
           setLanguage(value);
           setShowCountryPicker(false);
+        }}
+      />
+
+      <ModalDateSearch
+        ref={refModalDateSearch}
+        value={dateFilter}
+        onCancel={() => {}}
+        onSubmit={(value) => {
+          setDateFilter(value);
+          setTypePost(1);
         }}
       />
     </KeyboardAvoidingView>

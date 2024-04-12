@@ -47,6 +47,7 @@ export const ftsAll = ({
   amount,
   min_amount,
   max_amount,
+  dateFilter,
 }) =>
   generateThunkAction({
     actionType: FTS_ALL,
@@ -68,6 +69,7 @@ export const ftsAll = ({
         min_amount,
         max_amount,
         language,
+        date_filter: dateFilter,
       },
     },
   })();

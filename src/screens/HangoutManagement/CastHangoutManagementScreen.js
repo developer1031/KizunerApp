@@ -30,6 +30,7 @@ import {getHangoutStatus} from 'utils/mixed';
 import moment from 'moment';
 import ModalChooseCardPayment from 'components/ModalChooseCardPayment';
 import ModalChooseCryptoPayment from 'components/ModalChooseCryptoPayment';
+import ModalChoosePaymentMethod from 'components/ModalChoosePaymentMethod';
 import {Linking} from 'react-native';
 import {showModalize, hideModalize} from 'actions';
 import useAppState from 'utils/appState';
@@ -64,6 +65,7 @@ const CastHangoutManagementScreen = () => {
   const [selectedItem, setSelectedItem] = useState({});
   const refModalChooseCardPayment = useRef(null);
   const refModalChooseCyptoAddressPayment = useRef(null);
+  const refModalChoosePayment = useRef(null);
   const [itemCurrency, setItemCurrency] = useState(null);
 
   const appState = useAppState();
@@ -290,8 +292,6 @@ const CastHangoutManagementScreen = () => {
     setSelectedItem((prev) => (prev = item));
     setLoad(true);
 
-    console.log(item);
-
     if (item.invoice_url) {
       return payByInvoicUrl(item.invoice_url);
     }
@@ -302,57 +302,21 @@ const CastHangoutManagementScreen = () => {
     }
 
     setItemCurrency(item.crypto_currency);
-    item.available_payment_method === 'credit' &&
-      refModalChooseCardPayment.current.open();
-    item.available_payment_method === 'crypto' &&
-      refModalChooseCyptoAddressPayment.current.open();
 
-    item.available_payment_method === 'both' &&
-      dispatch(
-        showModalize([
-          {
-            label: 'Credit Payment',
-            icon: (
-              <MaterialCommunityIcons
-                name="wallet"
-                color={theme.colors.primary}
-                size={getSize.f(22)}
-              />
-            ),
-            onPress: () => {
-              dispatch(hideModalize());
-              refModalChooseCardPayment.current.open();
-            },
-          },
-          {
-            label: 'Crypto Payment',
-            icon: (
-              <MaterialCommunityIcons
-                name="wallet"
-                color={theme.colors.primary}
-                size={getSize.f(22)}
-              />
-            ),
-            onPress: () => {
-              dispatch(hideModalize());
-              refModalChooseCyptoAddressPayment.current.open();
-            },
-          },
-          {
-            label: 'Cancel',
-            icon: (
-              <MaterialCommunityIcons
-                name="cancel"
-                color={theme.colors.primary}
-                size={getSize.f(22)}
-              />
-            ),
-            onPress: () => {
-              dispatch(hideModalize());
-            },
-          },
-        ]),
-      );
+    switch (item.available_payment_method) {
+      case 'credit':
+        refModalChooseCardPayment.current.open();
+        break;
+      case 'crypto':
+        refModalChooseCyptoAddressPayment.current.open();
+        break;
+      case 'both':
+        refModalChoosePayment.current.open();
+        break;
+      default:
+        setLoad(false);
+        break;
+    }
   };
   const onStartHangout = (item) => {
     setLoad(true);
@@ -556,15 +520,6 @@ const CastHangoutManagementScreen = () => {
     setLoad(false);
     setSelectedItem({});
   };
-  const modalCard = () => {
-    return (
-      <ModalChooseCardPayment
-        ref={refModalChooseCardPayment}
-        onConfirm={confirmCredit}
-        onCancel={cancelCard}
-      />
-    );
-  };
 
   const confirmCrypto = ({currency, crypto}) => {
     setLoad(true);
@@ -588,7 +543,7 @@ const CastHangoutManagementScreen = () => {
             payByInvoicUrl(res.data.invoice_url);
           },
           error: () => {
-            console.log("_____ERROR");
+            console.log('_____ERROR');
             setLoad(false);
             setSelectedItem({});
           },
@@ -610,21 +565,40 @@ const CastHangoutManagementScreen = () => {
     setLoad(false);
     setSelectedItem({});
   };
-  const modalCryto = () => {
-    return (
+
+  return (
+    <>
+      <ModalChoosePaymentMethod
+        ref={refModalChoosePayment}
+        onCredit={() => {
+          setTimeout(() => {
+            dispatch(hideModalize());
+            refModalChooseCardPayment.current.open();
+          }, 100);
+        }}
+        onCrypto={() => {
+          setTimeout(() => {
+            dispatch(hideModalize());
+            refModalChooseCyptoAddressPayment.current.open();
+          }, 100);
+        }}
+        onCancel={() => {
+          setLoad(false);
+          setSelectedItem({});
+          dispatch(hideModalize());
+        }}
+      />
       <ModalChooseCryptoPayment
         ref={refModalChooseCyptoAddressPayment}
         onConfirm={confirmCrypto}
         onCancel={cancelCrypto}
         currencyLabel={itemCurrency}
       />
-    );
-  };
-
-  return (
-    <>
-      {modalCard()}
-      {modalCryto()}
+      <ModalChooseCardPayment
+        ref={refModalChooseCardPayment}
+        onConfirm={confirmCredit}
+        onCancel={cancelCard}
+      />
       <Wrapper style={styles.wrapper}>
         <HeaderBg height={HEADER_HEIGHT} />
         <Headers

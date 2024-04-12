@@ -32,6 +32,7 @@ import HangoutUser from './HangoutUser';
 import {EnumHangoutStatus} from 'utils/constants';
 import {isExpriedTime} from 'utils/datetime';
 import ModalChooseCryptoPayment from 'components/ModalChooseCryptoPayment';
+import ModalChoosePaymentMethod from 'components/ModalChoosePaymentMethod';
 import {getPaymentString} from 'utils/mixed';
 
 const FeedItemHelp = ({type, data, isChangeStatus, enableShare = true}) => {
@@ -48,6 +49,7 @@ const FeedItemHelp = ({type, data, isChangeStatus, enableShare = true}) => {
   const isOwn = data?.user?.data?.id === userInfo?.id;
 
   const refModalChooseCrypto = useRef(null);
+  const refModalChoosePayment = useRef(null);
 
   const dataSelectHelp = isChangeStatus
     ? [
@@ -415,12 +417,19 @@ const FeedItemHelp = ({type, data, isChangeStatus, enableShare = true}) => {
     );
   };
   const helpOnPress = () => {
-    setLoadId(data.id);
-    data.offered
-      ? NavigationService.navigate('CastHelpManagement')
-      : data.payment_method === 'credit'
-      ? _setApproveHelp()
-      : refModalChooseCrypto.current?.open();
+    if (data.offered) {
+      NavigationService.navigate('CastHelpManagement');
+    } else {
+      if (data.payment_method == 'both') {
+        refModalChoosePayment.current?.open();
+      } else if (data.payment_method == 'credit') {
+        setLoadId(data.id);
+        _setApproveHelp();
+      } else {
+        setLoadId(data.id);
+        refModalChooseCrypto.current?.open();
+      }
+    }
   };
   const _setApproveHelp = () => {
     const debouncedFunction = _.debounce(() => {
@@ -465,20 +474,24 @@ const FeedItemHelp = ({type, data, isChangeStatus, enableShare = true}) => {
   const _setCancel = () => {
     setLoadId(null);
   };
-  const ModalCrypto = () => {
-    return (
+
+  return (
+    <>
       <ModalChooseCryptoPayment
         ref={refModalChooseCrypto}
         chooseCurrency={false}
         onConfirm={_setApproveHelpCrypto}
         onCancel={_setCancel}
       />
-    );
-  };
-
-  return (
-    <>
-      {ModalCrypto()}
+      <ModalChoosePaymentMethod
+        ref={refModalChoosePayment}
+        onCredit={_setApproveHelp}
+        onCrypto={() => {
+          setTimeout(() => {
+            refModalChooseCrypto.current?.open();
+          }, 100);
+        }}
+      />
       <Paper noBorder style={styles.wrapper}>
         <View style={styles.hangoutHead}>
           <HangoutUser data={data} />

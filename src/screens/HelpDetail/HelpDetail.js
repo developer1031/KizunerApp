@@ -662,18 +662,22 @@ const HelpDetail = ({navigation, route}) => {
                             data?.type === 2 &&
                             data?.user?.data?.id !== userInfo?.id
                           }
-                          helpOnPress={() =>
-                            data?.offered
-                              ? navigation.navigate('CastHelpManagement')
-                              : data.payment_method === 'credit'
-                              ? dispatch(
-                                  createOfferHelp({
-                                    helpId,
-                                    userId: data?.user?.data?.id,
-                                  }),
-                                )
-                              : refModalChooseCrypto.current?.open()
-                          }
+                          helpOnPress={() => {
+                            if (data.offered) {
+                              navigation.navigate('CastHelpManagement');
+                            } else {
+                              if (data.payment_method == 'both') {
+                                //
+                              } else if (data.payment_method == 'credit') {
+                                createOfferHelp({
+                                  helpId,
+                                  userId: data?.user?.data?.id,
+                                });
+                              } else {
+                                refModalChooseCrypto.current?.open();
+                              }
+                            }
+                          }}
                           messageLoading={
                             beingCreateRoom || beingSendMessage.length > 0
                           }

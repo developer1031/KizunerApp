@@ -1,11 +1,11 @@
 import {StyleSheet, View} from 'react-native';
 import React, {forwardRef, useImperativeHandle, useState} from 'react';
-import {Modal} from 'react-native';
 import InputChooseCardPayment from './InputChooseCardPayment';
 import Button from './Button';
 import InputChooseCryptoCurrencyPayment from './InputChooseCryptoCurrencyPayment';
 import InputChooseCryptoAddressPayment from './InputChooseCryptoAddressPayment';
 import Text from './Text';
+import Modal from 'react-native-modal';
 
 const ModalChooseCryptoPayment = forwardRef(
   (
@@ -69,67 +69,64 @@ const ModalChooseCryptoPayment = forwardRef(
     );
 
     return (
-      <Modal transparent animationType="fade" visible={visible}>
+      <Modal
+        animationInTiming={10}
+        animationOutTiming={10}
+        backdropTransitionInTiming={10}
+        backdropTransitionOutTiming={10}
+        animationIn={'fadeIn'}
+        animationOut={'fadeOut'}
+        isVisible={visible}
+        hasBackdrop
+        onBackdropPress={() => setVisible(false)}>
         <View
           style={{
-            width: '100%',
-            height: '100%',
-            backgroundColor: '#0009',
-            justifyContent: 'center',
-            alignItems: 'center',
+            backgroundColor: 'white',
+            borderRadius: 20,
+            padding: 15,
           }}>
-          <View
-            style={{
-              width: '90%',
-              backgroundColor: 'white',
-              borderRadius: 20,
-              padding: 15,
-            }}>
-            {chooseCurrency && (
-              <>
-                <InputChooseCryptoCurrencyPayment
-                  onChange={(currency) => {
-                    setCurrency((prev) => (prev = currency));
-                  }}
-                  defaultCurrency={currencyLabel}
-                  disabled={currencyLabel ? true : false}
-                />
-                <Text variant="inputLabel">
-                  {'   '}• Choose coin for payment
-                </Text>
-                <Text variant="errorHelper" style={{marginBottom: 10}}>
-                  {errorCurrencyString}
-                </Text>
-              </>
-            )}
-
-            {chooseAddress && (
-              <>
-                <InputChooseCryptoAddressPayment
-                  onChange={(data) => {
-                    setCrypto((prev) => (prev = data));
-                  }}
-                />
-                <Text variant="inputLabel">
-                  {'   '}• Choose address to receive payment.
-                </Text>
-                <Text variant="errorHelper" style={{marginBottom: 10}}>
-                  {errorAddressString}
-                </Text>
-              </>
-            )}
-
-            <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
-              <Button
-                title="Cancel"
-                onPress={onPressCancel}
-                titleStyle={{color: 'black'}}
-                variant="ghost"
-                style={{marginRight: 15}}
+          {chooseCurrency && (
+            <>
+              <InputChooseCryptoCurrencyPayment
+                onChange={(currency) => {
+                  setCurrency((prev) => (prev = currency));
+                }}
+                defaultCurrency={currencyLabel}
+                disabled={currencyLabel ? true : false}
               />
+              <Text variant="inputLabel">{'   '}• Choose coin for payment</Text>
+              <Text variant="errorHelper" style={{marginBottom: 10}}>
+                {errorCurrencyString}
+              </Text>
+            </>
+          )}
 
-              <Button title={'Confirm'} onPress={onPressConfirm} />
-            </View>
+          {chooseAddress && (
+            <>
+              <InputChooseCryptoAddressPayment
+                onChange={(data) => {
+                  setCrypto((prev) => (prev = data));
+                }}
+              />
+              <Text variant="inputLabel">
+                {'   '}• Choose address to receive payment.
+              </Text>
+              <Text variant="errorHelper" style={{marginBottom: 10}}>
+                {errorAddressString}
+              </Text>
+            </>
+          )}
+
+          <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+            <Button
+              title="Cancel"
+              onPress={onPressCancel}
+              titleStyle={{color: 'black'}}
+              variant="ghost"
+              style={{marginRight: 15}}
+            />
+
+            <Button title={'Confirm'} onPress={onPressConfirm} />
           </View>
         </View>
       </Modal>
