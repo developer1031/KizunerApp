@@ -60,32 +60,40 @@ const FeedItemFakeHelp = ({type, data, isChangeStatus}) => {
               sendLabel: 'Send',
               onSend: (selected) => {
                 dispatch(
-                  createChatRoom({members: selected}, (result) => {
-                    if (result?.data) {
-                      dispatch(
-                        sendMessage(
-                          {
-                            room_id: result.data?.id,
-                            tmpId: uuid(),
-                            help: data.id,
-                            user: {
-                              id: userInfo?.id,
-                              name: userInfo?.name,
-                              avatar: userInfo.avatar,
-                            },
-                          },
-                          {
-                            success: () => {
-                              NavigationService.goBack();
-                              NavigationService.navigate('ChatRoom', {
-                                data: result,
-                              });
-                            },
-                          },
-                        ),
-                      );
-                    }
-                  }),
+                  createChatRoom(
+                    {members: selected, isSingle: true},
+                    (result) => {
+                      if (result?.data) {
+                        result?.data.map((room) => {
+                          dispatch(
+                            sendMessage(
+                              {
+                                room_id: room.id,
+                                tmpId: uuid(),
+                                help: data.id,
+                                user: {
+                                  id: userInfo?.id,
+                                  name: userInfo?.name,
+                                  avatar: userInfo.avatar,
+                                },
+                              },
+                              {
+                                success: () => {
+                                  // NavigationService.goBack();
+                                  // NavigationService.navigate('ChatRoom', {
+                                  //   data: result,
+                                  // });
+                                },
+                              },
+                            ),
+                          );
+                        });
+                        setTimeout(() => {
+                          NavigationService.goBack();
+                        }, 1000);
+                      }
+                    },
+                  ),
                 );
               },
             });
@@ -188,32 +196,40 @@ const FeedItemFakeHelp = ({type, data, isChangeStatus}) => {
               sendLabel: 'Send',
               onSend: (selected) => {
                 dispatch(
-                  createChatRoom({members: selected}, (result) => {
-                    if (result?.data) {
-                      dispatch(
-                        sendMessage(
-                          {
-                            room_id: result.data?.id,
-                            tmpId: uuid(),
-                            help: data.id,
-                            user: {
-                              id: userInfo?.id,
-                              name: userInfo?.name,
-                              avatar: userInfo.avatar,
-                            },
-                          },
-                          {
-                            success: () => {
-                              NavigationService.goBack();
-                              NavigationService.navigate('ChatRoom', {
-                                data: result,
-                              });
-                            },
-                          },
-                        ),
-                      );
-                    }
-                  }),
+                  createChatRoom(
+                    {members: selected, isSingle: true},
+                    (result) => {
+                      if (result?.data) {
+                        result?.data.map((room) => {
+                          dispatch(
+                            sendMessage(
+                              {
+                                room_id: room.id,
+                                tmpId: uuid(),
+                                help: data.id,
+                                user: {
+                                  id: userInfo?.id,
+                                  name: userInfo?.name,
+                                  avatar: userInfo.avatar,
+                                },
+                              },
+                              {
+                                success: () => {
+                                  // NavigationService.goBack();
+                                  // NavigationService.navigate('ChatRoom', {
+                                  //   data: result,
+                                  // });
+                                },
+                              },
+                            ),
+                          );
+                        });
+                        setTimeout(() => {
+                          NavigationService.goBack();
+                        }, 1000);
+                      }
+                    },
+                  ),
                 );
               },
             });

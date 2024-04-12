@@ -39,6 +39,7 @@ const SelectFriendScreen = ({navigation, route}) => {
   const {beingCreateRoom, beingSendMessage} = useSelector(
     (state) => state.chat,
   );
+  const userInfo = useSelector((state) => state.auth.userInfo);
   const following = useSelector((state) => state.contact.following?.me);
   const follower = useSelector((state) => state.contact.follower?.me);
   const [selected, setSelected] = useState([]);
@@ -217,7 +218,9 @@ const SelectFriendScreen = ({navigation, route}) => {
 
   const followingList = following?.list?.map((item) => item.user) || [];
   const followerList = follower?.list?.map((item) => item.user) || [];
-  const DATA = lodash.uniqBy([...followingList, ...followerList], (e) => e.id);
+  const DATA = lodash
+    .uniqBy([...followingList, ...followerList], (e) => e.id)
+    .filter((e) => e.id != userInfo.id);
 
   function renderFriendItem({item}) {
     return (

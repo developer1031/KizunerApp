@@ -199,13 +199,16 @@ export const listChatRoom = ({page = 1, query = '', type, reset}, callback) =>
     callback,
   })();
 
-export const createChatRoom = ({members, isFake}, callback) =>
+export const createChatRoom = ({members, isFake, isSingle = false}, callback) =>
   generateThunkAction({
     actionType: CREATE_CHAT_ROOM,
     apiOptions: {
       endpoint: '/chats/rooms',
       method: 'POST',
-      data: {members: members && members?.length > 1 ? members : members[0]},
+      data: {
+        isSingle,
+        members: members && members?.length > 1 ? members : members[0],
+      },
     },
     callback: {
       success: (payload) => {

@@ -301,30 +301,41 @@ const HangoutDetail = ({navigation, route}) => {
               sendLabel: 'Send',
               onSend: (selected) => {
                 dispatch(
-                  createChatRoom({members: selected}, (result) => {
-                    if (result?.data) {
-                      dispatch(
-                        sendMessage(
-                          {
-                            room_id: result.data?.id,
-                            tmpId: uuid(),
-                            hangout: hangoutId,
-                            user: {
-                              id: userInfo?.id,
-                              name: userInfo?.name,
-                              avatar: userInfo.avatar,
-                            },
-                          },
-                          {
-                            success: () => {
-                              navigation.goBack();
-                              navigation.navigate('ChatRoom', {data: result});
-                            },
-                          },
-                        ),
-                      );
-                    }
-                  }),
+                  createChatRoom(
+                    {members: selected, isSingle: true},
+                    (result) => {
+                      if (result?.data) {
+                        result?.data.map((room) => {
+                          dispatch(
+                            sendMessage(
+                              {
+                                room_id: room.id,
+                                tmpId: uuid(),
+                                hangout: hangoutId,
+                                user: {
+                                  id: userInfo?.id,
+                                  name: userInfo?.name,
+                                  avatar: userInfo.avatar,
+                                },
+                              },
+                              {
+                                success: () => {
+                                  // navigation.goBack();
+                                  // navigation.navigate('ChatRoom', {
+                                  //   data: result,
+                                  // });
+                                },
+                              },
+                            ),
+                          );
+                        });
+
+                        setTimeout(() => {
+                          navigation.goBack();
+                        }, 1000);
+                      }
+                    },
+                  ),
                 );
               },
             });
