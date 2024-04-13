@@ -10,8 +10,8 @@ export const USER_TOKEN_KEY = '@kizuner/user-token-key';
 // staging
 export const SHARE_URL = 'https://kizuner-share.inapps.technology';
 export const SOCKET_HOST = 'https://kizuner-st.inapps.technology/';
-export const STRIPE_KEY = 'pk_test_b9I41rv7fJZDnHyRxMILK5En00uDwq7mBN';
 export const API_URL = 'https://kizuner-st.inapps.technology/api';
+export const STRIPE_KEY = 'pk_test_b9I41rv7fJZDnHyRxMILK5En00uDwq7mBN';
 
 // localhost
 // export const API_URL = 'http://192.168.110.58:8000/api';
