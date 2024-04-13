@@ -7,9 +7,16 @@ import dynamicLinks from '@react-native-firebase/dynamic-links';
 var fs = require('react-native-fs');
 
 import fetchApi from 'utils/fetchApi';
-import {SHARE_URL, API_URL} from 'utils/constants';
-import {l} from 'i18n-js';
-import {err} from 'react-native-svg/lib/typescript/xml';
+import {
+  SHARE_URL,
+  API_URL,
+  GoogleStoreUrl,
+  AppleStoreUrl,
+  BundleID,
+  AppStoreID,
+  PageLink,
+  GCPStorageLink,
+} from 'utils/constants';
 
 const generateShortLink = async (link) => {
   try {
@@ -35,41 +42,28 @@ export const shareMultipleMediaFile = async (
   data,
   callback = () => {},
 ) => {
-  let urlImage = null,
-    imageBase64 = null;
+  let urlImage = null;
   const mediaData = data?.media?.data;
   if (mediaData) {
     if (mediaData.length > 0) {
       urlImage = mediaData[0].path || mediaData[0].thumb;
     }
   }
-  // if (urlImage) {
-  //   imageBase64 = await RNFetchBlob.config({
-  //     fileCache: true,
-  //   })
-  //     .fetch('GET', urlImage)
-  //     .then((resp) => {
-  //       let base64s = RNFetchBlob.fs
-  //         .readFile(resp.data, 'base64')
-  //         .then((dataImage) => 'data:image/png;base64,' + dataImage);
-  //       return base64s;
-  //     });
-  // }
 
   const shareLinks =
     'https://kizuner.com/?type=' + data?.type + '&id=' + data?.id;
 
   const dynamicLinkParameters = {
     link: shareLinks,
-    domainUriPrefix: 'https://kizuner.page.link',
+    domainUriPrefix: PageLink,
     android: {
-      packageName: 'com.kizuner',
-      fallbackUrl: 'https://play.google.com/store/apps/details?id=com.kizuner',
+      packageName: BundleID,
+      fallbackUrl: GoogleStoreUrl,
     },
     ios: {
-      bundleId: 'com.kizuner',
-      appStoreId: '1524617131',
-      fallbackUrl: 'https://apps.apple.com/us/app/id1524617131',
+      bundleId: BundleID,
+      appStoreId: AppStoreID,
+      fallbackUrl: AppleStoreUrl,
     },
     social: {
       imageUrl: urlImage,
@@ -85,42 +79,25 @@ export const shareMultipleMediaFile = async (
       'SHORT',
     );
 
-    const dl = url.replace('https://kizuner.page.link/', '');
-
-    console.log(urlImage);
+    const dl = url.replace(PageLink + '/', '');
 
     const hackyLinking = `${SHARE_URL}/k?dl=${dl}&t=${encodeURIComponent(
       data?.title,
     )}&d=${encodeURIComponent(data?.description)}&i=${encodeURIComponent(
-      urlImage?.replace(
-        'https://storage.googleapis.com/kizuner-storage-live/',
-        '',
-      ),
+      urlImage?.replace(GCPStorageLink, ''),
     )}&k=${encodeURIComponent(data.type)}&id=${encodeURIComponent(data?.id)}`;
 
-    const shortLink = await generateShortLink(hackyLinking);
+    console.log(hackyLinking);
+    // const shortLink = await generateShortLink(hackyLinking);
+    const shortLink = hackyLinking;
 
-    // const sharingUrls = [];
-    // if (imageBase64) {
-    //   sharingUrls.push(imageBase64);
-    // }
-    // sharingUrls.push(shortLink || urls[0] || 'https://kizuner.com');
-
-    console.log(urls);
-    console.log(shortLink);
-
-    // Share.open({
-    //   title: title || 'Kizuner',
-    //   message: message || '',
-    //   urls: sharingUrls,
-    // });
     await Share.open(
       Platform.select({
         android: {
           title: title || 'Kizuner',
           message: message || '',
           failOnCancel: false,
-          url: shortLink || urls[0] || 'https://kizuner.com',
+          url: shortLink || 'https://kizuner.com',
         },
         ios: {
           activityItemSources: [

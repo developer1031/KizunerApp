@@ -31,6 +31,15 @@ export const TIMEZONE_API_URL =
 export const TWITTER_AUTH_URL = 'https://twitter.com/i/oauth2/authorize';
 export const TWITTER_CONSUMER_KEY = 'QVVlTlZBeThDS2xid0N0X05VUW86MTpjaQ';
 
+export const GoogleStoreUrl =
+  'https://play.google.com/store/apps/details?id=com.kizuner';
+export const AppleStoreUrl = 'https://apps.apple.com/us/app/id' + AppStoreID;
+export const BundleID = 'com.kizuner';
+export const AppStoreID = '1524617131';
+export const PageLink = 'https://kizuner.page.link';
+export const GCPStorageLink =
+  'https://storage.googleapis.com/kizuner-storage-live/';
+
 export const GENDERS = [
   {
     label: 'Male',
