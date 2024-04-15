@@ -20,6 +20,7 @@ import {
   Fade,
 } from 'rn-placeholder';
 import Feather from 'react-native-vector-icons/Feather';
+import {data as languagesDataJson} from 'assets/data';
 
 import {
   Wrapper,
@@ -502,6 +503,30 @@ const UserProfileScreen = ({navigation, route}) => {
       );
   }
 
+  function renderLanguagePart() {
+    let langData = ['en'];
+    if (data?.language?.length > 0) {
+      langData = data?.language;
+    }
+
+    return (
+      <View style={stylesMain.languageWrap}>
+        {langData.map((item, index) => {
+          return (
+            <View
+              key={languagesDataJson[item]?.name}
+              style={styles.languageLetter}>
+              <Text style={stylesMain.infoText}>
+                {languagesDataJson[item]?.name}
+                {index != langData.length - 1 && ' - '}
+              </Text>
+            </View>
+          );
+        })}
+      </View>
+    );
+  }
+
   const gender = GENDERS.find((i) => i.value === data?.gender)?.label;
   const birthday =
     data?.birth_date && moment(data?.birth_date).format('MMM DD, YYYY');
@@ -510,7 +535,7 @@ const UserProfileScreen = ({navigation, route}) => {
     <Wrapper style={stylesMain.wrapper}>
       <HeaderSearch placeholder={data?.name} />
       <FlatList
-        ListHeaderComponent={() => (
+        ListHeaderComponent={
           <Paper style={stylesMain.infoWrap}>
             {data ? (
               <>
@@ -644,6 +669,12 @@ const UserProfileScreen = ({navigation, route}) => {
                       )}
                     </View>
                   </View>
+
+                  <View>
+                    <Text style={stylesMain.infoLabel}>Language</Text>
+                    {renderLanguagePart()}
+                  </View>
+
                   <Text style={stylesMain.infoLabel}>SNS Links</Text>
                   {socialLinks?.length > 0 && (
                     <View style={stylesMain.snsLinks}>
@@ -708,7 +739,7 @@ const UserProfileScreen = ({navigation, route}) => {
               </View>
             )}
           </Paper>
-        )}
+        }
         data={feed?.list}
         keyExtractor={(item) => item.id.toString()}
         style={stylesMain.scrollWrap}
@@ -903,6 +934,11 @@ const stylesMain = StyleSheet.create({
     flexGrow: 1,
     marginLeft: getSize.w(20),
     marginTop: getSize.h(20),
+  },
+  languageWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'wrap',
   },
 });
 
