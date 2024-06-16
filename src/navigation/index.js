@@ -120,7 +120,7 @@ const linking = {
   config: {
     screens: {
       AppNavigator: {
-        path: '/',
+        path: '',
       },
     },
   },
@@ -129,7 +129,6 @@ const linking = {
 function AppNavigator({ route, navigation }) {
   useEffect(() => {
     const { type, id } = route.params;
-    console.log(route.params);
 
     switch (type) {
       case 'hangout':
@@ -146,8 +145,6 @@ function AppNavigator({ route, navigation }) {
         );
     }
   }, [route.params]);
-
-  console.log("________", route.params);
 
   return null;
 }
