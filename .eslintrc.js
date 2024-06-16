@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  extends: '@react-native',
+  extends: ['eslint:recommended', '@react-native'],
   rules: {
     'react-hooks/exhaustive-deps': 'off',
   },

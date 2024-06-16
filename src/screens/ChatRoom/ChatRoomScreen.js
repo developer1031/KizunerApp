@@ -420,9 +420,11 @@ const ChatRoomScreen = ({navigation, route}) => {
       setShowEmojiPicker(false);
     }
   }, [keyboardHeight]);
+
   useEffect(() => {
     checkIsAnyUnreadNotification(dispatch, userInfo?.id);
   }, [appState]);
+
   useEffect(() => {
     setTimeout(() => {
       setMessage(draftMessage);
@@ -433,6 +435,7 @@ const ChatRoomScreen = ({navigation, route}) => {
       dispatch(leaveChatRoom());
     };
   }, []);
+
   useEffect(() => {
     if (roomDetail) {
       handleGetMessages(1);
@@ -440,14 +443,15 @@ const ChatRoomScreen = ({navigation, route}) => {
   }, [roomDetail]);
 
   function handleSendMessage(newMessages) {
-    const message = newMessages?.[0];
+    const newMsg = newMessages?.[0];
     const tmpId = uuid();
-    if (message) {
+
+    if (newMsg) {
       dispatch(
         sendMessage({
           tmpId,
           room_id: roomDetail?.id,
-          text: message.text,
+          text: newMsg.text,
           user: {
             id: userInfo?.id,
             name: userInfo?.name,

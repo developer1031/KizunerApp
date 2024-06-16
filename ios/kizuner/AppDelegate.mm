@@ -6,7 +6,6 @@
 #import <AVFoundation/AVFoundation.h>
 
 #import <Firebase.h>
-//#import <RNFBDynamicLinks/RNFBDynamicLinksModule.h>
 #import <RNGoogleSignin/RNGoogleSignin.h>
 #import <GoogleMaps/GoogleMaps.h>
 #import <AuthenticationServices/AuthenticationServices.h>
@@ -20,19 +19,13 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-//  if (!handled) {
-//    handled = [[FIRDynamicLink instance] application:application openURL:url options:options];
-//    return handled;
-//  }
+
 //  [[FBSDKApplicationDelegate sharedInstance] application:application openURL:url options:options]
 
-  if ([RNGoogleSignin application:application openURL:url options:options]) {
-    return YES;
-  }
+  BOOL handleGoogle = [RNGoogleSignin application:application openURL:url options:options];
+  BOOL handleUniversal = [RCTLinkingManager application:application openURL:url options:options];
   
-  BOOL handled = [RCTLinkingManager application:application openURL:url options:options];
-
-  return handled;
+  return handleUniversal || handleGoogle;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -62,8 +55,7 @@
     UIDatePicker *picker = [UIDatePicker appearance];
     picker.preferredDatePickerStyle = UIDatePickerStyleWheels;
   }
-  
-  
+    
 //  [[FBSDKApplicationDelegate sharedInstance] application:application
 //                         didFinishLaunchingWithOptions:launchOptions];
   
@@ -85,6 +77,14 @@
 #else
   return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif
+}
+
+- (BOOL)application:(UIApplication *)application continueUserActivity:(nonnull NSUserActivity *)userActivity
+ restorationHandler:(nonnull void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler
+{
+ return [RCTLinkingManager application:application
+                  continueUserActivity:userActivity
+                    restorationHandler:restorationHandler];
 }
 
 @end

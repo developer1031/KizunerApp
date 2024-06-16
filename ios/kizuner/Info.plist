@@ -23,9 +23,12 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>$(PRODUCT_BUNDLE_IDENTIFIER).auth</string>
+				<string>kizuner</string>
 			</array>
 		</dict>
 		<dict>
@@ -46,6 +49,16 @@
 				<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>kizuner</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>kizuner</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
@@ -57,15 +70,6 @@
 	<string>1d4d818cb0b7ff16aebca4d1bfcec276</string>
 	<key>FacebookDisplayName</key>
 	<string>Kizuner</string>
-	<key>FirebaseDynamicLinksCustomDomains</key>
-	<array>
-		<string>https://kizuner-app.inapps.technology/help</string>
-		<string>https://kizuner-app.inapps.technology/hangout</string>
-		<string>https://kizuner-app.inapps.technology/status</string>
-		<string>https://kizuner-app.inapps.technology/status</string>
-		<string>https://kizuner.page.link</string>
-		<string>https://kizuner.com</string>
-	</array>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
@@ -74,7 +78,7 @@
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>applinks:kizuner.page.link</key>
+			<key>applinks:kizuner.com</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
@@ -84,6 +88,13 @@
 			<key>localhost</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+			<key>webcredentials:kizuner.com</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
 				<true/>
 			</dict>
 		</dict>

@@ -25,7 +25,6 @@ import {
   getBadgeChatGroup,
 } from 'actions';
 import {ChatUnseenBadge} from 'components';
-import useDynamicLinkService from 'utils/dynamicLinkService';
 import Orientation from 'react-native-orientation-locker';
 import {getPaymentCryptoCards} from 'actions';
 import {Alert} from 'react-native';
@@ -76,7 +75,7 @@ const TABS = [
   },
 ];
 
-const AppTab = ({navigation}) => {
+const AppTab = ({navigation, route}) => {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
@@ -85,7 +84,6 @@ const AppTab = ({navigation}) => {
   useWatchLocation();
   useSocket();
   useNotification();
-  useDynamicLinkService();
   useAppState();
 
   useEffect(() => {

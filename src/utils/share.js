@@ -2,7 +2,6 @@ import Share from 'react-native-share';
 // import {ShareDialog} from 'react-native-fbsdk-next';
 import RNFetchBlob from 'rn-fetch-blob';
 import {PermissionsAndroid, ToastAndroid, Alert, Platform} from 'react-native';
-import dynamicLinks from '@react-native-firebase/dynamic-links';
 
 var fs = require('react-native-fs');
 
@@ -50,82 +49,69 @@ export const shareMultipleMediaFile = async (
     }
   }
 
-  const shareLinks =
-    'https://kizuner.com/?type=' + data?.type + '&id=' + data?.id;
-
-  const dynamicLinkParameters = {
-    link: shareLinks,
-    domainUriPrefix: PageLink,
-    android: {
-      packageName: BundleID,
-      fallbackUrl: GoogleStoreUrl,
-    },
-    ios: {
-      bundleId: BundleID,
-      appStoreId: AppStoreID,
-      fallbackUrl: AppleStoreUrl,
-    },
-    social: {
-      imageUrl: urlImage,
-      title: data.type != 'status' ? data?.title : title,
-      descriptionText: data.type != 'status' ? data?.description : '',
-    },
-  };
+  var baseLink = `${SHARE_URL}/k?`;
+  baseLink += `id=${encodeURIComponent(data.id)}`;
+  baseLink += `&k=${encodeURIComponent(data.type)}`;
+  if (title) {
+    baseLink += `&t=${encodeURIComponent(title)}`;
+  }
+  if (data.description) {
+    baseLink += `&d=${encodeURIComponent(data.description)}`;
+  }
+  if (urlImage) {
+    baseLink += `&i=${encodeURIComponent(
+      urlImage?.replace(GCPStorageLink, ''),
+    )}`;
+  }
 
   try {
-    // let url = await dynamicLinks().buildLink(dynamicLinkParameters);
-    const url = await dynamicLinks().buildShortLink(
-      dynamicLinkParameters,
-      'SHORT',
-    );
+    const shortLink = await generateShortLink(baseLink);
+    console.log(baseLink);
+    console.log(shortLink);
 
-    const dl = url.replace(PageLink + '/', '');
-
-    const hackyLinking = `${SHARE_URL}/k?dl=${dl}&t=${encodeURIComponent(
-      data?.title,
-    )}&d=${encodeURIComponent(data?.description)}&i=${encodeURIComponent(
-      urlImage?.replace(GCPStorageLink, ''),
-    )}&k=${encodeURIComponent(data.type)}&id=${encodeURIComponent(data?.id)}`;
-
-    console.log(hackyLinking);
-    // const shortLink = await generateShortLink(hackyLinking);
-    const shortLink = hackyLinking;
-
-    await Share.open(
-      Platform.select({
-        android: {
-          title: title || 'Kizuner',
-          message: message || '',
-          failOnCancel: false,
-          url: shortLink || 'https://kizuner.com',
-        },
-        ios: {
-          activityItemSources: [
-            {
-              placeholderItem: {
-                type: 'text',
-                content: `${message} ${shortLink}`,
-              },
-              item: {
-                copyToPasteBoard: {
+    setTimeout(() => {
+      Share.open(
+        Platform.select({
+          android: {
+            title: title || 'Kizuner',
+            message: message || '',
+            failOnCancel: false,
+            url: shortLink || 'https://kizuner.com',
+          },
+          ios: {
+            activityItemSources: [
+              {
+                placeholderItem: {
                   type: 'text',
-                  content: `${message} ${shortLink}`,
+                  content: `${message} \n${shortLink}`,
                 },
-                default: {
-                  type: 'text',
-                  content: `${message} ${shortLink}`,
+                item: {
+                  copyToPasteBoard: {
+                    type: 'text',
+                    content: `${message} \n${shortLink}`,
+                  },
+                  default: {
+                    type: 'text',
+                    content: `${message} \n${shortLink}`,
+                  },
                 },
+                subject: {
+                  copyToPasteBoard: `${message} \n${shortLink}`,
+                  default: title,
+                },
+                linkMetadata: {originalUrl: shortLink, shortLink, title},
               },
-              subject: {
-                copyToPasteBoard: `${message} ${shortLink}`,
-                default: title,
-              },
-              linkMetadata: {originalUrl: shortLink, shortLink, title},
-            },
-          ],
-        },
-      }),
-    );
+            ],
+          },
+        }),
+      )
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          err && console.log(err);
+        });
+    }, 700);
 
     callback();
   } catch (e) {

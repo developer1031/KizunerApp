@@ -1,12 +1,8 @@
 import React, {useRef, useEffect} from 'react';
-import {NavigationContainer, useNavigation} from '@react-navigation/native';
-
+import {Text} from 'react-native';
+import {NavigationContainer, StackActions} from '@react-navigation/native';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
-
 import {useDispatch, useSelector} from 'react-redux';
-import messaging from '@react-native-firebase/messaging';
-import analytics from '@react-native-firebase/analytics';
-
 import {navigationRef, getActiveRouteName} from './service';
 import AppTab from './AppTab';
 
@@ -99,7 +95,6 @@ import {
   setNeedVerifyEmail,
   updateFcmToken,
 } from 'actions';
-import {Platform} from 'react-native';
 import ConnectStripeScreen from '../screens/Payment/ConnectStripeScreen';
 import CardCreditManagementScreen from '../screens/Payment/CardCreditManagementScreen';
 import CardCryptoManagementScreen from 'screens/Payment/CardCryptoManagementScreen';
@@ -120,39 +115,42 @@ import {getFcmToken} from 'utils/notificationService';
 
 const Stack = createStackNavigator();
 
-const configLinking = {
-  screens: {
-    HangoutDetail: {
-      path: '?id=:id',
-      parse: {
-        hangoutId: (id) => `${id}`,
-      },
-    },
-    StatusDetail: {
-      path: '?id=:id',
-      parse: {
-        statusId: (id) => `${id}`,
-      },
-    },
-    HelpDetail: {
-      path: '?id=:id',
-      parse: {
-        helpId: (id) => `${id}`,
+const linking = {
+  prefixes: ['https://kizuner.com', 'kizuner.com://'],
+  config: {
+    screens: {
+      AppNavigator: {
+        path: '/',
       },
     },
   },
-  initialRouteName: 'Login',
 };
 
-const linking = {
-  prefixes: [
-    'https://kizuner.com',
-    'https://kizuner-app.inapps.technology/help',
-    'https://kizuner-app.inapps.technology/hangout',
-    'https://kizuner-app.inapps.technology/status',
-  ],
-  config: configLinking,
-};
+function AppNavigator({ route, navigation }) {
+  useEffect(() => {
+    const { type, id } = route.params;
+    console.log(route.params);
+
+    switch (type) {
+      case 'hangout':
+        navigation.dispatch(
+          StackActions.replace('HangoutDetail', {hangoutId: id}),
+        );
+        break;
+      case 'help':
+        navigation.dispatch(StackActions.replace('HelpDetail', {helpId: id}));
+        break;
+      case 'status':
+        navigation.dispatch(
+          StackActions.replace('StatusDetail', {statusId: id}),
+        );
+    }
+  }, [route.params]);
+
+  console.log("________", route.params);
+
+  return null;
+}
 
 const config = {
   animation: 'spring',
@@ -314,6 +312,7 @@ export default () => {
       onReady={() => {
         BootSplash.hide();
       }}
+      fallback={<Text>Loading...</Text>}
       linking={linking}>
       <Stack.Navigator
         screenOptions={{headerShown: false, gestureEnabled: false}}>
@@ -514,7 +513,7 @@ export default () => {
         <Stack.Screen
           name="ChatRoom"
           component={ChatRoomScreen}
-          initialParams={{data: null, onSetDraft: () => {}, draftMessage: ''}}
+          initialParams={{data: null, draftMessage: ''}}
         />
 
         <Stack.Screen
@@ -673,6 +672,7 @@ export default () => {
         />
         <Stack.Screen name="PaymentCryptoPanel" component={CryptoPanelScreen} />
         <Stack.Screen name="PaymentOTP" component={PaymentOTPScreen} />
+        <Stack.Screen name="AppNavigator" component={AppNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
   );
