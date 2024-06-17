@@ -17,15 +17,15 @@ import {
   GCPStorageLink,
 } from 'utils/constants';
 
-const generateShortLink = async (link) => {
+const generateShortLink = async (type, id, link) => {
   try {
     const result = await fetchApi({
       endpoint: '/shortlink',
       method: 'POST',
-      data: {link},
+      data: {link, type, id},
     });
     if (result?.data?.code) {
-      return `${API_URL}/share/${result.data.code}`;
+      return `${API_URL}/share/${type}/${result.data.code}`;
     }
     return null;
   } catch (error) {
@@ -65,7 +65,7 @@ export const shareMultipleMediaFile = async (
   }
 
   try {
-    const shortLink = await generateShortLink(baseLink);
+    const shortLink = await generateShortLink(data.type, data.id, baseLink);
     console.log(baseLink);
     console.log(shortLink);
 

@@ -8,11 +8,12 @@
 	<array>
 		<string>Default</string>
 	</array>
-	<key>keychain-access-groups</key>
-	<array/>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-	    <string>applinks:kizuner.com</string>
+		<string>applinks:source.kizuner.com</string>
+		<string>applinks:kizuner-st.inapps.technology</string>
 	</array>
+	<key>keychain-access-groups</key>
+	<array/>
 </dict>
 </plist>

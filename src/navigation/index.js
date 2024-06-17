@@ -116,38 +116,24 @@ import {getFcmToken} from 'utils/notificationService';
 const Stack = createStackNavigator();
 
 const linking = {
-  prefixes: ['https://kizuner.com', 'kizuner.com://'],
+  prefixes: [
+    'https://kizuner-st.inapps.technology',
+    'https://source.kizuner.com',
+  ],
   config: {
     screens: {
-      AppNavigator: {
-        path: '',
+      HangoutDetail: {
+        path: 'api/share/hangout/:hangoutId',
+      },
+      HelpDetail: {
+        path: 'api/share/help/:helpId',
+      },
+      StatusDetail: {
+        path: 'api/share/status/:statusId',
       },
     },
   },
 };
-
-function AppNavigator({ route, navigation }) {
-  useEffect(() => {
-    const { type, id } = route.params;
-
-    switch (type) {
-      case 'hangout':
-        navigation.dispatch(
-          StackActions.replace('HangoutDetail', {hangoutId: id}),
-        );
-        break;
-      case 'help':
-        navigation.dispatch(StackActions.replace('HelpDetail', {helpId: id}));
-        break;
-      case 'status':
-        navigation.dispatch(
-          StackActions.replace('StatusDetail', {statusId: id}),
-        );
-    }
-  }, [route.params]);
-
-  return null;
-}
 
 const config = {
   animation: 'spring',
@@ -669,7 +655,6 @@ export default () => {
         />
         <Stack.Screen name="PaymentCryptoPanel" component={CryptoPanelScreen} />
         <Stack.Screen name="PaymentOTP" component={PaymentOTPScreen} />
-        <Stack.Screen name="AppNavigator" component={AppNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
   );

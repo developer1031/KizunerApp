@@ -1291,11 +1291,11 @@ const CryptoPriceInfo = ({
         </Text>
       ) : (
         <Text>
-          {'   '}${minAmount.toFixed(2)} - ${maxAmount.toFixed(2)} - Network Fee
+          {'   '}${minAmount.toFixed(2)} 〜 ${maxAmount.toFixed(2)} - Network Fee
           {hasWallet &&
             ` ~ ${parseFloat(
               (minAmount * minimumPriceCryptoCoin) / minPrice || 0,
-            ).toFixed(5)} - ${parseFloat(
+            ).toFixed(5)} 〜 ${parseFloat(
               (maxAmount * minimumPriceCryptoCoin) / minPrice || 0,
             ).toFixed(5)} ${currency}`}
         </Text>
