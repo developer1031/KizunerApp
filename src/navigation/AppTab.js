@@ -27,7 +27,6 @@ import {
 import {ChatUnseenBadge} from 'components';
 import Orientation from 'react-native-orientation-locker';
 import {getPaymentCryptoCards} from 'actions';
-import {Alert} from 'react-native';
 import {Icons} from 'utils/icon';
 
 const Tab = createMaterialTopTabNavigator();

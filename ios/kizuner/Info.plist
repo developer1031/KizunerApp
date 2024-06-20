@@ -53,10 +53,10 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>kizuner</string>
+			<string>kizunerapp</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>kizuner</string>
+				<string>kizunerapp</string>
 			</array>
 		</dict>
 	</array>
@@ -142,5 +142,9 @@
 	<string>Light</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+  <key>NSUserActivityTypes</key>
+  <array>
+    <string>NSUserActivityTypeBrowsingWeb</string>
+  </array>
 </dict>
 </plist>

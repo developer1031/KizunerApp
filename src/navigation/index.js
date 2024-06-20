@@ -1,5 +1,5 @@
 import React, {useRef, useEffect} from 'react';
-import {Text} from 'react-native';
+import {Text, Linking} from 'react-native';
 import {NavigationContainer, StackActions} from '@react-navigation/native';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {useDispatch, useSelector} from 'react-redux';
@@ -135,56 +135,6 @@ const linking = {
   },
 };
 
-const config = {
-  animation: 'spring',
-  config: {
-    stiffness: 1000,
-    damping: 500,
-    mass: 3,
-    overshootClamping: true,
-    restDisplacementThreshold: 0.01,
-    restSpeedThreshold: 0.01,
-  },
-};
-
-const horizontalAnimation = {
-  gestureDirection: 'horizontal',
-  cardStyleInterpolator: ({current, layouts}) => {
-    return {
-      cardStyle: {
-        transform: [
-          {
-            translateX: current.progress.interpolate({
-              inputRange: [0, 1],
-              outputRange: [layouts.screen.width, 0],
-            }),
-          },
-        ],
-      },
-    };
-  },
-};
-
-const MainScreen = () => {
-  // remove tutorial
-
-  // const dispatch = useDispatch();
-  // const {isAuth, userInfo, needVerifyEmail} = useSelector(
-  //   (state) => state.auth,
-  // );
-  // const {isFirstLaunch} = useSelector((state) => state.app);
-  // if (userInfo?.has_posted == false) {
-  //   if (isFirstLaunch == true) {
-  //     return <OnboardingScreen />;
-  //   } else if (isFirstLaunch == false) {
-  //     return <AppTab />;
-  //   }
-  //   return <OnboardingScreen />;
-  // }
-
-  return <AppTab />;
-};
-
 export default () => {
   const dispatch = useDispatch();
   const {isAuth, userInfo, needVerifyEmail} = useSelector(
@@ -228,6 +178,26 @@ export default () => {
     //   firebase.notifications().setBadge(0);
     // }
   }, [isAuth]);
+
+  useEffect(() => {
+    const handleInitialURL = async () => {
+      const initialUrl = await Linking.getInitialURL();
+      if (initialUrl) {
+        handleOpenURL({url: initialUrl});
+      }
+    };
+
+    const handleOpenURL = (event) => {
+      const url = event.url;
+      console.log('Incoming URL:', url);
+    };
+
+    Linking.addEventListener('url', handleOpenURL);
+
+    return () => {
+      Linking.removeEventListener('url', handleOpenURL);
+    };
+  }, []);
 
   // useCallback(() => {
   //   if (isAuth) {
@@ -300,7 +270,7 @@ export default () => {
       <Stack.Navigator
         screenOptions={{headerShown: false, gestureEnabled: false}}>
         {authenticated ? (
-          <Stack.Screen name="AppTab" component={MainScreen} />
+          <Stack.Screen name="AppTab" component={AppTab} />
         ) : (
           <>
             <Stack.Screen

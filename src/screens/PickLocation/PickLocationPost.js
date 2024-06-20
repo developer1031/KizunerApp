@@ -251,6 +251,9 @@ const PickLocationPostScreen = ({navigation, route}) => {
   const handlePressItem = async (data, exactLocationName) => {
     setTypeSearch((prev) => (prev = 'exact'));
     setSearchExact((prev) => (prev = exactLocationName));
+    setPredictions([]);
+    setSearch('');
+    // setSearchFocused(false);
 
     const detail = await fetchLocationDetail(data.place_id);
     if (!detail) {
@@ -449,11 +452,12 @@ const PickLocationPostScreen = ({navigation, route}) => {
         />
         <FlatList
           data={predictions}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.place_id}
           style={[
             styles.listWrap,
             (!searchFocused || !predictions?.length) && styles.listHide,
           ]}
+          keyboardShouldPersistTaps="handled"
           contentContainerStyle={styles.listCon}
           showsVerticalScrollIndicator={false}
           ItemSeparatorComponent={() => <View style={styles.listDivider} />}
@@ -463,6 +467,7 @@ const PickLocationPostScreen = ({navigation, route}) => {
               style={styles.searchItem}
               onPress={() => {
                 const exactLocationName = `${item.structured_formatting.main_text} - ${item.structured_formatting.secondary_text}`;
+
                 handlePressItem(item, exactLocationName);
               }}>
               <Text numberOfLines={1}>

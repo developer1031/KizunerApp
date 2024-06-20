@@ -124,7 +124,7 @@ const HangoutFakeAction = ({
           </Text>
         </Touchable>
       )}
-      {showFindNearFriend && (
+      {/* {showFindNearFriend && (
         <Touchable onPress={onPressFindNearFriend} style={styles.actionItem}>
           <MaterialCommunityIcons
             name="account-group-outline"
@@ -133,7 +133,7 @@ const HangoutFakeAction = ({
           />
           <Text style={styles.actionText}>Find near</Text>
         </Touchable>
-      )}
+      )} */}
       {showFakeHelps && (
         <Touchable onPress={onPressFakeHelps} style={styles.actionItem}>
           <MaterialCommunityIcons

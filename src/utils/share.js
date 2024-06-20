@@ -45,7 +45,7 @@ export const shareMultipleMediaFile = async (
   const mediaData = data?.media?.data;
   if (mediaData) {
     if (mediaData.length > 0) {
-      urlImage = mediaData[0].path || mediaData[0].thumb;
+      urlImage = mediaData[0].thumb || mediaData[0].path;
     }
   }
 
@@ -66,7 +66,7 @@ export const shareMultipleMediaFile = async (
 
   try {
     const shortLink = await generateShortLink(data.type, data.id, baseLink);
-    console.log(baseLink);
+    console.log(data.media);
     console.log(shortLink);
 
     setTimeout(() => {
@@ -83,20 +83,20 @@ export const shareMultipleMediaFile = async (
               {
                 placeholderItem: {
                   type: 'text',
-                  content: `${message} \n${shortLink}`,
+                  content: `${message} \n\n${shortLink}`,
                 },
                 item: {
                   copyToPasteBoard: {
                     type: 'text',
-                    content: `${message} \n${shortLink}`,
+                    content: `${message} \n\n${shortLink}`,
                   },
                   default: {
                     type: 'text',
-                    content: `${message} \n${shortLink}`,
+                    content: `${message} \n\n${shortLink}`,
                   },
                 },
                 subject: {
-                  copyToPasteBoard: `${message} \n${shortLink}`,
+                  copyToPasteBoard: `${message} \n\n${shortLink}`,
                   default: title,
                 },
                 linkMetadata: {originalUrl: shortLink, shortLink, title},

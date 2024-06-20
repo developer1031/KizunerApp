@@ -86,7 +86,7 @@ const HangoutAction = ({
           />
         )}
 
-        {showFindNearFriend && (
+        {/* {showFindNearFriend && (
           <ActionButton
             onPress={onPressFindNearFriend}
             text="Find near"
@@ -98,7 +98,7 @@ const HangoutAction = ({
               />
             }
           />
-        )}
+        )} */}
         <ActionButton
           onPress={onPressLike}
           text="Like"
