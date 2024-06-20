@@ -116,20 +116,17 @@ import {getFcmToken} from 'utils/notificationService';
 const Stack = createStackNavigator();
 
 const linking = {
-  prefixes: [
-    'https://kizuner-st.inapps.technology',
-    'https://source.kizuner.com',
-  ],
+  prefixes: ['kizunerapp://'],
   config: {
     screens: {
       HangoutDetail: {
-        path: 'api/share/hangout/:hangoutId',
+        path: 'hangout/:hangoutId',
       },
       HelpDetail: {
-        path: 'api/share/help/:helpId',
+        path: 'help/:helpId',
       },
       StatusDetail: {
-        path: 'api/share/status/:statusId',
+        path: 'status/:statusId',
       },
     },
   },

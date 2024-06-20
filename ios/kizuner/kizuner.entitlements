@@ -12,7 +12,8 @@
 	<array>
 		<string>applinks:source.kizuner.com</string>
 		<string>applinks:kizuner-st.inapps.technology</string>
-		<string>applinks:kizuner.com</string>
+		<string>applinks:kizuner-share.inapps.technology</string>
+		<string>applinks:share.kizuner.com</string>
 	</array>
 	<key>keychain-access-groups</key>
 	<array/>

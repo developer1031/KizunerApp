@@ -70,41 +70,11 @@ export const shareMultipleMediaFile = async (
     console.log(shortLink);
 
     setTimeout(() => {
-      Share.open(
-        Platform.select({
-          android: {
-            title: title || 'Kizuner',
-            message: message || '',
-            failOnCancel: false,
-            url: shortLink || 'https://kizuner.com',
-          },
-          ios: {
-            activityItemSources: [
-              {
-                placeholderItem: {
-                  type: 'text',
-                  content: `${message} \n\n${shortLink}`,
-                },
-                item: {
-                  copyToPasteBoard: {
-                    type: 'text',
-                    content: `${message} \n\n${shortLink}`,
-                  },
-                  default: {
-                    type: 'text',
-                    content: `${message} \n\n${shortLink}`,
-                  },
-                },
-                subject: {
-                  copyToPasteBoard: `${message} \n\n${shortLink}`,
-                  default: title,
-                },
-                linkMetadata: {originalUrl: shortLink, shortLink, title},
-              },
-            ],
-          },
-        }),
-      )
+      Share.open({
+        title: title || 'Kizuner',
+        message: message || '',
+        url: shortLink || 'https://kizuner.com',
+      })
         .then((res) => {
           console.log(res);
         })
