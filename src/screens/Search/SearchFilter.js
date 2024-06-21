@@ -385,7 +385,7 @@ const SearchFilter = ({navigation}) => {
               title="Select"
               onPress={() => {
                 refModalLocation.current?.close();
-                navigation.navigate('PickLocationPost', {
+                navigation.navigate('PickLocation', {
                   onSelect: async (data) => {
                     setAddress(data);
                   },

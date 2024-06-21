@@ -270,7 +270,7 @@ const PickLocationPostScreen = ({navigation, route}) => {
       data?.types?.includes('geocode') &&
       data?.types?.includes('political')
     ) {
-      // setSearch(data?.description)
+      setSearch(data?.description);
       mapView?.current.animateToRegion(newRegion);
       return;
     }
@@ -333,13 +333,13 @@ const PickLocationPostScreen = ({navigation, route}) => {
         item.types?.includes('political') && item.types?.includes('country'),
     );
 
-    // setSearch(
-    //   handleStringAddress(
-    //     political?.long_name,
-    //     country?.long_name,
-    //     subRouteAddress ? subRouteAddress : routeAddress?.long_name,
-    //   ),
-    // )
+    setSearch(
+      handleStringAddress(
+        political?.long_name,
+        country?.long_name,
+        subRouteAddress ? subRouteAddress : routeAddress?.long_name,
+      ),
+    );
 
     mapView?.current.animateToRegion(newRegion);
   };

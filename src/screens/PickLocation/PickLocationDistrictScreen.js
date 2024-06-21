@@ -278,6 +278,7 @@ const PickLocationDistrictScreen = ({navigation, route}) => {
           ]}
           contentContainerStyle={styles.listCon}
           showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
           ItemSeparatorComponent={() => <View style={styles.listDivider} />}
           renderItem={({item}) => (
             <TouchableOpacity

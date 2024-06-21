@@ -18,7 +18,6 @@ function goBack() {
 export const getActiveRouteName = (state) => {
   if (state) {
     const route = state.routes[state.index];
-    console.log("_____--------", route)
     if (route.state) {
       return getActiveRouteName(route.state);
     }

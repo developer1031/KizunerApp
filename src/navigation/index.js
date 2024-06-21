@@ -116,7 +116,13 @@ import {getFcmToken} from 'utils/notificationService';
 const Stack = createStackNavigator();
 
 const linking = {
-  prefixes: ['kizunerapp://'],
+  prefixes: [
+    'kizunerapp://',
+    'https://kizuner-st.inapps.technology/api/share',
+    'https://source.kizuner.com/api/share',
+    'https://kizuner-share.inapps.technology',
+    'https://share.kizuner.com',
+  ],
   config: {
     screens: {
       HangoutDetail: {
@@ -128,9 +134,35 @@ const linking = {
       StatusDetail: {
         path: 'status/:statusId',
       },
+      UniversalLinkNavigator: {
+        path: 'k',
+      },
     },
   },
 };
+
+function UniversalLinkNavigator({route, navigation}) {
+  useEffect(() => {
+    const {k, id} = route.params;
+
+    switch (k) {
+      case 'hangout':
+        navigation.dispatch(
+          StackActions.replace('HangoutDetail', {hangoutId: id}),
+        );
+        break;
+      case 'help':
+        navigation.dispatch(StackActions.replace('HelpDetail', {helpId: id}));
+        break;
+      case 'status':
+        navigation.dispatch(
+          StackActions.replace('StatusDetail', {statusId: id}),
+        );
+    }
+  }, [route.params]);
+
+  return null;
+}
 
 export default () => {
   const dispatch = useDispatch();
@@ -176,25 +208,37 @@ export default () => {
     // }
   }, [isAuth]);
 
-  useEffect(() => {
-    const handleInitialURL = async () => {
-      const initialUrl = await Linking.getInitialURL();
-      if (initialUrl) {
-        handleOpenURL({url: initialUrl});
-      }
-    };
+  // useEffect(() => {
+  //   const handleInitialURL = async () => {
+  //     const initialUrl = await Linking.getInitialURL();
+  //     if (initialUrl) {
+  //       handleOpenURL({url: initialUrl});
+  //     }
+  //   };
 
-    const handleOpenURL = (event) => {
-      const url = event.url;
-      console.log('Incoming URL:', url);
-    };
+  //   const handleOpenURL = (event) => {
+  //     try {
+  //       const url = new URL(event.url);
+  //       const urlParams = new URLSearchParams(url.search);
 
-    Linking.addEventListener('url', handleOpenURL);
+  //       const paramsObject = {};
+  //       for (const [key, value] of urlParams) {
+  //         paramsObject[key] = value;
+  //       }
 
-    return () => {
-      Linking.removeEventListener('url', handleOpenURL);
-    };
-  }, []);
+  //       return paramsObject;
+  //     } catch (error) {
+  //       console.error('Invalid URL', error);
+  //       return null;
+  //     }
+  //   };
+
+  //   Linking.addEventListener('url', handleOpenURL);
+
+  //   return () => {
+  //     Linking.removeEventListener('url', handleOpenURL);
+  //   };
+  // }, []);
 
   // useCallback(() => {
   //   if (isAuth) {
@@ -622,6 +666,10 @@ export default () => {
         />
         <Stack.Screen name="PaymentCryptoPanel" component={CryptoPanelScreen} />
         <Stack.Screen name="PaymentOTP" component={PaymentOTPScreen} />
+        <Stack.Screen
+          name="UniversalLinkNavigator"
+          component={UniversalLinkNavigator}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

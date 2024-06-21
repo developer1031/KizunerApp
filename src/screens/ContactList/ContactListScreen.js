@@ -3,7 +3,7 @@ import {StyleSheet, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 
 import useTheme from 'theme';
 import {getSize} from 'utils/responsive';

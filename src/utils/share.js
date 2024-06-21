@@ -73,6 +73,7 @@ export const shareMultipleMediaFile = async (
       Share.open({
         title: title || 'Kizuner',
         message: message || '',
+        subject: title || 'Kizuner',
         url: shortLink || 'https://kizuner.com',
       })
         .then((res) => {
