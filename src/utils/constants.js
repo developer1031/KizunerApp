@@ -56,10 +56,10 @@ export const GENDERS = [
 ];
 
 export const PAYMENT_METHOD = [
-  {
-    label: 'Both',
-    value: 'both',
-  },
+  // {
+  //   label: 'Both',
+  //   value: 'both',
+  // },
   {
     label: 'Credit',
     value: 'credit',
