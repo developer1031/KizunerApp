@@ -208,38 +208,6 @@ export default () => {
     // }
   }, [isAuth]);
 
-  // useEffect(() => {
-  //   const handleInitialURL = async () => {
-  //     const initialUrl = await Linking.getInitialURL();
-  //     if (initialUrl) {
-  //       handleOpenURL({url: initialUrl});
-  //     }
-  //   };
-
-  //   const handleOpenURL = (event) => {
-  //     try {
-  //       const url = new URL(event.url);
-  //       const urlParams = new URLSearchParams(url.search);
-
-  //       const paramsObject = {};
-  //       for (const [key, value] of urlParams) {
-  //         paramsObject[key] = value;
-  //       }
-
-  //       return paramsObject;
-  //     } catch (error) {
-  //       console.error('Invalid URL', error);
-  //       return null;
-  //     }
-  //   };
-
-  //   Linking.addEventListener('url', handleOpenURL);
-
-  //   return () => {
-  //     Linking.removeEventListener('url', handleOpenURL);
-  //   };
-  // }, []);
-
   // useCallback(() => {
   //   if (isAuth) {
   //     console.log(count + requestList.length);
