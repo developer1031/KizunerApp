@@ -248,7 +248,6 @@ const HangoutExploreItem = ({data, selected, wrapperStyle, onPress}) => {
   const onNavigate = useCallback(() => {
     if (onPress) {
       onPress();
-      return;
     }
     switch (data?.post_type) {
       case 'help':

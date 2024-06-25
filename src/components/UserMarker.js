@@ -53,8 +53,8 @@ const UserMarker = () => {
   });
 
   const animatedStyle = {
-    width: sizeInterpolate,
-    height: sizeInterpolate,
+    // width: sizeInterpolate,
+    // height: sizeInterpolate,
     borderRadius: sizeInterpolate,
     opacity: opacityInterpolate,
     backgroundColor: bgInterpolate,
