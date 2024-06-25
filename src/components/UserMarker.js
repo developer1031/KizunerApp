@@ -18,10 +18,12 @@ const UserMarker = () => {
         duration: 2000,
         easing: Easing.linear,
         delay: 1500,
+        useNativeDriver: true,
       }),
       Animated.timing(animated, {
         toValue: 0,
         duration: 0,
+        useNativeDriver: true,
       }),
     ]).start(() => {
       cycleAnimation();

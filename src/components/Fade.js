@@ -9,6 +9,7 @@ export const Fade = ({visible, style, children, ...props}) => {
       toValue: visible ? 1 : 0,
       duration: 300,
       easing: Easing.linear,
+      useNativeDriver: true,
     }).start(() => {
       setSisibility(new Animated.Value(visible));
     });

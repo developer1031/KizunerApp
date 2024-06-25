@@ -120,7 +120,11 @@ class PlayerControl extends React.Component {
   animationShowControl() {
     const {opacityAnimation} = this.state;
     const self = this;
-    Animated.timing(opacityAnimation, {toValue: 1, duration: 300}).start(() => {
+    Animated.timing(opacityAnimation, {
+      toValue: 1,
+      duration: 300,
+      useNativeDriver: true,
+    }).start(() => {
       self.animationTimeout = setTimeout(() => {
         self.animationHideControl();
       }, 3000);
@@ -129,9 +133,11 @@ class PlayerControl extends React.Component {
 
   animationHideControl(finished = () => {}) {
     const {opacityAnimation} = this.state;
-    Animated.timing(opacityAnimation, {toValue: 0, duration: 300}).start(
-      finished,
-    );
+    Animated.timing(opacityAnimation, {
+      toValue: 0,
+      duration: 300,
+      useNativeDriver: true,
+    }).start(finished);
   }
 
   componentWillUnmount() {
