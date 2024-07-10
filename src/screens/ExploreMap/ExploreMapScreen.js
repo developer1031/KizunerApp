@@ -111,7 +111,7 @@ const ExploreMapScreen = ({navigation}) => {
       mapList[0]?.location?.lng &&
       page === 1
     ) {
-      setCurrentIndex(-1);
+      setCurrentIndex(0);
       listView?.current?.scrollToOffset({offset: 0, animated: true});
     }
   }, [mapList]);
@@ -374,6 +374,7 @@ const ExploreMapScreen = ({navigation}) => {
           </Touchable>
         )}
       </View>
+
       <View style={styles.hangoutListWrapper}>
         <LinearGradient
           colors={['#EEEEEE', '#FAFAFA']}

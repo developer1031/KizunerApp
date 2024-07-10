@@ -329,6 +329,7 @@ const CastHelpManagementScreen = ({navigation}) => {
   useEffect(() => {
     getList();
   }, []);
+
   const onCancelHangoutWhenStatusIsWaiting = (item) => {
     setLoad(true);
     Alert.alert('Information', 'Are you sure you want to cancel?', [
@@ -346,7 +347,7 @@ const CastHelpManagementScreen = ({navigation}) => {
             updateOfferStatusHelp(
               {
                 id: item.id,
-                status: 'declined',
+                status: 'cancel',
                 helpId: item.help_id,
                 userId: item?.user?.data?.id,
               },
@@ -419,6 +420,7 @@ const CastHelpManagementScreen = ({navigation}) => {
           />
         </Paper>
       </Touchable>
+
       {showFilter && (
         <Paper style={styles.filterPopup}>
           {CAST_STATUSES.map((item, index) => (
@@ -454,6 +456,7 @@ const CastHelpManagementScreen = ({navigation}) => {
           </Touchable>
         </Paper>
       )}
+
       <FlatList
         style={styles.scrollWrap}
         contentContainerStyle={styles.scrollCon}

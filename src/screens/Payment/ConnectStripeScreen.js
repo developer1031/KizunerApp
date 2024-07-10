@@ -1027,7 +1027,7 @@ const FooterFormik = (props) => {
       ) : (
         <View style={{flexDirection: 'row', width: '100%'}}>
           <Button
-            title="Stripe Edit"
+            title="Edit"
             onPress={props.formikProps.handleSubmit}
             fullWidth
             loading={props.loading}

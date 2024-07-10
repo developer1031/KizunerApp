@@ -257,6 +257,7 @@ const CapacityList = ({route, navigation}) => {
     </Wrapper>
   );
 };
+
 const ItemHelp = memo((props) => {
   return (
     <View style={props.styles.itemWrapper}>
@@ -273,6 +274,7 @@ const ItemHelp = memo((props) => {
     </View>
   );
 });
+
 const Profile = memo((props) => {
   return (
     <TouchableOpacity
@@ -317,6 +319,7 @@ const ActionFooter = memo((props) => {
         }
       />
       <BtnAction
+        isLoad={props.isLoad}
         disabled={props.block}
         onPress={props.setClose}
         style={props.styleClose}
@@ -344,6 +347,7 @@ const ActionFooter = memo((props) => {
     </>
   );
 });
+
 const BtnAction = memo((props) => {
   if (props.isLoad) {
     return (
@@ -362,4 +366,5 @@ const BtnAction = memo((props) => {
     </Touchable>
   );
 });
+
 export default CapacityList;

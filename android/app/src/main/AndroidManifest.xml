@@ -40,29 +40,58 @@
         <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
       </intent-filter>
 
-      <intent-filter>
+      <intent-filter android:autoVerify="true">
         <action android:name="android.intent.action.VIEW" />
-
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
-
         <data android:scheme="com.kizuner.auth" />
       </intent-filter>
 
       <intent-filter android:autoVerify="true">
         <action android:name="android.intent.action.VIEW" />
-
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
+        <data android:scheme="kizunerapp" />
+      </intent-filter>
 
-        <data android:scheme="https"/>
-        <data android:host="kizuner-app.inapps.technology"/>
-        <data android:pathPrefix="/api/share"/>
+      <intent-filter android:autoVerify="true">
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data
+            android:scheme="https"
+            android:host="kizuner-app.inapps.technology"
+            android:pathPrefix="/api/share" />
+      </intent-filter>
 
-        <data android:scheme="https"/>
-        <data android:host="source.kizuner.com"/>
-        <data android:pathPrefix="/api/share"/>
+      <intent-filter android:autoVerify="true">
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data
+            android:scheme="https"
+            android:host="kizuner-share.inapps.technology"
+            android:pathPrefix="/k" />
+      </intent-filter>
 
+      <intent-filter android:autoVerify="true">
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data
+            android:scheme="https"
+            android:host="source.kizuner.com"
+            android:pathPrefix="/api/share" />
+      </intent-filter>
+
+      <intent-filter android:autoVerify="true">
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data
+            android:scheme="https"
+            android:host="share.kizuner.com"
+            android:pathPrefix="/k" />
       </intent-filter>
     </activity>
 

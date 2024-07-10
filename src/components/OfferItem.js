@@ -360,7 +360,7 @@ const OfferItem = ({
 
     const status = getHangoutStatus(data?.status);
 
-    return actions.hasOwnProperty(status) ? actions[status] : null;
+    return actions[status] ? actions[status] : null;
   };
   // #endregion action footer
 

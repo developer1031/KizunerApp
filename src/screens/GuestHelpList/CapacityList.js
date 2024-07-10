@@ -250,6 +250,7 @@ const ActionFooter = memo((props) => {
         }
       />
       <BtnAction
+        isLoad={props.isLoad}
         disabled={props.block}
         onPress={props.setClose}
         style={props.styleClose}

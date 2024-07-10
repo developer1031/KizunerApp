@@ -324,6 +324,8 @@ const GuestHangoutManagementScreen = ({navigation}) => {
               {
                 text: 'Yes',
                 onPress: () => {
+                  setLoad(false);
+
                   isOver24Hours
                     ? dispatch(
                         updateOfferStatus(
@@ -373,7 +375,7 @@ const GuestHangoutManagementScreen = ({navigation}) => {
             updateOfferStatus(
               {
                 id: item.id,
-                status: 'declined',
+                status: 'cancel',
                 hangoutId: item.hangout_id,
                 userId: item?.user?.data?.id,
               },
@@ -420,6 +422,7 @@ const GuestHangoutManagementScreen = ({navigation}) => {
   return (
     <Wrapper style={styles.wrapper}>
       <HeaderBg height={HEADER_HEIGHT} />
+
       <Touchable onPress={navigation.goBack} style={styles.backBtn}>
         <MaterialCommunityIcons
           name="chevron-left"
@@ -427,9 +430,11 @@ const GuestHangoutManagementScreen = ({navigation}) => {
           color={theme.colors.textContrast}
         />
       </Touchable>
+
       <Text variant="header" style={styles.headerTitle}>
         Guest Management
       </Text>
+
       <Touchable
         scalable
         style={styles.headerWrap}
